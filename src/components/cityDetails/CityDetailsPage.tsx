@@ -82,10 +82,35 @@ const CityDetailsPage = () => {
               </p>
             </div>
             <p className="description">{city.cityDescription}</p>
-            <ul style={{ paddingBottom: liked ? "0" : "3em" }}>
-              {city.knownFor.map((item) => (
-                <li key={item}>{item}</li>
-              ))}
+            <ul>
+              {city.knownFor.map((item, index) => {
+                const known: string = item
+                  .replace(
+                    /(?:^\w|[A-Z]|\b\w)/g,
+                    function (word: string, index: number) {
+                      return index === 0
+                        ? word.toLowerCase()
+                        : word.toUpperCase();
+                    }
+                  )
+                  .replace(/\s+/g, "");
+                return (
+                  <li
+                    key={index}
+                    style={
+                      userProfile &&
+                      userProfile.preferences![
+                        known as keyof typeof userProfile.preferences
+                      ]
+                        ? { backgroundColor: "#f0b202" }
+                        : { backgroundColor: "#ededed" }
+                    }
+                  >
+                    {item}
+                  </li>
+                  // <li key={item}>{item}</li>
+                );
+              })}
             </ul>
           </div>
           {!liked && (

@@ -19,6 +19,7 @@ import "./App.css";
 import ProfilePage from "./components/profile/ProfilePage";
 import AddCityPage from "./components/admin/AddCityPage";
 import CityDetailsPage from "./components/cityDetails/CityDetailsPage";
+import PreferencesPage from "./components/preferences/PreferencesPage";
 
 function App() {
   const { userProfile } = useContext(AuthContext);
@@ -36,6 +37,7 @@ function App() {
             </>
           ) : (
             <>
+              <Route path="/preferences" element={<PreferencesPage />} />
               <Route path="/discover" element={<DiscoverPage />} />
               <Route path="/likes" element={<LikesPage />} />
               <Route path="/trips" element={<TripsPage />} />

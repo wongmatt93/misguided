@@ -1,0 +1,271 @@
+.PreferencesForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.PreferencesForm div {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.PreferencesForm input {
+  display: none;
+}
+
+.PreferencesForm label {
+  background-color: #e6e6e6;
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 0.7em;
+  text-align: center;
+  width: 23%;
+  height: 7em;
+  border-radius: 1em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0.4em 0.2em;
+  flex-direction: column;
+  cursor: pointer;
+}
+
+.PreferencesForm i {
+  font-size: 1em;
+  margin-bottom: 0.5em;
+}
+
+.PreferencesForm label:hover {
+  background-color: white;
+}
+
+input:checked + label {
+  border: 2px solid #f0b202;
+  box-sizing: border-box;
+}
+
+.PreferencesForm button:hover {
+  background-color: white;
+}
+
+.PreferencesForm .fa-heart {
+  color: pink;
+}
+
+.PreferencesForm .fa-bowl-food {
+  color: firebrick;
+}
+.PreferencesForm .fa-martini-glass-citrus {
+  color: lightseagreen;
+}
+.PreferencesForm .fa-torii-gate {
+  color: brown;
+}
+.PreferencesForm .fa-chess-rook {
+  color: darkslategray;
+}
+.PreferencesForm .fa-building-columns {
+  color: goldenrod;
+}
+.PreferencesForm .fa-masks-theater {
+  color: black;
+}
+.PreferencesForm .fa-music {
+  color: black;
+}
+.PreferencesForm .fa-glasses {
+  color: black;
+}
+.PreferencesForm .fa-peace {
+  color: purple;
+}
+.PreferencesForm .fa-gem {
+  color: darkblue;
+}
+.PreferencesForm .fa-baby {
+  color: palevioletred;
+}
+.PreferencesForm .fa-rainbow {
+  color: deeppink;
+}
+.PreferencesForm .fa-people-group {
+  color: purple;
+}
+.PreferencesForm .fa-umbrella-beach {
+  color: burlywood;
+}
+.PreferencesForm .fa-graduation-cap {
+  color: darkslategray;
+}
+.PreferencesForm .fa-person-skiing {
+  color: orange;
+}
+.PreferencesForm .fa-tree {
+  color: forestgreen;
+}
+.PreferencesForm .fa-wine-glass {
+  color: darkred;
+}
+.PreferencesForm .fa-bag-shopping {
+  color: limegreen;
+}
+
+.PreferencesForm button {
+  width: 80%;
+  height: 2.2em;
+  background: #f0b202;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 0.5em;
+  border: none;
+  font-family: "Oswald", sans-serif;
+  font-size: 1.5em;
+  margin: 1em 0;
+  position: relative;
+}
+
+@-webkit-keyframes extend {
+  0% {
+    width: 287px;
+    height: 68px;
+    border-radius: 100px;
+  }
+  10% {
+    width: 287px;
+    height: 68px;
+    background: #fff;
+  }
+  20% {
+    width: 287px;
+    height: 68px;
+    background: #f0b202;
+  }
+  100% {
+    width: 68px;
+    height: 68px;
+    border-radius: 100px;
+
+    background: #f0b202;
+  }
+}
+@keyframes extend {
+  0% {
+    width: 287px;
+    height: 68px;
+    border-radius: 100px;
+  }
+  10% {
+    width: 287px;
+    height: 68px;
+    background: #fff;
+  }
+  20% {
+    width: 287px;
+    height: 68px;
+    background: #f0b202;
+  }
+  100% {
+    width: 68px;
+    height: 68px;
+    border-radius: 100px;
+
+    background: #f0b202;
+  }
+}
+
+@-webkit-keyframes disappear {
+  0% {
+    opacity: 1;
+  }
+  20% {
+    opacity: 0;
+    color: #fff;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes disappear {
+  0% {
+    opacity: 1;
+  }
+  20% {
+    opacity: 0;
+    color: #fff;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@-webkit-keyframes appear {
+  0% {
+    opacity: 0;
+  }
+  70% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes appear {
+  0% {
+    opacity: 0;
+  }
+  70% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.PreferencesForm .checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+  filter: alpha(opacity=0);
+  opacity: 0;
+}
+
+.update-pref-button:focus {
+  /*animation*/
+  -webkit-animation: extend 1s ease-in-out;
+  -ms-animation: extend 1s ease-in-out;
+  animation: extend 1s ease-in-out;
+  -webkit-animation-fill-mode: forwards;
+  /* Chrome, Safari, Opera */
+  animation-fill-mode: forwards;
+}
+
+.update-pref-button:focus > span {
+  /*animation*/
+  -webkit-animation: disappear 1s ease-in-out;
+  -ms-animation: disappear 1s ease-in-out;
+  animation: disappear 1s ease-in-out;
+  -webkit-animation-fill-mode: forwards;
+  /* Chrome, Safari, Opera */
+  animation-fill-mode: forwards;
+}
+
+.update-pref-button:focus > img {
+  /*animation*/
+  -webkit-animation: appear 1s ease-in-out;
+  -ms-animation: appear 1s ease-in-out;
+  animation: appear 1s ease-in-out;
+  -webkit-animation-fill-mode: forwards;
+  /* Chrome, Safari, Opera */
+  animation-fill-mode: forwards;
+}
+
+@media only screen and (min-width: 768px) {
+  .PreferencesForm {
+    width: 50%;
+  }
+}
