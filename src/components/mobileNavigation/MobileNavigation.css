@@ -1,0 +1,45 @@
+.MobileNavigation {
+  width: 100%;
+  height: 4em;
+  position: fixed;
+  bottom: 0;
+  background-color: #f5f5f5;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.MobileNavigation nav {
+  height: 100%;
+}
+
+.MobileNavigation ul {
+  display: flex;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.MobileNavigation a {
+  width: 20%;
+}
+
+.MobileNavigation li {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  color: black;
+}
+
+.MobileNavigation li svg {
+  font-size: 1.7em;
+}
+
+.MobileNavigation li p {
+  font-size: 0.7em;
+}
+
+@media only screen and (min-width: 768px) {
+  .MobileNavigation {
+    display: none;
+  }
+}

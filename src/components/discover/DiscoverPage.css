@@ -1,0 +1,24 @@
+.DiscoverPage {
+  padding: 1.5em;
+}
+
+.DiscoverPage h2 {
+  font-size: 1.7em;
+  font-weight: 900;
+}
+
+.DiscoverPage .like-buttons-container {
+  display: flex;
+  justify-content: space-evenly;
+  font-size: 4em;
+}
+
+.DiscoverPage .thumbs {
+  cursor: pointer;
+}
+
+.DiscoverPage .thumbs:hover {
+  transform: scale(1.2);
+  transition: 0.5s ease;
+  color: #f0b202;
+}

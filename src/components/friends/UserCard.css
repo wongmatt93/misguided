@@ -1,0 +1,17 @@
+.UserCard {
+  width: 80%;
+}
+
+.UserCard .card-body {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.UserCard .card-body:hover {
+  cursor: pointer;
+}
+
+.UserCard .card-title {
+  margin: 0;
+}

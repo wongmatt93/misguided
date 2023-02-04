@@ -1,24 +1,55 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useContext } from "react";
+import {
+  BrowserRouter as Router,
+  Navigate,
+  Route,
+  Routes,
+} from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
+import AuthContext from "./context/AuthContext";
+import Header from "./components/header/Header";
+import LandingPage from "./components/landingPage/LandingPage";
+import LikesPage from "./components/likes/LikesPage";
+import UserProfilePage from "./components/userProfile/UserProfilePage";
+import DiscoverPage from "./components/discover/DiscoverPage";
+import FriendsPage from "./components/friends/FriendsPage";
+import MobileNavigation from "./components/mobileNavigation/MobileNavigation";
+import TripsPage from "./components/trips/TripsPage";
+import "./App.css";
+import ProfilePage from "./components/profile/ProfilePage";
+import AddCityPage from "./components/admin/AddCityPage";
+import CityDetailsPage from "./components/cityDetails/CityDetailsPage";
 
 function App() {
+  const { userProfile } = useContext(AuthContext);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Router>
+        {userProfile && <Header />}
+        <Routes>
+          {!userProfile ? (
+            <>
+              <Route path="/" element={<LandingPage />} />
+              <Route path="/profile/:uid" element={<ProfilePage />} />
+              <Route path="*" element={<Navigate to="/" />} />
+            </>
+          ) : (
+            <>
+              <Route path="/discover" element={<DiscoverPage />} />
+              <Route path="/likes" element={<LikesPage />} />
+              <Route path="/trips" element={<TripsPage />} />
+              <Route path="/city-details/:id/" element={<CityDetailsPage />} />
+              <Route path="/user-profile" element={<UserProfilePage />} />
+              <Route path="/friends" element={<FriendsPage />} />
+              <Route path="/profile/:uid" element={<ProfilePage />} />
+              <Route path="/add-city" element={<AddCityPage />} />
+              <Route path="*" element={<Navigate to="/discover" />} />
+            </>
+          )}
+        </Routes>
+        {userProfile && <MobileNavigation />}
+      </Router>
     </div>
   );
 }

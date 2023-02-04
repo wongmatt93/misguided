@@ -1,0 +1,65 @@
+.LandingPage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url("/public/assets/landing_background.jpg");
+  background-position: center;
+  background-size: 150%;
+  overflow: hidden;
+  padding-bottom: 0;
+}
+
+.LandingPage h1 {
+  text-align: center;
+  margin: 1em 0;
+  color: #f0b202;
+}
+
+.LandingPage h2 {
+  font-family: "Merriweather", sans-serif;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 3.5em;
+  line-height: 1.1em;
+  text-align: center;
+  color: #ffffff;
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.LandingPage p {
+  font-family: "Roboto", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 1.2em;
+  color: #fff;
+  margin-top: 1em;
+}
+
+.LandingPage .sign-in-button-container {
+  width: 100%;
+  padding: 3em 0;
+  background: #f0b202;
+  border-radius: 1em 1em 0 0;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.LandingPage .sign-in-button {
+  width: 70%;
+  height: 3em;
+  background: #ffffff;
+  box-shadow: 0px 4px 4px 3px rgba(0, 0, 0, 0.2);
+  border-radius: 15px;
+  font-family: "Oswald", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  border: none;
+}
