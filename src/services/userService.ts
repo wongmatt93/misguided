@@ -1,5 +1,5 @@
 import axios from "axios";
-import UserProfile, { CityVote } from "../models/UserProfile";
+import UserProfile, { CityVote, Preferences } from "../models/UserProfile";
 
 const baseURL: string = process.env.REACT_APP_API_URL || "";
 
@@ -23,3 +23,9 @@ export const addDislikedCity = async (
   newCity: CityVote
 ): Promise<CityVote> =>
   (await axios.put(`${baseURL}/users/${uid}/dislikes`, newCity)).data;
+
+export const updateUserPreferences = async (
+  uid: string,
+  preferences: Preferences
+): Promise<Preferences> =>
+  (await axios.put(`${baseURL}/users/${uid}/preferences`, preferences)).data;

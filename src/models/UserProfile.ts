@@ -34,7 +34,7 @@ interface Friend {
   friendRequestStatus: string | null;
 }
 
-interface Preferences {
+export interface Preferences {
   charming: boolean;
   foodie: boolean;
   nightlife: boolean;

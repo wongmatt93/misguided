@@ -13,12 +13,13 @@ const UserProfilePage = () => {
     setUserProfile(undefined);
   };
 
-  const addCityNavigate = (): void => {
-    navigate("/add-city");
-  };
+  const addCityNavigate = (): void => navigate("/add-city");
+
+  const preferencesNavigate = (): void => navigate("/preferences");
 
   return (
     <main className="UserProfilePage">
+      <button onClick={preferencesNavigate}>Preferences</button>
       <button onClick={signOutAction}>Sign out</button>
       <button onClick={addCityNavigate}>Add Cities</button>
     </main>
