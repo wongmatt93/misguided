@@ -15,11 +15,11 @@ const CityDetailsPage = () => {
   const [cityRating, setCityRating] = useState(0);
   const [liked, setLiked] = useState(false);
   const navigate = useNavigate();
-  const id: string | undefined = useParams().id;
+  const cityId: string | undefined = useParams().cityId;
 
   useEffect(() => {
-    if (id) {
-      getCityById(id).then((response) => {
+    if (cityId) {
+      getCityById(cityId).then((response) => {
         setCity(response);
         const numberOfRatings: number = response.ratings.length;
         if (numberOfRatings > 0) {
@@ -33,13 +33,15 @@ const CityDetailsPage = () => {
     }
 
     if (userProfile) {
-      if (userProfile.likes.some((like) => like.cityId === id)) {
+      if (userProfile.likes.some((like) => like.cityId === cityId)) {
         setLiked(true);
       }
     }
-  }, [userProfile, id]);
+  }, [userProfile, cityId]);
 
   const goBack = (): void => navigate(-1);
+
+  const handleItinerary = (): void => navigate(`/plan-trip/${city!._id}`);
 
   const handleLikedCity = (): void => {
     city &&
@@ -71,7 +73,9 @@ const CityDetailsPage = () => {
           <div className="image-container">
             <img src={city.photoURL} alt={city.cityName} />
             {liked && (
-              <button className="itinerary-button">Get Itinerary</button>
+              <button className="itinerary-button" onClick={handleItinerary}>
+                Get Itinerary
+              </button>
             )}
           </div>
           <div className="info-container">

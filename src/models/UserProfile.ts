@@ -1,24 +1,10 @@
-interface SingleDaySchedule {
-  breakfast: string;
-  breakfastPhoto: string;
-  lunch: string;
-  lunchPhoto: string;
-  dinner: string;
-  dinnerPhoto: string;
-  event1: string;
-  event1Photo: string;
-  event2: string;
-  event2Photo: string;
-}
-
-interface Trip {
+export interface UserTrip {
+  tripId: string;
+  cityName: string;
+  cityPhotoURL: string;
   date1: string;
   date2: string;
-  cityName: string;
-  cityPhoto: string;
-  hotel: string | null;
-  schedule: SingleDaySchedule[];
-  photos: string[];
+  accepted: boolean;
 }
 
 export interface CityVote {
@@ -68,5 +54,5 @@ export default interface UserProfile {
   friends: Friend[];
   likes: CityVote[];
   dislikes: CityVote[];
-  trips: Trip[];
+  trips: UserTrip[];
 }

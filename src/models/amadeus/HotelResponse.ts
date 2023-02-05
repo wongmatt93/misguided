@@ -8,7 +8,7 @@ interface Location {
   longitude: number;
 }
 
-interface Hotel {
+export interface Hotel {
   name: string;
   rating: number;
   hotelId: string;
