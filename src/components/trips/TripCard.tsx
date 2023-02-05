@@ -13,14 +13,14 @@ const TripCard = ({ trip }: Props) => {
 
   useEffect(() => {
     setStartDate(new Date(trip.date1));
-    setEndDate(new Date(trip.date1));
-  }, []);
+    setEndDate(new Date(trip.date2));
+  }, [trip]);
 
   return (
     <li className="TripCard">
       {startDate && endDate && (
         <div className="info-container">
-          <img src={trip.cityPhotoURL} />
+          <img src={trip.cityPhotoURL} alt={trip.cityPhotoURL} />
           <div className="name-date-container">
             <h3>{trip.cityName}</h3>
             <h4>
