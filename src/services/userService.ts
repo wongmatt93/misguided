@@ -1,5 +1,9 @@
 import axios from "axios";
-import UserProfile, { CityVote, Preferences } from "../models/UserProfile";
+import UserProfile, {
+  CityVote,
+  Preferences,
+  UserTrip,
+} from "../models/UserProfile";
 
 const baseURL: string = process.env.REACT_APP_API_URL || "";
 
@@ -29,3 +33,9 @@ export const updateUserPreferences = async (
   preferences: Preferences
 ): Promise<Preferences> =>
   (await axios.put(`${baseURL}/users/${uid}/preferences`, preferences)).data;
+
+export const addNewUserTrip = async (
+  uid: string,
+  newTrip: UserTrip
+): Promise<CityVote> =>
+  (await axios.put(`${baseURL}/users/${uid}/trips`, newTrip)).data;

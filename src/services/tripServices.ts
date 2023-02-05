@@ -9,6 +9,9 @@ export const addTrip = async (trip: Trip): Promise<Trip> =>
 export const deleteTrip = async (tripId: string): Promise<void> =>
   (await axios.delete(`${baseURL}/trips/${tripId}`)).data;
 
+export const getLatestTrip = async (uid: string): Promise<Trip[]> =>
+  (await axios.get(`${baseURL}/trips/${uid}`)).data;
+
 export const addPhotosToTrip = async (
   tripId: string,
   photo: string

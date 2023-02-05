@@ -20,7 +20,7 @@ const PlanningForm = ({
 }: Props) => {
   return (
     <Form className="PlanningForm" onSubmit={handleSubmit}>
-      <Form.Group controlId="start-date">
+      <Form.Group controlId="start-date" className="start-date">
         <Form.Label>Start Date</Form.Label>
         <Form.Control
           type="date"
@@ -29,7 +29,7 @@ const PlanningForm = ({
           required
         ></Form.Control>
       </Form.Group>
-      <Form.Group controlId="end-date">
+      <Form.Group controlId="end-date" className="end-date">
         <Form.Label>End Date</Form.Label>
         <Form.Control
           type="date"
@@ -38,8 +38,8 @@ const PlanningForm = ({
           required
         ></Form.Control>
       </Form.Group>
-      <Button variant="warning" type="submit">
-        Submit
+      <Button variant="warning" type="submit" className="generate-button">
+        Generate Itinerary
       </Button>
     </Form>
   );
