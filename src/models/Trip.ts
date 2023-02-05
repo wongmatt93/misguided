@@ -19,6 +19,7 @@ export interface SingleDaySchedule {
 
 export default interface Trip {
   _id?: string;
+  creatorUid: string;
   date1: string;
   date2: string;
   cityName: string;

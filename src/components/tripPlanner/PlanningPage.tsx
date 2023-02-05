@@ -15,7 +15,9 @@ import {
 } from "../../services/yelpService";
 import { Business } from "../../models/Yelp";
 import Trip from "../../models/Trip";
-import { addTrip } from "../../services/tripServices";
+import { addTrip, getLatestTrip } from "../../services/tripServices";
+import { addNewUserTrip } from "../../services/userService";
+import { UserTrip } from "../../models/UserProfile";
 
 const PlanningPage = () => {
   const { userProfile, refreshProfile } = useContext(AuthContext);
@@ -54,59 +56,87 @@ const PlanningPage = () => {
 
   const handleSubmit = (e: FormEvent): void => {
     e.preventDefault();
-    const startDate = new Date(date1);
-    const endDate = new Date(date2);
-    const duration =
-      (endDate.getTime() - startDate.getTime()) / (1000 * 3600 * 24) + 1;
-    const index: number = Math.floor(Math.random() * hotels.length);
 
-    const newTrip: Trip = {
-      date1,
-      date2,
-      cityName: city!.cityName,
-      cityPhoto: city!.photoURL,
-      hotel: duration > 1 ? hotels[index].name : null,
-      schedule: [],
-      photos: [],
-      participants: [
-        {
-          uid: userProfile!.uid,
-          participantName: userProfile!.displayName!,
-          participantPhotoURL: userProfile!.photoURL!,
-        },
-      ],
-    };
+    if (userProfile && city) {
+      const startDate = new Date(date1);
+      const endDate = new Date(date2);
+      const duration =
+        (endDate.getTime() - startDate.getTime()) / (1000 * 3600 * 24) + 1;
 
-    for (let i = 0; i < duration; i++) {
-      if (restaurants.length) {
-        const index: number = Math.floor(Math.random() * breakfast.length);
-        const lunchIndex: number = Math.floor(
-          Math.random() * restaurants.length
-        );
-        const dinnerIndex: number = Math.floor(
-          Math.random() * restaurants.length
-        );
-        const eventOneIndex: number = Math.floor(Math.random() * events.length);
-        const eventTwoIndex: number = Math.floor(Math.random() * events.length);
-        newTrip.schedule.push({
-          breakfast: breakfast[index].name,
-          breakfastPhoto: breakfast[index].image_url,
-          lunch: restaurants[lunchIndex].name,
-          lunchPhoto: restaurants[lunchIndex].image_url,
-          dinner: restaurants[dinnerIndex].name,
-          dinnerPhoto: restaurants[dinnerIndex].image_url,
-          event1: events[eventOneIndex].name,
-          event1Photo: events[eventOneIndex].image_url,
-          event2: events[eventTwoIndex].name,
-          event2Photo: events[eventTwoIndex].image_url,
+      if (duration > 0) {
+        const index: number = Math.floor(Math.random() * hotels.length);
+
+        const newTrip: Trip = {
+          creatorUid: userProfile.uid,
+          date1,
+          date2,
+          cityName: city!.cityName,
+          cityPhoto: city!.photoURL,
+          hotel: duration > 1 ? hotels[index].name : null,
+          schedule: [],
+          photos: [],
+          participants: [
+            {
+              uid: userProfile.uid,
+              participantName: userProfile.displayName!,
+              participantPhotoURL: userProfile.photoURL!,
+            },
+          ],
+        };
+
+        for (let i = 0; i < duration; i++) {
+          if (restaurants.length) {
+            const index: number = Math.floor(Math.random() * breakfast.length);
+            const lunchIndex: number = Math.floor(
+              Math.random() * restaurants.length
+            );
+            const dinnerIndex: number = Math.floor(
+              Math.random() * restaurants.length
+            );
+            const eventOneIndex: number = Math.floor(
+              Math.random() * events.length
+            );
+            const eventTwoIndex: number = Math.floor(
+              Math.random() * events.length
+            );
+            newTrip.schedule.push({
+              breakfast: breakfast[index].name,
+              breakfastPhoto: breakfast[index].image_url,
+              lunch: restaurants[lunchIndex].name,
+              lunchPhoto: restaurants[lunchIndex].image_url,
+              dinner: restaurants[dinnerIndex].name,
+              dinnerPhoto: restaurants[dinnerIndex].image_url,
+              event1: events[eventOneIndex].name,
+              event1Photo: events[eventOneIndex].image_url,
+              event2: events[eventTwoIndex].name,
+              event2Photo: events[eventTwoIndex].image_url,
+            });
+          }
+        }
+
+        setTrip(newTrip);
+        addTrip(newTrip).then(() => {
+          getLatestTrip(userProfile.uid).then((response) => {
+            const newUserTrip: UserTrip = {
+              tripId: response[0]._id!,
+              cityName: newTrip.cityName,
+              cityPhotoURL: newTrip.cityPhoto,
+              date1: newTrip.date1,
+              date2: newTrip.date2,
+              accepted: true,
+            };
+
+            addNewUserTrip(userProfile.uid, newUserTrip).then(() =>
+              refreshProfile(userProfile.uid)
+            );
+          });
         });
+
+        handleShow();
+      } else {
+        alert("Your dates are stupid");
       }
     }
-
-    setTrip(newTrip);
-    addTrip(newTrip).then(() => refreshProfile(userProfile!.uid));
-
-    handleShow();
   };
 
   return (

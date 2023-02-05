@@ -1,0 +1,27 @@
+.TripsPage {
+  padding: 1.5em;
+}
+
+.TripsPage .nav-pills {
+  display: flex;
+  justify-content: center;
+}
+
+.TripsPage .nav-item {
+  display: flex;
+  justify-content: center;
+  width: 50%;
+  font-family: "Roboto", "sans-serif";
+}
+
+.TripsPage .nav-pills .nav-link {
+  color: black;
+  border-radius: 0;
+  padding: 0.2em;
+  border-bottom: 1px solid transparent;
+}
+
+.TripsPage .nav-pills .active {
+  background-color: transparent;
+  border-bottom: 1px solid #f0b202;
+}
