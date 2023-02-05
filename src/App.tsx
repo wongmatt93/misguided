@@ -20,6 +20,7 @@ import ProfilePage from "./components/profile/ProfilePage";
 import AddCityPage from "./components/admin/AddCityPage";
 import CityDetailsPage from "./components/cityDetails/CityDetailsPage";
 import PreferencesPage from "./components/preferences/PreferencesPage";
+import PlanningPage from "./components/tripPlanner/PlanningPage";
 
 function App() {
   const { userProfile } = useContext(AuthContext);
@@ -41,11 +42,15 @@ function App() {
               <Route path="/discover" element={<DiscoverPage />} />
               <Route path="/likes" element={<LikesPage />} />
               <Route path="/trips" element={<TripsPage />} />
-              <Route path="/city-details/:id/" element={<CityDetailsPage />} />
+              <Route
+                path="/city-details/:cityId"
+                element={<CityDetailsPage />}
+              />
               <Route path="/user-profile" element={<UserProfilePage />} />
               <Route path="/friends" element={<FriendsPage />} />
               <Route path="/profile/:uid" element={<ProfilePage />} />
               <Route path="/add-city" element={<AddCityPage />} />
+              <Route path="/plan-trip/:cityId" element={<PlanningPage />} />
               <Route path="*" element={<Navigate to="/discover" />} />
             </>
           )}
