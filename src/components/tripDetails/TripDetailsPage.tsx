@@ -35,7 +35,7 @@ const TripDetailsPage = () => {
           <h4>Participants</h4>
           <ul className="participants-list">
             {trip.participants.map((participant) => (
-              <li className="participant">
+              <li key={participant.uid} className="participant">
                 <img
                   src={participant.participantPhotoURL}
                   alt={participant.participantPhotoURL}
