@@ -13,9 +13,9 @@ export interface CityVote {
   photo: string;
 }
 
-interface Friend {
+export interface Friend {
   uid: string;
-  displayName: string;
+  displayName: string | null;
   photoURL: string | null;
   friendRequestStatus: string | null;
 }

@@ -20,7 +20,7 @@ const MobileNavigation = () => {
           <Link to="/likes">
             <li>
               <AiFillHeart />
-              <p>Like</p>
+              <p>Likes</p>
             </li>
           </Link>
           <Link to="/discover">

@@ -1,6 +1,6 @@
 import Accordion from "react-bootstrap/Accordion";
 import { useContext, useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import AuthContext from "../../context/AuthContext";
 import Trip from "../../models/Trip";
 import { getTripById } from "../../services/tripServices";
