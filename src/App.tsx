@@ -21,6 +21,7 @@ import AddCityPage from "./components/admin/AddCityPage";
 import CityDetailsPage from "./components/cityDetails/CityDetailsPage";
 import PreferencesPage from "./components/preferences/PreferencesPage";
 import PlanningPage from "./components/tripPlanner/PlanningPage";
+import TripDetailsPage from "./components/tripDetails/TripDetailsPage";
 
 function App() {
   const { userProfile } = useContext(AuthContext);
@@ -34,6 +35,7 @@ function App() {
             <>
               <Route path="/" element={<LandingPage />} />
               <Route path="/profile/:uid" element={<ProfilePage />} />
+              <Route path="/trip/:tripId" element={<TripDetailsPage />} />
               <Route path="*" element={<Navigate to="/" />} />
             </>
           ) : (
@@ -51,6 +53,7 @@ function App() {
               <Route path="/profile/:uid" element={<ProfilePage />} />
               <Route path="/add-city" element={<AddCityPage />} />
               <Route path="/plan-trip/:cityId" element={<PlanningPage />} />
+              <Route path="/trip/:tripId" element={<TripDetailsPage />} />
               <Route path="*" element={<Navigate to="/discover" />} />
             </>
           )}
