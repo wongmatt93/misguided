@@ -1,7 +1,6 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
-import { RiUserSearchLine } from "react-icons/ri";
 import AuthContext from "../../context/AuthContext";
 import FriendsFeed from "./FriendsFeed";
 import FriendsList from "./FriendsList";
@@ -14,18 +13,14 @@ const FriendsPage = () => {
 
   return (
     <main className="FriendsPage">
-      <Tabs defaultActiveKey={activeKey} justify>
+      <Tabs defaultActiveKey={activeKey} variant="pills" justify>
         <Tab eventKey="feed" title="Feed">
           <FriendsFeed />
         </Tab>
         <Tab eventKey="friends" title="Friends" onClick={setFriendsKey}>
           <FriendsList />
         </Tab>
-        <Tab
-          eventKey="search"
-          title={<RiUserSearchLine />}
-          onClick={setSearchKey}
-        >
+        <Tab eventKey="search" title="Search" onClick={setSearchKey}>
           <SearchUsers />
         </Tab>
       </Tabs>

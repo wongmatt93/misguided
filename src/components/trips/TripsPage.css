@@ -2,11 +2,6 @@
   padding: 1.5em;
 }
 
-.TripsPage .nav-pills {
-  display: flex;
-  justify-content: center;
-}
-
 .TripsPage .nav-item {
   display: flex;
   justify-content: center;

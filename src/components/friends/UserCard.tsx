@@ -1,38 +1,53 @@
 import Card from "react-bootstrap/Card";
 import UserProfile from "../../models/UserProfile";
 import "./UserCard.css";
-import { IoIosArrowForward } from "react-icons/io";
-import { FaUserCircle } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import AuthContext from "../../context/AuthContext";
+import { Button } from "react-bootstrap";
 
 interface Props {
-  uid: string;
+  searchProfile: UserProfile;
 }
 
-const UserCard = ({ uid }: Props) => {
-  const [user, setUser] = useState<UserProfile | undefined>(undefined);
+const UserCard = ({ searchProfile }: Props) => {
+  const { userProfile } = useContext(AuthContext);
   const navigate = useNavigate();
+  const [totalMutuals, setTotalMutuals] = useState(0);
+  const [totalTrips, setTotalTrips] = useState(0);
 
-  // useEffect(() => {
-  //   setUser(allUsers.find((user) => user.uid === uid));
-  // }, [allUsers, uid]);
+  useEffect(() => {
+    setTotalTrips(searchProfile.trips.length);
+  }, [searchProfile]);
 
   const handleClick = (): void => {
-    navigate(`/profile/${uid}`);
+    navigate(`/profile/${searchProfile.uid}`);
   };
 
   return (
-    <li className="UserCard">
-      <Card>
-        <Card.Body onClick={handleClick}>
-          <FaUserCircle />
-          <Card.Title>{user && user.displayName}</Card.Title>
-          <IoIosArrowForward />
-        </Card.Body>
-      </Card>
-    </li>
+    <Card className="UserCard">
+      <Card.Body>
+        <Card.Img src={searchProfile.photoURL!} />
+        <Card.Title>{searchProfile.displayName}</Card.Title>
+        {searchProfile.uid === userProfile!.uid ? (
+          <Card.Text>This is your profile, dumbass</Card.Text>
+        ) : (
+          <Card.Text>
+            {totalMutuals} mutual friend{totalMutuals !== 1 && "s"}
+          </Card.Text>
+        )}
+        <Card.Text>
+          {totalTrips} trip{totalTrips !== 1 && "s"}
+        </Card.Text>
+        <Button
+          variant="warning"
+          onClick={handleClick}
+          className="view-profile-button"
+        >
+          View Profile
+        </Button>
+      </Card.Body>
+    </Card>
   );
 };
 
