@@ -30,7 +30,7 @@ export interface Business {
   coordinates: Coordinates;
   price: string;
   location: Address;
-  phone: string;
+  display_phone: string;
   distance: number;
 }
 

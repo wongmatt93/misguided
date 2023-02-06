@@ -16,7 +16,7 @@ const LikedCard = ({ liked }: Props) => {
 
   return (
     <li className="LikedCard">
-      <Card bg="warning" border="secondary" onClick={handleClick}>
+      <Card onClick={handleClick}>
         <Card.Img variant="top" src={liked.photo}></Card.Img>
         <Card.Body>
           <Card.Title>{liked.cityName}</Card.Title>
