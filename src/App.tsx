@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import {
   BrowserRouter as Router,
   Navigate,
@@ -41,7 +41,16 @@ function App() {
           ) : (
             <>
               <Route path="/preferences" element={<PreferencesPage />} />
-              <Route path="/discover" element={<DiscoverPage />} />
+              <Route
+                path="/discover"
+                element={
+                  userProfile.preferences ? (
+                    <DiscoverPage />
+                  ) : (
+                    <PreferencesPage />
+                  )
+                }
+              />
               <Route path="/likes" element={<LikesPage />} />
               <Route path="/trips" element={<TripsPage />} />
               <Route

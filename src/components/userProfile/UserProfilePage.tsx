@@ -1,27 +1,50 @@
+import { BsChevronCompactRight } from "react-icons/bs";
 import { useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import AuthContext from "../../context/AuthContext";
 import { signOut } from "../../firebaseConfig";
 import "./UserProfilePage.css";
 
 const UserProfilePage = () => {
-  const { setUserProfile } = useContext(AuthContext);
-  const navigate = useNavigate();
+  const { userProfile, setUserProfile } = useContext(AuthContext);
 
   const signOutAction = (): void => {
     signOut();
     setUserProfile(undefined);
   };
 
-  const addCityNavigate = (): void => navigate("/add-city");
-
-  const preferencesNavigate = (): void => navigate("/preferences");
-
   return (
     <main className="UserProfilePage">
-      <button onClick={preferencesNavigate}>Preferences</button>
-      <button onClick={signOutAction}>Sign out</button>
-      <button onClick={addCityNavigate}>Add Cities</button>
+      {userProfile && (
+        <div className="contents">
+          <img src={userProfile.photoURL!} alt="profile-pic" />
+          <h2>{userProfile.displayName}</h2>
+          <ul>
+            <Link to="/account-info">
+              <li>
+                <p>Account Information</p>
+                <BsChevronCompactRight />
+              </li>
+            </Link>
+            <Link to="/preferences">
+              <li>
+                <p>Update Preferences</p>
+                <BsChevronCompactRight />
+              </li>
+            </Link>
+            <Link to="/add-city">
+              <li>
+                <p>Add Cities</p>
+                <BsChevronCompactRight />
+              </li>
+            </Link>
+          </ul>
+          <Button variant="warning" onClick={signOutAction}>
+            Sign Out
+          </Button>
+        </div>
+      )}
     </main>
   );
 };

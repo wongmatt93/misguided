@@ -1,0 +1,57 @@
+.UserProfilePage .contents {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1.5em;
+}
+
+.UserProfilePage h2 {
+  font-family: "Merriweather", serif;
+  margin-top: 1em;
+}
+
+.UserProfilePage img {
+  height: 7em;
+  border-radius: 50%;
+}
+
+.UserProfilePage ul {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin: 1em 0;
+}
+
+.UserProfilePage a {
+  color: black;
+  width: 100%;
+  padding: 1em 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+}
+
+.UserProfilePage a:last-child {
+  border-bottom: 0;
+}
+
+.UserProfilePage li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: "Roboto", sans-serif;
+}
+
+.UserProfilePage svg {
+  color: #f0b202;
+}
+
+.UserProfilePage button {
+  width: 60%;
+  height: 2.2em;
+  background: #f0b202;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 0.3em;
+  border: none;
+  font-family: "Oswald", sans-serif;
+  font-size: 1.5em;
+}

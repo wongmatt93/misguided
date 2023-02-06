@@ -39,7 +39,7 @@ const ProfilePage = () => {
         <>
           <img src={profile.photoURL!} alt={profile.photoURL!} />
           <h2>{profile.displayName}</h2>
-          {userProfile && (
+          {userProfile && userProfile!.uid !== profile.uid && (
             <FriendButton
               userProfile={userProfile}
               otherProfile={profile}
