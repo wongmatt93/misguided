@@ -41,4 +41,5 @@ export default interface Trip {
   schedule: SingleDaySchedule[];
   photos: string[];
   participants: Participant[];
+  completed: boolean;
 }

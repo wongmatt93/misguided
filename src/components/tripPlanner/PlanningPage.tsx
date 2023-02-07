@@ -80,6 +80,7 @@ const PlanningPage = () => {
               uid: userProfile.uid,
             },
           ],
+          completed: false,
         };
 
         for (let i = 0; i < duration; i++) {
