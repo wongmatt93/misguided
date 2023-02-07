@@ -1,7 +1,9 @@
 import { createContext } from "react";
-import { Friend } from "../models/UserProfile";
+import UserProfile, { Friend } from "../models/UserProfile";
 
 export interface FriendsContextModel {
+  friends: UserProfile[];
+  friendRequests: UserProfile[];
   activeKey: string;
   setFriendsKey: () => void;
   setSearchKey: () => void;
@@ -13,6 +15,8 @@ export interface FriendsContextModel {
 }
 
 const defaultValue: FriendsContextModel = {
+  friends: [],
+  friendRequests: [],
   activeKey: "",
   setFriendsKey: () => {},
   setSearchKey: () => {},

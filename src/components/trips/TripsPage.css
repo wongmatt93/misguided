@@ -5,7 +5,8 @@
 .TripsPage .nav-item {
   display: flex;
   justify-content: center;
-  width: 50%;
+  width: 33%;
+  font-size: 0.8em;
   font-family: "Roboto", "sans-serif";
 }
 

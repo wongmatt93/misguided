@@ -1,0 +1,31 @@
+.ParticipantCard {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 20%;
+}
+
+.ParticipantCard .image-container {
+  position: relative;
+}
+
+.ParticipantCard img {
+  width: 3em;
+  height: 3em;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.ParticipantCard p {
+  font-size: 0.5em;
+}
+
+.ParticipantCard .pending {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #f0b202;
+}

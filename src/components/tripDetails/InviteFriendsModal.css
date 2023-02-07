@@ -1,0 +1,15 @@
+.InviteFriendsModal form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.InviteFriendsModal .friends-list {
+  width: 100%;
+  overflow: auto;
+}
+
+.InviteFriendsModal .invite-friends-button {
+  margin-top: 1em;
+  width: 50%;
+}

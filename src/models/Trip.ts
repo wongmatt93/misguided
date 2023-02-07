@@ -1,7 +1,5 @@
-interface Participant {
+export interface Participant {
   uid: string;
-  participantName: string;
-  participantPhotoURL: string;
 }
 
 export interface SingleDaySchedule {

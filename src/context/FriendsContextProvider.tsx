@@ -1,6 +1,10 @@
-import { ReactNode, useContext, useState } from "react";
-import { Friend } from "../models/UserProfile";
-import { acceptFriend, deleteFriend } from "../services/userService";
+import { ReactNode, useContext, useEffect, useState } from "react";
+import UserProfile, { Friend } from "../models/UserProfile";
+import {
+  acceptFriend,
+  deleteFriend,
+  getAllUsersByUidArray,
+} from "../services/userService";
 import AuthContext from "./AuthContext";
 import FriendsContext from "./FriendsContext";
 
@@ -9,9 +13,42 @@ interface Props {
 }
 
 const FriendsContextProvider = ({ children }: Props) => {
-  const { refreshProfile } = useContext(AuthContext);
+  const { userProfile, refreshProfile } = useContext(AuthContext);
 
+  const [friends, setFriends] = useState<UserProfile[]>([]);
+  const [friendRequests, setFriendRequests] = useState<UserProfile[]>([]);
   const [activeKey, setActiveKey] = useState("feed");
+
+  useEffect(() => {
+    if (userProfile) {
+      const friendUids: string[] = [];
+      const requestUids: string[] = [];
+
+      userProfile.friends.forEach((friend) => {
+        if (friend.friendRequestStatus === "accepted") {
+          friendUids.push(friend.uid);
+        } else if (friend.friendRequestStatus === "received") {
+          requestUids.push(friend.uid);
+        }
+      });
+
+      if (friendUids.length > 0) {
+        getAllUsersByUidArray(friendUids).then((response) =>
+          setFriends(response)
+        );
+      } else {
+        setFriends([]);
+      }
+
+      if (requestUids.length > 0) {
+        getAllUsersByUidArray(requestUids).then((response) =>
+          setFriendRequests(response)
+        );
+      } else {
+        setFriendRequests([]);
+      }
+    }
+  }, [userProfile]);
 
   const setFriendsKey = (): void => setActiveKey("friends");
   const setSearchKey = (): void => setActiveKey("search");
@@ -35,6 +72,8 @@ const FriendsContextProvider = ({ children }: Props) => {
   return (
     <FriendsContext.Provider
       value={{
+        friends,
+        friendRequests,
         activeKey,
         setFriendsKey,
         setSearchKey,

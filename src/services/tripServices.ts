@@ -1,5 +1,5 @@
 import axios from "axios";
-import Trip from "../models/Trip";
+import Trip, { Participant } from "../models/Trip";
 
 const baseURL: string = process.env.REACT_APP_API_URL || "";
 
@@ -20,6 +20,16 @@ export const deleteTrip = async (tripId: string): Promise<void> =>
 
 export const getLatestTrip = async (uid: string): Promise<Trip[]> =>
   (await axios.get(`${baseURL}/trips/${uid}/latest`)).data;
+
+export const addNewParticipantToTrip = async (
+  tripId: string,
+  newParticipant: Participant
+): Promise<Participant> =>
+  (
+    await axios.put(`${baseURL}/trips/${tripId}/new-participant`, {
+      newParticipant,
+    })
+  ).data;
 
 export const addPhotosToTrip = async (
   tripId: string,
