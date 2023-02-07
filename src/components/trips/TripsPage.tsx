@@ -6,9 +6,12 @@ import Trip from "../../models/Trip";
 import "./TripsPage.css";
 import UpcomingTripsContainer from "./UpcomingTripsContainer";
 import PastTripsContainer from "./PastTripsContainer";
+import TripRequestsContainer from "./TripRequestsContainer";
+import { UserTrip } from "../../models/UserProfile";
 
 const TripsPage = () => {
-  const { userTrips } = useContext(AuthContext);
+  const { userProfile, userTrips } = useContext(AuthContext);
+  const [tripRequests, setTripRequests] = useState<Trip[]>([]);
   const [upcomingTrips, setUpcomingTrips] = useState<Trip[]>([]);
   const [pastTrips, setPastTrips] = useState<Trip[]>([]);
 
@@ -20,29 +23,36 @@ const TripsPage = () => {
       const yyyy = today.getFullYear();
       today = new Date(yyyy + "-" + mm + "-" + dd);
 
-      setUpcomingTrips(
-        userTrips
-          .filter((trip) => {
-            const endDate = new Date(trip.date2);
-            return today.getTime() - endDate.getTime() < 0;
-          })
-          .sort(function (a, b) {
-            return new Date(a.date1).valueOf() - new Date(b.date1).valueOf();
-          })
-      );
+      const newRequests: Trip[] = [];
+      const upcoming: Trip[] = [];
+      const past: Trip[] = [];
 
-      setPastTrips(
-        userTrips
-          .filter((trip) => {
-            const endDate = new Date(trip.date2);
-            return today.getTime() - endDate.getTime() >= 0;
-          })
-          .sort(function (a, b) {
-            return new Date(a.date1).valueOf() - new Date(b.date1).valueOf();
-          })
-      );
+      userTrips.forEach((trip) => {
+        let accepted: boolean = true;
+        const userTrip: UserTrip | undefined = userProfile!.trips.find(
+          (item) => item.tripId === trip._id!
+        );
+
+        const endDate = new Date(trip.date2);
+
+        if (userTrip) {
+          accepted = userTrip.accepted;
+        }
+
+        if (!accepted) {
+          newRequests.push(trip);
+        } else if (today.getTime() - endDate.getTime() < 0) {
+          upcoming.push(trip);
+        } else {
+          past.push(trip);
+        }
+      });
+
+      setTripRequests(newRequests);
+      setUpcomingTrips(upcoming);
+      setPastTrips(past);
     }
-  }, [userTrips]);
+  }, [userProfile, userTrips]);
 
   return (
     <main className="TripsPage">
@@ -51,10 +61,13 @@ const TripsPage = () => {
         variant="pills"
         transition={false}
       >
+        <Tab eventKey="trip-requests" title="Trip Requests">
+          <TripRequestsContainer tripRequests={tripRequests} />
+        </Tab>
         <Tab eventKey="upcoming-trips" title="Upcoming Trips">
           <UpcomingTripsContainer upcomingTrips={upcomingTrips} />
         </Tab>
-        <Tab eventKey="past-trips" title="Past Trips">
+        <Tab eventKey="past-trips" title="Previous Trips">
           <PastTripsContainer pastTrips={pastTrips} />
         </Tab>
       </Tabs>

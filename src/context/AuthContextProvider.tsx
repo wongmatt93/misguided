@@ -19,19 +19,19 @@ const AuthContextProvider = ({ children }: Props) => {
   const getAllUserTrips = (userProfile: UserProfile) => {
     const tripIds: string[] = [];
 
-    userProfile.trips.forEach((trip) => {
-      if (trip.accepted) {
-        tripIds.push(trip.tripId);
-      }
-    });
+    userProfile.trips.forEach((trip) => tripIds.push(trip.tripId));
 
     getTripsByTripIdArray(tripIds).then((response) => setUserTrips(response));
   };
 
   const refreshProfile = (uid: string): Promise<void> =>
     getUserByUid(uid).then((response) => {
-      getAllUserTrips(response);
       setUserProfile(response);
+      if (response.trips.length > 0) {
+        getAllUserTrips(response);
+      } else {
+        setUserTrips([]);
+      }
     });
 
   useEffect(() => {
@@ -55,10 +55,14 @@ const AuthContextProvider = ({ children }: Props) => {
             };
             addNewUser(newUserProfile);
             setUserProfile(newUserProfile);
-            getAllUserTrips(newUserProfile);
+            if (newUserProfile.trips.length > 0) {
+              getAllUserTrips(newUserProfile);
+            }
           } else {
             setUserProfile(response);
-            getAllUserTrips(response);
+            if (response.trips.length > 0) {
+              getAllUserTrips(response);
+            }
           }
         });
       }

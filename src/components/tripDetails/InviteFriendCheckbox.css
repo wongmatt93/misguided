@@ -1,0 +1,46 @@
+.InviteFriendCheckbox {
+  width: 20%;
+}
+
+.InviteFriendCheckbox input {
+  display: none;
+}
+
+.InviteFriendCheckbox label {
+  text-align: center;
+  cursor: pointer;
+}
+
+.InviteFriendCheckbox .image-container {
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+
+.InviteFriendCheckbox img {
+  width: 3em;
+  height: 3em;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.InviteFriendCheckbox .image-container svg {
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #f0b202;
+}
+
+.InviteFriendCheckbox p {
+  font-size: 0.5em;
+}
+
+.InviteFriendCheckbox input:checked + label img {
+  filter: brightness(30%);
+}
+
+.InviteFriendCheckbox input:checked + label svg {
+  display: block;
+}

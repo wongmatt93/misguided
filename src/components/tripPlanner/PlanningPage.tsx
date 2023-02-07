@@ -78,8 +78,6 @@ const PlanningPage = () => {
           participants: [
             {
               uid: userProfile.uid,
-              participantName: userProfile.displayName!,
-              participantPhotoURL: userProfile.photoURL!,
             },
           ],
         };

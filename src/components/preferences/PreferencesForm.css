@@ -41,7 +41,7 @@
   background-color: white;
 }
 
-input:checked + label {
+.PreferencesForm input:checked + label {
   border: 2px solid #f0b202;
   box-sizing: border-box;
 }

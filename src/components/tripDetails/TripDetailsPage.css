@@ -1,4 +1,6 @@
 .TripDetailsPage {
+  display: flex;
+  flex-direction: column;
   padding: 1.5em;
 }
 
@@ -6,42 +8,7 @@
   margin-bottom: 1em;
 }
 
-.TripDetailsPage h4 {
-  margin-bottom: 0.5em;
-}
-
-.TripDetailsPage .participants-list {
-  display: flex;
-  width: 100%;
-  margin-bottom: 1em;
-  overflow: scroll;
-}
-
-.TripDetailsPage .participant {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  width: 20%;
-}
-
-.TripDetailsPage .participant img {
-  width: 3em;
-  height: 3em;
-  object-fit: cover;
-  border-radius: 50%;
-}
-
-.TripDetailsPage .participant p {
-  font-size: 0.5em;
-}
-
-.TripDetailsPage .accordion-button {
-  background-color: #f0b202;
-  color: black;
-}
-
-.TripDetailsPage .collapsed {
-  background-color: transparent;
+.TripDetailsPage .delete-button {
+  color: red;
+  text-decoration: none;
 }

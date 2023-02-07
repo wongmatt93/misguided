@@ -10,14 +10,20 @@ import AuthContext from "../../context/AuthContext";
 
 const MobileNavigation = () => {
   const { userProfile } = useContext(AuthContext);
+  const [tripRequests, setTripRequests] = useState(0);
   const [friendRequests, setFriendRequests] = useState(0);
 
   useEffect(() => {
     if (userProfile) {
-      const numRequests: number = userProfile.friends.filter(
+      const numTripRequests: number = userProfile.trips.filter(
+        (trip) => !trip.accepted
+      ).length;
+      setTripRequests(numTripRequests);
+
+      const numFriendRequests: number = userProfile.friends.filter(
         (friend) => friend.friendRequestStatus === "received"
       ).length;
-      setFriendRequests(numRequests);
+      setFriendRequests(numFriendRequests);
     }
   }, [userProfile]);
 
@@ -27,8 +33,11 @@ const MobileNavigation = () => {
         <ul>
           <Link to="/trips">
             <li>
-              <MdLuggage />
-              <p>Trips</p>
+              <div className="trip-icon">
+                <MdLuggage />
+                {tripRequests > 0 && <div className="notification-dot"></div>}
+                <p>Trips</p>
+              </div>
             </li>
           </Link>
           <Link to="/likes">
