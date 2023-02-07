@@ -31,6 +31,13 @@ export const addNewParticipantToTrip = async (
     })
   ).data;
 
+export const removeParticipantFromTrip = async (
+  tripId: string,
+  uid: string
+): Promise<void> =>
+  (await axios.put(`${baseURL}/trips/${tripId}/${uid}/remove-participant`))
+    .data;
+
 export const addPhotosToTrip = async (
   tripId: string,
   photo: string
