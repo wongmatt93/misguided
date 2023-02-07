@@ -16,10 +16,7 @@ const AuthContextProvider = ({ children }: Props) => {
   );
   const [userTrips, setUserTrips] = useState<Trip[]>([]);
 
-  const refreshProfile = (uid: string): Promise<void> =>
-    getUserByUid(uid).then((response) => setUserProfile(response));
-
-  const getAllUserTrips = (userProfile: UserProfile): void => {
+  const getAllUserTrips = (userProfile: UserProfile) => {
     const tripIds: string[] = [];
 
     userProfile.trips.forEach((trip) => {
@@ -30,6 +27,12 @@ const AuthContextProvider = ({ children }: Props) => {
 
     getTripsByTripIdArray(tripIds).then((response) => setUserTrips(response));
   };
+
+  const refreshProfile = (uid: string): Promise<void> =>
+    getUserByUid(uid).then((response) => {
+      getAllUserTrips(response);
+      setUserProfile(response);
+    });
 
   useEffect(() => {
     // useEffect to only register once at start
