@@ -67,4 +67,10 @@ export const addNewUserTrip = async (
   uid: string,
   newTrip: UserTrip
 ): Promise<CityVote> =>
-  (await axios.put(`${baseURL}/users/${uid}/trips`, newTrip)).data;
+  (await axios.put(`${baseURL}/users/${uid}/add-trip`, newTrip)).data;
+
+export const deleteUserTrip = async (
+  uid: string,
+  tripId: string
+): Promise<void> =>
+  (await axios.put(`${baseURL}/users/${uid}/${tripId}/delete-trip`)).data;
