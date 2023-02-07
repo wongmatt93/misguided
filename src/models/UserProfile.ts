@@ -1,9 +1,5 @@
 export interface UserTrip {
   tripId: string;
-  cityName: string;
-  cityPhotoURL: string;
-  date1: string;
-  date2: string;
   accepted: boolean;
 }
 
@@ -15,8 +11,6 @@ export interface CityVote {
 
 export interface Friend {
   uid: string;
-  displayName: string | null;
-  photoURL: string | null;
   friendRequestStatus: string | null;
 }
 

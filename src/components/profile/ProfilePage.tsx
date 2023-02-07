@@ -1,3 +1,4 @@
+import Spinner from "react-bootstrap/Spinner";
 import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import AuthContext from "../../context/AuthContext";
@@ -48,9 +49,11 @@ const ProfilePage = () => {
           )}
         </>
       ) : (
-        <>
-          <h2>Profile Not Found</h2>
-        </>
+        <div className="loading">
+          <Spinner animation="border" role="status">
+            <span className="visually-hidden">Loading...</span>
+          </Spinner>
+        </div>
       )}
     </main>
   );

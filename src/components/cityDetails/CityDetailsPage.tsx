@@ -7,6 +7,7 @@ import City from "../../models/City";
 import { getCityById } from "../../services/cityService";
 import "./CityDetailsPage.css";
 import DiscoverContext from "../../context/DiscoverContext";
+import { Button } from "react-bootstrap";
 
 const CityDetailsPage = () => {
   const { userProfile } = useContext(AuthContext);
@@ -73,9 +74,13 @@ const CityDetailsPage = () => {
           <div className="image-container">
             <img src={city.photoURL} alt={city.cityName} />
             {liked && (
-              <button className="itinerary-button" onClick={handleItinerary}>
+              <Button
+                variant="warning"
+                className="itinerary-button"
+                onClick={handleItinerary}
+              >
                 Get Itinerary
-              </button>
+              </Button>
             )}
           </div>
           <div className="info-container">

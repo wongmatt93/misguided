@@ -3,6 +3,8 @@ import { auth } from "../firebaseConfig";
 import AuthContext from "./AuthContext";
 import UserProfile from "../models/UserProfile";
 import { addNewUser, getUserByUid } from "../services/userService";
+import Trip from "../models/Trip";
+import { getTripsByTripIdArray } from "../services/tripServices";
 
 interface Props {
   children: ReactNode;
@@ -12,10 +14,22 @@ const AuthContextProvider = ({ children }: Props) => {
   const [userProfile, setUserProfile] = useState<UserProfile | undefined>(
     undefined
   );
-  const [activeKey, setActiveKey] = useState("feed");
+  const [userTrips, setUserTrips] = useState<Trip[]>([]);
 
   const refreshProfile = (uid: string): Promise<void> =>
     getUserByUid(uid).then((response) => setUserProfile(response));
+
+  const getAllUserTrips = (userProfile: UserProfile): void => {
+    const tripIds: string[] = [];
+
+    userProfile.trips.forEach((trip) => {
+      if (trip.accepted) {
+        tripIds.push(trip.tripId);
+      }
+    });
+
+    getTripsByTripIdArray(tripIds).then((response) => setUserTrips(response));
+  };
 
   useEffect(() => {
     // useEffect to only register once at start
@@ -38,26 +52,23 @@ const AuthContextProvider = ({ children }: Props) => {
             };
             addNewUser(newUserProfile);
             setUserProfile(newUserProfile);
+            getAllUserTrips(newUserProfile);
           } else {
             setUserProfile(response);
+            getAllUserTrips(response);
           }
         });
       }
     });
   }, []);
 
-  const setFriendsKey = (): void => setActiveKey("friends");
-  const setSearchKey = (): void => setActiveKey("search");
-
   return (
     <AuthContext.Provider
       value={{
         userProfile,
+        userTrips,
         setUserProfile,
         refreshProfile,
-        activeKey,
-        setFriendsKey,
-        setSearchKey,
       }}
     >
       {children}

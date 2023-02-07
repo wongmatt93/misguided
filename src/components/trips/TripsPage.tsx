@@ -2,18 +2,18 @@ import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
 import { useContext, useEffect, useState } from "react";
 import AuthContext from "../../context/AuthContext";
-import { UserTrip } from "../../models/UserProfile";
+import Trip from "../../models/Trip";
 import "./TripsPage.css";
 import UpcomingTripsContainer from "./UpcomingTripsContainer";
 import PastTripsContainer from "./PastTripsContainer";
 
 const TripsPage = () => {
-  const { userProfile } = useContext(AuthContext);
-  const [upcomingTrips, setUpcomingTrips] = useState<UserTrip[]>([]);
-  const [pastTrips, setPastTrips] = useState<UserTrip[]>([]);
+  const { userTrips } = useContext(AuthContext);
+  const [upcomingTrips, setUpcomingTrips] = useState<Trip[]>([]);
+  const [pastTrips, setPastTrips] = useState<Trip[]>([]);
 
   useEffect(() => {
-    if (userProfile) {
+    if (userTrips.length > 0) {
       let today: Date = new Date();
       const dd = String(today.getDate()).padStart(2, "0");
       const mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
@@ -21,7 +21,7 @@ const TripsPage = () => {
       today = new Date(yyyy + "-" + mm + "-" + dd);
 
       setUpcomingTrips(
-        userProfile.trips
+        userTrips
           .filter((trip) => {
             const endDate = new Date(trip.date2);
             return today.getTime() - endDate.getTime() < 0;
@@ -32,7 +32,7 @@ const TripsPage = () => {
       );
 
       setPastTrips(
-        userProfile.trips
+        userTrips
           .filter((trip) => {
             const endDate = new Date(trip.date2);
             return today.getTime() - endDate.getTime() >= 0;
@@ -42,7 +42,7 @@ const TripsPage = () => {
           })
       );
     }
-  }, [userProfile]);
+  }, [userTrips]);
 
   return (
     <main className="TripsPage">

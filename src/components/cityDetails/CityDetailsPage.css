@@ -35,10 +35,6 @@
   width: 80%;
 }
 
-.CityDetailsPage .itinerary-button:hover {
-  background-color: white;
-}
-
 .CityDetailsPage .info-container {
   padding: 1.5em;
 }
