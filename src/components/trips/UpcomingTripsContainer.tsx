@@ -1,16 +1,16 @@
-import { UserTrip } from "../../models/UserProfile";
+import Trip from "../../models/Trip";
 import TripCard from "./TripCard";
 import "./UpcomingTripsContainer.css";
 
 interface Props {
-  upcomingTrips: UserTrip[];
+  upcomingTrips: Trip[];
 }
 
 const UpcomingTripsContainer = ({ upcomingTrips }: Props) => {
   return (
     <ul className="UpcomingTripsContainer">
       {upcomingTrips.map((trip) => (
-        <TripCard key={trip.tripId} trip={trip} />
+        <TripCard key={trip._id!} trip={trip} />
       ))}
     </ul>
   );

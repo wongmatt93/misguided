@@ -3,13 +3,9 @@ import Button from "react-bootstrap/Button";
 import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import AuthContext from "../../context/AuthContext";
+import FriendsContext from "../../context/FriendsContext";
 import UserProfile, { Friend } from "../../models/UserProfile";
-import {
-  acceptFriend,
-  addFriend,
-  deleteFriend,
-  getUserByUid,
-} from "../../services/userService";
+import { addFriend } from "../../services/userService";
 import "./FriendButton.css";
 
 interface Props {
@@ -20,40 +16,21 @@ interface Props {
 
 const FriendButton = ({ userProfile, otherProfile, friendStatus }: Props) => {
   const { refreshProfile } = useContext(AuthContext);
+  const { handleAcceptFriend, handleDeleteFriend } = useContext(FriendsContext);
 
   const addFriendButton = (): void => {
     const user: Friend = {
       uid: userProfile.uid,
-      displayName: userProfile.displayName,
-      photoURL: userProfile.photoURL,
       friendRequestStatus: "received",
     };
 
     const newFriend: Friend = {
       uid: otherProfile.uid,
-      displayName: otherProfile.displayName,
-      photoURL: otherProfile.photoURL,
       friendRequestStatus: "requested",
     };
 
     addFriend(userProfile.uid, newFriend).then(() =>
       addFriend(newFriend.uid, user).then(() => refreshProfile(userProfile.uid))
-    );
-  };
-
-  const deleteFriendButton = (): void => {
-    deleteFriend(userProfile.uid, otherProfile.uid).then(() =>
-      deleteFriend(otherProfile.uid, userProfile.uid).then(() =>
-        refreshProfile(userProfile.uid)
-      )
-    );
-  };
-
-  const acceptFriendButton = (): void => {
-    acceptFriend(userProfile.uid, otherProfile.uid).then(() =>
-      acceptFriend(otherProfile.uid, userProfile.uid).then(() =>
-        refreshProfile(userProfile.uid)
-      )
     );
   };
 
@@ -65,22 +42,40 @@ const FriendButton = ({ userProfile, otherProfile, friendStatus }: Props) => {
         </Button>
       ) : friendStatus === "requested" ? (
         <DropdownButton variant="warning" title="Requested">
-          <Dropdown.Item onClick={deleteFriendButton}>
+          <Dropdown.Item
+            onClick={() =>
+              handleDeleteFriend(userProfile.uid, otherProfile.uid)
+            }
+          >
             Cancel Request
           </Dropdown.Item>
         </DropdownButton>
       ) : friendStatus === "received" ? (
         <DropdownButton variant="warning" title="Respond to Request">
-          <Dropdown.Item onClick={acceptFriendButton}>
+          <Dropdown.Item
+            onClick={() =>
+              handleAcceptFriend(userProfile.uid, otherProfile.uid)
+            }
+          >
             Accept Request
           </Dropdown.Item>
-          <Dropdown.Item onClick={deleteFriendButton}>
+          <Dropdown.Item
+            onClick={() =>
+              handleDeleteFriend(userProfile.uid, otherProfile.uid)
+            }
+          >
             Deny Request
           </Dropdown.Item>
         </DropdownButton>
       ) : (
         <DropdownButton variant="warning" title="Friend">
-          <Dropdown.Item onClick={deleteFriendButton}>Unfriend</Dropdown.Item>
+          <Dropdown.Item
+            onClick={() =>
+              handleDeleteFriend(userProfile.uid, otherProfile.uid)
+            }
+          >
+            Unfriend
+          </Dropdown.Item>
         </DropdownButton>
       )}
     </div>

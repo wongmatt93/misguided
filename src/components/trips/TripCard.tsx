@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { BsChevronCompactRight } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
-import { UserTrip } from "../../models/UserProfile";
+import Trip from "../../models/Trip";
 import "./TripCard.css";
 
 interface Props {
-  trip: UserTrip;
+  trip: Trip;
 }
 
 const TripCard = ({ trip }: Props) => {
@@ -18,13 +18,13 @@ const TripCard = ({ trip }: Props) => {
     setEndDate(new Date(trip.date2));
   }, [trip]);
 
-  const handleClick = (): void => navigate(`/trip/${trip.tripId}`);
+  const handleClick = (): void => navigate(`/trip/${trip._id!}`);
 
   return (
     <li className="TripCard" onClick={handleClick}>
       {startDate && endDate && (
         <div className="info-container">
-          <img src={trip.cityPhotoURL} alt={trip.cityPhotoURL} />
+          <img src={trip.cityPhoto} alt={trip.cityPhoto} />
           <div className="name-date-container">
             <h3>{trip.cityName}</h3>
             <h4>

@@ -6,6 +6,12 @@ const baseURL: string = process.env.REACT_APP_API_URL || "";
 export const getTripById = async (tripId: string): Promise<Trip> =>
   (await axios.get(`${baseURL}/trips/${tripId}`)).data;
 
+export const getTripsByTripIdArray = async (
+  tripIds: string[]
+): Promise<Trip[]> =>
+  (await axios.get(`${baseURL}/trips/trips-by-tripIds/${tripIds.toString()}`))
+    .data;
+
 export const addTrip = async (trip: Trip): Promise<Trip> =>
   (await axios.post(`${baseURL}/trips`, trip)).data;
 

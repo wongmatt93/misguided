@@ -134,10 +134,6 @@ const PlanningPage = () => {
           getLatestTrip(userProfile.uid).then((response) => {
             const newUserTrip: UserTrip = {
               tripId: response[0]._id!,
-              cityName: newTrip.cityName,
-              cityPhotoURL: newTrip.cityPhoto,
-              date1: newTrip.date1,
-              date2: newTrip.date2,
               accepted: true,
             };
 

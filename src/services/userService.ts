@@ -11,6 +11,11 @@ const baseURL: string = process.env.REACT_APP_API_URL || "";
 export const getAllUsers = async (): Promise<UserProfile[]> =>
   (await axios.get(`${baseURL}/users`)).data;
 
+export const getAllUsersByUidArray = async (
+  uids: string[]
+): Promise<UserProfile[]> =>
+  (await axios.get(`${baseURL}/users/users-by-uid/${uids.toString()}`)).data;
+
 export const getUserByUid = async (uid: string): Promise<UserProfile> =>
   (await axios.get(`${baseURL}/users/${uid}/uid`)).data;
 
@@ -41,7 +46,7 @@ export const addFriend = async (
 export const deleteFriend = async (
   userUid: string,
   otherUid: string
-): Promise<Friend> =>
+): Promise<void> =>
   (await axios.put(`${baseURL}/users/${userUid}/${otherUid}/delete-friend`))
     .data;
 
