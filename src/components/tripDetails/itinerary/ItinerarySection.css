@@ -1,0 +1,9 @@
+.ItinerarySection {
+  flex: 1;
+}
+
+.ItinerarySection .itinerary-label-row {
+  display: flex;
+  align-items: center;
+  height: 3em;
+}

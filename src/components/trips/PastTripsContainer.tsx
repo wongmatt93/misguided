@@ -1,6 +1,6 @@
 import Trip from "../../models/Trip";
+import PastTripCard from "./PastTripCard";
 import "./PastTripsContainer.css";
-import TripCard from "./TripCard";
 
 interface Props {
   pastTrips: Trip[];
@@ -10,7 +10,7 @@ const PastTripsContainer = ({ pastTrips }: Props) => {
   return (
     <ul className="PastTripsContainer">
       {pastTrips.map((trip) => (
-        <TripCard key={trip._id!} trip={trip} />
+        <PastTripCard key={trip._id!} trip={trip} />
       ))}
     </ul>
   );

@@ -5,9 +5,12 @@ import Trip from "../../models/Trip";
 import { deleteTrip, getTripById } from "../../services/tripServices";
 import "./TripDetailsPage.css";
 import { Button } from "react-bootstrap";
-import { deleteUserTrip } from "../../services/userService";
-import ParticipantsSection from "./ParticipantsSection";
-import TripAccordion from "./TripAccordion";
+import { deleteUserTrip, getUserByUid } from "../../services/userService";
+import ParticipantsSection from "./participants/ParticipantsSection";
+import TripAccordion from "./itinerary/TripAccordion";
+import GallerySection from "./gallery/GallerySection";
+import UserProfile from "../../models/UserProfile";
+import ItinerarySection from "./itinerary/ItinerarySection";
 
 const TripDetailsPage = () => {
   const { userProfile, refreshProfile } = useContext(AuthContext);
@@ -18,6 +21,7 @@ const TripDetailsPage = () => {
   const [startDate, setStartDate] = useState<Date | null>(null);
   const [endDate, setEndDate] = useState<Date | null>(null);
   const [tripCreator, setTripCreator] = useState(false);
+  const [participants, setParticipants] = useState<UserProfile[]>([]);
 
   useEffect(() => {
     if (tripId) {
@@ -34,6 +38,14 @@ const TripDetailsPage = () => {
       });
     }
   }, [userProfile, tripId]);
+
+  useEffect(() => {
+    if (trip) {
+      Promise.all(trip.participants.map((item) => getUserByUid(item.uid))).then(
+        (response) => setParticipants(response)
+      );
+    }
+  }, [trip]);
 
   const handleDeleteTrip = (): Promise<void> =>
     deleteTrip(tripId!).then(() => {
@@ -52,12 +64,20 @@ const TripDetailsPage = () => {
           <h3>
             {startDate.toLocaleDateString()} - {endDate.toLocaleDateString()}
           </h3>
+          {trip.completed && (
+            <GallerySection
+              userProfile={userProfile}
+              trip={trip}
+              participants={participants}
+            />
+          )}
           <ParticipantsSection
             trip={trip}
+            participants={participants}
             setTrip={setTrip}
             tripCreator={tripCreator}
           />
-          <TripAccordion trip={trip} />
+          <ItinerarySection trip={trip} />
           {tripCreator && (
             <Button
               className="delete-button"

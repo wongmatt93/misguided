@@ -1,9 +1,9 @@
 import Form from "react-bootstrap/Form";
 import { useContext, useState } from "react";
 import "./FriendsList.css";
-import FriendRequestList from "./FriendRequestList";
+import FriendsContext from "../../../context/FriendsContext";
 import AcceptedFriendsList from "./AcceptedFriendsList";
-import FriendsContext from "../../context/FriendsContext";
+import FriendRequestList from "./FriendRequestList";
 
 const FriendsList = () => {
   const { friends, friendRequests } = useContext(FriendsContext);

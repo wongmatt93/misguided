@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import UserProfile, { UserTrip } from "../../models/UserProfile";
+import UserProfile, { UserTrip } from "../../../models/UserProfile";
 import "./ParticipantCard.css";
 
 interface Props {

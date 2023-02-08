@@ -1,0 +1,11 @@
+.PhotoContainer {
+  display: flex;
+  height: auto;
+  max-height: 8em;
+  overflow-x: scroll;
+}
+
+.PhotoContainer img {
+  height: 8em;
+  margin-right: 0.1em;
+}

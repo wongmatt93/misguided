@@ -1,3 +1,7 @@
+.ParticipantsSection {
+  margin-bottom: 0.5em;
+}
+
 .ParticipantsSection .participants-label-row {
   display: flex;
   justify-content: space-between;
@@ -13,6 +17,5 @@
 .ParticipantsSection .participants-list {
   display: flex;
   width: 100%;
-  margin-bottom: 1em;
   overflow: scroll;
 }

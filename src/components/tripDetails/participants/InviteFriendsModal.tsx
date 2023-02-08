@@ -1,15 +1,15 @@
 import { FormEvent, useContext, useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import AuthContext from "../../context/AuthContext";
-import FriendsContext from "../../context/FriendsContext";
-import Trip from "../../models/Trip";
-import UserProfile, { UserTrip } from "../../models/UserProfile";
+import AuthContext from "../../../context/AuthContext";
+import FriendsContext from "../../../context/FriendsContext";
+import Trip from "../../../models/Trip";
+import UserProfile, { UserTrip } from "../../../models/UserProfile";
 import {
   addNewParticipantToTrip,
   getTripById,
-} from "../../services/tripServices";
-import { addNewUserTrip } from "../../services/userService";
+} from "../../../services/tripServices";
+import { addNewUserTrip } from "../../../services/userService";
 import InviteFriendCheckbox from "./InviteFriendCheckbox";
 import "./InviteFriendsModal.css";
 

@@ -1,0 +1,15 @@
+.GallerySection {
+  margin-bottom: 0.5em;
+}
+
+.GallerySection .gallery-label-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 3em;
+}
+
+.GallerySection .gallery-label-row button {
+  font-size: 0.7em;
+  background-color: #f0b202;
+}
