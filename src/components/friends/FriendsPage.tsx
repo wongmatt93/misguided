@@ -2,11 +2,10 @@ import { useContext } from "react";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
 import FriendsContext from "../../context/FriendsContext";
-import FriendsFeed from "./FriendsFeed";
-import FriendsList from "./FriendsList";
-
+import FriendsFeed from "./feed/FriendsFeed";
+import FriendsList from "./friendsList/FriendsList";
 import "./FriendsPage.css";
-import SearchUsers from "./SearchUsers";
+import SearchUsers from "./search/SearchUsers";
 
 const FriendsPage = () => {
   const { activeKey, setFriendsKey, setSearchKey } = useContext(FriendsContext);

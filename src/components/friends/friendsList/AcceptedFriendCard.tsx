@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import AuthContext from "../../context/AuthContext";
-import UserProfile from "../../models/UserProfile";
+import AuthContext from "../../../context/AuthContext";
+import UserProfile from "../../../models/UserProfile";
 import "./AcceptedFriendCard.css";
 
 interface Props {

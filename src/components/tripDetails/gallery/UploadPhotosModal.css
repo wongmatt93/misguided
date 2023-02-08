@@ -1,0 +1,14 @@
+.UploadPhotosModal form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.UploadPhotosModal input {
+  width: 70%;
+  margin: 1em 0 2em 0;
+}
+
+.UploadPhotosModal form button {
+  background-color: #f0b202;
+}

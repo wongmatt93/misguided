@@ -1,0 +1,31 @@
+.FeedCard .post {
+  margin: 0 -1.5em;
+}
+
+.FeedCard h3 {
+  padding: 0 0.5rem;
+}
+
+.FeedCard .image-container {
+  display: flex;
+  overflow-x: scroll;
+  margin: 0.5em 0;
+}
+
+.FeedCard img {
+  height: 20em;
+  width: 100%;
+  margin-right: 0.2em;
+  object-fit: cover;
+}
+
+.FeedCard img:last-child {
+  margin-right: 0;
+}
+
+.FeedCard .info-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 0.5rem;
+}

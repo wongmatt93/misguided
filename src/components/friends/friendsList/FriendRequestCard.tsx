@@ -1,9 +1,9 @@
 import { useContext } from "react";
 import { Button, ButtonGroup } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import AuthContext from "../../context/AuthContext";
-import FriendsContext from "../../context/FriendsContext";
-import UserProfile from "../../models/UserProfile";
+import AuthContext from "../../../context/AuthContext";
+import FriendsContext from "../../../context/FriendsContext";
+import UserProfile from "../../../models/UserProfile";
 import "./FriendRequestCard.css";
 
 interface Props {

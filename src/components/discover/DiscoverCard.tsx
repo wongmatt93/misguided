@@ -18,7 +18,11 @@ const DiscoverCard = ({ currentCity, cityRating }: Props) => {
 
   return (
     <Card className="DiscoverCard" onClick={handleClick} bg="light">
-      <Card.Img variant="top" src={currentCity.photoURL}></Card.Img>
+      <Card.Img
+        variant="top"
+        src={currentCity.photoURL}
+        alt={currentCity.photoURL}
+      ></Card.Img>
       <Card.Body>
         <div>
           <Card.Title>{currentCity.cityName}</Card.Title>

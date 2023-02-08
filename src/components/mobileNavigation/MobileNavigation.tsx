@@ -31,42 +31,42 @@ const MobileNavigation = () => {
     <footer className="MobileNavigation">
       <nav>
         <ul>
-          <Link to="/trips">
-            <li>
+          <li>
+            <Link to="/trips">
               <div className="trip-icon">
                 <MdLuggage />
                 {tripRequests > 0 && <div className="notification-dot"></div>}
                 <p>Trips</p>
               </div>
-            </li>
-          </Link>
-          <Link to="/likes">
-            <li>
+            </Link>
+          </li>
+          <li>
+            <Link to="/likes">
               <AiFillHeart />
               <p>Likes</p>
-            </li>
-          </Link>
-          <Link to="/discover">
-            <li>
+            </Link>
+          </li>
+          <li>
+            <Link to="/discover">
               <MdTravelExplore />
               <p>Discover</p>
-            </li>
-          </Link>
-          <Link to="/friends">
-            <li>
+            </Link>
+          </li>
+          <li>
+            <Link to="/friends">
               <div className="friend-icon">
                 <BsFillPeopleFill />
                 {friendRequests > 0 && <div className="notification-dot"></div>}
               </div>
               <p>Friends</p>
-            </li>
-          </Link>
-          <Link to="/user-profile">
-            <li>
+            </Link>
+          </li>
+          <li>
+            <Link to="/user-profile">
               <RiUserFill />
               <p>Profile</p>
-            </li>
-          </Link>
+            </Link>
+          </li>
         </ul>
       </nav>
     </footer>

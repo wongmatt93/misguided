@@ -1,4 +1,4 @@
-import UserProfile from "../../models/UserProfile";
+import UserProfile from "../../../models/UserProfile";
 import FriendRequestCard from "./FriendRequestCard";
 import "./FriendRequestList.css";
 

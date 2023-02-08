@@ -17,17 +17,18 @@
   height: 100%;
 }
 
-.MobileNavigation a {
+.MobileNavigation li {
   width: 20%;
 }
 
-.MobileNavigation li {
+.MobileNavigation a {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 100%;
   color: black;
+  width: 100%;
 }
 
 .MobileNavigation li svg {

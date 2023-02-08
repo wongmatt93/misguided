@@ -1,11 +1,11 @@
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { FormEvent, useContext, useState } from "react";
-import AuthContext from "../../context/AuthContext";
 import UserCard from "./UserCard";
 import "./SearchUsers.css";
-import UserProfile from "../../models/UserProfile";
-import { getUserByEmail } from "../../services/userService";
+import AuthContext from "../../../context/AuthContext";
+import { getUserByEmail } from "../../../services/userService";
+import UserProfile from "../../../models/UserProfile";
 
 const SearchUsers = () => {
   const { userProfile } = useContext(AuthContext);

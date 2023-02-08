@@ -1,30 +1,32 @@
 import { useContext, useEffect, useState } from "react";
 import { Button, Dropdown, DropdownButton } from "react-bootstrap";
-import AuthContext from "../../context/AuthContext";
-import Trip from "../../models/Trip";
-import UserProfile, { UserTrip } from "../../models/UserProfile";
-import { removeParticipantFromTrip } from "../../services/tripServices";
-import {
-  acceptUserTrip,
-  deleteUserTrip,
-  getUserByUid,
-} from "../../services/userService";
+import AuthContext from "../../../context/AuthContext";
+import Trip from "../../../models/Trip";
+import UserProfile, { UserTrip } from "../../../models/UserProfile";
+import { removeParticipantFromTrip } from "../../../services/tripServices";
+import { acceptUserTrip, deleteUserTrip } from "../../../services/userService";
 import InviteFriendsModal from "./InviteFriendsModal";
 import ParticipantCard from "./ParticipantCard";
 import "./ParticipantsSection.css";
 
 interface Props {
   trip: Trip;
+  participants: UserProfile[];
   setTrip: React.Dispatch<React.SetStateAction<Trip | null>>;
   tripCreator: boolean;
 }
 
-const ParticipantsSection = ({ trip, setTrip, tripCreator }: Props) => {
+const ParticipantsSection = ({
+  trip,
+  participants,
+  setTrip,
+  tripCreator,
+}: Props) => {
   const { userProfile, refreshProfile } = useContext(AuthContext);
   const [invited, setInvited] = useState(false);
   const [accepted, setAccepted] = useState(false);
-  const [participants, setParticipants] = useState<UserProfile[]>([]);
   const [show, setShow] = useState(false);
+  const [pastTrip, setPastTrip] = useState(false);
 
   useEffect(() => {
     if (userProfile) {
@@ -42,9 +44,17 @@ const ParticipantsSection = ({ trip, setTrip, tripCreator }: Props) => {
   }, [userProfile, trip]);
 
   useEffect(() => {
-    Promise.all(trip.participants.map((item) => getUserByUid(item.uid))).then(
-      (response) => setParticipants(response)
-    );
+    let today: Date = new Date();
+    const dd = String(today.getDate()).padStart(2, "0");
+    const mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
+    const yyyy = today.getFullYear();
+    today = new Date(yyyy + "-" + mm + "-" + dd);
+
+    const endDate = new Date(trip.date2);
+
+    if (today.getTime() - endDate.getTime() >= 0) {
+      setPastTrip(true);
+    }
   }, [trip]);
 
   const handleClose = (): void => setShow(false);
@@ -66,7 +76,7 @@ const ParticipantsSection = ({ trip, setTrip, tripCreator }: Props) => {
     <section className="ParticipantsSection">
       <div className="participants-label-row">
         <h4>Participants</h4>
-        {tripCreator && (
+        {tripCreator && !pastTrip && (
           <Button variant="warning" onClick={handleShow}>
             Invite Friends
           </Button>
