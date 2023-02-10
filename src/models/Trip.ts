@@ -1,3 +1,13 @@
+export interface Like {
+  uid: string;
+}
+
+export interface Comment {
+  uid: string;
+  comment: string;
+  date: string;
+}
+
 export interface Participant {
   uid: string;
 }
@@ -42,4 +52,6 @@ export default interface Trip {
   photos: string[];
   participants: Participant[];
   completed: boolean;
+  likes: Like[];
+  comments: Comment[];
 }

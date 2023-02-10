@@ -81,6 +81,8 @@ const PlanningPage = () => {
             },
           ],
           completed: false,
+          likes: [],
+          comments: [],
         };
 
         for (let i = 0; i < duration; i++) {
