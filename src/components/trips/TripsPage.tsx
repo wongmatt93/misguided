@@ -48,9 +48,21 @@ const TripsPage = () => {
         }
       });
 
-      setTripRequests(newRequests);
-      setUpcomingTrips(upcoming);
-      setPastTrips(past);
+      setTripRequests(
+        newRequests.sort(function (a, b) {
+          return new Date(a.date1).valueOf() - new Date(b.date1).valueOf();
+        })
+      );
+      setUpcomingTrips(
+        upcoming.sort(function (a, b) {
+          return new Date(a.date1).valueOf() - new Date(b.date1).valueOf();
+        })
+      );
+      setPastTrips(
+        past.sort(function (a, b) {
+          return new Date(b.date1).valueOf() - new Date(a.date1).valueOf();
+        })
+      );
     }
   }, [userProfile, userTrips]);
 

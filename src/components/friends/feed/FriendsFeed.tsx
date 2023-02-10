@@ -1,4 +1,4 @@
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import FriendsContext from "../../../context/FriendsContext";
 import Trip from "../../../models/Trip";
 import { getTripById } from "../../../services/tripServices";
@@ -9,10 +9,9 @@ const FriendsFeed = () => {
   const { friends } = useContext(FriendsContext);
   const [friendsPastTrips, setFriendsPastTrips] = useState<Trip[]>([]);
   const [fullyLoaded, setFullyLoaded] = useState(false);
-  const dataFetchedRef = useRef(false);
 
   useEffect(() => {
-    if (dataFetchedRef.current) return;
+    const trips: Trip[] = [];
 
     let today: Date = new Date();
     const dd = String(today.getDate()).padStart(2, "0");
@@ -20,22 +19,22 @@ const FriendsFeed = () => {
     const yyyy = today.getFullYear();
     today = new Date(yyyy + "-" + mm + "-" + dd);
 
-    friends.forEach((friend) => {
-      friend.trips.forEach((trip) => {
-        if (trip.accepted) {
-          getTripById(trip.tripId).then((response) => {
-            if (response.completed) {
-              const endDate = new Date(response.date2);
-              if (today.getTime() - endDate.getTime() >= 0) {
-                setFriendsPastTrips((prev) => [...prev, response]);
-              }
-            }
-          });
-        }
-      });
-    });
+    Promise.allSettled(
+      friends.map((friend) =>
+        Promise.allSettled(
+          friend.trips.map(
+            (trip) =>
+              trip.accepted &&
+              getTripById(trip.tripId).then((response) => {
+                response.completed &&
+                  today.getTime() - new Date(response.date2).getTime() >= 0 &&
+                  trips.push(response);
+              })
+          )
+        )
+      )
+    ).then(() => setFriendsPastTrips(trips));
 
-    dataFetchedRef.current = true;
     setFullyLoaded(true);
   }, [friends]);
 
