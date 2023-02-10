@@ -7,7 +7,6 @@ import "./TripDetailsPage.css";
 import { Button } from "react-bootstrap";
 import { deleteUserTrip, getUserByUid } from "../../services/userService";
 import ParticipantsSection from "./participants/ParticipantsSection";
-import TripAccordion from "./itinerary/TripAccordion";
 import GallerySection from "./gallery/GallerySection";
 import UserProfile from "../../models/UserProfile";
 import ItinerarySection from "./itinerary/ItinerarySection";

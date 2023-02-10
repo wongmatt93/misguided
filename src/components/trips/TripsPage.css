@@ -23,10 +23,10 @@
   color: black;
   border-radius: 0;
   padding: 0.2em;
-  border-bottom: 1px solid transparent;
+  border-bottom: 2px solid transparent;
 }
 
 .TripsPage .nav-pills .active {
   background-color: transparent;
-  border-bottom: 1px solid #f0b202;
+  border-bottom: 2px solid #f0b202;
 }

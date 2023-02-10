@@ -1,9 +1,59 @@
 .FeedCard .post {
-  margin: 0 -1.5em;
+  margin: 0 -1.5em 1em -1.5em;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.3);
 }
 
-.FeedCard h3 {
+.FeedCard .post-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   padding: 0 0.5rem;
+}
+
+.FeedCard .image-name-location-container {
+  display: flex;
+  align-items: center;
+}
+
+.FeedCard .image-name-location-container img {
+  height: 2.3em;
+  width: 2.3em;
+  object-fit: cover;
+  border-radius: 50%;
+  box-sizing: border-box;
+  margin-right: 0.5em;
+  cursor: pointer;
+}
+
+.FeedCard .name-location-container h3 {
+  font-family: "Oswald", sans-serif;
+  font-weight: 300;
+  font-size: 1em;
+  cursor: pointer;
+}
+
+.FeedCard .city-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  cursor: default;
+}
+
+.FeedCard .city-container h4 {
+  font-family: "Oswald", sans-serif;
+  font-size: 0.8em;
+  margin-right: 0.5em;
+}
+
+.FeedCard .city-container p {
+  font-family: "Roboto", "sans-serif";
+  font-size: 0.7em;
+}
+
+.FeedCard .post-header button {
+  font-size: 0.7em;
+  padding: 0.5em 1em;
+  background-color: #f0b202;
 }
 
 .FeedCard .image-container {
@@ -23,9 +73,49 @@
   margin-right: 0;
 }
 
-.FeedCard .info-container {
+.FeedCard .likes-comments-labels {
   display: flex;
   justify-content: space-between;
+  margin: 0 0.5em;
+  padding: 0 1em 0.5em 1em;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.FeedCard .likes-comments-labels p {
+  font-size: 0.8em;
+  color: grey;
+}
+
+.FeedCard .likes-comments-buttons {
+  display: flex;
+  justify-content: space-around;
+  margin: 0.5em;
+}
+
+.FeedCard .likes-comments-buttons div {
+  display: flex;
   align-items: center;
-  padding: 0 0.5rem;
+  padding: 0.3em;
+  cursor: pointer;
+}
+
+.FeedCard .likes-comments-buttons svg {
+  margin-right: 0.5em;
+}
+
+.FeedCard .comment-form form {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 0.5em 0.5em 0.5em;
+}
+
+.FeedCard .comment-form div {
+  flex: 1;
+  margin-right: 0.5em;
+}
+
+.FeedCard .comment-form button {
+  font-size: 0.7em;
+  padding: 0.5em 1em;
+  background-color: #f0b202;
 }

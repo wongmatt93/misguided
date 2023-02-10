@@ -1,5 +1,5 @@
 import axios from "axios";
-import Trip, { Participant } from "../models/Trip";
+import Trip, { Comment, Like, Participant } from "../models/Trip";
 
 const baseURL: string = process.env.REACT_APP_API_URL || "";
 
@@ -46,3 +46,16 @@ export const addPhotosToTrip = async (
   photo: string
 ): Promise<string> =>
   (await axios.put(`${baseURL}/trips/${tripId}/photos`, { photo })).data;
+
+export const likeTrip = async (tripId: string, like: Like): Promise<Like> =>
+  (await axios.put(`${baseURL}/trips/${tripId}/like-trip`, { like })).data;
+
+export const unlikeTrip = async (tripId: string, uid: string): Promise<void> =>
+  (await axios.put(`${baseURL}/trips/${tripId}/${uid}/unlike-trip`)).data;
+
+export const commentOnTrip = async (
+  tripId: string,
+  comment: Comment
+): Promise<Comment> =>
+  (await axios.put(`${baseURL}/trips/${tripId}/comment-trip`, { comment }))
+    .data;
