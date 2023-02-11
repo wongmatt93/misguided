@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import {
   BrowserRouter as Router,
   Navigate,
@@ -19,9 +19,10 @@ import "./App.css";
 import ProfilePage from "./components/profile/ProfilePage";
 import AddCityPage from "./components/admin/AddCityPage";
 import CityDetailsPage from "./components/cityDetails/CityDetailsPage";
-import PreferencesPage from "./components/preferences/PreferencesPage";
+import PreferencesPage from "./components/userProfile/preferences/PreferencesPage";
 import PlanningPage from "./components/tripPlanner/PlanningPage";
 import TripDetailsPage from "./components/tripDetails/TripDetailsPage";
+import AccountInformationPage from "./components/userProfile/accountInformation/AccountInformationPage";
 
 function App() {
   const { userProfile } = useContext(AuthContext);
@@ -58,6 +59,7 @@ function App() {
                 element={<CityDetailsPage />}
               />
               <Route path="/user-profile" element={<UserProfilePage />} />
+              <Route path="/account" element={<AccountInformationPage />} />
               <Route path="/friends" element={<FriendsPage />} />
               <Route path="/profile/:uid" element={<ProfilePage />} />
               <Route path="/add-city" element={<AddCityPage />} />

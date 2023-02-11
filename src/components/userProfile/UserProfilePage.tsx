@@ -21,7 +21,7 @@ const UserProfilePage = () => {
           <img src={userProfile.photoURL!} alt="profile-pic" />
           <h2>{userProfile.displayName}</h2>
           <ul>
-            <Link to="/account-info">
+            <Link to="/account">
               <li>
                 <p>Account Information</p>
                 <BsChevronCompactRight />

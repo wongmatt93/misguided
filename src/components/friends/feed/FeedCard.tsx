@@ -12,6 +12,7 @@ import {
 } from "../../../services/tripServices";
 import { getUserByUid } from "../../../services/userService";
 import "./FeedCard.css";
+import PlaceholderCard from "./PlaceholderCard";
 
 interface Props {
   trip: Trip;
@@ -39,14 +40,16 @@ const FeedCard = ({ trip }: Props) => {
       ? setPhotos(trip.photos)
       : setPhotos([trip.cityPhoto]);
 
-    trip.likes.some((item) => item.uid === userProfile!.uid) && setLiked(true);
+    trip.likes.some((item) => item.uid === userProfile!.uid)
+      ? setLiked(true)
+      : setLiked(false);
 
     setStartDate(new Date(trip.date1));
     setEndDate(new Date(trip.date2));
     setLikesQuantity(trip.likes.length);
     setCommentsQuantity(trip.comments.length);
     setFullyLoaded(true);
-  }, [trip]);
+  }, [userProfile, trip]);
 
   const handleViewProfile = (): void => navigate(`/profile/${creator!.uid}`);
 
@@ -54,22 +57,17 @@ const FeedCard = ({ trip }: Props) => {
 
   const handleLikeTrip = (): Promise<Like | void> =>
     likeTrip(trip._id!, { uid: userProfile!.uid }).then(() =>
-      refreshProfile(userProfile!.uid).then(() => {
-        setLiked(true);
-        setLikesQuantity(likesQuantity + 1);
-      })
+      refreshProfile(userProfile!.uid)
     );
 
   const handleUnlikeTrip = (): Promise<void> =>
     unlikeTrip(trip._id!, userProfile!.uid).then(() =>
-      refreshProfile(userProfile!.uid).then(() => {
-        setLiked(false);
-        setLikesQuantity(likesQuantity - 1);
-      })
+      refreshProfile(userProfile!.uid)
     );
 
   const handleSubmitComment = (e: FormEvent): void => {
     e.preventDefault();
+
     const newComment: Comment = {
       uid: userProfile!.uid,
       comment,
@@ -77,9 +75,7 @@ const FeedCard = ({ trip }: Props) => {
     };
 
     commentOnTrip(trip._id!, newComment).then(() =>
-      refreshProfile(userProfile!.uid).then(() => {
-        setCommentsQuantity(commentsQuantity + 1);
-      })
+      refreshProfile(userProfile!.uid)
     );
 
     setComment("");
@@ -87,7 +83,7 @@ const FeedCard = ({ trip }: Props) => {
 
   return (
     <li className="FeedCard">
-      {fullyLoaded && creator && (
+      {fullyLoaded && creator ? (
         <div className="post">
           <div className="post-header">
             <div className="image-name-location-container">
@@ -155,6 +151,8 @@ const FeedCard = ({ trip }: Props) => {
             </div>
           </Collapse>
         </div>
+      ) : (
+        <PlaceholderCard />
       )}
     </li>
   );

@@ -1,7 +1,7 @@
 import { FormEvent, useContext, useEffect, useState } from "react";
-import AuthContext from "../../context/AuthContext";
-import { Preferences } from "../../models/UserProfile";
-import { updateUserPreferences } from "../../services/userService";
+import AuthContext from "../../../context/AuthContext";
+import { Preferences } from "../../../models/UserProfile";
+import { updateUserPreferences } from "../../../services/userService";
 import "./PreferencesForm.css";
 
 interface Props {
@@ -380,6 +380,7 @@ const PreferencesForm = ({ setShow }: Props) => {
           <img
             className="checkmark"
             src="https://i.cloudup.com/2ZAX3hVsBE-3000x3000.png"
+            alt="check"
             height="62"
             width="62"
           ></img>

@@ -12,6 +12,8 @@
 
 .UserProfilePage img {
   height: 7em;
+  width: 7em;
+  object-fit: cover;
   border-radius: 50%;
 }
 

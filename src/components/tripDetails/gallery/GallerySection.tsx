@@ -34,7 +34,7 @@ const GallerySection = ({ userProfile, trip, participants }: Props) => {
   return (
     <section className="GallerySection">
       <div className="gallery-label-row">
-        <h4>Gallery</h4>
+        <h4>Gallery ({trip.photos.length})</h4>
         {participated && (
           <Button variant="warning" onClick={handleShow}>
             Upload Photos

@@ -8,12 +8,13 @@ import "./FriendsPage.css";
 import SearchUsers from "./search/SearchUsers";
 
 const FriendsPage = () => {
-  const { activeKey, setFriendsKey, setSearchKey } = useContext(FriendsContext);
+  const { activeKey, setFeedKey, setFriendsKey, setSearchKey } =
+    useContext(FriendsContext);
 
   return (
     <main className="FriendsPage">
       <Tabs defaultActiveKey={activeKey} variant="pills" justify>
-        <Tab eventKey="feed" title="Feed">
+        <Tab eventKey="feed" title="Feed" onClick={setFeedKey}>
           <FriendsFeed />
         </Tab>
         <Tab eventKey="friends" title="Friends" onClick={setFriendsKey}>
