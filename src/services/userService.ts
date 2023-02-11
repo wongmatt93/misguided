@@ -25,6 +25,12 @@ export const getUserByEmail = async (email: string): Promise<UserProfile> =>
 export const addNewUser = async (user: UserProfile): Promise<UserProfile> =>
   (await axios.post(`${baseURL}/users`, user)).data;
 
+export const updateUserPhoto = async (
+  uid: string,
+  photoURL: string
+): Promise<string> =>
+  (await axios.put(`${baseURL}/users/${uid}/update-photo`, { photoURL })).data;
+
 export const addLikedCity = async (
   uid: string,
   newCity: CityVote

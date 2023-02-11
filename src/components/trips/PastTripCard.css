@@ -11,8 +11,6 @@
 
 .PastTripCard .info-container:hover {
   cursor: pointer;
-  transform: scale(1.01);
-  transition: 0.5s ease;
 }
 
 .PastTripCard .info-container:active {

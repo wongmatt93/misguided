@@ -2,22 +2,16 @@ import { useContext, useEffect, useState } from "react";
 import FriendsContext from "../../../context/FriendsContext";
 import Trip from "../../../models/Trip";
 import { getTripById } from "../../../services/tripServices";
+import { sortTripsDescending, today } from "../../../utils/dateFunctions";
 import FeedCard from "./FeedCard";
 import "./FriendsFeed.css";
 
 const FriendsFeed = () => {
   const { friends } = useContext(FriendsContext);
   const [friendsPastTrips, setFriendsPastTrips] = useState<Trip[]>([]);
-  const [fullyLoaded, setFullyLoaded] = useState(false);
 
   useEffect(() => {
     const trips: Trip[] = [];
-
-    let today: Date = new Date();
-    const dd = String(today.getDate()).padStart(2, "0");
-    const mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
-    const yyyy = today.getFullYear();
-    today = new Date(yyyy + "-" + mm + "-" + dd);
 
     Promise.allSettled(
       friends.map((friend) =>
@@ -33,22 +27,18 @@ const FriendsFeed = () => {
           )
         )
       )
-    ).then(() => setFriendsPastTrips(trips));
-
-    setFullyLoaded(true);
+    ).then(() => {
+      setFriendsPastTrips(sortTripsDescending(trips));
+    });
   }, [friends]);
 
   return (
     <div className="FriendsFeed">
-      {fullyLoaded && (
-        <>
-          <ul>
-            {friendsPastTrips.map((trip) => (
-              <FeedCard key={trip._id!} trip={trip} />
-            ))}
-          </ul>
-        </>
-      )}
+      <ul>
+        {friendsPastTrips.map((trip) => (
+          <FeedCard key={trip._id!} trip={trip} />
+        ))}
+      </ul>
     </div>
   );
 };

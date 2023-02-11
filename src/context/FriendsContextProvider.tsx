@@ -50,6 +50,7 @@ const FriendsContextProvider = ({ children }: Props) => {
     }
   }, [userProfile]);
 
+  const setFeedKey = (): void => setActiveKey("feed");
   const setFriendsKey = (): void => setActiveKey("friends");
   const setSearchKey = (): void => setActiveKey("search");
 
@@ -75,6 +76,7 @@ const FriendsContextProvider = ({ children }: Props) => {
         friends,
         friendRequests,
         activeKey,
+        setFeedKey,
         setFriendsKey,
         setSearchKey,
         handleAcceptFriend,

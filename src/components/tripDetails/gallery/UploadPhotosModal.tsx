@@ -3,7 +3,6 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { storage } from "../../../firebaseConfig";
-
 import "./UploadPhotosModal.css";
 import Trip from "../../../models/Trip";
 import { addPhotosToTrip } from "../../../services/tripServices";

@@ -8,6 +8,11 @@ import UpcomingTripsContainer from "./UpcomingTripsContainer";
 import PastTripsContainer from "./PastTripsContainer";
 import TripRequestsContainer from "./TripRequestsContainer";
 import { UserTrip } from "../../models/UserProfile";
+import {
+  sortTripsAscending,
+  sortTripsDescending,
+  today,
+} from "../../utils/dateFunctions";
 
 const TripsPage = () => {
   const { userProfile, userTrips } = useContext(AuthContext);
@@ -17,12 +22,6 @@ const TripsPage = () => {
 
   useEffect(() => {
     if (userTrips.length > 0) {
-      let today: Date = new Date();
-      const dd = String(today.getDate()).padStart(2, "0");
-      const mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
-      const yyyy = today.getFullYear();
-      today = new Date(yyyy + "-" + mm + "-" + dd);
-
       const newRequests: Trip[] = [];
       const upcoming: Trip[] = [];
       const past: Trip[] = [];
@@ -48,21 +47,9 @@ const TripsPage = () => {
         }
       });
 
-      setTripRequests(
-        newRequests.sort(function (a, b) {
-          return new Date(a.date1).valueOf() - new Date(b.date1).valueOf();
-        })
-      );
-      setUpcomingTrips(
-        upcoming.sort(function (a, b) {
-          return new Date(a.date1).valueOf() - new Date(b.date1).valueOf();
-        })
-      );
-      setPastTrips(
-        past.sort(function (a, b) {
-          return new Date(b.date1).valueOf() - new Date(a.date1).valueOf();
-        })
-      );
+      setTripRequests(sortTripsAscending(newRequests));
+      setUpcomingTrips(sortTripsAscending(upcoming));
+      setPastTrips(sortTripsDescending(past));
     }
   }, [userProfile, userTrips]);
 

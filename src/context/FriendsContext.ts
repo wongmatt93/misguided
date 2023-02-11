@@ -5,6 +5,7 @@ export interface FriendsContextModel {
   friends: UserProfile[];
   friendRequests: UserProfile[];
   activeKey: string;
+  setFeedKey: () => void;
   setFriendsKey: () => void;
   setSearchKey: () => void;
   handleAcceptFriend: (
@@ -18,6 +19,7 @@ const defaultValue: FriendsContextModel = {
   friends: [],
   friendRequests: [],
   activeKey: "",
+  setFeedKey: () => {},
   setFriendsKey: () => {},
   setSearchKey: () => {},
   handleAcceptFriend: async () => {},
