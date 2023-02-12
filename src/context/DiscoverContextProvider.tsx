@@ -21,9 +21,11 @@ const AuthContextProvider = ({ children }: Props) => {
         const votedCities: CityVote[] = userProfile.likes.concat(
           userProfile.dislikes
         );
-        const remainingCities: City[] = response.filter(
-          (city) => !votedCities.some((voted) => voted.cityId === city._id)
-        );
+        const remainingCities: City[] = response
+          .filter(
+            (city) => !votedCities.some((voted) => voted.cityId === city._id)
+          )
+          .filter((city) => city._id !== userProfile.hometownId);
         setCities(remainingCities);
 
         if (remainingCities.length > 0) {

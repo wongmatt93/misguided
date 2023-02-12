@@ -2,8 +2,8 @@ import { FormEvent, useContext, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import DiscoverContext from "../../context/DiscoverContext";
-import UserProfile, { CityVote } from "../../models/UserProfile";
-import { addLikedCity, updateUserHometown } from "../../services/userService";
+import UserProfile from "../../models/UserProfile";
+import { updateUserHometown } from "../../services/userService";
 import "./InitialHometownForm.css";
 
 interface Props {
@@ -23,12 +23,7 @@ const InitialHometownForm = ({
   const handleSubmit = (e: FormEvent): void => {
     e.preventDefault();
 
-    const newCity: CityVote = {
-      cityId: hometownId,
-    };
-
     updateUserHometown(userProfile.uid, hometownId)
-      .then(() => addLikedCity(userProfile!.uid, newCity))
       .then(() => refreshProfile(userProfile!.uid))
       .then(() => setStage("preferences"));
   };
