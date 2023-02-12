@@ -59,7 +59,9 @@ const AuthContextProvider = ({ children }: Props) => {
   };
 
   return (
-    <DiscoverContext.Provider value={{ currentCity, likeCity, dislikeCity }}>
+    <DiscoverContext.Provider
+      value={{ cities, currentCity, likeCity, dislikeCity }}
+    >
       {children}
     </DiscoverContext.Provider>
   );

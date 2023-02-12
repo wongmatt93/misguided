@@ -5,8 +5,6 @@ export interface UserTrip {
 
 export interface CityVote {
   cityId: string;
-  cityName: string;
-  photo: string;
 }
 
 export interface Friend {
@@ -44,6 +42,7 @@ export default interface UserProfile {
   email: string | null;
   phoneNumber: string | null;
   photoURL: string | null;
+  hometownId: string | null;
   preferences: Preferences | null;
   friends: Friend[];
   likes: CityVote[];

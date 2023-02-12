@@ -23,6 +23,7 @@ import PreferencesPage from "./components/userProfile/preferences/PreferencesPag
 import PlanningPage from "./components/tripPlanner/PlanningPage";
 import TripDetailsPage from "./components/tripDetails/TripDetailsPage";
 import AccountInformationPage from "./components/userProfile/accountInformation/AccountInformationPage";
+import InitialSigninPage from "./components/initialSignIn/InitialSignInPage";
 
 function App() {
   const { userProfile } = useContext(AuthContext);
@@ -41,17 +42,9 @@ function App() {
             </>
           ) : (
             <>
+              <Route path="/routes" element={<InitialSigninPage />} />
               <Route path="/preferences" element={<PreferencesPage />} />
-              <Route
-                path="/discover"
-                element={
-                  userProfile.preferences ? (
-                    <DiscoverPage />
-                  ) : (
-                    <PreferencesPage />
-                  )
-                }
-              />
+              <Route path="/discover" element={<DiscoverPage />} />
               <Route path="/likes" element={<LikesPage />} />
               <Route path="/trips" element={<TripsPage />} />
               <Route
@@ -65,7 +58,7 @@ function App() {
               <Route path="/add-city" element={<AddCityPage />} />
               <Route path="/plan-trip/:cityId" element={<PlanningPage />} />
               <Route path="/trip/:tripId" element={<TripDetailsPage />} />
-              <Route path="*" element={<Navigate to="/discover" />} />
+              <Route path="*" element={<Navigate to="/routes" />} />
             </>
           )}
         </Routes>

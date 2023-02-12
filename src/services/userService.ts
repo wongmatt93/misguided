@@ -31,6 +31,13 @@ export const updateUserPhoto = async (
 ): Promise<string> =>
   (await axios.put(`${baseURL}/users/${uid}/update-photo`, { photoURL })).data;
 
+export const updateUserHometown = async (
+  uid: string,
+  hometownId: string
+): Promise<string> =>
+  (await axios.put(`${baseURL}/users/${uid}/update-hometown`, { hometownId }))
+    .data;
+
 export const addLikedCity = async (
   uid: string,
   newCity: CityVote
