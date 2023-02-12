@@ -22,7 +22,7 @@ const InitialSignInPage = () => {
         navigate("/discover");
       }
     }
-  }, [userProfile]);
+  }, [navigate, userProfile]);
 
   return (
     <main className="InitialSignInPage">
