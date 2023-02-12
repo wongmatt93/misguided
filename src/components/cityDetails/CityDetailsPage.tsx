@@ -48,8 +48,6 @@ const CityDetailsPage = () => {
     city &&
       likeCity({
         cityId: city._id!,
-        cityName: city.cityName,
-        photo: city.photoURL,
       });
   };
 
@@ -57,8 +55,6 @@ const CityDetailsPage = () => {
     city &&
       dislikeCity({
         cityId: city._id!,
-        cityName: city.cityName,
-        photo: city.photoURL,
       });
     goBack();
   };

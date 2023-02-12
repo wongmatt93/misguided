@@ -12,8 +12,6 @@ const DiscoverPage = () => {
     currentCity &&
       likeCity({
         cityId: currentCity._id!,
-        cityName: currentCity.cityName,
-        photo: currentCity.photoURL,
       });
   };
 
@@ -21,8 +19,6 @@ const DiscoverPage = () => {
     currentCity &&
       dislikeCity({
         cityId: currentCity._id!,
-        cityName: currentCity.cityName,
-        photo: currentCity.photoURL,
       });
   };
 
