@@ -10,7 +10,7 @@
   align-items: center;
 }
 
-.FeedCardHeader .image-name-location-container img {
+.FeedCardHeader .creator-image {
   height: 2.3em;
   width: 2.3em;
   object-fit: cover;

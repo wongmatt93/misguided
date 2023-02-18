@@ -1,13 +1,12 @@
 .ParticipantCard {
+  width: 1.5em;
+}
+
+.ParticipantCard .participant-image {
   height: 1.5em;
   width: 1.5em;
 }
 
-.ParticipantCard img {
-  height: 1.5em;
-  width: 1.5em;
-}
-
-.ParticipantCard:hover {
+.ParticipantCard .user-image:hover {
   cursor: pointer;
 }

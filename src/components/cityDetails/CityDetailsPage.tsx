@@ -36,6 +36,8 @@ const CityDetailsPage = () => {
     if (userProfile) {
       if (userProfile.likes.some((like) => like.cityId === cityId)) {
         setLiked(true);
+      } else if (userProfile.hometownId === cityId) {
+        setLiked(true);
       }
     }
   }, [userProfile, cityId]);

@@ -26,7 +26,7 @@ const FriendCardPhotoCarousel = ({ photos, handleViewTrip }: Props) => {
     >
       {photos.map((photo, index) => (
         <Carousel.Item key={index}>
-          <img src={photo} alt={photo} />
+          <img className="carousel-image" src={photo} alt={photo} />
         </Carousel.Item>
       ))}
       {moreThanFive && (

@@ -4,36 +4,30 @@ import { useParams } from "react-router-dom";
 import AuthContext from "../../context/AuthContext";
 import UserProfile from "../../models/UserProfile";
 import "./ProfilePage.css";
-import { getUserByUid } from "../../services/userService";
 import FriendButton from "./FriendButton";
+import useGetUserByUid from "../../hooks/useGetUserByUid";
 
 const ProfilePage = () => {
   const { userProfile } = useContext(AuthContext);
   const uid: string | undefined = useParams().uid;
-  const [profile, setProfile] = useState<UserProfile | null>(null);
+  const profile: UserProfile | null = useGetUserByUid(uid!);
   const [friendStatus, setFriendStatus] = useState("not friends");
 
   useEffect(() => {
-    uid &&
-      userProfile &&
-      getUserByUid(uid).then((response) => {
-        if (response) {
-          setProfile(response);
+    if (profile && userProfile) {
+      const match = userProfile.friends.find(
+        (friend) => profile.uid === friend.uid
+      );
 
-          const match = userProfile.friends.find(
-            (friend) => response.uid === friend.uid
-          );
-
-          !match
-            ? setFriendStatus("not friends")
-            : match.friendRequestStatus === "accepted"
-            ? setFriendStatus("accepted")
-            : match.friendRequestStatus === "received"
-            ? setFriendStatus("received")
-            : setFriendStatus("requested");
-        }
-      });
-  }, [userProfile, uid]);
+      !match
+        ? setFriendStatus("not friends")
+        : match.friendRequestStatus === "accepted"
+        ? setFriendStatus("accepted")
+        : match.friendRequestStatus === "received"
+        ? setFriendStatus("received")
+        : setFriendStatus("requested");
+    }
+  }, [userProfile, profile]);
   return (
     <main className="ProfilePage">
       {profile ? (
