@@ -1,0 +1,11 @@
+.ParticipantsSection {
+  display: flex;
+  align-items: center;
+  padding: 0 0.5em;
+}
+
+.ParticipantsSection h4 {
+  font-family: "Oswald", sans-serif;
+  font-size: 1em;
+  margin-right: 0.5em;
+}

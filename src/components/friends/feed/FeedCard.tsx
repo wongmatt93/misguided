@@ -11,6 +11,7 @@ import "./FeedCard.css";
 import FeedCardHeader from "./FeedCardHeader";
 import FriendCardPhotoCarousel from "./FriendCardPhotoCarousel";
 import LikesModal from "./LikesModal";
+import ParticipantsSection from "./ParticipantsSection";
 import PlaceholderCard from "./PlaceholderCard";
 
 interface Props {
@@ -76,6 +77,7 @@ const FeedCard = ({ trip }: Props) => {
             photos={photos}
             handleViewTrip={handleViewTrip}
           />
+          <ParticipantsSection participants={trip.participants} />
           <div className="likes-comments-labels">
             <p onClick={handleShowLikes}>{likesQuantity} likes</p>
             <p onClick={handleShowComments}>{commentsQuantity} comments</p>
