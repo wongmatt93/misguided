@@ -12,7 +12,7 @@ const ParticipantsSection = ({ participants }: Props) => {
       <h4>Participants</h4>
       <ul>
         {participants.map((participant) => (
-          <ParticipantCard participant={participant} />
+          <ParticipantCard key={participant.uid} participant={participant} />
         ))}
       </ul>
     </section>

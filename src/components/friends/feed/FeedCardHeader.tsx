@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Trip from "../../../models/Trip";
 import UserProfile from "../../../models/UserProfile";
 import "./FeedCardHeader.css";
-import { getUserByUid } from "../../../services/userService";
+import useGetUserByUid from "../../../hooks/useGetUserByUid";
 
 interface Props {
   trip: Trip;
@@ -12,13 +12,12 @@ interface Props {
 
 const FeedCardHeader = ({ trip }: Props) => {
   const navigate = useNavigate();
-  const [creator, setCreator] = useState<UserProfile | null>(null);
+  const creator: UserProfile | null = useGetUserByUid(trip.creatorUid);
+
   const [startDate, setStartDate] = useState<Date | null>(null);
   const [endDate, setEndDate] = useState<Date | null>(null);
 
   useEffect(() => {
-    getUserByUid(trip.creatorUid).then((response) => setCreator(response));
-
     setStartDate(new Date(trip.date1));
     setEndDate(new Date(trip.date2));
   }, [trip]);
@@ -33,6 +32,7 @@ const FeedCardHeader = ({ trip }: Props) => {
         <>
           <div className="image-name-location-container">
             <img
+              className="creator-image"
               src={creator.photoURL!}
               alt={creator.photoURL!}
               onClick={handleViewProfile}

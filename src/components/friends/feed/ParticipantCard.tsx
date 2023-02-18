@@ -1,11 +1,10 @@
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
-import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Participant } from "../../../models/Trip";
 import UserProfile from "../../../models/UserProfile";
-import { getUserByUid } from "../../../services/userService";
 import "./ParticipantCard.css";
 import Tooltip from "react-bootstrap/esm/Tooltip";
+import useGetUserByUid from "../../../hooks/useGetUserByUid";
 
 interface Props {
   participant: Participant;
@@ -13,11 +12,7 @@ interface Props {
 
 const ParticipantCard = ({ participant }: Props) => {
   const navigate = useNavigate();
-  const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
-
-  useEffect(() => {
-    getUserByUid(participant.uid).then((response) => setUserProfile(response));
-  }, [participant]);
+  const userProfile: UserProfile | null = useGetUserByUid(participant.uid);
 
   const handleClick = (): void => navigate(`/profile/${participant.uid}`);
 
@@ -31,6 +26,7 @@ const ParticipantCard = ({ participant }: Props) => {
           }
         >
           <img
+            className="participant-image"
             src={userProfile.photoURL!}
             alt={userProfile.photoURL!}
             onClick={handleClick}

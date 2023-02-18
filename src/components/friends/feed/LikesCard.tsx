@@ -1,6 +1,5 @@
-import { useEffect, useState } from "react";
+import useGetUserByUid from "../../../hooks/useGetUserByUid";
 import UserProfile from "../../../models/UserProfile";
-import { getUserByUid } from "../../../services/userService";
 import "./LikesCard.css";
 
 interface Props {
@@ -8,17 +7,17 @@ interface Props {
 }
 
 const LikesCard = ({ uid }: Props) => {
-  const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
-
-  useEffect(() => {
-    getUserByUid(uid).then((response) => setUserProfile(response));
-  }, [uid]);
+  const userProfile: UserProfile | null = useGetUserByUid(uid);
 
   return (
     <li className="LikesCard">
       {userProfile && (
         <>
-          <img src={userProfile.photoURL!} alt={userProfile.photoURL!} />
+          <img
+            className="liker-image"
+            src={userProfile.photoURL!}
+            alt={userProfile.photoURL!}
+          />
           <h4>{userProfile.displayName}</h4>
         </>
       )}
