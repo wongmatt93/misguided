@@ -7,7 +7,7 @@ const useGetUserByUid = (uid: string): UserProfile | null => {
 
   useEffect(() => {
     getUserByUid(uid).then((response) => setUserProfile(response));
-  }, [uid]);
+  });
 
   return userProfile;
 };
