@@ -1,0 +1,10 @@
+.FeedCardParticipantCard .participant-image {
+  height: 1.5em;
+  width: 1.5em;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.FeedCardParticipantCard .participant-image:hover {
+  cursor: pointer;
+}
