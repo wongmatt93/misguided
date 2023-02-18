@@ -28,7 +28,7 @@ const FeedCardHeader = ({ trip }: Props) => {
   const handleViewTrip = (): void => navigate(`/trip/${trip._id!}`);
 
   return (
-    <div className="FeedCardHeader">
+    <section className="FeedCardHeader">
       {creator && (
         <>
           <div className="image-name-location-container">
@@ -53,7 +53,7 @@ const FeedCardHeader = ({ trip }: Props) => {
           </Button>
         </>
       )}
-    </div>
+    </section>
   );
 };
 
