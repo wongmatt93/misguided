@@ -1,0 +1,52 @@
+.FeedCardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 0.5rem;
+}
+
+.FeedCardHeader .image-name-location-container {
+  display: flex;
+  align-items: center;
+}
+
+.FeedCardHeader .image-name-location-container img {
+  height: 2.3em;
+  width: 2.3em;
+  object-fit: cover;
+  border-radius: 50%;
+  box-sizing: border-box;
+  margin-right: 0.5em;
+  cursor: pointer;
+}
+
+.FeedCardHeader .name-location-container h3 {
+  font-family: "Oswald", sans-serif;
+  font-weight: 300;
+  font-size: 1em;
+  cursor: pointer;
+}
+
+.FeedCardHeader .city-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  cursor: default;
+}
+
+.FeedCardHeader .city-container h4 {
+  font-family: "Oswald", sans-serif;
+  font-size: 0.8em;
+  margin-right: 0.5em;
+}
+
+.FeedCardHeader .city-container p {
+  font-family: "Roboto", "sans-serif";
+  font-size: 0.7em;
+}
+
+.FeedCardHeader button {
+  font-size: 0.7em;
+  padding: 0.5em 1em;
+  background-color: #f0b202;
+}

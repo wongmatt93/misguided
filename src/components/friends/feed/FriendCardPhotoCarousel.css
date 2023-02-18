@@ -1,0 +1,17 @@
+.FriendCardPhotoCarousel {
+  margin: 0.5em 0;
+}
+
+.FriendCardPhotoCarousel img {
+  height: 20em;
+  width: 100%;
+  object-fit: cover;
+}
+
+.FriendCardPhotoCarousel .decoy {
+  height: 20em;
+}
+
+.FriendCardPhotoCarousel .decoy:hover {
+  cursor: pointer;
+}

@@ -3,76 +3,6 @@
   border-bottom: 1px solid rgba(0, 0, 0, 0.3);
 }
 
-.FeedCard .post-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 0.5rem;
-}
-
-.FeedCard .image-name-location-container {
-  display: flex;
-  align-items: center;
-}
-
-.FeedCard .image-name-location-container img {
-  height: 2.3em;
-  width: 2.3em;
-  object-fit: cover;
-  border-radius: 50%;
-  box-sizing: border-box;
-  margin-right: 0.5em;
-  cursor: pointer;
-}
-
-.FeedCard .name-location-container h3 {
-  font-family: "Oswald", sans-serif;
-  font-weight: 300;
-  font-size: 1em;
-  cursor: pointer;
-}
-
-.FeedCard .city-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  cursor: default;
-}
-
-.FeedCard .city-container h4 {
-  font-family: "Oswald", sans-serif;
-  font-size: 0.8em;
-  margin-right: 0.5em;
-}
-
-.FeedCard .city-container p {
-  font-family: "Roboto", "sans-serif";
-  font-size: 0.7em;
-}
-
-.FeedCard .post-header button {
-  font-size: 0.7em;
-  padding: 0.5em 1em;
-  background-color: #f0b202;
-}
-
-.FeedCard .image-container {
-  display: flex;
-  overflow-x: scroll;
-  margin: 0.5em 0;
-}
-
-.FeedCard img {
-  height: 20em;
-  width: 100%;
-  margin-right: 0.2em;
-  object-fit: cover;
-}
-
-.FeedCard img:last-child {
-  margin-right: 0;
-}
-
 .FeedCard .likes-comments-labels {
   display: flex;
   justify-content: space-between;
@@ -84,6 +14,10 @@
 .FeedCard .likes-comments-labels p {
   font-size: 0.8em;
   color: grey;
+}
+
+.FeedCard .likes-comments-labels p:hover {
+  cursor: pointer;
 }
 
 .FeedCard .likes-comments-buttons {
@@ -103,7 +37,7 @@
   margin-right: 0.5em;
 }
 
-.FeedCard .comment-form form {
+.FeedCard form {
   display: flex;
   justify-content: space-between;
   padding: 0 0.5em 1em 0.5em;
