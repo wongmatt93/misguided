@@ -1,0 +1,13 @@
+.SearchPage {
+  padding: 1.5em;
+}
+
+.SearchPage form {
+  display: flex;
+  flex-direction: column;
+  margin: 1.5em 0;
+}
+
+.SearchPage input {
+  margin-bottom: 1.5em;
+}

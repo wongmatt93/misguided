@@ -19,7 +19,7 @@ const InitialSignInPage = () => {
         userProfile.preferences &&
         userProfile.hometownId
       ) {
-        navigate("/discover");
+        navigate("/home");
       }
     }
   }, [navigate, userProfile]);

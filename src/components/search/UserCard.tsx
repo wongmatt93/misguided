@@ -3,8 +3,8 @@ import "./UserCard.css";
 import { useNavigate } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
-import UserProfile from "../../../models/UserProfile";
-import AuthContext from "../../../context/AuthContext";
+import UserProfile from "../../models/UserProfile";
+import AuthContext from "../../context/AuthContext";
 
 interface Props {
   searchProfile: UserProfile;

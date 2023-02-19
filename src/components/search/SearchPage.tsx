@@ -1,14 +1,11 @@
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
-import { FormEvent, useContext, useState } from "react";
+import { Form, Button } from "react-bootstrap";
+import { FormEvent, useState } from "react";
+import UserProfile from "../../models/UserProfile";
+import { getUserByEmail } from "../../services/userService";
+import "./SearchPage.css";
 import UserCard from "./UserCard";
-import "./SearchUsers.css";
-import AuthContext from "../../../context/AuthContext";
-import { getUserByEmail } from "../../../services/userService";
-import UserProfile from "../../../models/UserProfile";
 
-const SearchUsers = () => {
-  const { userProfile } = useContext(AuthContext);
+const SearchPage = () => {
   const [emailSearch, setEmailSearch] = useState("");
   const [searchProfile, setSearchProfile] = useState<UserProfile | null>(null);
 
@@ -18,7 +15,8 @@ const SearchUsers = () => {
   };
 
   return (
-    <div className="SearchUsers">
+    <main className="SearchPage">
+      <h2>Search Users</h2>
       <Form onSubmit={handleSubmit}>
         <Form.Group controlId="email">
           <Form.Control
@@ -34,8 +32,8 @@ const SearchUsers = () => {
         </Button>
       </Form>
       {searchProfile && <UserCard searchProfile={searchProfile} />}
-    </div>
+    </main>
   );
 };
 
-export default SearchUsers;
+export default SearchPage;
