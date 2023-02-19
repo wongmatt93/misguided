@@ -1,7 +1,7 @@
 import axios from "axios";
 import UserProfile, {
   CityVote,
-  Friend,
+  Follow,
   Preferences,
   UserTrip,
 } from "../models/UserProfile";
@@ -50,24 +50,30 @@ export const addDislikedCity = async (
 ): Promise<CityVote> =>
   (await axios.put(`${baseURL}/users/${uid}/dislikes`, newCity)).data;
 
-export const addFriend = async (
+export const addFollowing = async (
   uid: string,
-  newFriend: Friend
-): Promise<Friend> =>
-  (await axios.put(`${baseURL}/users/${uid}/add-friend`, newFriend)).data;
+  newFollowing: Follow
+): Promise<Follow> =>
+  (await axios.put(`${baseURL}/users/${uid}/add-following`, newFollowing)).data;
 
-export const deleteFriend = async (
+export const addFollower = async (
+  uid: string,
+  newFollower: Follow
+): Promise<Follow> =>
+  (await axios.put(`${baseURL}/users/${uid}/add-follower`, newFollower)).data;
+
+export const removeFollowing = async (
   userUid: string,
   otherUid: string
 ): Promise<void> =>
-  (await axios.put(`${baseURL}/users/${userUid}/${otherUid}/delete-friend`))
+  (await axios.put(`${baseURL}/users/${userUid}/${otherUid}/remove-following`))
     .data;
 
-export const acceptFriend = async (
+export const removeFollower = async (
   userUid: string,
   otherUid: string
-): Promise<Friend> =>
-  (await axios.put(`${baseURL}/users/${userUid}/${otherUid}/accept-friend`))
+): Promise<void> =>
+  (await axios.put(`${baseURL}/users/${userUid}/${otherUid}/remove-follower`))
     .data;
 
 export const updateUserPreferences = async (

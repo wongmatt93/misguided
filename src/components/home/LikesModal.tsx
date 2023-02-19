@@ -1,5 +1,5 @@
 import Modal from "react-bootstrap/Modal";
-import Trip from "../../../models/Trip";
+import Trip from "../../models/Trip";
 import LikesCard from "./LikesCard";
 import "./LikesModal.css";
 

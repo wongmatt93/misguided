@@ -12,7 +12,10 @@ const FeedCardParticipantsSection = ({ participants }: Props) => {
       <h4>Participants</h4>
       <ul>
         {participants.map((participant) => (
-          <FeedCardParticipantCard key={participant.uid} participant={participant} />
+          <FeedCardParticipantCard
+            key={participant.uid}
+            participant={participant}
+          />
         ))}
       </ul>
     </section>

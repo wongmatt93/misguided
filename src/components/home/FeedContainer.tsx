@@ -1,12 +1,12 @@
 import { useContext, useEffect, useState } from "react";
-import FriendsContext from "../../../context/FriendsContext";
-import Trip from "../../../models/Trip";
-import { getTripById } from "../../../services/tripServices";
-import { sortTripsDescending, today } from "../../../utils/dateFunctions";
-import FeedCard from "./FeedCard";
-import "./FriendsFeed.css";
+import FriendsContext from "../../context/FollowContext";
+import Trip from "../../models/Trip";
+import { getTripById } from "../../services/tripServices";
+import { sortTripsDescending, today } from "../../utils/dateFunctions";
+import FeedCard from "./feedCard/FeedCard";
+import "./FeedContainer.css";
 
-const FriendsFeed = () => {
+const FeedContainer = () => {
   const { friends } = useContext(FriendsContext);
   const [friendsPastTrips, setFriendsPastTrips] = useState<Trip[]>([]);
 
@@ -33,14 +33,14 @@ const FriendsFeed = () => {
   }, [friends]);
 
   return (
-    <div className="FriendsFeed">
+    <main className="FeedContainer">
       <ul>
         {friendsPastTrips.map((trip) => (
           <FeedCard key={trip._id!} trip={trip} />
         ))}
       </ul>
-    </div>
+    </main>
   );
 };
 
-export default FriendsFeed;
+export default FeedContainer;

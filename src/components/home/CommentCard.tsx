@@ -1,6 +1,6 @@
-import useProfileFetcher from "../../../hooks/useProfileFetcher";
-import { Comment } from "../../../models/Trip";
-import UserProfile from "../../../models/UserProfile";
+import useProfileFetcher from "../../hooks/useProfileFetcher";
+import { Comment } from "../../models/Trip";
+import UserProfile from "../../models/UserProfile";
 import "./CommentCard.css";
 
 interface Props {

@@ -1,5 +1,5 @@
 import Modal from "react-bootstrap/Modal";
-import Trip from "../../../models/Trip";
+import Trip from "../../models/Trip";
 import AddCommentForm from "./AddCommentForm";
 import CommentCard from "./CommentCard";
 import "./CommentsModal.css";

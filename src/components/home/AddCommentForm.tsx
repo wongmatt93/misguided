@@ -1,8 +1,8 @@
 import { FormEvent, useContext, useState } from "react";
 import { Form, Button } from "react-bootstrap/";
-import AuthContext from "../../../context/AuthContext";
-import Trip, { Comment } from "../../../models/Trip";
-import { commentOnTrip } from "../../../services/tripServices";
+import AuthContext from "../../context/AuthContext";
+import Trip, { Comment } from "../../models/Trip";
+import { commentOnTrip } from "../../services/tripServices";
 import "./AddCommentForm.css";
 
 interface Props {

@@ -17,9 +17,11 @@
   width: 100%;
 }
 
-.ProfileInfo .friend-count,
+.ProfileInfo .following-count,
+.ProfileInfo .followers-count,
 .ProfileInfo .trip-count {
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 33.33%;
 }

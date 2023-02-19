@@ -5,14 +5,14 @@ import { useNavigate } from "react-router-dom";
 import AuthContext from "../../../context/AuthContext";
 import Trip, { Like } from "../../../models/Trip";
 import { likeTrip, unlikeTrip } from "../../../services/tripServices";
-import AddCommentForm from "./AddCommentForm";
-import CommentsModal from "./CommentsModal";
 import "./FeedCard.css";
 import FeedCardHeader from "./FeedCardHeader";
 import FriendCardPhotoCarousel from "./FriendCardPhotoCarousel";
-import LikesModal from "./LikesModal";
 import FeedCardParticipantsSection from "./FeedCardParticipantsSection";
 import PlaceholderCard from "./PlaceholderCard";
+import AddCommentForm from "../AddCommentForm";
+import LikesModal from "../LikesModal";
+import CommentsModal from "../CommentsModal";
 
 interface Props {
   trip: Trip;

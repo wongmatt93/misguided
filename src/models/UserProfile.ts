@@ -7,9 +7,8 @@ export interface CityVote {
   cityId: string;
 }
 
-export interface Friend {
+export interface Follow {
   uid: string;
-  friendRequestStatus: string | null;
 }
 
 export interface Preferences {
@@ -44,7 +43,8 @@ export default interface UserProfile {
   photoURL: string | null;
   hometownId: string | null;
   preferences: Preferences | null;
-  friends: Friend[];
+  followers: Follow[];
+  following: Follow[];
   likes: CityVote[];
   dislikes: CityVote[];
   trips: UserTrip[];

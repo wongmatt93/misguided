@@ -1,8 +1,7 @@
 import { Link } from "react-router-dom";
-import { MdLuggage } from "react-icons/md";
-import { MdTravelExplore } from "react-icons/md";
-import { AiFillHeart } from "react-icons/ai";
-import { BsFillPeopleFill } from "react-icons/bs";
+import { AiFillHome, AiFillMessage } from "react-icons/ai";
+import { BsFillPlusSquareFill } from "react-icons/bs";
+import { ImMap } from "react-icons/im";
 import { RiUserFill } from "react-icons/ri";
 import "./MobileNavigation.css";
 import { useContext, useEffect, useState } from "react";
@@ -11,7 +10,6 @@ import AuthContext from "../../context/AuthContext";
 const MobileNavigation = () => {
   const { userProfile } = useContext(AuthContext);
   const [tripRequests, setTripRequests] = useState(0);
-  const [friendRequests, setFriendRequests] = useState(0);
 
   useEffect(() => {
     if (userProfile) {
@@ -19,11 +17,6 @@ const MobileNavigation = () => {
         (trip) => !trip.accepted
       ).length;
       setTripRequests(numTripRequests);
-
-      const numFriendRequests: number = userProfile.friends.filter(
-        (friend) => friend.friendRequestStatus === "received"
-      ).length;
-      setFriendRequests(numFriendRequests);
     }
   }, [userProfile]);
 
@@ -32,39 +25,31 @@ const MobileNavigation = () => {
       <nav>
         <ul>
           <li>
-            <Link to="/trips">
+            <Link to="/home">
               <div className="trip-icon">
-                <MdLuggage />
-                {tripRequests > 0 && <div className="notification-dot"></div>}
-                <p>Trips</p>
+                <AiFillHome />
+                {/* {tripRequests > 0 && <div className="notification-dot"></div>} */}
               </div>
             </Link>
           </li>
           <li>
             <Link to="/likes">
-              <AiFillHeart />
-              <p>Likes</p>
+              <ImMap />
             </Link>
           </li>
           <li>
             <Link to="/discover">
-              <MdTravelExplore />
-              <p>Discover</p>
+              <BsFillPlusSquareFill />
             </Link>
           </li>
           <li>
             <Link to="/friends">
-              <div className="friend-icon">
-                <BsFillPeopleFill />
-                {friendRequests > 0 && <div className="notification-dot"></div>}
-              </div>
-              <p>Friends</p>
+              <AiFillMessage />
             </Link>
           </li>
           <li>
             <Link to="/user-profile">
               <RiUserFill />
-              <p>Profile</p>
             </Link>
           </li>
         </ul>
