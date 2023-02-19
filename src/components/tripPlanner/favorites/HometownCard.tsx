@@ -1,8 +1,8 @@
 import Card from "react-bootstrap/Card";
 import { useContext, useEffect, useState } from "react";
-import AuthContext from "../../context/AuthContext";
-import City from "../../models/City";
-import { getCityById } from "../../services/cityService";
+import AuthContext from "../../../context/AuthContext";
+import City from "../../../models/City";
+import { getCityById } from "../../../services/cityService";
 import "./HometownCard.css";
 import { useNavigate } from "react-router-dom";
 
@@ -24,7 +24,7 @@ const HometownCard = () => {
   };
 
   return (
-    <div className="HometownCard">
+    <li className="HometownCard">
       <h3>Your Hometown</h3>
       {hometown && (
         <Card onClick={() => handleClick(hometown)}>
@@ -34,7 +34,7 @@ const HometownCard = () => {
           </Card.Body>
         </Card>
       )}
-    </div>
+    </li>
   );
 };
 

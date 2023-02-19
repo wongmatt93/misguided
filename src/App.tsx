@@ -9,10 +9,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import AuthContext from "./context/AuthContext";
 import Header from "./components/header/Header";
 import LandingPage from "./components/landingPage/LandingPage";
-import LikesPage from "./components/likes/LikesPage";
 import UserProfilePage from "./components/userProfile/UserProfilePage";
 import DiscoverPage from "./components/discover/DiscoverPage";
-import FriendsPage from "./components/friends/FriendsPage";
 import MobileNavigation from "./components/mobileNavigation/MobileNavigation";
 import TripsPage from "./components/trips/TripsPage";
 import "./App.css";
@@ -26,6 +24,8 @@ import AccountInformationPage from "./components/userProfile/accountInformation/
 import InitialSigninPage from "./components/initialSignIn/InitialSignInPage";
 import Homepage from "./components/home/Homepage";
 import SearchPage from "./components/search/SearchPage";
+import PlanTripPage from "./components/tripPlanner/PlanTripPage";
+import InboxPage from "./components/inbox/InboxPage";
 
 function App() {
   const { userProfile } = useContext(AuthContext);
@@ -48,19 +48,19 @@ function App() {
               <Route path="/home" element={<Homepage />} />
               <Route path="/search" element={<SearchPage />} />
               <Route path="/preferences" element={<PreferencesPage />} />
+              <Route path="/trips/*" element={<TripsPage />} />
+              <Route path="plan-trip" element={<PlanTripPage />} />
+              <Route path="/plan-trip/:cityId" element={<PlanningPage />} />
               <Route path="/discover" element={<DiscoverPage />} />
-              <Route path="/likes" element={<LikesPage />} />
-              <Route path="/trips" element={<TripsPage />} />
               <Route
                 path="/city-details/:cityId"
                 element={<CityDetailsPage />}
               />
+              <Route path="/inbox" element={<InboxPage />} />
               <Route path="/user-profile" element={<UserProfilePage />} />
               <Route path="/account" element={<AccountInformationPage />} />
-              <Route path="/friends" element={<FriendsPage />} />
               <Route path="/profile/:uid" element={<ProfilePage />} />
               <Route path="/add-city" element={<AddCityPage />} />
-              <Route path="/plan-trip/:cityId" element={<PlanningPage />} />
               <Route path="/trip/:tripId" element={<TripDetailsPage />} />
               <Route path="*" element={<Navigate to="/routes" />} />
             </>

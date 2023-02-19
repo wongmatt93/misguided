@@ -20,7 +20,6 @@ const FriendsContextProvider = ({ children }: Props) => {
   const [following, setFollowing] = useState<UserProfile[]>([]);
   const [followers, setFollowers] = useState<UserProfile[]>([]);
   const [friends, setFriends] = useState<UserProfile[]>([]);
-  const [activeKey, setActiveKey] = useState("feed");
 
   useEffect(() => {
     if (userProfile) {
@@ -75,10 +74,6 @@ const FriendsContextProvider = ({ children }: Props) => {
     }
   }, [userProfile, followers, following]);
 
-  const setFeedKey = (): void => setActiveKey("feed");
-  const setFriendsKey = (): void => setActiveKey("friends");
-  const setSearchKey = (): void => setActiveKey("search");
-
   const handleFollowUser = async (
     userUid: string,
     otherUid: string
@@ -105,10 +100,6 @@ const FriendsContextProvider = ({ children }: Props) => {
         following,
         followers,
         friends,
-        activeKey,
-        setFeedKey,
-        setFriendsKey,
-        setSearchKey,
         handleFollowUser,
         handleUnfollowUser,
       }}

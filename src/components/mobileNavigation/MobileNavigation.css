@@ -32,12 +32,12 @@
   width: 100%;
 }
 
-.MobileNavigation li svg {
-  font-size: 1.7em;
+.MobileNavigation .active {
+  color: #f0b202;
 }
 
-.MobileNavigation li p {
-  font-size: 0.7em;
+.MobileNavigation li svg {
+  font-size: 1.7em;
 }
 
 .MobileNavigation .trip-icon {

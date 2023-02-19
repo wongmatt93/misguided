@@ -8,11 +8,13 @@ interface Props {
 
 const UpcomingTripsContainer = ({ upcomingTrips }: Props) => {
   return (
-    <ul className="UpcomingTripsContainer">
-      {upcomingTrips.map((trip) => (
-        <TripCard key={trip._id!} trip={trip} />
-      ))}
-    </ul>
+    <main className="UpcomingTripsContainer">
+      <ul>
+        {upcomingTrips.map((trip) => (
+          <TripCard key={trip._id!} trip={trip} />
+        ))}
+      </ul>
+    </main>
   );
 };
 
