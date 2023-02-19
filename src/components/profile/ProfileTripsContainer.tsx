@@ -33,7 +33,7 @@ const ProfileTripsContainer = ({ profile, setPastTripsCount }: Props) => {
       setPastTrips(past);
       setPastTripsCount(past.length);
     });
-  }, [profile]);
+  }, [profile, setPastTripsCount]);
 
   return (
     <ul className="ProfileTripsContainer">
