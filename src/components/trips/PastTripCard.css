@@ -1,4 +1,4 @@
-.PastTripCard .info-card {
+.PastTripCard {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -17,34 +17,34 @@
   opacity: 0.8;
 }
 
-.PastTripCard .info-card .info-container {
+.PastTripCard .info-container {
   display: flex;
   align-items: center;
   justify-content: space-between;
   width: 100%;
 }
 
-.PastTripCard .info-card img {
+.PastTripCard img {
   border-radius: 50%;
   object-fit: cover;
   height: 4em;
   width: 4em;
 }
 
-.PastTripCard .info-card h3 {
+.PastTripCard h3 {
   font-family: "Oswald", sans-serif;
   font-style: normal;
   font-size: 1.2em;
   text-align: right;
 }
 
-.PastTripCard .info-card h4 {
+.PastTripCard h4 {
   font-family: "Roboto", "sans-serif";
   font-size: 0.9em;
   text-align: right;
 }
 
-.PastTripCard .info-card svg {
+.PastTripCard svg {
   color: #f0b202;
   font-size: 2em;
   margin: -0.4em;

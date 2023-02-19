@@ -1,8 +1,9 @@
-import { Link } from "react-router-dom";
-import { AiFillHome, AiFillMessage } from "react-icons/ai";
+import { NavLink } from "react-router-dom";
+import { AiFillHome } from "react-icons/ai";
 import { BsFillPlusSquareFill } from "react-icons/bs";
 import { ImMap } from "react-icons/im";
 import { RiUserFill } from "react-icons/ri";
+import { RiMessage2Fill } from "react-icons/ri";
 import "./MobileNavigation.css";
 import { useContext, useEffect, useState } from "react";
 import AuthContext from "../../context/AuthContext";
@@ -25,32 +26,32 @@ const MobileNavigation = () => {
       <nav>
         <ul>
           <li>
-            <Link to="/home">
+            <NavLink to="/home">
               <div className="trip-icon">
                 <AiFillHome />
                 {/* {tripRequests > 0 && <div className="notification-dot"></div>} */}
               </div>
-            </Link>
+            </NavLink>
           </li>
           <li>
-            <Link to="/likes">
+            <NavLink to="/trips">
               <ImMap />
-            </Link>
+            </NavLink>
           </li>
           <li>
-            <Link to="/discover">
+            <NavLink to="/plan-trip">
               <BsFillPlusSquareFill />
-            </Link>
+            </NavLink>
           </li>
           <li>
-            <Link to="/friends">
-              <AiFillMessage />
-            </Link>
+            <NavLink to="/inbox">
+              <RiMessage2Fill />
+            </NavLink>
           </li>
           <li>
-            <Link to="/user-profile">
+            <NavLink to="/user-profile">
               <RiUserFill />
-            </Link>
+            </NavLink>
           </li>
         </ul>
       </nav>

@@ -30,9 +30,9 @@ const PastTripCard = ({ trip }: Props) => {
     completeTrip(trip._id!).then(() => refreshProfile(userProfile!.uid));
 
   return (
-    <li className="PastTripCard">
+    <>
       {startDate && endDate && (
-        <div className="info-card">
+        <li className="PastTripCard">
           <div className="info-container" onClick={handleViewTrip}>
             <img src={trip.cityPhoto} alt={trip.cityPhoto} />
             <div className="name-date-container">
@@ -55,9 +55,9 @@ const PastTripCard = ({ trip }: Props) => {
               </div>
             </div>
           )}
-        </div>
+        </li>
       )}
-    </li>
+    </>
   );
 };
 

@@ -1,16 +1,16 @@
 import { useEffect, useState } from "react";
 import Card from "react-bootstrap/Card";
 import { useNavigate } from "react-router-dom";
-import City from "../../models/City";
-import { CityVote } from "../../models/UserProfile";
-import { getCityById } from "../../services/cityService";
-import "./LikedCard.css";
+import City from "../../../models/City";
+import { CityVote } from "../../../models/UserProfile";
+import { getCityById } from "../../../services/cityService";
+import "./FavoriteCard.css";
 
 interface Props {
   liked: CityVote;
 }
 
-const LikedCard = ({ liked }: Props) => {
+const FavoriteCard = ({ liked }: Props) => {
   const navigate = useNavigate();
   const [city, setCity] = useState<City | null>(null);
 
@@ -23,7 +23,7 @@ const LikedCard = ({ liked }: Props) => {
   };
 
   return (
-    <li className="LikedCard">
+    <li className="FavoriteCard">
       {city && (
         <Card onClick={handleClick}>
           <Card.Img variant="top" src={city.photoURL}></Card.Img>
@@ -36,4 +36,4 @@ const LikedCard = ({ liked }: Props) => {
   );
 };
 
-export default LikedCard;
+export default FavoriteCard;

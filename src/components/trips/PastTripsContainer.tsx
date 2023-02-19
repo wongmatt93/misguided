@@ -8,11 +8,13 @@ interface Props {
 
 const PastTripsContainer = ({ pastTrips }: Props) => {
   return (
-    <ul className="PastTripsContainer">
-      {pastTrips.map((trip) => (
-        <PastTripCard key={trip._id!} trip={trip} />
-      ))}
-    </ul>
+    <main className="PastTripsContainer">
+      <ul>
+        {pastTrips.map((trip) => (
+          <PastTripCard key={trip._id!} trip={trip} />
+        ))}
+      </ul>
+    </main>
   );
 };
 

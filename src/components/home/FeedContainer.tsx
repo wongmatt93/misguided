@@ -33,13 +33,13 @@ const FeedContainer = () => {
   }, [friends]);
 
   return (
-    <div className="FeedContainer">
+    <main className="FeedContainer">
       <ul>
         {friendsPastTrips.map((trip) => (
           <FeedCard key={trip._id!} trip={trip} />
         ))}
       </ul>
-    </div>
+    </main>
   );
 };
 
