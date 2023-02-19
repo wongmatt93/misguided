@@ -1,4 +1,4 @@
-import useGetUserByUid from "../../../hooks/useGetUserByUid";
+import useProfileFetcher from "../../../hooks/useProfileFetcher";
 import UserProfile from "../../../models/UserProfile";
 import "./LikesCard.css";
 
@@ -7,7 +7,7 @@ interface Props {
 }
 
 const LikesCard = ({ uid }: Props) => {
-  const userProfile: UserProfile | null = useGetUserByUid(uid);
+  const userProfile: UserProfile | null = useProfileFetcher(uid);
 
   return (
     <li className="LikesCard">

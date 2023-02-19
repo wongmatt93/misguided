@@ -1,4 +1,4 @@
-import useGetUserByUid from "../../../hooks/useGetUserByUid";
+import useProfileFetcher from "../../../hooks/useProfileFetcher";
 import { Comment } from "../../../models/Trip";
 import UserProfile from "../../../models/UserProfile";
 import "./CommentCard.css";
@@ -8,18 +8,18 @@ interface Props {
 }
 
 const CommentCard = ({ comment }: Props) => {
-  const commenter: UserProfile | null = useGetUserByUid(comment.uid);
+  const commentor: UserProfile | null = useProfileFetcher(comment.uid);
 
   return (
     <li className="CommentCard">
-      {commenter && (
+      {commentor && (
         <>
           <img
             className="commentor-image"
-            src={commenter.photoURL!}
-            alt={commenter.photoURL!}
+            src={commentor.photoURL!}
+            alt={commentor.photoURL!}
           />
-          <h3>{commenter.displayName}</h3>
+          <h3>{commentor.displayName}</h3>
           <p>{comment.comment}</p>
           <p>{new Date(Number(comment.date)).toLocaleString()}</p>
         </>
