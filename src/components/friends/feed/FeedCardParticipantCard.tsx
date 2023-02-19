@@ -4,7 +4,7 @@ import { Participant } from "../../../models/Trip";
 import UserProfile from "../../../models/UserProfile";
 import "./FeedCardParticipantCard.css";
 import Tooltip from "react-bootstrap/esm/Tooltip";
-import useGetUserByUid from "../../../hooks/useGetUserByUid";
+import useProfileFetcher from "../../../hooks/useProfileFetcher";
 
 interface Props {
   participant: Participant;
@@ -12,7 +12,7 @@ interface Props {
 
 const FeedCardParticipantCard = ({ participant }: Props) => {
   const navigate = useNavigate();
-  const userProfile: UserProfile | null = useGetUserByUid(participant.uid);
+  const userProfile: UserProfile | null = useProfileFetcher(participant.uid);
 
   const handleClick = (): void => navigate(`/profile/${participant.uid}`);
 

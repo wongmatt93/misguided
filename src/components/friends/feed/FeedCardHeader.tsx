@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Trip from "../../../models/Trip";
 import UserProfile from "../../../models/UserProfile";
 import "./FeedCardHeader.css";
-import useGetUserByUid from "../../../hooks/useGetUserByUid";
+import useProfileFetcher from "../../../hooks/useProfileFetcher";
 
 interface Props {
   trip: Trip;
@@ -12,7 +12,7 @@ interface Props {
 
 const FeedCardHeader = ({ trip }: Props) => {
   const navigate = useNavigate();
-  const creator: UserProfile | null = useGetUserByUid(trip.creatorUid);
+  const creator: UserProfile | null = useProfileFetcher(trip.creatorUid);
 
   const [startDate, setStartDate] = useState<Date | null>(null);
   const [endDate, setEndDate] = useState<Date | null>(null);

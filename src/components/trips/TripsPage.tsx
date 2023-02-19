@@ -60,13 +60,13 @@ const TripsPage = () => {
         variant="pills"
         transition={false}
       >
-        <Tab eventKey="trip-requests" title="Trip Requests">
+        <Tab eventKey="trip-requests" title="Requests">
           <TripRequestsContainer tripRequests={tripRequests} />
         </Tab>
-        <Tab eventKey="upcoming-trips" title="Upcoming Trips">
+        <Tab eventKey="upcoming-trips" title="Upcoming">
           <UpcomingTripsContainer upcomingTrips={upcomingTrips} />
         </Tab>
-        <Tab eventKey="past-trips" title="Previous Trips">
+        <Tab eventKey="past-trips" title="Previous">
           <PastTripsContainer pastTrips={pastTrips} />
         </Tab>
       </Tabs>

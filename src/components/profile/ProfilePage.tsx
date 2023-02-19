@@ -4,14 +4,16 @@ import { useParams } from "react-router-dom";
 import AuthContext from "../../context/AuthContext";
 import UserProfile from "../../models/UserProfile";
 import "./ProfilePage.css";
-import FriendButton from "./FriendButton";
-import useGetUserByUid from "../../hooks/useGetUserByUid";
+import useProfileFetcher from "../../hooks/useProfileFetcher";
+import ProfileInfo from "./ProfileInfo";
+import ProfileTripsContainer from "./ProfileTripsContainer";
 
 const ProfilePage = () => {
   const { userProfile } = useContext(AuthContext);
   const uid: string | undefined = useParams().uid;
-  const profile: UserProfile | null = useGetUserByUid(uid!);
+  const profile: UserProfile | null = useProfileFetcher(uid!);
   const [friendStatus, setFriendStatus] = useState("not friends");
+  const [pastTripsCount, setPastTripsCount] = useState(0);
 
   useEffect(() => {
     if (profile && userProfile) {
@@ -28,19 +30,21 @@ const ProfilePage = () => {
         : setFriendStatus("requested");
     }
   }, [userProfile, profile]);
+
   return (
     <main className="ProfilePage">
-      {profile ? (
+      {profile && userProfile ? (
         <>
-          <img src={profile.photoURL!} alt={profile.photoURL!} />
-          <h2>{profile.displayName}</h2>
-          {userProfile && userProfile!.uid !== profile.uid && (
-            <FriendButton
-              userProfile={userProfile}
-              otherProfile={profile}
-              friendStatus={friendStatus}
-            />
-          )}
+          <ProfileInfo
+            profile={profile}
+            userProfile={userProfile}
+            friendStatus={friendStatus}
+            pastTripsCount={pastTripsCount}
+          />
+          <ProfileTripsContainer
+            profile={profile}
+            setPastTripsCount={setPastTripsCount}
+          />
         </>
       ) : (
         <div className="loading">

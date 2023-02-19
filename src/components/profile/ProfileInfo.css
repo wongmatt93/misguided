@@ -1,0 +1,25 @@
+.ProfileInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.ProfileInfo .profile-pic {
+  height: 7em;
+  width: 7em;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.ProfileInfo .counts {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+}
+
+.ProfileInfo .friend-count,
+.ProfileInfo .trip-count {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

@@ -5,6 +5,7 @@ import Trip from "../../../models/Trip";
 import UserProfile, { UserTrip } from "../../../models/UserProfile";
 import { removeParticipantFromTrip } from "../../../services/tripServices";
 import { acceptUserTrip, deleteUserTrip } from "../../../services/userService";
+import { today } from "../../../utils/dateFunctions";
 import InviteFriendsModal from "./InviteFriendsModal";
 import ParticipantCard from "./ParticipantCard";
 import "./ParticipantsSection.css";
@@ -44,12 +45,6 @@ const ParticipantsSection = ({
   }, [userProfile, trip]);
 
   useEffect(() => {
-    let today: Date = new Date();
-    const dd = String(today.getDate()).padStart(2, "0");
-    const mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
-    const yyyy = today.getFullYear();
-    today = new Date(yyyy + "-" + mm + "-" + dd);
-
     const endDate = new Date(trip.date2);
 
     if (today.getTime() - endDate.getTime() >= 0) {
