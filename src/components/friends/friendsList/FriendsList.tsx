@@ -1,12 +1,11 @@
 import Form from "react-bootstrap/Form";
 import { useContext, useState } from "react";
 import "./FriendsList.css";
-import FriendsContext from "../../../context/FriendsContext";
+import FriendsContext from "../../../context/FollowContext";
 import AcceptedFriendsList from "./AcceptedFriendsList";
-import FriendRequestList from "./FriendRequestList";
 
 const FriendsList = () => {
-  const { friends, friendRequests } = useContext(FriendsContext);
+  const { friends } = useContext(FriendsContext);
   const [searchTerm, setSearchTerm] = useState("");
 
   return (
@@ -22,12 +21,6 @@ const FriendsList = () => {
           ></Form.Control>
         </Form.Group>
       </Form>
-      {friendRequests.length > 0 && (
-        <FriendRequestList
-          friendRequests={friendRequests}
-          searchTerm={searchTerm}
-        />
-      )}
       <AcceptedFriendsList friends={friends} searchTerm={searchTerm} />
     </div>
   );

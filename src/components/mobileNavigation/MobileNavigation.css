@@ -39,8 +39,7 @@
   font-size: 0.7em;
 }
 
-.MobileNavigation .trip-icon,
-.MobileNavigation .friend-icon {
+.MobileNavigation .trip-icon {
   position: relative;
 }
 

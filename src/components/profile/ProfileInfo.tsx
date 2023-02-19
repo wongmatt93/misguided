@@ -1,18 +1,18 @@
 import UserProfile from "../../models/UserProfile";
-import FriendButton from "./FriendButton";
+import FriendButton from "./FollowButton";
 import "./ProfileInfo.css";
 
 interface Props {
   profile: UserProfile;
   userProfile: UserProfile;
-  friendStatus: string;
+  followStatus: string;
   pastTripsCount: number;
 }
 
 const ProfileInfo = ({
   profile,
   userProfile,
-  friendStatus,
+  followStatus,
   pastTripsCount,
 }: Props) => {
   return (
@@ -24,9 +24,13 @@ const ProfileInfo = ({
       />
       <h2>{profile.displayName}</h2>
       <div className="counts">
-        <div className="friend-count">
-          <p>{profile.friends.length}</p>
-          <p>friends</p>
+        <div className="following-count">
+          <p>{profile.following.length}</p>
+          <p>following</p>
+        </div>
+        <div className="followers-count">
+          <p>{profile.followers.length}</p>
+          <p>followers</p>
         </div>
         <div className="trip-count">
           <p>{pastTripsCount}</p>
@@ -37,7 +41,7 @@ const ProfileInfo = ({
         <FriendButton
           userProfile={userProfile}
           otherProfile={profile}
-          friendStatus={friendStatus}
+          followStatus={followStatus}
         />
       )}
     </section>

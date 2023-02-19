@@ -5,7 +5,7 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import AuthContextProvider from "./context/AuthContextProvider";
 import DiscoverContextProvider from "./context/DiscoverContextProvider";
-import FriendsContextProvider from "./context/FriendsContextProvider";
+import FollowContextProvider from "./context/FollowContextProvider";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -14,9 +14,9 @@ root.render(
   <React.StrictMode>
     <AuthContextProvider>
       <DiscoverContextProvider>
-        <FriendsContextProvider>
+        <FollowContextProvider>
           <App />
-        </FriendsContextProvider>
+        </FollowContextProvider>
       </DiscoverContextProvider>
     </AuthContextProvider>
   </React.StrictMode>

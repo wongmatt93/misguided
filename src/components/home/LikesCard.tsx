@@ -1,5 +1,5 @@
-import useProfileFetcher from "../../../hooks/useProfileFetcher";
-import UserProfile from "../../../models/UserProfile";
+import useProfileFetcher from "../../hooks/useProfileFetcher";
+import UserProfile from "../../models/UserProfile";
 import "./LikesCard.css";
 
 interface Props {

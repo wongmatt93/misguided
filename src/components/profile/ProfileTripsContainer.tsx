@@ -15,24 +15,28 @@ const ProfileTripsContainer = ({ profile, setPastTripsCount }: Props) => {
   const [pastTrips, setPastTrips] = useState<Trip[]>([]);
 
   useEffect(() => {
-    const tripIds: string[] = [];
+    if (profile.trips.length > 0) {
+      const tripIds: string[] = [];
 
-    profile.trips.forEach((trip) => trip.accepted && tripIds.push(trip.tripId));
+      profile.trips.forEach(
+        (trip) => trip.accepted && tripIds.push(trip.tripId)
+      );
 
-    getTripsByTripIdArray(tripIds).then((response) => {
-      const past: Trip[] = [];
+      getTripsByTripIdArray(tripIds).then((response) => {
+        const past: Trip[] = [];
 
-      response.forEach((item) => {
-        if (item.completed) {
-          const endDate: Date = new Date(item.date2);
+        response.forEach((item) => {
+          if (item.completed) {
+            const endDate: Date = new Date(item.date2);
 
-          today.getTime() - endDate.getTime() >= 0 && past.push(item);
-        }
+            today.getTime() - endDate.getTime() >= 0 && past.push(item);
+          }
+        });
+
+        setPastTrips(past);
+        setPastTripsCount(past.length);
       });
-
-      setPastTrips(past);
-      setPastTripsCount(past.length);
-    });
+    }
   }, [profile, setPastTripsCount]);
 
   return (

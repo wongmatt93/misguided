@@ -1,22 +1,18 @@
 import { useContext } from "react";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
-import FriendsContext from "../../context/FriendsContext";
-import FriendsFeed from "./feed/FriendsFeed";
+import FollowContext from "../../context/FollowContext";
 import FriendsList from "./friendsList/FriendsList";
 import "./FriendsPage.css";
 import SearchUsers from "./search/SearchUsers";
 
 const FriendsPage = () => {
   const { activeKey, setFeedKey, setFriendsKey, setSearchKey } =
-    useContext(FriendsContext);
+    useContext(FollowContext);
 
   return (
     <main className="FriendsPage">
       <Tabs defaultActiveKey={activeKey} variant="pills" justify>
-        <Tab eventKey="feed" title="Feed" onClick={setFeedKey}>
-          <FriendsFeed />
-        </Tab>
         <Tab eventKey="friends" title="Friends" onClick={setFriendsKey}>
           <FriendsList />
         </Tab>

@@ -2,7 +2,7 @@ import { FormEvent, useContext, useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import AuthContext from "../../../context/AuthContext";
-import FriendsContext from "../../../context/FriendsContext";
+import FollowContext from "../../../context/FollowContext";
 import Trip from "../../../models/Trip";
 import UserProfile, { UserTrip } from "../../../models/UserProfile";
 import {
@@ -22,7 +22,7 @@ interface Props {
 
 const InviteFriendsModal = ({ trip, show, setTrip, handleClose }: Props) => {
   const { userProfile, refreshProfile } = useContext(AuthContext);
-  const { friends } = useContext(FriendsContext);
+  const { friends } = useContext(FollowContext);
   const [filteredFriends, setFilteredFriends] = useState<UserProfile[]>([]);
   const [invitedFriends, setInvitedFriends] = useState<string[]>([]);
 

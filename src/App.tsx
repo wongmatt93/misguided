@@ -24,6 +24,7 @@ import PlanningPage from "./components/tripPlanner/PlanningPage";
 import TripDetailsPage from "./components/tripDetails/TripDetailsPage";
 import AccountInformationPage from "./components/userProfile/accountInformation/AccountInformationPage";
 import InitialSigninPage from "./components/initialSignIn/InitialSignInPage";
+import Homepage from "./components/home/Homepage";
 
 function App() {
   const { userProfile } = useContext(AuthContext);
@@ -43,6 +44,7 @@ function App() {
           ) : (
             <>
               <Route path="/routes" element={<InitialSigninPage />} />
+              <Route path="/home" element={<Homepage />} />
               <Route path="/preferences" element={<PreferencesPage />} />
               <Route path="/discover" element={<DiscoverPage />} />
               <Route path="/likes" element={<LikesPage />} />

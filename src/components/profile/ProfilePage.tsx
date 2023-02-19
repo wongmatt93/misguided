@@ -4,32 +4,42 @@ import { useParams } from "react-router-dom";
 import AuthContext from "../../context/AuthContext";
 import UserProfile from "../../models/UserProfile";
 import "./ProfilePage.css";
-import useProfileFetcher from "../../hooks/useProfileFetcher";
 import ProfileInfo from "./ProfileInfo";
 import ProfileTripsContainer from "./ProfileTripsContainer";
+import FollowContext from "../../context/FollowContext";
+import { getUserByUid } from "../../services/userService";
 
 const ProfilePage = () => {
   const { userProfile } = useContext(AuthContext);
+  const { friends } = useContext(FollowContext);
   const uid: string | undefined = useParams().uid;
-  const profile: UserProfile | null = useProfileFetcher(uid!);
-  const [friendStatus, setFriendStatus] = useState("not friends");
+  const [profile, setProfile] = useState<UserProfile | null>(null);
+  const [followStatus, setFollowStatus] = useState("none");
   const [pastTripsCount, setPastTripsCount] = useState(0);
 
   useEffect(() => {
-    if (profile && userProfile) {
-      const match = userProfile.friends.find(
-        (friend) => profile.uid === friend.uid
-      );
-
-      !match
-        ? setFriendStatus("not friends")
-        : match.friendRequestStatus === "accepted"
-        ? setFriendStatus("accepted")
-        : match.friendRequestStatus === "received"
-        ? setFriendStatus("received")
-        : setFriendStatus("requested");
+    if (uid) {
+      getUserByUid(uid).then((response) => setProfile(response));
     }
-  }, [userProfile, profile]);
+  }, [uid, userProfile]);
+
+  useEffect(() => {
+    if (profile && userProfile) {
+      if (friends.some((friend) => friend.uid === profile.uid)) {
+        setFollowStatus("friend");
+      } else if (
+        userProfile.followers.some((follower) => follower.uid === profile.uid)
+      ) {
+        setFollowStatus("follower");
+      } else if (
+        userProfile.following.some((following) => following.uid === profile.uid)
+      ) {
+        setFollowStatus("following");
+      } else {
+        setFollowStatus("none");
+      }
+    }
+  }, [userProfile, profile, friends]);
 
   return (
     <main className="ProfilePage">
@@ -38,7 +48,7 @@ const ProfilePage = () => {
           <ProfileInfo
             profile={profile}
             userProfile={userProfile}
-            friendStatus={friendStatus}
+            followStatus={followStatus}
             pastTripsCount={pastTripsCount}
           />
           <ProfileTripsContainer
