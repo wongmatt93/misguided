@@ -26,14 +26,16 @@ import Homepage from "./components/home/Homepage";
 import SearchPage from "./components/search/SearchPage";
 import PlanTripPage from "./components/tripPlanner/PlanTripPage";
 import InboxPage from "./components/inbox/InboxPage";
+import { useMediaQuery } from "react-responsive";
 
 function App() {
   const { userProfile } = useContext(AuthContext);
+  const isDesktop = useMediaQuery({ minWidth: 768 });
 
   return (
     <div className="App">
       <Router>
-        {userProfile && <Header />}
+        {userProfile && isDesktop && <Header />}
         <Routes>
           {!userProfile ? (
             <>
@@ -66,7 +68,7 @@ function App() {
             </>
           )}
         </Routes>
-        {userProfile && <MobileNavigation />}
+        {userProfile && !isDesktop && <MobileNavigation />}
       </Router>
     </div>
   );

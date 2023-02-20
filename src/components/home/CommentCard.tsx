@@ -19,7 +19,7 @@ const CommentCard = ({ comment }: Props) => {
             src={commentor.photoURL!}
             alt={commentor.photoURL!}
           />
-          <h3>{commentor.displayName}</h3>
+          <h3>{commentor.username}</h3>
           <p>{comment.comment}</p>
           <p>{new Date(Number(comment.date)).toLocaleString()}</p>
         </>

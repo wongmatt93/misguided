@@ -80,6 +80,7 @@ const PlanningPage = () => {
               uid: userProfile.uid,
             },
           ],
+          messages: [],
           completed: false,
           likes: [],
           comments: [],

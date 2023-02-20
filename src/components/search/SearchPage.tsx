@@ -1,29 +1,29 @@
 import { Form, Button } from "react-bootstrap";
 import { FormEvent, useState } from "react";
 import UserProfile from "../../models/UserProfile";
-import { getUserByEmail } from "../../services/userService";
+import { getUserByUsername } from "../../services/userService";
 import "./SearchPage.css";
 import UserCard from "./UserCard";
 
 const SearchPage = () => {
-  const [emailSearch, setEmailSearch] = useState("");
+  const [username, setUsername] = useState("");
   const [searchProfile, setSearchProfile] = useState<UserProfile | null>(null);
 
   const handleSubmit = (e: FormEvent): void => {
     e.preventDefault();
-    getUserByEmail(emailSearch).then((response) => setSearchProfile(response));
+    getUserByUsername(username).then((response) => setSearchProfile(response));
   };
 
   return (
     <main className="SearchPage">
       <h2>Search Users</h2>
       <Form onSubmit={handleSubmit}>
-        <Form.Group controlId="email">
+        <Form.Group controlId="username">
           <Form.Control
-            type="email"
-            placeholder="Search using E-mail"
-            value={emailSearch}
-            onChange={(e) => setEmailSearch(e.target.value)}
+            type="text"
+            placeholder="Search usernames"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
             required
           ></Form.Control>
         </Form.Group>

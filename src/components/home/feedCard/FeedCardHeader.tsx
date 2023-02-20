@@ -38,7 +38,7 @@ const FeedCardHeader = ({ trip }: Props) => {
               onClick={handleViewProfile}
             />
             <div className="name-location-container">
-              <h3 onClick={handleViewProfile}>{creator.displayName}</h3>
+              <h3 onClick={handleViewProfile}>{creator.username}</h3>
               <div className="city-container">
                 <h4>{trip.cityName}</h4>
                 <p>

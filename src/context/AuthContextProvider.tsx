@@ -43,6 +43,7 @@ const AuthContextProvider = ({ children }: Props) => {
           if (!response) {
             const newUserProfile: UserProfile = {
               uid: newUser.uid,
+              username: null,
               displayName: newUser.displayName,
               email: newUser.email,
               phoneNumber: newUser.phoneNumber,
@@ -54,6 +55,7 @@ const AuthContextProvider = ({ children }: Props) => {
               likes: [],
               dislikes: [],
               trips: [],
+              notifications: [],
             };
             addNewUser(newUserProfile);
             setUserProfile(newUserProfile);
