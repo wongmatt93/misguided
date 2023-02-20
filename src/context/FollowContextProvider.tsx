@@ -84,10 +84,12 @@ const FriendsContextProvider = ({ children }: Props) => {
     const follower: Follow = { uid: userUid };
     const newNotification: Notification = createNotification(userUid, "follow");
 
-    await addFollowing(userUid, following);
-    await addFollower(otherUid, follower);
-    await addNotification(otherUid, newNotification);
-    await refreshProfile(userUid);
+    await Promise.allSettled([
+      addFollowing(userUid, following),
+      addFollower(otherUid, follower),
+      addNotification(otherUid, newNotification),
+    ]);
+    refreshProfile(userUid);
   };
 
   const handleUnfollowUser = async (

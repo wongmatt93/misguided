@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import useProfileFetcher from "../../../hooks/useProfileFetcher";
 import UserProfile, { Notification } from "../../../models/UserProfile";
@@ -5,11 +6,21 @@ import "./NotificationCard.css";
 
 interface Props {
   notification: Notification;
+  setLoaded: React.Dispatch<React.SetStateAction<number>>;
 }
 
-const NotificationCard = ({ notification }: Props) => {
+const NotificationCard = ({ notification, setLoaded }: Props) => {
   const profile: UserProfile | null = useProfileFetcher(notification.uid);
   const navigate = useNavigate();
+  const dataFetchedRef = useRef(false);
+
+  useEffect(() => {
+    if (profile) {
+      if (dataFetchedRef.current) return;
+      dataFetchedRef.current = true;
+      setLoaded((oldValue) => oldValue + 1);
+    }
+  }, [profile, setLoaded]);
 
   return (
     <>
