@@ -1,0 +1,26 @@
+.NotificationCard {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.NotificationCard .image-message-container {
+  display: flex;
+  align-items: center;
+}
+
+.NotificationCard .notification-dot {
+  background-color: #f0b202;
+  height: 0.5em;
+  width: 0.5em;
+  border-radius: 50%;
+  top: 0;
+  right: 0;
+}
+
+.NotificationCard img {
+  height: 3em;
+  width: 3em;
+  object-fit: cover;
+  border-radius: 50%;
+}

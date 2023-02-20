@@ -18,7 +18,7 @@ const LikesCard = ({ uid }: Props) => {
             src={userProfile.photoURL!}
             alt={userProfile.photoURL!}
           />
-          <h4>{userProfile.displayName}</h4>
+          <h4>{userProfile.username}</h4>
         </>
       )}
     </li>

@@ -11,6 +11,13 @@ export interface Follow {
   uid: string;
 }
 
+export interface Notification {
+  uid: string;
+  type: string;
+  date: string;
+  read: boolean;
+}
+
 export interface Preferences {
   charming: boolean;
   foodie: boolean;
@@ -37,6 +44,7 @@ export interface Preferences {
 export default interface UserProfile {
   _id?: string;
   uid: string;
+  username: string | null;
   displayName: string | null;
   email: string | null;
   phoneNumber: string | null;
@@ -48,4 +56,5 @@ export default interface UserProfile {
   likes: CityVote[];
   dislikes: CityVote[];
   trips: UserTrip[];
+  notifications: Notification[];
 }

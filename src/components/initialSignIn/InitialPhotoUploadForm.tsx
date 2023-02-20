@@ -41,8 +41,7 @@ const InitialPhotoUploadForm = ({
 
   return (
     <div className="InitiaPlhotoUploadForm">
-      <h2>Welcome to Misguided</h2>
-      <p>Please upload a profile picture to start</p>
+      <p>Please upload a profile picture</p>
       <form onSubmit={handleSubmit}>
         <input ref={fileInputRef} type="file" />
         <Button

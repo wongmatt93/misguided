@@ -1,12 +1,14 @@
 import { ReactNode, useContext, useEffect, useState } from "react";
-import UserProfile, { Follow } from "../models/UserProfile";
+import UserProfile, { Follow, Notification } from "../models/UserProfile";
 import {
   addFollower,
   addFollowing,
+  addNotification,
   getAllUsersByUidArray,
   removeFollower,
   removeFollowing,
 } from "../services/userService";
+import { createNotification } from "../utils/notificationsFunctions";
 import AuthContext from "./AuthContext";
 import FriendsContext from "./FollowContext";
 
@@ -80,19 +82,22 @@ const FriendsContextProvider = ({ children }: Props) => {
   ): Promise<Follow | void> => {
     const following: Follow = { uid: otherUid };
     const follower: Follow = { uid: userUid };
+    const newNotification: Notification = createNotification(userUid, "follow");
 
-    await addFollowing(userUid, following).then(() =>
-      addFollower(otherUid, follower).then(() => refreshProfile(userUid))
-    );
+    await addFollowing(userUid, following);
+    await addFollower(otherUid, follower);
+    await addNotification(otherUid, newNotification);
+    await refreshProfile(userUid);
   };
 
   const handleUnfollowUser = async (
     userUid: string,
     otherUid: string
-  ): Promise<void> =>
-    await removeFollowing(userUid, otherUid).then(() =>
-      removeFollower(otherUid, userUid).then(() => refreshProfile(userUid))
-    );
+  ): Promise<void> => {
+    await removeFollowing(userUid, otherUid);
+    await removeFollower(otherUid, userUid);
+    await refreshProfile(userUid);
+  };
 
   return (
     <FriendsContext.Provider

@@ -5,20 +5,25 @@ import PreferencesForm from "./../userProfile/preferences/PreferencesForm";
 import "./InitialSignInPage.css";
 import InitialPhotoUploadForm from "./InitialPhotoUploadForm";
 import InitialHometownForm from "./InitialHometownForm";
+import UsernameForm from "./UsernameForm";
 
 const InitialSignInPage = () => {
   const { userProfile, refreshProfile } = useContext(AuthContext);
   const navigate = useNavigate();
-  const [stage, setStage] = useState("image");
+  const [stage, setStage] = useState("username");
   const [show, setShow] = useState(false);
 
   useEffect(() => {
     if (userProfile) {
-      if (
-        userProfile.photoURL &&
-        userProfile.preferences &&
-        userProfile.hometownId
-      ) {
+      if (!userProfile.username) {
+        setStage("username");
+      } else if (!userProfile.photoURL) {
+        setStage("image");
+      } else if (!userProfile.hometownId) {
+        setStage("hometown");
+      } else if (!userProfile.preferences) {
+        setStage("preferences");
+      } else {
         navigate("/home");
       }
     }
@@ -26,25 +31,37 @@ const InitialSignInPage = () => {
 
   return (
     <main className="InitialSignInPage">
-      {userProfile &&
-        (stage === "image" ? (
-          <InitialPhotoUploadForm
-            userProfile={userProfile}
-            refreshProfile={refreshProfile}
-            setStage={setStage}
-          />
-        ) : stage === "hometown" ? (
-          <InitialHometownForm
-            userProfile={userProfile}
-            refreshProfile={refreshProfile}
-            setStage={setStage}
-          />
-        ) : (
-          <>
-            <h2>Choose your preferences</h2>
-            <PreferencesForm setShow={setShow} />
-          </>
-        ))}
+      {userProfile && (
+        <>
+          {stage === "username" && (
+            <UsernameForm
+              userProfile={userProfile}
+              refreshProfile={refreshProfile}
+              setStage={setStage}
+            />
+          )}
+          {stage === "image" && (
+            <InitialPhotoUploadForm
+              userProfile={userProfile}
+              refreshProfile={refreshProfile}
+              setStage={setStage}
+            />
+          )}
+          {stage === "hometown" && (
+            <InitialHometownForm
+              userProfile={userProfile}
+              refreshProfile={refreshProfile}
+              setStage={setStage}
+            />
+          )}
+          {stage === "preferences" && (
+            <>
+              <h2>Choose your preferences</h2>
+              <PreferencesForm setShow={setShow} />
+            </>
+          )}
+        </>
+      )}
     </main>
   );
 };

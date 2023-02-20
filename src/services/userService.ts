@@ -2,6 +2,7 @@ import axios from "axios";
 import UserProfile, {
   CityVote,
   Follow,
+  Notification,
   Preferences,
   UserTrip,
 } from "../models/UserProfile";
@@ -19,11 +20,20 @@ export const getAllUsersByUidArray = async (
 export const getUserByUid = async (uid: string): Promise<UserProfile> =>
   (await axios.get(`${baseURL}/users/${uid}/uid`)).data;
 
-export const getUserByEmail = async (email: string): Promise<UserProfile> =>
-  (await axios.get(`${baseURL}/users/${email}/email`)).data;
+export const getUserByUsername = async (
+  username: string
+): Promise<UserProfile> =>
+  (await axios.get(`${baseURL}/users/${username}/username`)).data;
 
 export const addNewUser = async (user: UserProfile): Promise<UserProfile> =>
   (await axios.post(`${baseURL}/users`, user)).data;
+
+export const updateUsername = async (
+  uid: string,
+  username: string
+): Promise<string> =>
+  (await axios.put(`${baseURL}/users/${uid}/update-username`, { username }))
+    .data;
 
 export const updateUserPhoto = async (
   uid: string,
@@ -99,3 +109,10 @@ export const deleteUserTrip = async (
   tripId: string
 ): Promise<void> =>
   (await axios.put(`${baseURL}/users/${uid}/${tripId}/delete-trip`)).data;
+
+export const addNotification = async (
+  uid: string,
+  newNotification: Notification
+) =>
+  (await axios.put(`${baseURL}/users/${uid}/add-notification`, newNotification))
+    .data;

@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import FriendsContext from "../../context/FollowContext";
+import FollowContext from "../../context/FollowContext";
 import Trip from "../../models/Trip";
 import { getTripById } from "../../services/tripServices";
 import { sortTripsDescending, today } from "../../utils/dateFunctions";
@@ -7,16 +7,16 @@ import FeedCard from "./feedCard/FeedCard";
 import "./FeedContainer.css";
 
 const FeedContainer = () => {
-  const { friends } = useContext(FriendsContext);
+  const { following } = useContext(FollowContext);
   const [friendsPastTrips, setFriendsPastTrips] = useState<Trip[]>([]);
 
   useEffect(() => {
     const trips: Trip[] = [];
 
     Promise.allSettled(
-      friends.map((friend) =>
+      following.map((user) =>
         Promise.allSettled(
-          friend.trips.map(
+          user.trips.map(
             (trip) =>
               trip.accepted &&
               getTripById(trip.tripId).then((response) => {
@@ -30,7 +30,7 @@ const FeedContainer = () => {
     ).then(() => {
       setFriendsPastTrips(sortTripsDescending(trips));
     });
-  }, [friends]);
+  }, [following]);
 
   return (
     <main className="FeedContainer">
