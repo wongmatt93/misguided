@@ -27,6 +27,7 @@ import SearchPage from "./components/search/SearchPage";
 import PlanTripPage from "./components/tripPlanner/PlanTripPage";
 import InboxPage from "./components/inbox/InboxPage";
 import { useMediaQuery } from "react-responsive";
+import AllNotificationsPage from "./components/inbox/notifications/AllNotificationsPage";
 
 function App() {
   const { userProfile } = useContext(AuthContext);
@@ -59,6 +60,7 @@ function App() {
                 element={<CityDetailsPage />}
               />
               <Route path="/inbox" element={<InboxPage />} />
+              <Route path="/notifications" element={<AllNotificationsPage />} />
               <Route path="/user-profile" element={<UserProfilePage />} />
               <Route path="/account" element={<AccountInformationPage />} />
               <Route path="/profile/:uid" element={<ProfilePage />} />

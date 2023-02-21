@@ -2,13 +2,15 @@ import { useEffect, useState } from "react";
 import UserProfile, { Notification } from "../../../models/UserProfile";
 import { sortNotifications } from "../../../utils/dateFunctions";
 import NotificationCard from "./NotificationCard";
-import "./NotificationsSection.css";
+import "./InboxNotificationsSection.css";
+import { useNavigate } from "react-router-dom";
 
 interface Props {
   userProfile: UserProfile;
 }
 
-const NotificationsSection = ({ userProfile }: Props) => {
+const InboxNotificationsSection = ({ userProfile }: Props) => {
+  const navigate = useNavigate();
   const [unread, setUnread] = useState(0);
   const [notifsPreview, setNotifsPreview] = useState<Notification[]>([]);
   const [loaded, setLoaded] = useState(0);
@@ -19,9 +21,12 @@ const NotificationsSection = ({ userProfile }: Props) => {
   }, [userProfile]);
 
   return (
-    <section className="NotificationsSection">
+    <section className="InboxNotificationsSection">
       <h3>
-        Notifications <span>- {unread} unread</span>
+        Notifications{" "}
+        <span style={{ display: unread ? "inline" : "none" }}>
+          - {unread} unread
+        </span>
       </h3>
       <ul
         style={{
@@ -31,14 +36,17 @@ const NotificationsSection = ({ userProfile }: Props) => {
         {notifsPreview.map((notification) => (
           <NotificationCard
             key={notification.date}
+            uid={userProfile.uid}
             notification={notification}
             setLoaded={setLoaded}
           />
         ))}
-        <li>View all notifications</li>
+        <li onClick={() => navigate(`/notifications`)}>
+          View all notifications
+        </li>
       </ul>
     </section>
   );
 };
 
-export default NotificationsSection;
+export default InboxNotificationsSection;

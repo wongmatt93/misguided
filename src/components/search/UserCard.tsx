@@ -5,6 +5,7 @@ import { useContext, useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import UserProfile from "../../models/UserProfile";
 import AuthContext from "../../context/AuthContext";
+import { getTripsByTripIdArray } from "../../services/tripServices";
 
 interface Props {
   searchProfile: UserProfile;
@@ -17,7 +18,17 @@ const UserCard = ({ searchProfile }: Props) => {
   const [totalTrips, setTotalTrips] = useState(0);
 
   useEffect(() => {
-    setTotalTrips(searchProfile.trips.length);
+    const trips: string[] = [];
+
+    searchProfile.trips.forEach((trip) => {
+      if (trip.accepted) {
+        trips.push(trip.tripId);
+      }
+    });
+
+    getTripsByTripIdArray(trips).then((response) => {
+      setTotalTrips(response.filter((trip) => trip.completed).length);
+    });
   }, [searchProfile]);
 
   const handleClick = (): void => {

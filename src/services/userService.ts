@@ -107,12 +107,23 @@ export const acceptUserTrip = async (
 export const deleteUserTrip = async (
   uid: string,
   tripId: string
-): Promise<void> =>
+): Promise<string> =>
   (await axios.put(`${baseURL}/users/${uid}/${tripId}/delete-trip`)).data;
 
 export const addNotification = async (
   uid: string,
   newNotification: Notification
-) =>
+): Promise<Notification> =>
   (await axios.put(`${baseURL}/users/${uid}/add-notification`, newNotification))
     .data;
+
+export const readNotification = async (
+  uid: string,
+  notifUid: string,
+  date: string
+): Promise<string> =>
+  (
+    await axios.put(
+      `${baseURL}/users/${uid}/${notifUid}/${date}/read-notification`
+    )
+  ).data;

@@ -34,7 +34,7 @@ const ParticipantCard = ({ participant, tripId }: Props) => {
           Pending
         </p>
       </div>
-      <p>{participant.displayName}</p>
+      <p>{participant.username}</p>
     </li>
   );
 };

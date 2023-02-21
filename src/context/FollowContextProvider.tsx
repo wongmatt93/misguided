@@ -8,7 +8,7 @@ import {
   removeFollower,
   removeFollowing,
 } from "../services/userService";
-import { createNotification } from "../utils/notificationsFunctions";
+import { createFollowNotif } from "../utils/notificationsFunctions";
 import AuthContext from "./AuthContext";
 import FriendsContext from "./FollowContext";
 
@@ -82,7 +82,7 @@ const FriendsContextProvider = ({ children }: Props) => {
   ): Promise<Follow | void> => {
     const following: Follow = { uid: otherUid };
     const follower: Follow = { uid: userUid };
-    const newNotification: Notification = createNotification(userUid, "follow");
+    const newNotification: Notification = createFollowNotif(userUid);
 
     await Promise.allSettled([
       addFollowing(userUid, following),
