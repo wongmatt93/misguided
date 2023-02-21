@@ -14,7 +14,7 @@ const InboxPage = () => {
       {userProfile && (
         <main>
           <InboxNotificationsSection userProfile={userProfile} />
-          <MessagesSection />
+          <MessagesSection userProfile={userProfile} />
         </main>
       )}
     </>
