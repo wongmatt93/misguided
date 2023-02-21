@@ -4,12 +4,16 @@ import Modal from "react-bootstrap/Modal";
 import AuthContext from "../../../context/AuthContext";
 import FollowContext from "../../../context/FollowContext";
 import Trip from "../../../models/Trip";
-import UserProfile, { UserTrip } from "../../../models/UserProfile";
+import UserProfile, {
+  Notification,
+  UserTrip,
+} from "../../../models/UserProfile";
 import {
   addNewParticipantToTrip,
   getTripById,
 } from "../../../services/tripServices";
-import { addNewUserTrip } from "../../../services/userService";
+import { addNewUserTrip, addNotification } from "../../../services/userService";
+import { createTripRequestNotif } from "../../../utils/notificationsFunctions";
 import InviteFriendCheckbox from "./InviteFriendCheckbox";
 import "./InviteFriendsModal.css";
 
@@ -34,7 +38,7 @@ const InviteFriendsModal = ({ trip, show, setTrip, handleClose }: Props) => {
     );
   }, [friends, trip]);
 
-  const handleSubmit = (e: FormEvent): void => {
+  const handleSubmit = async (e: FormEvent): Promise<void> => {
     e.preventDefault();
 
     const newTrip: UserTrip = {
@@ -42,18 +46,24 @@ const InviteFriendsModal = ({ trip, show, setTrip, handleClose }: Props) => {
       accepted: false,
     };
 
-    Promise.all(
-      invitedFriends.map((friend) =>
-        addNewUserTrip(friend, newTrip).then(() =>
-          addNewParticipantToTrip(trip._id!, { uid: friend })
-        )
-      )
-    ).then(() =>
-      getTripById(trip._id!).then((response) => {
-        setTrip(response);
-        refreshProfile(userProfile!.uid);
+    await Promise.all(
+      invitedFriends.map((friend) => {
+        const newNotification: Notification = createTripRequestNotif(
+          userProfile!.uid,
+          trip._id!
+        );
+
+        return Promise.allSettled([
+          addNotification(friend, newNotification),
+          addNewUserTrip(friend, newTrip),
+          addNewParticipantToTrip(trip._id!, { uid: friend }),
+        ]);
       })
     );
+
+    const response: Trip = await getTripById(trip._id!);
+    setTrip(response);
+    await refreshProfile(userProfile!.uid);
 
     handleClose();
   };

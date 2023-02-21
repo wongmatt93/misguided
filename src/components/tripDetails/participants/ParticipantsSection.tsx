@@ -3,9 +3,20 @@ import { Button, Dropdown, DropdownButton } from "react-bootstrap";
 import AuthContext from "../../../context/AuthContext";
 import Trip from "../../../models/Trip";
 import UserProfile, { UserTrip } from "../../../models/UserProfile";
-import { removeParticipantFromTrip } from "../../../services/tripServices";
-import { acceptUserTrip, deleteUserTrip } from "../../../services/userService";
+import {
+  getTripById,
+  removeParticipantFromTrip,
+} from "../../../services/tripServices";
+import {
+  acceptUserTrip,
+  addNotification,
+  deleteUserTrip,
+} from "../../../services/userService";
 import { today } from "../../../utils/dateFunctions";
+import {
+  createTripAcceptNotif,
+  createTripDeclineNotif,
+} from "../../../utils/notificationsFunctions";
 import InviteFriendsModal from "./InviteFriendsModal";
 import ParticipantCard from "./ParticipantCard";
 import "./ParticipantsSection.css";
@@ -55,17 +66,30 @@ const ParticipantsSection = ({
   const handleClose = (): void => setShow(false);
   const handleShow = (): void => setShow(true);
 
-  const handleAcceptTrip = (): Promise<void> =>
-    acceptUserTrip(userProfile!.uid, trip._id!).then(() =>
-      refreshProfile(userProfile!.uid)
-    );
+  const handleAcceptTrip = async (): Promise<void> => {
+    const newNotification = createTripAcceptNotif(userProfile!.uid, trip._id!);
 
-  const handleDeleteTrip = (): Promise<void> =>
-    deleteUserTrip(userProfile!.uid, trip._id!).then(() =>
-      removeParticipantFromTrip(trip._id!, userProfile!.uid).then(() =>
-        refreshProfile(userProfile!.uid).then(() => setInvited(false))
-      )
-    );
+    await Promise.allSettled([
+      acceptUserTrip(userProfile!.uid, trip._id!),
+      addNotification(trip.creatorUid, newNotification),
+    ]);
+    refreshProfile(userProfile!.uid);
+  };
+
+  const handleDeleteTrip = async (): Promise<void> => {
+    const newNotification = createTripDeclineNotif(userProfile!.uid, trip._id!);
+
+    await Promise.allSettled([
+      deleteUserTrip(userProfile!.uid, trip._id!),
+      removeParticipantFromTrip(trip._id!, userProfile!.uid),
+      addNotification(trip.creatorUid, newNotification),
+    ]);
+    const response: Trip = await getTripById(trip._id!);
+    setTrip(response);
+
+    await refreshProfile(userProfile!.uid);
+    setInvited(false);
+  };
 
   return (
     <section className="ParticipantsSection">

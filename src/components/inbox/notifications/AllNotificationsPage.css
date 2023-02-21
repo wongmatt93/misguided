@@ -1,0 +1,13 @@
+.AllNotificationsPage-main .loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+
+.AllNotificationsPage-main .spinner-border {
+  height: 5em;
+  width: 5em;
+  color: #f0b202;
+}
