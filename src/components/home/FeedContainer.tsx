@@ -28,7 +28,10 @@ const FeedContainer = () => {
         )
       )
     ).then(() => {
-      setFriendsPastTrips(sortTripsDescending(trips));
+      const uniqueTrips: Trip[] = trips.filter(
+        (v, i, a) => a.findIndex((v2) => v2._id! === v._id!) === i
+      );
+      setFriendsPastTrips(sortTripsDescending(uniqueTrips));
     });
   }, [following]);
 

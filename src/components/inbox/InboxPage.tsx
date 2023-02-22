@@ -3,7 +3,7 @@ import AuthContext from "../../context/AuthContext";
 import InboxHeader from "./InboxHeader";
 import "./InboxPage.css";
 import InboxNotificationsSection from "./notifications/InboxNotificationsSection";
-import MessagesSection from "./messages/MessagesSection";
+import TripMessagesSection from "./messages/TripMessagesSection";
 
 const InboxPage = () => {
   const { userProfile } = useContext(AuthContext);
@@ -14,7 +14,7 @@ const InboxPage = () => {
       {userProfile && (
         <main>
           <InboxNotificationsSection userProfile={userProfile} />
-          <MessagesSection userProfile={userProfile} />
+          <TripMessagesSection userProfile={userProfile} />
         </main>
       )}
     </>
