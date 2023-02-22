@@ -28,6 +28,7 @@ import PlanTripPage from "./components/tripPlanner/PlanTripPage";
 import InboxPage from "./components/inbox/InboxPage";
 import { useMediaQuery } from "react-responsive";
 import AllNotificationsPage from "./components/inbox/notifications/AllNotificationsPage";
+import TripMessageThreadPage from "./components/tripMessageThread/TripMessageThreadPage";
 
 function App() {
   const { userProfile } = useContext(AuthContext);
@@ -61,6 +62,10 @@ function App() {
               />
               <Route path="/inbox" element={<InboxPage />} />
               <Route path="/notifications" element={<AllNotificationsPage />} />
+              <Route
+                path="/messages/:tripId"
+                element={<TripMessageThreadPage />}
+              />
               <Route path="/user-profile" element={<UserProfilePage />} />
               <Route path="/account" element={<AccountInformationPage />} />
               <Route path="/profile/:uid" element={<ProfilePage />} />

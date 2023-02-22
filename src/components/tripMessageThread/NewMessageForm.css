@@ -1,0 +1,21 @@
+.NewMessageForm {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 1em;
+  position: fixed;
+  bottom: 4em;
+  background-color: #f5f5f5;
+}
+
+.NewMessageForm div {
+  margin-bottom: 0 !important;
+  width: 100%;
+  padding-right: 1em;
+}
+
+.NewMessageForm button {
+  font-size: 0.7em;
+  padding: 0.5em 1.5em;
+  background-color: #f0b202;
+}
