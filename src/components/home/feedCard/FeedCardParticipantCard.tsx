@@ -22,7 +22,7 @@ const FeedCardParticipantCard = ({ participant }: Props) => {
         <OverlayTrigger
           placement="top"
           overlay={
-            <Tooltip id="button-tooltip-2">{userProfile.displayName}</Tooltip>
+            <Tooltip id="button-tooltip-2">{userProfile.username}</Tooltip>
           }
         >
           <img

@@ -1,8 +1,3 @@
 .PastTripsContainer {
-  margin-top: 3.5em;
-  padding: 0 1.5em;
-}
-
-.PastTripsContainer li:last-child {
-  margin-bottom: 1.5em;
+  padding: 1em;
 }

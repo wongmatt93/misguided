@@ -1,12 +1,8 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Dropdown, DropdownButton } from "react-bootstrap";
-import AuthContext from "../../../context/AuthContext";
 import Trip from "../../../models/Trip";
 import UserProfile, { UserTrip } from "../../../models/UserProfile";
-import {
-  getTripById,
-  removeParticipantFromTrip,
-} from "../../../services/tripServices";
+import { removeParticipantFromTrip } from "../../../services/tripServices";
 import {
   acceptUserTrip,
   addNotification,
@@ -23,34 +19,33 @@ import "./ParticipantsSection.css";
 
 interface Props {
   trip: Trip;
+  userProfile: UserProfile;
   participants: UserProfile[];
-  setTrip: React.Dispatch<React.SetStateAction<Trip | null>>;
+  refreshTrip: (tripId: string) => Promise<void>;
   tripCreator: boolean;
 }
 
 const ParticipantsSection = ({
   trip,
+  userProfile,
   participants,
-  setTrip,
+  refreshTrip,
   tripCreator,
 }: Props) => {
-  const { userProfile, refreshProfile } = useContext(AuthContext);
   const [invited, setInvited] = useState(false);
   const [accepted, setAccepted] = useState(false);
   const [show, setShow] = useState(false);
   const [pastTrip, setPastTrip] = useState(false);
 
   useEffect(() => {
-    if (userProfile) {
-      if (userProfile.trips.length > 0) {
-        const found: UserTrip | undefined = userProfile.trips.find(
-          (item) => item.tripId === trip._id!
-        );
+    if (userProfile.trips.length > 0) {
+      const found: UserTrip | undefined = userProfile.trips.find(
+        (item) => item.tripId === trip._id!
+      );
 
-        if (found) {
-          setInvited(true);
-          setAccepted(found.accepted);
-        }
+      if (found) {
+        setInvited(true);
+        setAccepted(found.accepted);
       }
     }
   }, [userProfile, trip]);
@@ -67,13 +62,13 @@ const ParticipantsSection = ({
   const handleShow = (): void => setShow(true);
 
   const handleAcceptTrip = async (): Promise<void> => {
-    const newNotification = createTripAcceptNotif(userProfile!.uid, trip._id!);
+    const newNotification = createTripAcceptNotif(userProfile.uid, trip._id!);
 
     await Promise.allSettled([
-      acceptUserTrip(userProfile!.uid, trip._id!),
+      acceptUserTrip(userProfile.uid, trip._id!),
       addNotification(trip.creatorUid, newNotification),
     ]);
-    refreshProfile(userProfile!.uid);
+    refreshTrip(trip._id!);
   };
 
   const handleDeleteTrip = async (): Promise<void> => {
@@ -84,10 +79,7 @@ const ParticipantsSection = ({
       removeParticipantFromTrip(trip._id!, userProfile!.uid),
       addNotification(trip.creatorUid, newNotification),
     ]);
-    const response: Trip = await getTripById(trip._id!);
-    setTrip(response);
-
-    await refreshProfile(userProfile!.uid);
+    await refreshTrip(trip._id!);
     setInvited(false);
   };
 
@@ -132,8 +124,9 @@ const ParticipantsSection = ({
       </ul>
       <InviteFriendsModal
         trip={trip}
+        userProfile={userProfile}
         show={show}
-        setTrip={setTrip}
+        refreshTrip={refreshTrip}
         handleClose={handleClose}
       />
     </section>

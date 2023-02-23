@@ -1,0 +1,10 @@
+.TripDetailsMain {
+  display: flex;
+  flex-direction: column;
+  padding: 1em;
+}
+
+.TripDetailsMain .delete-button {
+  color: red;
+  text-decoration: none;
+}

@@ -10,8 +10,10 @@ const PlanTripPage = () => {
 
   return (
     <>
-      <header>
-        <h2>Pick a city to begin planning your trip</h2>
+      <header className="PlanTripPage-header">
+        <h1>Begin Trip Planning</h1>
+      </header>
+      <main className="PlanTripPage-main">
         <p>Don't see a city you like? Discover new cities!</p>
         <Button
           className="discover-button"
@@ -20,9 +22,8 @@ const PlanTripPage = () => {
         >
           Discover
         </Button>
-      </header>
-
-      <FavoritesContainer />
+        <FavoritesContainer />
+      </main>
     </>
   );
 };

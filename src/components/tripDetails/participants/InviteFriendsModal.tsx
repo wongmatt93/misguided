@@ -1,17 +1,13 @@
 import { FormEvent, useContext, useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import AuthContext from "../../../context/AuthContext";
 import FollowContext from "../../../context/FollowContext";
 import Trip from "../../../models/Trip";
 import UserProfile, {
   Notification,
   UserTrip,
 } from "../../../models/UserProfile";
-import {
-  addNewParticipantToTrip,
-  getTripById,
-} from "../../../services/tripServices";
+import { addNewParticipantToTrip } from "../../../services/tripServices";
 import { addNewUserTrip, addNotification } from "../../../services/userService";
 import { createTripRequestNotif } from "../../../utils/notificationsFunctions";
 import InviteFriendCheckbox from "./InviteFriendCheckbox";
@@ -19,13 +15,19 @@ import "./InviteFriendsModal.css";
 
 interface Props {
   trip: Trip;
+  userProfile: UserProfile;
   show: boolean;
-  setTrip: React.Dispatch<React.SetStateAction<Trip | null>>;
+  refreshTrip: (tripId: string) => Promise<void>;
   handleClose: () => void;
 }
 
-const InviteFriendsModal = ({ trip, show, setTrip, handleClose }: Props) => {
-  const { userProfile, refreshProfile } = useContext(AuthContext);
+const InviteFriendsModal = ({
+  trip,
+  userProfile,
+  show,
+  refreshTrip,
+  handleClose,
+}: Props) => {
   const { friends } = useContext(FollowContext);
   const [filteredFriends, setFilteredFriends] = useState<UserProfile[]>([]);
   const [invitedFriends, setInvitedFriends] = useState<string[]>([]);
@@ -61,9 +63,7 @@ const InviteFriendsModal = ({ trip, show, setTrip, handleClose }: Props) => {
       })
     );
 
-    const response: Trip = await getTripById(trip._id!);
-    setTrip(response);
-    await refreshProfile(userProfile!.uid);
+    await refreshTrip(trip._id!);
 
     handleClose();
   };
