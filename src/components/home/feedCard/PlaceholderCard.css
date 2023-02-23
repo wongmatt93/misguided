@@ -51,6 +51,10 @@
   height: 100%;
 }
 
+.PlaceholderCard .participants {
+  margin: 0.5em;
+}
+
 .PlaceholderCard .likes-comments-labels {
   display: flex;
   justify-content: space-between;

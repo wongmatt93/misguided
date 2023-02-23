@@ -1,13 +1,13 @@
 import { FormEvent, useContext, useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import AuthContext from "../../context/AuthContext";
-import Trip, { Message } from "../../models/Trip";
+import { Message } from "../../models/Trip";
 import { addMessageToTrip } from "../../services/tripServices";
 import "./NewMessageForm.css";
 
 interface Props {
   tripId: string;
-  refreshTrip: (tripId: string) => void;
+  refreshTrip: (tripId: string) => Promise<void>;
 }
 
 const NewMessageForm = ({ tripId, refreshTrip }: Props) => {

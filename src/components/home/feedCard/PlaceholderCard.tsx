@@ -20,6 +20,9 @@ const PlaceholderCard = () => {
       <Placeholder as="div" className="image-container" animation="glow">
         <Placeholder as="div" className="image" />
       </Placeholder>
+      <Placeholder as="div" className="participants" animation="glow">
+        <Placeholder xs={3} />
+      </Placeholder>
       <Placeholder as="div" className="likes-comments-labels" animation="glow">
         <Placeholder xs={3} />
         <Placeholder xs={3} />

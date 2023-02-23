@@ -3,15 +3,23 @@
   justify-content: space-between;
   width: 100%;
   padding: 1em;
-  position: fixed;
-  bottom: 4em;
   background-color: #f5f5f5;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  position: fixed;
+  bottom: 0;
+  height: 4em;
+  z-index: 1;
 }
 
 .NewMessageForm div {
   margin-bottom: 0 !important;
   width: 100%;
-  padding-right: 1em;
+  padding-right: 0.5em;
+}
+
+.NewMessageForm input {
+  font-size: 0.7em;
+  height: 100%;
 }
 
 .NewMessageForm button {

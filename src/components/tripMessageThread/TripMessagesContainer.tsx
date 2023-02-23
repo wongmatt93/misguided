@@ -12,6 +12,7 @@ const TripMessagesContainer = ({ trip }: Props) => {
   const [count, setCount] = useState(0);
   const [loaded, setLoaded] = useState(false);
   const dataFetchedRef = useRef(false);
+  const messagesEnd = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     if (dataFetchedRef.current) return;
@@ -21,21 +22,29 @@ const TripMessagesContainer = ({ trip }: Props) => {
     }
   }, [count]);
 
+  useEffect(() => {
+    messagesEnd.current &&
+      messagesEnd.current.scrollIntoView({ behavior: "smooth" });
+  });
+
   return (
     <div className="TripMessagesContainer">
-      <ul
-        style={{
-          display: loaded ? "block" : "none",
-        }}
-      >
-        {trip.messages.map((message) => (
-          <TripMessage
-            key={message.date + message.uid}
-            message={message}
-            setCount={setCount}
-          />
-        ))}
-      </ul>
+      <>
+        <ul
+          style={{
+            display: loaded ? "block" : "none",
+          }}
+        >
+          {trip.messages.map((message) => (
+            <TripMessage
+              key={message.date + message.uid}
+              message={message}
+              setCount={setCount}
+            />
+          ))}
+        </ul>
+        <div ref={messagesEnd} />
+      </>
       {trip && !loaded && (
         <div className="loading">
           <Spinner animation="border" role="status">

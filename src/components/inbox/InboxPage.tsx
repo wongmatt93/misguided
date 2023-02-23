@@ -12,7 +12,7 @@ const InboxPage = () => {
     <>
       <InboxHeader />
       {userProfile && (
-        <main>
+        <main className="Inbox-main">
           <InboxNotificationsSection userProfile={userProfile} />
           <TripMessagesSection userProfile={userProfile} />
         </main>

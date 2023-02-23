@@ -4,7 +4,11 @@
   justify-content: center;
   align-items: center;
   text-align: center;
-  width: 20%;
+  margin-right: 0.5em;
+}
+
+.ParticipantCard:hover {
+  cursor: pointer;
 }
 
 .ParticipantCard .image-container {

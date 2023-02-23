@@ -1,0 +1,12 @@
+.TripDetailsHeader {
+  display: flex;
+  flex-direction: column;
+}
+
+.TripDetailsHeader h1 {
+  font-size: 1.3em;
+}
+
+.TripDetailsHeader p {
+  font-size: 0.8em;
+}

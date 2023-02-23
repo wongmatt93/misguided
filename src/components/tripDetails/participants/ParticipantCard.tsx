@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import UserProfile, { UserTrip } from "../../../models/UserProfile";
 import "./ParticipantCard.css";
 
@@ -8,6 +9,7 @@ interface Props {
 }
 
 const ParticipantCard = ({ participant, tripId }: Props) => {
+  const navigate = useNavigate();
   const [accepted, setAccepted] = useState(false);
 
   useEffect(() => {
@@ -23,7 +25,10 @@ const ParticipantCard = ({ participant, tripId }: Props) => {
   }, [participant, tripId]);
 
   return (
-    <li className="ParticipantCard">
+    <li
+      className="ParticipantCard"
+      onClick={() => navigate(`/profile/${participant.uid}`)}
+    >
       <div className="image-container">
         <img
           src={participant.photoURL!}
