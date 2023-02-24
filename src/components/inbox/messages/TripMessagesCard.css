@@ -2,25 +2,66 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  background-color: #f5f5f5;
+  padding: 0.5em 0;
+  position: relative;
+}
+
+.TripMessagesCard:hover {
+  cursor: pointer;
+}
+
+.TripMessagesCard .unread-count-container {
+  justify-content: center;
+  align-items: center;
+  height: 1em;
+  width: 1em;
+  background-color: #f0b202;
+  border-radius: 50%;
+  position: absolute;
+  left: -0.6em;
+}
+
+.TripMessagesCard .unread-count {
+  font-size: 0.5em;
 }
 
 .TripMessagesCard .image-message-container {
   display: flex;
   align-items: center;
-}
-
-.TripMessagesCard .notification-dot {
-  background-color: #f0b202;
-  height: 0.5em;
-  width: 0.5em;
-  border-radius: 50%;
-  top: 0;
-  right: 0;
+  flex: 1;
+  margin-left: 0.7em;
+  width: 75%;
 }
 
 .TripMessagesCard img {
-  height: 3em;
-  width: 3em;
+  height: 2.5em;
+  width: 2.5em;
   object-fit: cover;
   border-radius: 50%;
+  margin-right: 0.5em;
+}
+
+.TripMessagesCard .trip-message-container {
+  width: calc(100% - 2.5rem);
+}
+
+.TripMessagesCard p {
+  font-size: 0.8em;
+}
+
+.TripMessagesCard .trip-name {
+  font-weight: 700;
+}
+
+.TripMessagesCard .latest-message {
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.TripMessagesCard .latest-message-time {
+  width: 25%;
+  text-align: right;
 }

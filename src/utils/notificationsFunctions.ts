@@ -47,3 +47,16 @@ export const createTripDeclineNotif = (
     tripId,
   };
 };
+
+export const createTripMessageNotif = (
+  uid: string,
+  tripId: string
+): Notification => {
+  return {
+    uid,
+    type: "tripMessage",
+    date: Date.now().toString(),
+    read: false,
+    tripId,
+  };
+};

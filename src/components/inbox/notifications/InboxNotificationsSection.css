@@ -1,0 +1,17 @@
+.InboxNotificationsSection {
+  padding-bottom: 1em;
+}
+
+.InboxNotificationsSection .section-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.InboxNotificationsSection .section-header-row:hover {
+  cursor: pointer;
+}
+
+.InboxNotificationsSection .section-header-row h2 {
+  font-size: 1.2em;
+}
