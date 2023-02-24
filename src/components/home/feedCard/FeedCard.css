@@ -1,23 +1,9 @@
 .FeedCard .post {
   border-bottom: 1px solid rgba(0, 0, 0, 0.3);
-  padding-top: 0.5em;
 }
 
-.FeedCard .likes-comments-labels {
-  display: flex;
-  justify-content: space-between;
-  margin: 0 0.5em;
-  padding: 0 1em 0.5em 1em;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-}
-
-.FeedCard .likes-comments-labels p {
-  font-size: 0.8em;
-  color: grey;
-}
-
-.FeedCard .likes-comments-labels p:hover {
-  cursor: pointer;
+.FeedCard .photos-interactions-container {
+  position: relative;
 }
 
 .FeedCard .likes-comments-buttons {

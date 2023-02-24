@@ -2,7 +2,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 0.5rem;
+  padding: 0.5em 0.5em 0;
 }
 
 .FeedCardHeader .image-name-location-container {

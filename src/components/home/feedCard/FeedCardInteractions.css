@@ -1,0 +1,34 @@
+.FeedCardInteractions {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  border-bottom-left-radius: 1em;
+  border-bottom-right-radius: 1em;
+  padding: 0 0.5em;
+  position: absolute;
+  bottom: 0;
+  height: 2.5em;
+}
+
+.FeedCardInteractions .likes,
+.FeedCardInteractions .comments {
+  display: flex;
+  align-items: center;
+  font-size: 1.5em;
+}
+
+.FeedCardInteractions svg {
+  color: #f0b202;
+  margin-right: 0.2em;
+}
+
+.FeedCardInteractions svg:hover {
+  cursor: pointer;
+}
+
+.FeedCardInteractions p {
+  color: #f0b202;
+  font-size: 0.8em;
+  margin-right: 0.8em;
+}

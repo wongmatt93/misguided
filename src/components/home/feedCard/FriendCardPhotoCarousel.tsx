@@ -22,6 +22,7 @@ const FriendCardPhotoCarousel = ({ photos, handleViewTrip }: Props) => {
       className="FriendCardPhotoCarousel"
       interval={null}
       wrap={false}
+      indicators={false}
       variant="dark"
     >
       {photos.map((photo, index) => (
