@@ -1,30 +1,22 @@
-import { useContext, useEffect, useRef } from "react";
+import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import AuthContext from "../../../context/AuthContext";
 import useProfileFetcher from "../../../hooks/useProfileFetcher";
 import UserProfile, { Notification } from "../../../models/UserProfile";
 import { readNotification } from "../../../services/userService";
+import ListGroup from "react-bootstrap/ListGroup";
 import "./NotificationCard.css";
+import { getHhMm } from "../../../utils/dateFunctions";
 
 interface Props {
   uid: string;
   notification: Notification;
-  setLoaded: React.Dispatch<React.SetStateAction<number>>;
 }
 
-const NotificationCard = ({ uid, notification, setLoaded }: Props) => {
+const NotificationCard = ({ uid, notification }: Props) => {
   const { refreshProfile } = useContext(AuthContext);
   const profile: UserProfile | null = useProfileFetcher(notification.uid);
   const navigate = useNavigate();
-  const dataFetchedRef = useRef(false);
-
-  useEffect(() => {
-    if (profile) {
-      if (dataFetchedRef.current) return;
-      dataFetchedRef.current = true;
-      setLoaded((oldValue) => oldValue + 1);
-    }
-  }, [profile, setLoaded]);
 
   const markRead = (): Promise<void> =>
     readNotification(uid, notification.uid, notification.date).then(() =>
@@ -51,21 +43,22 @@ const NotificationCard = ({ uid, notification, setLoaded }: Props) => {
   return (
     <>
       {profile && (
-        <li
+        <ListGroup.Item
           className="NotificationCard"
           onClick={() => handleViewClick(notification)}
         >
-          <div className="image-message-container">
+          <div className="dot-container" onClick={(e) => handleReadClick(e)}>
             <div
               className="notification-dot"
               style={{
                 backgroundColor: notification.read ? "transparent" : "#f0b202",
               }}
-              onClick={(e) => handleReadClick(e)}
             ></div>
+          </div>
+          <div className="image-message-container">
             <img src={profile.photoURL!} alt={profile.photoURL!} />
             <div className="notification-message">
-              <p>{profile.username}</p>
+              <p className="username">{profile.username}</p>
               {notification.type === "follow" && <p>started following you</p>}
               {notification.type === "tripRequest" && (
                 <p>invited you on a trip!</p>
@@ -78,8 +71,8 @@ const NotificationCard = ({ uid, notification, setLoaded }: Props) => {
               )}
             </div>
           </div>
-          <p>{new Date(Number(notification.date)).toLocaleDateString()}</p>
-        </li>
+          <p>{getHhMm(notification.date)}</p>
+        </ListGroup.Item>
       )}
     </>
   );

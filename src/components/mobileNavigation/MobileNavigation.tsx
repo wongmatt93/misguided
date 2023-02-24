@@ -12,14 +12,13 @@ import AuthContext from "../../context/AuthContext";
 
 const MobileNavigation = () => {
   const { userProfile } = useContext(AuthContext);
-  const [tripRequests, setTripRequests] = useState(0);
+  const [unreadCount, setUnreadCount] = useState(0);
 
   useEffect(() => {
     if (userProfile) {
-      const numTripRequests: number = userProfile.trips.filter(
-        (trip) => !trip.accepted
-      ).length;
-      setTripRequests(numTripRequests);
+      setUnreadCount(
+        userProfile.notifications.filter((notifs) => !notifs.read).length
+      );
     }
   }, [userProfile]);
 
@@ -29,10 +28,7 @@ const MobileNavigation = () => {
         <ul>
           <li>
             <NavLink to="/home">
-              <div className="trip-icon">
-                <RiHome2Fill />
-                {/* {tripRequests > 0 && <div className="notification-dot"></div>} */}
-              </div>
+              <RiHome2Fill />
             </NavLink>
           </li>
           <li>
@@ -47,7 +43,14 @@ const MobileNavigation = () => {
           </li>
           <li>
             <NavLink to="/inbox">
-              <RiDiscussFill />
+              <div className="inbox-container">
+                {unreadCount > 0 && (
+                  <div className="notification-count">
+                    <p className="number">{unreadCount}</p>
+                  </div>
+                )}
+                <RiDiscussFill />
+              </div>
             </NavLink>
           </li>
           <li>

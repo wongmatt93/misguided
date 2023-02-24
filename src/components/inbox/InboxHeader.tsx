@@ -3,7 +3,7 @@ import "./InboxHeader.css";
 const InboxHeader = () => {
   return (
     <header className="InboxHeader">
-      <h1>Inbox</h1>
+      <h1>inbox</h1>
     </header>
   );
 };

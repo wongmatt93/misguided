@@ -1,3 +1,7 @@
+.AllNotificationsPage-main {
+  padding: 0 1em;
+}
+
 .AllNotificationsPage-main .loading {
   display: flex;
   justify-content: center;

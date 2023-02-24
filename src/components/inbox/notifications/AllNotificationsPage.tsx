@@ -1,5 +1,5 @@
-import { useContext, useState } from "react";
-import { Spinner } from "react-bootstrap";
+import { useContext, useEffect, useState } from "react";
+import { ListGroup } from "react-bootstrap";
 import AuthContext from "../../../context/AuthContext";
 import { Notification } from "../../../models/UserProfile";
 import { readNotification } from "../../../services/userService";
@@ -9,7 +9,16 @@ import NotificationCard from "./NotificationCard";
 
 const AllNotificationsPage = () => {
   const { userProfile, refreshProfile } = useContext(AuthContext);
-  const [loaded, setLoaded] = useState(0);
+  const [filteredNotifs, setFilteredNotifs] = useState<Notification[]>([]);
+
+  useEffect(() => {
+    userProfile &&
+      setFilteredNotifs(
+        userProfile.notifications.filter(
+          (notif) => notif.type !== "tripMessage"
+        )
+      );
+  }, [userProfile]);
 
   const markAllRead = async (): Promise<void> => {
     const unread: Notification[] = userProfile!.notifications.filter(
@@ -33,31 +42,23 @@ const AllNotificationsPage = () => {
       </header>
       <main className="AllNotificationsPage-main">
         {userProfile && (
-          <ul
-            style={{
-              display:
-                userProfile.notifications.length === loaded ? "block" : "none",
-            }}
-          >
-            {sortNotifications(userProfile.notifications).map(
-              (notification) => (
-                <NotificationCard
-                  key={notification.date}
-                  uid={userProfile.uid}
-                  notification={notification}
-                  setLoaded={setLoaded}
-                />
-              )
-            )}
-          </ul>
+          <ListGroup variant="flush">
+            {sortNotifications(filteredNotifs).map((notification) => (
+              <NotificationCard
+                key={notification.date}
+                uid={userProfile.uid}
+                notification={notification}
+              />
+            ))}
+          </ListGroup>
         )}
-        {userProfile && userProfile.notifications.length !== loaded && (
+        {/* {userProfile && userProfile.notifications.length !== 0 && (
           <div className="loading">
             <Spinner animation="border" role="status">
               <span className="visually-hidden">Loading...</span>
             </Spinner>
           </div>
-        )}
+        )} */}
       </main>
     </>
   );

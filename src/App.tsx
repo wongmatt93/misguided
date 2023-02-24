@@ -25,10 +25,8 @@ import InitialSigninPage from "./components/initialSignIn/InitialSignInPage";
 import Homepage from "./components/home/Homepage";
 import SearchPage from "./components/search/SearchPage";
 import PlanTripPage from "./components/tripPlanner/PlanTripPage";
-import InboxPage from "./components/inbox/InboxPage";
 import { useMediaQuery } from "react-responsive";
-import AllNotificationsPage from "./components/inbox/notifications/AllNotificationsPage";
-import TripMessageThreadPage from "./components/tripMessageThread/TripMessageThreadPage";
+import InboxRouter from "./components/inbox/InboxRouter";
 
 function App() {
   const { userProfile } = useContext(AuthContext);
@@ -60,12 +58,7 @@ function App() {
                 path="/city-details/:cityId"
                 element={<CityDetailsPage />}
               />
-              <Route path="/inbox" element={<InboxPage />} />
-              <Route path="/notifications" element={<AllNotificationsPage />} />
-              <Route
-                path="/messages/:tripId"
-                element={<TripMessageThreadPage />}
-              />
+              <Route path="/inbox/*" element={<InboxRouter />} />
               <Route path="/user-profile" element={<UserProfilePage />} />
               <Route path="/account" element={<AccountInformationPage />} />
               <Route path="/profile/:uid" element={<ProfilePage />} />
