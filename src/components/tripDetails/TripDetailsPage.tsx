@@ -21,7 +21,10 @@ const TripDetailsPage = () => {
 
   useEffect(() => {
     if (tripId) {
-      getTripById(tripId).then((response) => setTrip(response));
+      const interval = setInterval(() => {
+        getTripById(tripId).then((response) => setTrip(response));
+      }, 1000);
+      return () => clearInterval(interval);
     }
   }, [tripId]);
 

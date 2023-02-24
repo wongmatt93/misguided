@@ -1,3 +1,7 @@
+.TripMessagesContainer {
+  padding: 1em;
+}
+
 .TripMessagesContainer .loading {
   display: flex;
   justify-content: center;

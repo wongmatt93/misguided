@@ -18,6 +18,15 @@ const TripMessageThreadPage = () => {
     tripId && refreshTrip(tripId);
   }, [tripId]);
 
+  useEffect(() => {
+    if (tripId) {
+      const interval = setInterval(() => {
+        getTripById(tripId).then((response) => setTrip(response));
+      }, 1000);
+      return () => clearInterval(interval);
+    }
+  }, [tripId]);
+
   return (
     <>
       {trip && (
