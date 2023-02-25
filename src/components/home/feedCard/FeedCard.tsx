@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import Collapse from "react-bootstrap/Collapse";
 import { useNavigate } from "react-router-dom";
 import Trip from "../../../models/Trip";
 import "./FeedCard.css";
@@ -7,9 +6,8 @@ import FeedCardHeader from "./FeedCardHeader";
 import FriendCardPhotoCarousel from "./FriendCardPhotoCarousel";
 import FeedCardParticipantsSection from "./FeedCardParticipantsSection";
 import PlaceholderCard from "./PlaceholderCard";
-import AddCommentForm from "../AddCommentForm";
-import CommentsModal from "../CommentsModal";
 import FeedCardInteractions from "./FeedCardInteractions";
+import FeedCardLocation from "./FeedCardLocation";
 
 interface Props {
   trip: Trip;
@@ -20,8 +18,6 @@ const FeedCard = ({ trip }: Props) => {
 
   const [fullyLoaded, setFullyLoaded] = useState(false);
   const [photos, setPhotos] = useState<string[]>([]);
-
-  const [showComments, setShowComments] = useState(false);
 
   useEffect(() => {
     if (trip.photos.length > 0) {
@@ -39,39 +35,22 @@ const FeedCard = ({ trip }: Props) => {
 
   const handleViewTrip = (): void => navigate(`/trip/${trip._id!}`);
 
-  const handleCloseComments = () => setShowComments(false);
-  const handleShowComments = () => setShowComments(true);
-
   return (
-    <li className="FeedCard">
+    <>
       {fullyLoaded ? (
-        <div className="post">
+        <li className="FeedCard">
           <FeedCardHeader trip={trip} />
-          <div className="photos-interactions-container">
-            <FriendCardPhotoCarousel
-              photos={photos}
-              handleViewTrip={handleViewTrip}
-            />
-            <FeedCardInteractions trip={trip} />
-          </div>
-          <FeedCardParticipantsSection participants={trip.participants} />
-          {/* <div className="likes-comments-buttons">
-
-            <div onClick={() => setOpenComment(!openComment)}>
-              <AiOutlineMessage />
-              <p>Comment</p>
-            </div>
-          </div> */}
-          <CommentsModal
-            show={showComments}
-            handleClose={handleCloseComments}
-            trip={trip}
+          <FeedCardLocation trip={trip} />
+          <FriendCardPhotoCarousel
+            photos={photos}
+            handleViewTrip={handleViewTrip}
           />
-        </div>
+          <FeedCardInteractions trip={trip} />
+        </li>
       ) : (
         <PlaceholderCard />
       )}
-    </li>
+    </>
   );
 };
 

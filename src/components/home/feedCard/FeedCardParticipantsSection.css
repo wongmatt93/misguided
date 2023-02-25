@@ -1,19 +1,7 @@
 .FeedCardParticipantsSection {
   display: flex;
-  align-items: center;
-  padding: 0.5em 0.5em 0;
-}
-
-.FeedCardParticipantsSection h4 {
-  font-family: "Oswald", sans-serif;
-  font-size: 1em;
-  margin-right: 0.5em;
-}
-
-.FeedCardParticipantsSection ul {
-  display: flex;
   overflow: scroll;
-  width: 100%;
+  width: 70%;
 }
 
 .FeedCardParticipantsSection li:last-child {

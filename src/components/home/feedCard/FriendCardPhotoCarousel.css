@@ -1,9 +1,5 @@
-.FriendCardPhotoCarousel {
-  padding: 0.5em 0 0;
-}
-
 .FriendCardPhotoCarousel .carousel-image {
-  height: 20em;
+  height: 25em;
   width: 100%;
   object-fit: cover;
   border-radius: 1em;

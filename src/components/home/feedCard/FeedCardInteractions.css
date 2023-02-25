@@ -15,7 +15,7 @@
 .FeedCardInteractions .comments {
   display: flex;
   align-items: center;
-  font-size: 1.5em;
+  font-size: 1.3em;
 }
 
 .FeedCardInteractions svg {
@@ -29,6 +29,6 @@
 
 .FeedCardInteractions p {
   color: #f0b202;
-  font-size: 0.8em;
-  margin-right: 0.8em;
+  font-size: 0.7em;
+  margin-right: 0.9em;
 }

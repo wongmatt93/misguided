@@ -2,47 +2,14 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.5em 0.5em 0;
-}
-
-.FeedCardHeader .image-name-location-container {
-  display: flex;
-  align-items: center;
-}
-
-.FeedCardHeader .creator-image {
-  height: 2.3em;
-  width: 2.3em;
-  object-fit: cover;
-  border-radius: 50%;
-  box-sizing: border-box;
-  margin-right: 0.5em;
-  cursor: pointer;
-}
-
-.FeedCardHeader .name-location-container h3 {
-  font-family: "Oswald", sans-serif;
-  font-weight: 300;
-  font-size: 1em;
-  cursor: pointer;
-}
-
-.FeedCardHeader .city-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  cursor: default;
-}
-
-.FeedCardHeader .city-container h4 {
-  font-family: "Oswald", sans-serif;
-  font-size: 0.8em;
-  margin-right: 0.5em;
-}
-
-.FeedCardHeader .city-container p {
-  font-family: "Roboto", "sans-serif";
-  font-size: 0.7em;
+  position: absolute;
+  padding: 0 1em;
+  z-index: 1;
+  background-color: rgba(0, 0, 0, 0.6);
+  width: 100%;
+  border-top-right-radius: 1em;
+  border-top-left-radius: 1em;
+  height: 4em;
 }
 
 .FeedCardHeader button {

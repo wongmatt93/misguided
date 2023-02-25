@@ -1,41 +1,4 @@
-.FeedCard .post {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.3);
-}
-
-.FeedCard .photos-interactions-container {
+.FeedCard {
   position: relative;
-}
-
-.FeedCard .likes-comments-buttons {
-  display: flex;
-  justify-content: space-around;
-  margin: 0.5em;
-}
-
-.FeedCard .likes-comments-buttons div {
-  display: flex;
-  align-items: center;
-  padding: 0.3em;
-  cursor: pointer;
-}
-
-.FeedCard .likes-comments-buttons svg {
-  margin-right: 0.5em;
-}
-
-.FeedCard form {
-  display: flex;
-  justify-content: space-between;
-  padding: 0 0.5em 1em 0.5em;
-}
-
-.FeedCard .comment-form div {
-  flex: 1;
-  margin-right: 0.5em;
-}
-
-.FeedCard .comment-form button {
-  font-size: 0.7em;
-  padding: 0.5em 1em;
-  background-color: #f0b202;
+  margin-bottom: 1em;
 }

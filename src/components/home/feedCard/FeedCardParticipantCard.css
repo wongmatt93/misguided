@@ -1,14 +1,29 @@
 .FeedCardParticipantCard {
+  display: flex;
+  flex-direction: column;
   margin-right: 0.5em;
+  width: 2.5em;
+}
+
+.FeedCardParticipantCard:hover {
+  cursor: pointer;
+}
+
+.FeedCardParticipantCard .username {
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 0.5em;
 }
 
 .FeedCardParticipantCard .participant-image {
-  height: 1.5em;
-  width: 1.5em;
+  height: 2.5em;
+  width: 2.5em;
   object-fit: cover;
   border-radius: 50%;
 }
 
-.FeedCardParticipantCard .participant-image:hover {
-  cursor: pointer;
+.FeedCardParticipantCard p {
+  color: #f5f5f5;
 }

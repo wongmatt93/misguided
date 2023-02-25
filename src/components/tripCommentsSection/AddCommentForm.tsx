@@ -7,10 +7,11 @@ import "./AddCommentForm.css";
 
 interface Props {
   trip: Trip;
+  refreshTrip: (tripId: string) => Promise<void>;
 }
 
-const AddCommentForm = ({ trip }: Props) => {
-  const { userProfile, refreshProfile } = useContext(AuthContext);
+const AddCommentForm = ({ trip, refreshTrip }: Props) => {
+  const { userProfile } = useContext(AuthContext);
   const [comment, setComment] = useState("");
 
   const handleSubmitComment = (e: FormEvent): void => {
@@ -22,9 +23,7 @@ const AddCommentForm = ({ trip }: Props) => {
       date: Date.now().toString(),
     };
 
-    commentOnTrip(trip._id!, newComment).then(() =>
-      refreshProfile(userProfile!.uid)
-    );
+    commentOnTrip(trip._id!, newComment).then(() => refreshTrip(trip._id!));
 
     setComment("");
   };
@@ -33,7 +32,7 @@ const AddCommentForm = ({ trip }: Props) => {
     <Form className="AddCommentForm" onSubmit={handleSubmitComment}>
       <Form.Group controlId="comment">
         <Form.Control
-          placeholder="Enter Comment"
+          placeholder="add new comment..."
           value={comment}
           onChange={(e) => setComment(e.target.value)}
           required

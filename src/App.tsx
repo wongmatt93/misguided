@@ -19,7 +19,6 @@ import AddCityPage from "./components/admin/AddCityPage";
 import CityDetailsPage from "./components/cityDetails/CityDetailsPage";
 import PreferencesPage from "./components/userProfile/preferences/PreferencesPage";
 import PlanningPage from "./components/tripPlanner/PlanningPage";
-import TripDetailsPage from "./components/tripDetails/TripDetailsPage";
 import AccountInformationPage from "./components/userProfile/accountInformation/AccountInformationPage";
 import InitialSigninPage from "./components/initialSignIn/InitialSignInPage";
 import Homepage from "./components/home/Homepage";
@@ -27,6 +26,7 @@ import SearchPage from "./components/search/SearchPage";
 import PlanTripPage from "./components/tripPlanner/PlanTripPage";
 import { useMediaQuery } from "react-responsive";
 import InboxRouter from "./components/inbox/InboxRouter";
+import TripRouter from "./components/tripDetails/TripRouter";
 
 function App() {
   const { userProfile } = useContext(AuthContext);
@@ -41,7 +41,7 @@ function App() {
             <>
               <Route path="/" element={<LandingPage />} />
               <Route path="/profile/:uid" element={<ProfilePage />} />
-              <Route path="/trip/:tripId" element={<TripDetailsPage />} />
+              <Route path="/trip/:tripId" element={<TripRouter />} />
               <Route path="*" element={<Navigate to="/" />} />
             </>
           ) : (
@@ -63,7 +63,7 @@ function App() {
               <Route path="/account" element={<AccountInformationPage />} />
               <Route path="/profile/:uid" element={<ProfilePage />} />
               <Route path="/add-city" element={<AddCityPage />} />
-              <Route path="/trip/:tripId" element={<TripDetailsPage />} />
+              <Route path="/trip/:tripId/*" element={<TripRouter />} />
               <Route path="*" element={<Navigate to="/routes" />} />
             </>
           )}

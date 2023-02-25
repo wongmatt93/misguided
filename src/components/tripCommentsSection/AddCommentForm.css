@@ -1,4 +1,4 @@
-.NewMessageForm {
+.AddCommentForm {
   display: flex;
   justify-content: space-between;
   width: 100%;
@@ -11,17 +11,17 @@
   z-index: 1;
 }
 
-.NewMessageForm div {
+.AddCommentForm div {
   width: 100%;
   padding-right: 0.5em;
 }
 
-.NewMessageForm input {
+.AddCommentForm input {
   font-size: 0.7em;
   height: 100%;
 }
 
-.NewMessageForm button {
+.AddCommentForm button {
   font-size: 0.7em;
   padding: 0.5em 1.5em;
   background-color: #f0b202;

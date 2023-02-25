@@ -8,17 +8,14 @@ interface Props {
 
 const FeedCardParticipantsSection = ({ participants }: Props) => {
   return (
-    <section className="FeedCardParticipantsSection">
-      <h4>Participants</h4>
-      <ul>
-        {participants.map((participant) => (
-          <FeedCardParticipantCard
-            key={participant.uid}
-            participant={participant}
-          />
-        ))}
-      </ul>
-    </section>
+    <ul className="FeedCardParticipantsSection">
+      {participants.map((participant) => (
+        <FeedCardParticipantCard
+          key={participant.uid}
+          participant={participant}
+        />
+      ))}
+    </ul>
   );
 };
 

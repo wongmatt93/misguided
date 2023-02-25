@@ -77,7 +77,7 @@ const AuthContextProvider = ({ children }: Props) => {
     if (userProfile) {
       const interval = setInterval(() => {
         refreshProfile(userProfile!.uid);
-      }, 1000);
+      }, 10000);
 
       return () => clearInterval(interval);
     }

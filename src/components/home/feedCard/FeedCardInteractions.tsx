@@ -4,6 +4,7 @@ import AuthContext from "../../../context/AuthContext";
 import Trip, { Like } from "../../../models/Trip";
 import { likeTrip, unlikeTrip } from "../../../services/tripServices";
 import "./FeedCardInteractions.css";
+import { useNavigate } from "react-router-dom";
 
 interface Props {
   trip: Trip;
@@ -11,6 +12,7 @@ interface Props {
 
 const FeedCardInteractions = ({ trip }: Props) => {
   const { userProfile, refreshProfile } = useContext(AuthContext);
+  const navigate = useNavigate();
   const [liked, setLiked] = useState(false);
   const [likesQuantity, setLikesQuantity] = useState(0);
   const [commentsQuantity, setCommentsQuantity] = useState(0);
@@ -45,7 +47,9 @@ const FeedCardInteractions = ({ trip }: Props) => {
         <p>{likesQuantity}</p>
       </div>
       <div className="comments">
-        <AiOutlineMessage />
+        <AiOutlineMessage
+          onClick={() => navigate(`/trip/${trip._id!}/comments`)}
+        />
         <p>{commentsQuantity}</p>
       </div>
     </div>

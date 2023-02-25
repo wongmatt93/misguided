@@ -1,7 +1,7 @@
 import { FormEvent, useContext, useEffect, useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import AuthContext from "../../context/AuthContext";
-import Trip, { Message, Participant } from "../../models/Trip";
+import { Message } from "../../models/Trip";
 import UserProfile, { Notification } from "../../models/UserProfile";
 import { addMessageToTrip, getTripById } from "../../services/tripServices";
 import {
@@ -33,7 +33,7 @@ const NewMessageForm = ({ tripId, refreshTrip }: Props) => {
         setParticipants(response)
       );
     });
-  }, [tripId]);
+  }, [userProfile, tripId]);
 
   const handleSubmit = async (e: FormEvent): Promise<void> => {
     e.preventDefault();
@@ -66,7 +66,7 @@ const NewMessageForm = ({ tripId, refreshTrip }: Props) => {
 
   return (
     <Form className="NewMessageForm" onSubmit={handleSubmit}>
-      <Form.Group className="mb-3" controlId="message">
+      <Form.Group controlId="message">
         <Form.Control
           type="text"
           placeholder="new message..."

@@ -17,23 +17,19 @@ const FeedCardParticipantCard = ({ participant }: Props) => {
   const handleClick = (): void => navigate(`/profile/${participant.uid}`);
 
   return (
-    <li className="FeedCardParticipantCard">
+    <>
       {userProfile && (
-        <OverlayTrigger
-          placement="top"
-          overlay={
-            <Tooltip id="button-tooltip-2">{userProfile.username}</Tooltip>
-          }
-        >
+        <li className="FeedCardParticipantCard">
           <img
             className="participant-image"
             src={userProfile.photoURL!}
             alt={userProfile.photoURL!}
             onClick={handleClick}
           />
-        </OverlayTrigger>
+          <p className="username">{userProfile.username}</p>
+        </li>
       )}
-    </li>
+    </>
   );
 };
 
