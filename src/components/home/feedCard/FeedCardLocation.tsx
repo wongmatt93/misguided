@@ -20,7 +20,7 @@ const FeedCardLocation = ({ trip }: Props) => {
       {startDate && endDate && (
         <div className="FeedCardLocation">
           <p className="location">{trip.cityName}</p>
-          <p>
+          <p className="date">
             {startDate.toLocaleDateString()}
             {trip.date1 !== trip.date2 && ` - ${endDate.toLocaleDateString()}`}
           </p>

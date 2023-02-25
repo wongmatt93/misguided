@@ -1,5 +1,6 @@
 .FeedCardLocation {
   display: flex;
+  align-items: flex-end;
   padding: 0.5em 1em;
   border-bottom-right-radius: 1em;
   z-index: 1;
@@ -9,10 +10,14 @@
 }
 
 .FeedCardLocation p {
-  font-size: 0.8em;
   color: #f5f5f5;
 }
 
 .FeedCardLocation .location {
+  font-size: 0.8em;
   margin-right: 0.5em;
+}
+
+.FeedCardLocation .date {
+  font-size: 0.7em;
 }
