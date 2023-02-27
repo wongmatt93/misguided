@@ -60,3 +60,16 @@ export const createTripMessageNotif = (
     tripId,
   };
 };
+
+export const createRatingNotif = (
+  uid: string,
+  tripId: string
+): Notification => {
+  return {
+    uid,
+    type: "cityRating",
+    date: Date.now().toString(),
+    read: false,
+    tripId,
+  };
+};

@@ -1,0 +1,19 @@
+.InitialVisit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.InitialVisit .stars-container {
+  display: flex;
+  justify-content: center;
+}
+
+.InitialVisit svg {
+  color: #f0b202;
+  font-size: 3em;
+}
+
+.InitialVisit button {
+  background-color: #f0b202;
+}

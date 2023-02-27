@@ -28,36 +28,38 @@ const TripMessagesSection = ({ userProfile }: Props) => {
       }
     });
 
-    getTripsByTripIdArray(trips).then((response) => {
-      const initialArray: Trip[] = response.filter(
-        (trip) => trip.participants.length > 1
-      );
-      const hasMessages: Trip[] = [];
-      const noMessages: Trip[] = [];
+    if (trips.length > 0) {
+      getTripsByTripIdArray(trips).then((response) => {
+        const initialArray: Trip[] = response.filter(
+          (trip) => trip.participants.length > 1
+        );
+        const hasMessages: Trip[] = [];
+        const noMessages: Trip[] = [];
 
-      initialArray.forEach((trip) => {
-        if (trip.messages.length > 0) {
-          hasMessages.push(trip);
-        } else {
-          noMessages.push(trip);
-        }
+        initialArray.forEach((trip) => {
+          if (trip.messages.length > 0) {
+            hasMessages.push(trip);
+          } else {
+            noMessages.push(trip);
+          }
+        });
+
+        hasMessages.sort(function (a, b) {
+          const aLatestMessage: Message | undefined =
+            a.messages[a.messages.length - 1];
+          const bLatestMessage: Message | undefined =
+            b.messages[b.messages.length - 1];
+
+          if (aLatestMessage!.date > bLatestMessage!.date) {
+            return -1;
+          } else {
+            return 1;
+          }
+        });
+
+        setTrips([...hasMessages, ...noMessages]);
       });
-
-      hasMessages.sort(function (a, b) {
-        const aLatestMessage: Message | undefined =
-          a.messages[a.messages.length - 1];
-        const bLatestMessage: Message | undefined =
-          b.messages[b.messages.length - 1];
-
-        if (aLatestMessage!.date > bLatestMessage!.date) {
-          return -1;
-        } else {
-          return 1;
-        }
-      });
-
-      setTrips([...hasMessages, ...noMessages]);
-    });
+    }
   }, [userProfile]);
 
   return (

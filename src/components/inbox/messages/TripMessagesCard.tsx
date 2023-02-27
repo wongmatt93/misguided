@@ -7,6 +7,8 @@ import "./TripMessagesCard.css";
 import UserProfile, { Notification } from "../../../models/UserProfile";
 import AuthContext from "../../../context/AuthContext";
 import { getHhMm } from "../../../utils/dateFunctions";
+import City from "../../../models/City";
+import useCityFetcher from "../../../hooks/useCityFetcher";
 
 interface Props {
   trip: Trip;
@@ -16,6 +18,7 @@ interface Props {
 const TripMessagesCard = ({ trip, userProfile }: Props) => {
   const { refreshProfile } = useContext(AuthContext);
   const navigate = useNavigate();
+  const city: City | null = useCityFetcher(trip.cityId);
   const [unreadMessages, setUnreadMessages] = useState<Notification[]>([]);
   const [latestMessage, setLatestMessage] = useState<Message | null>(null);
   const [latestSender, setLatestSender] = useState("");
@@ -66,34 +69,38 @@ const TripMessagesCard = ({ trip, userProfile }: Props) => {
   };
 
   return (
-    <ListGroup.Item className="TripMessagesCard" onClick={handleViewClick}>
-      <div
-        className="unread-count-container"
-        style={{ display: unreadMessages.length > 0 ? "flex" : "none" }}
-        onClick={(e) => handleReadClick(e)}
-      >
-        <p className="unread-count">{unreadMessages.length}</p>
-      </div>
-      <div className="image-message-container">
-        <img src={trip.cityPhoto} alt={trip.cityPhoto} />
-        <div className="trip-message-container">
-          <p className="trip-name">
-            {trip.cityName}: {trip.date1}
-            {trip.date1 !== trip.date2 && ` - ${trip.date2}`}
-          </p>
-          {latestMessage ? (
-            <p className="latest-message">
-              {latestSender}: {latestMessage.text}
-            </p>
-          ) : (
-            <p>Start chatting about your upcoming trip!</p>
+    <>
+      {city && (
+        <ListGroup.Item className="TripMessagesCard" onClick={handleViewClick}>
+          <div
+            className="unread-count-container"
+            style={{ display: unreadMessages.length > 0 ? "flex" : "none" }}
+            onClick={(e) => handleReadClick(e)}
+          >
+            <p className="unread-count">{unreadMessages.length}</p>
+          </div>
+          <div className="image-message-container">
+            <img src={city.photoURL} alt={city.photoURL} />
+            <div className="trip-message-container">
+              <p className="trip-name">
+                {city.cityName}: {trip.date1}
+                {trip.date1 !== trip.date2 && ` - ${trip.date2}`}
+              </p>
+              {latestMessage ? (
+                <p className="latest-message">
+                  {latestSender}: {latestMessage.text}
+                </p>
+              ) : (
+                <p>Start chatting about your upcoming trip!</p>
+              )}
+            </div>
+          </div>
+          {latestMessage && (
+            <p className="latest-message-time">{getHhMm(latestMessage.date)}</p>
           )}
-        </div>
-      </div>
-      {latestMessage && (
-        <p className="latest-message-time">{getHhMm(latestMessage.date)}</p>
+        </ListGroup.Item>
       )}
-    </ListGroup.Item>
+    </>
   );
 };
 
