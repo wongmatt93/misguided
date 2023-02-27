@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { BsChevronCompactRight } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
+import useCityFetcher from "../../hooks/useCityFetcher";
+import City from "../../models/City";
 import Trip from "../../models/Trip";
 import "./TripCard.css";
 
@@ -10,6 +12,7 @@ interface Props {
 
 const TripCard = ({ trip }: Props) => {
   const navigate = useNavigate();
+  const city: City | null = useCityFetcher(trip.cityId);
   const [startDate, setStartDate] = useState<Date | null>(null);
   const [endDate, setEndDate] = useState<Date | null>(null);
 
@@ -22,11 +25,11 @@ const TripCard = ({ trip }: Props) => {
 
   return (
     <li className="TripCard" onClick={handleClick}>
-      {startDate && endDate && (
+      {startDate && endDate && city && (
         <div className="info-container">
-          <img src={trip.cityPhoto} alt={trip.cityPhoto} />
+          <img src={city.photoURL} alt={city.photoURL} />
           <div className="name-date-container">
-            <h3>{trip.cityName}</h3>
+            <h3>{city.cityName}</h3>
             <h4>
               {startDate.toLocaleDateString()} - {endDate.toLocaleDateString()}
             </h4>

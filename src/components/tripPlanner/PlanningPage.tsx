@@ -51,7 +51,9 @@ const PlanningPage = () => {
       });
   }, [cityId]);
 
-  const handleClose = (): void => setShow(false);
+  const handleClose = (): void => {
+    setShow(false);
+  };
   const handleShow = (): void => setShow(true);
 
   const handleSubmit = (e: FormEvent): void => {
@@ -68,10 +70,9 @@ const PlanningPage = () => {
 
         const newTrip: Trip = {
           creatorUid: userProfile.uid,
+          cityId: city._id!,
           date1,
           date2,
-          cityName: city!.cityName,
-          cityPhoto: city!.photoURL,
           hotel: duration > 1 ? hotels[index].name : null,
           schedule: [],
           photos: [],

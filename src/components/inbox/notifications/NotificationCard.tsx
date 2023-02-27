@@ -7,6 +7,10 @@ import { readNotification } from "../../../services/userService";
 import ListGroup from "react-bootstrap/ListGroup";
 import "./NotificationCard.css";
 import { getHhMm } from "../../../utils/dateFunctions";
+import { getTripById } from "../../../services/tripServices";
+import Trip from "../../../models/Trip";
+import { getCityById } from "../../../services/cityService";
+import City from "../../../models/City";
 
 interface Props {
   uid: string;
@@ -31,6 +35,28 @@ const NotificationCard = ({ uid, notification }: Props) => {
       navigate(`/trip/${notification.tripId}`);
     notification.type === "tripDecline" &&
       navigate(`/trip/${notification.tripId}`);
+    if (notification.type === "cityRating") {
+      const trip: Trip | null = await getTripById(notification.tripId!);
+
+      if (trip) {
+        const city: City | null = await getCityById(trip.cityId);
+
+        if (city) {
+          if (notification.read) {
+            navigate(`/trip/${notification.tripId}`);
+          } else {
+            const firstVisit: boolean = !city.ratings.some(
+              (user) => user.uid === uid
+            );
+            if (firstVisit) {
+              navigate(`/rating/${trip.cityId}`);
+            } else {
+              navigate(`/rating/${trip.cityId}/subsequent`);
+            }
+          }
+        }
+      }
+    }
   };
 
   const handleReadClick = (
@@ -68,6 +94,9 @@ const NotificationCard = ({ uid, notification }: Props) => {
               )}
               {notification.type === "tripDecline" && (
                 <p>is not joining your trip</p>
+              )}
+              {notification.type === "cityRating" && (
+                <p>confirmed your trip. Rate the city!</p>
               )}
             </div>
           </div>

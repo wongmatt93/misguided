@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import useCityFetcher from "../../hooks/useCityFetcher";
+import City from "../../models/City";
 import Trip from "../../models/Trip";
 import "./ProfileTripCard.css";
 
@@ -9,25 +11,32 @@ interface Props {
 
 const ProfileTripCard = ({ trip }: Props) => {
   const navigate = useNavigate();
+  const city: City | null = useCityFetcher(trip.cityId);
   const [cardImage, setCardImage] = useState("");
 
   useEffect(() => {
-    if (trip.photos.length > 0) {
-      setCardImage(trip.photos[0]);
-    } else {
-      setCardImage(trip.cityPhoto);
+    if (city) {
+      if (trip.photos.length > 0) {
+        setCardImage(trip.photos[0]);
+      } else {
+        setCardImage(city!.photoURL);
+      }
     }
   }, [trip]);
 
   const handleClick = (): void => navigate(`/trip/${trip._id!}`);
 
   return (
-    <li className="ProfileTripCard" onClick={handleClick}>
-      <img src={cardImage} alt={cardImage} />
-      <div className="info-container">
-        <h4>{trip.cityName}</h4>
-      </div>
-    </li>
+    <>
+      {city && (
+        <li className="ProfileTripCard" onClick={handleClick}>
+          <img src={cardImage} alt={cardImage} />
+          <div className="info-container">
+            <h4>{city.cityName}</h4>
+          </div>
+        </li>
+      )}
+    </>
   );
 };
 

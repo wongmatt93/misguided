@@ -1,4 +1,5 @@
 import { useContext, useEffect, useState } from "react";
+import AuthContext from "../../context/AuthContext";
 import FollowContext from "../../context/FollowContext";
 import Trip from "../../models/Trip";
 import { getTripById } from "../../services/tripServices";
@@ -7,32 +8,34 @@ import FeedCard from "./feedCard/FeedCard";
 import "./FeedContainer.css";
 
 const FeedContainer = () => {
+  const { userProfile } = useContext(AuthContext);
   const { following } = useContext(FollowContext);
   const [friendsPastTrips, setFriendsPastTrips] = useState<Trip[]>([]);
 
   useEffect(() => {
     const trips: Trip[] = [];
 
-    Promise.allSettled(
-      following.map((user) =>
-        Promise.allSettled(
-          user.trips.map(
-            (trip) =>
-              trip.accepted &&
-              getTripById(trip.tripId).then((response) => {
-                response.completed &&
-                  today.getTime() - new Date(response.date2).getTime() >= 0 &&
-                  trips.push(response);
-              })
+    userProfile &&
+      Promise.allSettled(
+        following.concat(userProfile).map((user) =>
+          Promise.allSettled(
+            user.trips.map(
+              (trip) =>
+                trip.accepted &&
+                getTripById(trip.tripId).then((response) => {
+                  response.completed &&
+                    today.getTime() - new Date(response.date2).getTime() >= 0 &&
+                    trips.push(response);
+                })
+            )
           )
         )
-      )
-    ).then(() => {
-      const uniqueTrips: Trip[] = trips.filter(
-        (v, i, a) => a.findIndex((v2) => v2._id! === v._id!) === i
-      );
-      setFriendsPastTrips(sortTripsDescending(uniqueTrips));
-    });
+      ).then(() => {
+        const uniqueTrips: Trip[] = trips.filter(
+          (v, i, a) => a.findIndex((v2) => v2._id! === v._id!) === i
+        );
+        setFriendsPastTrips(sortTripsDescending(uniqueTrips));
+      });
   }, [following]);
 
   return (

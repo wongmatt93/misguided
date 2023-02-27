@@ -1,4 +1,4 @@
-interface Rating {
+export interface Rating {
   uid: string;
   rating: number;
 }

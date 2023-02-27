@@ -27,6 +27,7 @@ import PlanTripPage from "./components/tripPlanner/PlanTripPage";
 import { useMediaQuery } from "react-responsive";
 import InboxRouter from "./components/inbox/InboxRouter";
 import TripRouter from "./components/tripDetails/TripRouter";
+import RatingPage from "./components/rating/RatingPage";
 
 function App() {
   const { userProfile } = useContext(AuthContext);
@@ -51,6 +52,7 @@ function App() {
               <Route path="/search" element={<SearchPage />} />
               <Route path="/preferences" element={<PreferencesPage />} />
               <Route path="/trips/*" element={<TripsPage />} />
+              <Route path="/rating/:cityId/*" element={<RatingPage />} />
               <Route path="plan-trip" element={<PlanTripPage />} />
               <Route path="/plan-trip/:cityId" element={<PlanningPage />} />
               <Route path="/discover" element={<DiscoverPage />} />

@@ -48,11 +48,10 @@ export interface SingleDaySchedule {
 
 export default interface Trip {
   _id?: string;
+  cityId: string;
   creatorUid: string;
   date1: string;
   date2: string;
-  cityName: string;
-  cityPhoto: string;
   hotel: string | null;
   schedule: SingleDaySchedule[];
   photos: string[];
