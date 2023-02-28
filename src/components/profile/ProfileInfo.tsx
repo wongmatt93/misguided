@@ -25,11 +25,11 @@ const ProfileInfo = ({
       <h2>{profile.displayName}</h2>
       <div className="counts">
         <div className="following-count">
-          <p>{profile.following.length}</p>
+          <p>{profile.followingUids.length}</p>
           <p>following</p>
         </div>
         <div className="followers-count">
-          <p>{profile.followers.length}</p>
+          <p>{profile.followersUids.length}</p>
           <p>followers</p>
         </div>
         <div className="trip-count">

@@ -1,28 +1,24 @@
-import { useContext, useEffect, useState } from "react";
-import FollowContext from "../../context/FollowContext";
+import { useEffect, useState } from "react";
 import City from "../../models/City";
+import UserProfile from "../../models/UserProfile";
 import "./CityVisitors.css";
 import VisitorCard from "./VisitorCard";
 
 interface Props {
   city: City;
+  userProfile: UserProfile;
 }
 
-const CityVisitors = ({ city }: Props) => {
-  const { following } = useContext(FollowContext);
+const CityVisitors = ({ city, userProfile }: Props) => {
   const [visitors, setVisitors] = useState<string[]>([]);
 
   useEffect(() => {
-    const visited: string[] = [];
-
-    following.forEach((user) => {
-      if (city.visitors.find((visitor) => visitor.uid === user.uid)) {
-        visited.push(user.uid);
-      }
-    });
-
-    setVisitors(visited);
-  }, [following, city]);
+    setVisitors(
+      userProfile.followingUids.filter((uid) =>
+        city.visitors.find((visitor) => visitor.uid === uid)
+      )
+    );
+  }, [userProfile, city]);
 
   return (
     <>

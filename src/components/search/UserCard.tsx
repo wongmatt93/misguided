@@ -1,34 +1,36 @@
 import Card from "react-bootstrap/Card";
 import "./UserCard.css";
 import { useNavigate } from "react-router-dom";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import UserProfile from "../../models/UserProfile";
-import AuthContext from "../../context/AuthContext";
 import { getTripsByTripIdArray } from "../../services/tripServices";
+import useMutualFriends from "../../hooks/useMutualFriends";
 
 interface Props {
+  userProfile: UserProfile;
   searchProfile: UserProfile;
 }
 
-const UserCard = ({ searchProfile }: Props) => {
-  const { userProfile } = useContext(AuthContext);
+const UserCard = ({ userProfile, searchProfile }: Props) => {
   const navigate = useNavigate();
-  const [totalMutuals, setTotalMutuals] = useState(0);
   const [totalTrips, setTotalTrips] = useState(0);
+  const mutualFriends = useMutualFriends(userProfile, searchProfile);
 
   useEffect(() => {
     const trips: string[] = [];
 
-    searchProfile.trips.forEach((trip) => {
-      if (trip.accepted) {
-        trips.push(trip.tripId);
-      }
-    });
+    if (searchProfile.trips.length > 0) {
+      searchProfile.trips.forEach((trip) => {
+        if (trip.accepted) {
+          trips.push(trip.tripId);
+        }
+      });
 
-    getTripsByTripIdArray(trips).then((response) => {
-      setTotalTrips(response.filter((trip) => trip.completed).length);
-    });
+      getTripsByTripIdArray(trips).then((response) => {
+        setTotalTrips(response.filter((trip) => trip.completed).length);
+      });
+    }
   }, [searchProfile]);
 
   const handleClick = (): void => {
@@ -44,7 +46,8 @@ const UserCard = ({ searchProfile }: Props) => {
           <Card.Text>This is your profile, dumbass</Card.Text>
         ) : (
           <Card.Text>
-            {totalMutuals} mutual friend{totalMutuals !== 1 && "s"}
+            {mutualFriends.length} mutual friend
+            {mutualFriends.length !== 1 && "s"}
           </Card.Text>
         )}
         <Card.Text>

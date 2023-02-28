@@ -27,13 +27,9 @@ const ProfilePage = () => {
     if (profile && userProfile) {
       if (friends.some((friend) => friend.uid === profile.uid)) {
         setFollowStatus("friend");
-      } else if (
-        userProfile.followers.some((follower) => follower.uid === profile.uid)
-      ) {
+      } else if (userProfile.followersUids.some((uid) => uid === profile.uid)) {
         setFollowStatus("follower");
-      } else if (
-        userProfile.following.some((following) => following.uid === profile.uid)
-      ) {
+      } else if (userProfile.followingUids.some((uid) => uid === profile.uid)) {
         setFollowStatus("following");
       } else {
         setFollowStatus("none");
