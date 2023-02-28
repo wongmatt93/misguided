@@ -1,0 +1,17 @@
+.CityCharacteristics {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 1em 1em 0;
+}
+
+.CityCharacteristics li {
+  font-family: "Roboto", sans-serif;
+  background: #ededed;
+  border-radius: 1em;
+  font-size: 0.9em;
+  text-align: center;
+  margin: 0.2em;
+  padding: 0.3em 0.6em;
+  cursor: default;
+}

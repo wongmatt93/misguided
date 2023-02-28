@@ -50,6 +50,7 @@ const AddCityForm = () => {
       knownFor,
       photoURL,
       ratings: [],
+      visitors: [],
     });
   };
 

@@ -48,16 +48,14 @@ const AuthContextProvider = ({ children }: Props) => {
     }
   }, [cities]);
 
-  const likeCity = (newCity: CityVote): void => {
-    addLikedCity(userProfile!.uid, newCity).then(() => {
-      refreshProfile(userProfile!.uid);
-    });
+  const likeCity = async (uid: string, newCity: CityVote): Promise<void> => {
+    await addLikedCity(uid, newCity);
+    refreshProfile(uid);
   };
 
-  const dislikeCity = (newCity: CityVote): void => {
-    addDislikedCity(userProfile!.uid, newCity).then(() => {
-      refreshProfile(userProfile!.uid);
-    });
+  const dislikeCity = async (uid: string, newCity: CityVote): Promise<void> => {
+    await addDislikedCity(uid, newCity);
+    refreshProfile(uid);
   };
 
   return (

@@ -3,23 +3,27 @@ import { AiFillLike, AiFillDislike } from "react-icons/ai";
 import "./DiscoverPage.css";
 import DiscoverContext from "../../context/DiscoverContext";
 import DiscoverCard from "./DiscoverCard";
+import { CityVote } from "../../models/UserProfile";
+import AuthContext from "../../context/AuthContext";
 
 const DiscoverPage = () => {
+  const { userProfile } = useContext(AuthContext);
   const { currentCity, likeCity, dislikeCity } = useContext(DiscoverContext);
   const [cityRating, setCityRating] = useState(0);
 
-  const handleLikedCity = (): void => {
-    currentCity &&
-      likeCity({
-        cityId: currentCity._id!,
-      });
+  const handleLikeCity = async (uid: string, cityId: string): Promise<void> => {
+    const newLike: CityVote = { cityId };
+
+    await likeCity(uid, newLike);
   };
 
-  const handleDislikedCity = (): void => {
-    currentCity &&
-      dislikeCity({
-        cityId: currentCity._id!,
-      });
+  const handleDislikeCity = async (
+    uid: string,
+    cityId: string
+  ): Promise<void> => {
+    const newDislike: CityVote = { cityId };
+
+    await dislikeCity(uid, newDislike);
   };
 
   useEffect(() => {
@@ -38,12 +42,20 @@ const DiscoverPage = () => {
   return (
     <main className="DiscoverPage">
       <h2>Discover</h2>
-      {currentCity ? (
+      {currentCity && userProfile ? (
         <>
           <DiscoverCard currentCity={currentCity} cityRating={cityRating} />
           <div className="like-buttons-container">
-            <AiFillLike className="thumbs" onClick={handleLikedCity} />
-            <AiFillDislike className="thumbs" onClick={handleDislikedCity} />
+            <AiFillLike
+              className="thumbs"
+              onClick={() => handleLikeCity(userProfile.uid, currentCity._id!)}
+            />
+            <AiFillDislike
+              className="thumbs"
+              onClick={() =>
+                handleDislikeCity(userProfile.uid, currentCity._id!)
+              }
+            />
           </div>
         </>
       ) : (

@@ -1,5 +1,5 @@
 import axios from "axios";
-import City, { Rating } from "../models/City";
+import City, { Rating, Visitor } from "../models/City";
 
 const baseURL: string = process.env.REACT_APP_API_URL || "";
 
@@ -25,3 +25,9 @@ export const updateRating = async (
 ): Promise<string> =>
   (await axios.put(`${baseURL}/cities/${id}/${uid}/${newRating}/update-rating`))
     .data;
+
+export const addVisitor = async (
+  id: string,
+  newVisitor: Visitor
+): Promise<Visitor> =>
+  (await axios.put(`${baseURL}/cities/${id}/add-visitor`, newVisitor)).data;

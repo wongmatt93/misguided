@@ -1,0 +1,14 @@
+.VisitorCard {
+  margin-right: 0.5em;
+}
+
+.VisitorCard:hover {
+  cursor: pointer;
+}
+
+.VisitorCard img {
+  height: 2em;
+  width: 2em;
+  border-radius: 50%;
+  object-fit: cover;
+}

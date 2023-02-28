@@ -1,0 +1,42 @@
+.CityDetailsHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5em;
+}
+
+.CityDetailsHeader .back-button {
+  display: flex;
+  align-items: center;
+  border: none;
+  background-color: transparent;
+  font-size: 1.3em;
+  width: 25%;
+  padding: 0;
+}
+
+.CityDetailsHeader svg {
+  color: #f0b202;
+}
+
+.CityDetailsHeader .city-name {
+  text-align: center;
+  width: 50%;
+  font-size: 1.5em;
+}
+
+.CityDetailsHeader .rating {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  font-size: 1.3em;
+  width: 25%;
+}
+
+.CityDetailsHeader .rating p {
+  margin-right: 0.3em;
+}
+
+.CityDetailsHeader .rating .no-ratings {
+  font-size: 0.5em;
+}

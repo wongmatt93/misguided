@@ -1,15 +1,3 @@
-.CityDetailsPage .back-button {
-  display: flex;
-  align-items: center;
-  border: none;
-  background-color: transparent;
-  font-size: 1.3em;
-}
-
-.CityDetailsPage .back-button svg {
-  color: #f0b202;
-}
-
 .CityDetailsPage .image-container {
   position: relative;
 }
@@ -35,54 +23,10 @@
   width: 80%;
 }
 
-.CityDetailsPage .info-container {
-  padding: 1.5em;
-}
-
-.CityDetailsPage .name-rating-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-family: "Oswald", sans-serif;
-}
-
 .CityDetailsPage .description {
   text-align: justify;
   font-family: "Merriweather", serif;
   font-style: normal;
   line-height: 1.4em;
-  padding: 1em 0;
-}
-
-.CityDetailsPage ul {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-.CityDetailsPage li {
-  font-family: "Roboto", sans-serif;
-  background: #ededed;
-  border-radius: 1em;
-  text-align: center;
-  margin: 0.2em;
-  padding: 0.3em 0.6em;
-  cursor: default;
-}
-
-.CityDetailsPage .like-buttons-container {
-  display: flex;
-  justify-content: space-evenly;
-  font-size: 4em;
-  width: 100%;
-}
-
-.CityDetailsPage .thumbs {
-  cursor: pointer;
-}
-
-.CityDetailsPage .thumbs:hover {
-  transform: scale(1.2);
-  transition: 0.5s ease;
-  color: #f0b202;
+  padding: 1em 1em 0;
 }
