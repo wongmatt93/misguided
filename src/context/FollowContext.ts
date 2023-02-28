@@ -1,5 +1,5 @@
 import { createContext } from "react";
-import UserProfile, { Follow } from "../models/UserProfile";
+import UserProfile from "../models/UserProfile";
 
 export interface FollowContextModel {
   following: UserProfile[];
@@ -8,7 +8,7 @@ export interface FollowContextModel {
   handleFollowUser: (
     userUid: string,
     otherUid: string
-  ) => Promise<Follow | void>;
+  ) => Promise<string | void>;
   handleUnfollowUser: (userUid: string, otherUid: string) => Promise<void>;
 }
 

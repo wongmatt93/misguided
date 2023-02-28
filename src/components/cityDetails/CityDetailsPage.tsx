@@ -55,7 +55,7 @@ const CityDetailsPage = () => {
                 </Button>
               )}
             </div>
-            <CityVisitors city={city} />
+            <CityVisitors city={city} userProfile={userProfile} />
             <p className="description">{city.cityDescription}</p>
             <CityCharacteristics city={city} userProfile={userProfile} />
             {!liked && (

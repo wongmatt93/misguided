@@ -1,7 +1,6 @@
 import axios from "axios";
 import UserProfile, {
   CityVote,
-  Follow,
   Notification,
   Preferences,
   UserTrip,
@@ -62,15 +61,15 @@ export const addDislikedCity = async (
 
 export const addFollowing = async (
   uid: string,
-  newFollowing: Follow
-): Promise<Follow> =>
-  (await axios.put(`${baseURL}/users/${uid}/add-following`, newFollowing)).data;
+  otherUid: string
+): Promise<string> =>
+  (await axios.put(`${baseURL}/users/${uid}/${otherUid}/add-following`)).data;
 
 export const addFollower = async (
   uid: string,
-  newFollower: Follow
-): Promise<Follow> =>
-  (await axios.put(`${baseURL}/users/${uid}/add-follower`, newFollower)).data;
+  otherUid: string
+): Promise<string> =>
+  (await axios.put(`${baseURL}/users/${uid}/${otherUid}/add-follower`)).data;
 
 export const removeFollowing = async (
   userUid: string,

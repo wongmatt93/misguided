@@ -3,7 +3,7 @@ import Button from "react-bootstrap/Button";
 import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import FollowContext from "../../context/FollowContext";
-import UserProfile, { Follow } from "../../models/UserProfile";
+import UserProfile from "../../models/UserProfile";
 import "./FollowButton.css";
 
 interface Props {
@@ -15,7 +15,7 @@ interface Props {
 const FollowButton = ({ userProfile, otherProfile, followStatus }: Props) => {
   const { handleFollowUser, handleUnfollowUser } = useContext(FollowContext);
 
-  const followButton = (): Promise<Follow | void> =>
+  const followButton = (): Promise<string | void> =>
     handleFollowUser(userProfile.uid, otherProfile.uid);
 
   const unfollowButton = (): Promise<void> =>

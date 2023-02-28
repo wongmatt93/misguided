@@ -1,5 +1,5 @@
 import { ReactNode, useContext, useEffect, useState } from "react";
-import UserProfile, { Follow, Notification } from "../models/UserProfile";
+import UserProfile, { Notification } from "../models/UserProfile";
 import {
   addFollower,
   addFollowing,
@@ -25,12 +25,8 @@ const FriendsContextProvider = ({ children }: Props) => {
 
   useEffect(() => {
     if (userProfile) {
-      const followingUids: string[] = [];
-
-      userProfile.following.forEach((user) => followingUids.push(user.uid));
-
-      if (followingUids.length > 0) {
-        getAllUsersByUidArray(followingUids).then((response) =>
+      if (userProfile.followingUids.length > 0) {
+        getAllUsersByUidArray(userProfile.followingUids).then((response) =>
           setFollowing(response)
         );
       } else {
@@ -41,12 +37,8 @@ const FriendsContextProvider = ({ children }: Props) => {
 
   useEffect(() => {
     if (userProfile) {
-      const followerUids: string[] = [];
-
-      userProfile.followers.forEach((user) => followerUids.push(user.uid));
-
-      if (followerUids.length > 0) {
-        getAllUsersByUidArray(followerUids).then((response) =>
+      if (userProfile.followersUids.length > 0) {
+        getAllUsersByUidArray(userProfile.followersUids).then((response) =>
           setFollowers(response)
         );
       } else {
@@ -79,14 +71,12 @@ const FriendsContextProvider = ({ children }: Props) => {
   const handleFollowUser = async (
     userUid: string,
     otherUid: string
-  ): Promise<Follow | void> => {
-    const following: Follow = { uid: otherUid };
-    const follower: Follow = { uid: userUid };
+  ): Promise<string | void> => {
     const newNotification: Notification = createFollowNotif(userUid);
 
     await Promise.allSettled([
-      addFollowing(userUid, following),
-      addFollower(otherUid, follower),
+      addFollowing(userUid, otherUid),
+      addFollower(otherUid, userUid),
       addNotification(otherUid, newNotification),
     ]);
     refreshProfile(userUid);
