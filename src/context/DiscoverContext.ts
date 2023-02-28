@@ -5,15 +5,15 @@ import { CityVote } from "../models/UserProfile";
 export interface DiscoverContextModel {
   cities: City[];
   currentCity: City | null;
-  likeCity: (newCity: CityVote) => void;
-  dislikeCity: (newCity: CityVote) => void;
+  likeCity: (uid: string, newCity: CityVote) => Promise<void>;
+  dislikeCity: (uid: string, newCity: CityVote) => Promise<void>;
 }
 
 const defaultValue: DiscoverContextModel = {
   cities: [],
   currentCity: null,
-  likeCity: () => {},
-  dislikeCity: () => {},
+  likeCity: async () => {},
+  dislikeCity: async () => {},
 };
 
 const DiscoverContext = createContext(defaultValue);
