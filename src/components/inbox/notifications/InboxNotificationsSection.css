@@ -1,5 +1,6 @@
 .InboxNotificationsSection {
   padding-bottom: 1em;
+  color: #353839;
 }
 
 .InboxNotificationsSection .section-header-row {
@@ -14,4 +15,10 @@
 
 .InboxNotificationsSection .section-header-row h2 {
   font-size: 1.2em;
+}
+
+.InboxNotificationsSection .no-notifs {
+  height: 2.5em;
+  padding: 0.5em;
+  text-align: center;
 }

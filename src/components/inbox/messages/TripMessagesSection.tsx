@@ -70,15 +70,19 @@ const TripMessagesSection = ({ userProfile }: Props) => {
           - {unread} unread
         </span>
       </h2>
-      <ListGroup variant="flush">
-        {trips.map((trip) => (
-          <TripMessagesCard
-            key={trip._id!}
-            trip={trip}
-            userProfile={userProfile}
-          />
-        ))}
-      </ListGroup>
+      {trips.length > 0 ? (
+        <ListGroup variant="flush">
+          {trips.map((trip) => (
+            <TripMessagesCard
+              key={trip._id!}
+              trip={trip}
+              userProfile={userProfile}
+            />
+          ))}
+        </ListGroup>
+      ) : (
+        <p className="no-messages">No Messages Yet</p>
+      )}
     </section>
   );
 };

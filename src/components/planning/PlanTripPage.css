@@ -1,0 +1,22 @@
+.PlanTripHeader {
+  display: flex;
+  align-items: center;
+  padding: 1em;
+}
+
+.PlanTripHeader h1 {
+  color: #f0b202;
+}
+
+.PlanTripMain {
+  padding: 1em;
+}
+
+.PlanTripMain .discover-button {
+  background: #f0b202;
+}
+
+.PlanTripMain .discover {
+  margin-top: 1em;
+  text-align: center;
+}

@@ -41,8 +41,8 @@ const UserCard = ({ userProfile, searchProfile }: Props) => {
     <Card className="UserCard">
       <Card.Body>
         <Card.Img src={searchProfile.photoURL!} />
-        <Card.Title>{searchProfile.displayName}</Card.Title>
-        {searchProfile.uid === userProfile!.uid ? (
+        <Card.Title>{searchProfile.username}</Card.Title>
+        {searchProfile.uid === userProfile.uid ? (
           <Card.Text>This is your profile, dumbass</Card.Text>
         ) : (
           <Card.Text>

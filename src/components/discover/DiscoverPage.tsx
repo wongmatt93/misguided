@@ -40,28 +40,34 @@ const DiscoverPage = () => {
   }, [currentCity]);
 
   return (
-    <main className="DiscoverPage">
-      <h2>Discover</h2>
-      {currentCity && userProfile ? (
-        <>
-          <DiscoverCard currentCity={currentCity} cityRating={cityRating} />
-          <div className="like-buttons-container">
-            <AiFillLike
-              className="thumbs"
-              onClick={() => handleLikeCity(userProfile.uid, currentCity._id!)}
-            />
-            <AiFillDislike
-              className="thumbs"
-              onClick={() =>
-                handleDislikeCity(userProfile.uid, currentCity._id!)
-              }
-            />
-          </div>
-        </>
-      ) : (
-        <h3>You're out of cities! Stay tuned while we add more cities</h3>
-      )}
-    </main>
+    <>
+      <header className="DiscoverHeader">
+        <h1>discover</h1>
+      </header>
+      <main className="DiscoverMain">
+        {currentCity && userProfile ? (
+          <>
+            <DiscoverCard currentCity={currentCity} cityRating={cityRating} />
+            <div className="like-buttons-container">
+              <AiFillLike
+                className="thumbs"
+                onClick={() =>
+                  handleLikeCity(userProfile.uid, currentCity._id!)
+                }
+              />
+              <AiFillDislike
+                className="thumbs"
+                onClick={() =>
+                  handleDislikeCity(userProfile.uid, currentCity._id!)
+                }
+              />
+            </div>
+          </>
+        ) : (
+          <p>You're out of cities! Stay tuned while we add more cities</p>
+        )}
+      </main>
+    </>
   );
 };
 

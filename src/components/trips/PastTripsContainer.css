@@ -1,3 +1,16 @@
 .PastTripsContainer {
   padding: 1em;
 }
+
+.PastTripsContainer .empty {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  color: #353839;
+}
+
+.PastTripsContainer .empty svg {
+  font-size: 5em;
+}

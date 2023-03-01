@@ -20,7 +20,7 @@ const HometownCard = () => {
   }, [userProfile]);
 
   const handleClick = (hometown: City): void => {
-    hometown._id && navigate(`/city-details/${hometown._id}`);
+    hometown._id && navigate(`/plan-trip/city-details/${hometown._id}`);
   };
 
   return (

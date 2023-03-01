@@ -1,3 +1,4 @@
+import { RiGalleryFill } from "react-icons/ri";
 import { useContext, useEffect, useState } from "react";
 import AuthContext from "../../context/AuthContext";
 import FollowContext from "../../context/FollowContext";
@@ -40,11 +41,19 @@ const FeedContainer = () => {
 
   return (
     <main className="FeedContainer">
-      <ul>
-        {friendsPastTrips.map((trip) => (
-          <FeedCard key={trip._id!} trip={trip} />
-        ))}
-      </ul>
+      {friendsPastTrips.length > 0 ? (
+        <ul>
+          {friendsPastTrips.map((trip) => (
+            <FeedCard key={trip._id!} trip={trip} />
+          ))}
+        </ul>
+      ) : (
+        <div className="empty">
+          <RiGalleryFill />
+          <p>Your feed is currently empty.</p>
+          <p>Search for users to follow!</p>
+        </div>
+      )}
     </main>
   );
 };

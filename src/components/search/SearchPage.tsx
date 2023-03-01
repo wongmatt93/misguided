@@ -10,33 +10,51 @@ const SearchPage = () => {
   const { userProfile } = useContext(AuthContext);
   const [username, setUsername] = useState("");
   const [searchProfile, setSearchProfile] = useState<UserProfile | null>(null);
+  const [badSearch, setBadSearch] = useState(false);
 
-  const handleSubmit = (e: FormEvent): void => {
+  const handleSubmit = async (e: FormEvent): Promise<void> => {
     e.preventDefault();
-    getUserByUsername(username).then((response) => setSearchProfile(response));
+    await getUserByUsername(username).then((response) => {
+      if (response) {
+        setSearchProfile(response);
+        setBadSearch(false);
+      } else {
+        setSearchProfile(null);
+        setBadSearch(true);
+      }
+    });
   };
 
   return (
-    <main className="SearchPage">
-      <h2>Search Users</h2>
-      <Form onSubmit={handleSubmit}>
-        <Form.Group controlId="username">
-          <Form.Control
-            type="text"
-            placeholder="Search usernames"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
-          ></Form.Control>
-        </Form.Group>
-        <Button variant="warning" type="submit" className="search-button">
-          Search
-        </Button>
-      </Form>
-      {userProfile && searchProfile && (
-        <UserCard userProfile={userProfile} searchProfile={searchProfile} />
-      )}
-    </main>
+    <>
+      <header className="SearchHeader">
+        <h1>search users</h1>
+      </header>
+      <main className="SearchMain">
+        <Form onSubmit={handleSubmit}>
+          <Form.Group controlId="username">
+            <Form.Control
+              type="text"
+              placeholder="Search usernames"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              required
+            ></Form.Control>
+          </Form.Group>
+          <Button variant="warning" type="submit" className="search-button">
+            Search
+          </Button>
+        </Form>
+        {userProfile && searchProfile && (
+          <UserCard userProfile={userProfile} searchProfile={searchProfile} />
+        )}
+        {badSearch && (
+          <div className="empty">
+            <p>No Results Found</p>
+          </div>
+        )}
+      </main>
+    </>
   );
 };
 

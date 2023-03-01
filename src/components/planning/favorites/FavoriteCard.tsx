@@ -19,7 +19,7 @@ const FavoriteCard = ({ liked }: Props) => {
   }, [liked]);
 
   const handleClick = (): void => {
-    navigate(`/city-details/${liked!.cityId}`);
+    navigate(`/plan-trip/city-details/${liked!.cityId}`);
   };
 
   return (

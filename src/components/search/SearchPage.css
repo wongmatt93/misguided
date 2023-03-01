@@ -1,13 +1,33 @@
-.SearchPage {
-  padding: 1.5em;
+.SearchHeader {
+  display: flex;
+  align-items: center;
+  padding: 1em;
 }
 
-.SearchPage form {
+.SearchHeader h1 {
+  color: #f0b202;
+}
+
+.SearchMain {
+  padding: 1em;
+}
+
+.SearchMain form {
   display: flex;
   flex-direction: column;
   margin: 1.5em 0;
 }
 
-.SearchPage input {
+.SearchMain input {
   margin-bottom: 1.5em;
+}
+
+.SearchMain button {
+  font-family: "Oswald", sans-serif;
+  color: #353839;
+  background-color: #f0b202;
+}
+
+.SearchMain .empty {
+  text-align: center;
 }
