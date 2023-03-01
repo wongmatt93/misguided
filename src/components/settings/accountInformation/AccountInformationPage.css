@@ -1,0 +1,13 @@
+.AccountHeader {
+  display: flex;
+  align-items: center;
+  padding: 1em;
+}
+
+.AccountHeader h1 {
+  color: #f0b202;
+}
+
+.AccountMain {
+  padding: 1em;
+}

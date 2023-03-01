@@ -54,7 +54,7 @@ const MobileNavigation = () => {
             </NavLink>
           </li>
           <li>
-            <NavLink to="/user-profile">
+            <NavLink to="/settings">
               <RiSpyFill />
             </NavLink>
           </li>

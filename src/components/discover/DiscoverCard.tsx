@@ -1,4 +1,3 @@
-import { lazy } from "react";
 import { MdLocationPin } from "react-icons/md";
 import Card from "react-bootstrap/Card";
 import City from "../../models/City";

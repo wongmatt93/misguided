@@ -1,9 +1,7 @@
-import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import { useNavigate } from "react-router-dom";
 import { Participant } from "../../../models/Trip";
 import UserProfile from "../../../models/UserProfile";
 import "./FeedCardParticipantCard.css";
-import Tooltip from "react-bootstrap/esm/Tooltip";
 import useProfileFetcher from "../../../hooks/useProfileFetcher";
 
 interface Props {

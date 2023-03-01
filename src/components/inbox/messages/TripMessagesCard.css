@@ -5,6 +5,7 @@
   background-color: #f5f5f5;
   padding: 0.5em 0;
   position: relative;
+  color: #353839;
 }
 
 .TripMessagesCard:hover {
@@ -52,6 +53,10 @@
 
 .TripMessagesCard .trip-name {
   font-weight: 700;
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .TripMessagesCard .latest-message {

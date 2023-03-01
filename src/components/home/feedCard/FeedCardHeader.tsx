@@ -2,7 +2,6 @@ import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import Trip from "../../../models/Trip";
 import "./FeedCardHeader.css";
-import FeedCardLocation from "./FeedCardLocation";
 import FeedCardParticipantsSection from "./FeedCardParticipantsSection";
 
 interface Props {

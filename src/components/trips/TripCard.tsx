@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react";
-import { BsChevronCompactRight } from "react-icons/bs";
+import { RiArrowRightSLine } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
 import useCityFetcher from "../../hooks/useCityFetcher";
 import City from "../../models/City";
@@ -13,28 +12,23 @@ interface Props {
 const TripCard = ({ trip }: Props) => {
   const navigate = useNavigate();
   const city: City | null = useCityFetcher(trip.cityId);
-  const [startDate, setStartDate] = useState<Date | null>(null);
-  const [endDate, setEndDate] = useState<Date | null>(null);
-
-  useEffect(() => {
-    setStartDate(new Date(trip.date1));
-    setEndDate(new Date(trip.date2));
-  }, [trip]);
 
   const handleClick = (): void => navigate(`/trip/${trip._id!}`);
 
   return (
     <li className="TripCard" onClick={handleClick}>
-      {startDate && endDate && city && (
+      {city && (
         <div className="info-container">
           <img src={city.photoURL} alt={city.photoURL} />
           <div className="name-date-container">
             <h3>{city.cityName}</h3>
             <h4>
-              {startDate.toLocaleDateString()} - {endDate.toLocaleDateString()}
+              {new Date(Number(trip.startDate)).toLocaleDateString()}
+              {trip.startDate !== trip.endDate &&
+                ` - ${new Date(Number(trip.endDate)).toLocaleDateString()}`}
             </h4>
           </div>
-          <BsChevronCompactRight />
+          <RiArrowRightSLine />
         </div>
       )}
     </li>

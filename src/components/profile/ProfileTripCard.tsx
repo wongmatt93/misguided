@@ -19,10 +19,10 @@ const ProfileTripCard = ({ trip }: Props) => {
       if (trip.photos.length > 0) {
         setCardImage(trip.photos[0]);
       } else {
-        setCardImage(city!.photoURL);
+        setCardImage(city.photoURL);
       }
     }
-  }, [trip]);
+  }, [city, trip]);
 
   const handleClick = (): void => navigate(`/trip/${trip._id!}`);
 

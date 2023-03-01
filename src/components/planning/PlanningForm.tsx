@@ -1,47 +1,45 @@
-import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import { DateRange, Range } from "react-date-range";
 import "./PlanningForm.css";
-import { FormEvent } from "react";
+import { FormEvent, useEffect, useState } from "react";
 
 interface Props {
-  date1: string;
-  date2: string;
-  setDate1: React.Dispatch<React.SetStateAction<string>>;
-  setDate2: React.Dispatch<React.SetStateAction<string>>;
+  setStartDate: React.Dispatch<React.SetStateAction<string | undefined>>;
+  setEndDate: React.Dispatch<React.SetStateAction<string | undefined>>;
   handleSubmit: (e: FormEvent) => void;
 }
 
-const PlanningForm = ({
-  date1,
-  date2,
-  setDate1,
-  setDate2,
-  handleSubmit,
-}: Props) => {
+const PlanningForm = ({ setStartDate, setEndDate, handleSubmit }: Props) => {
+  const [dates, setDates] = useState<Range[]>([
+    {
+      startDate: new Date(),
+      endDate: new Date(),
+      key: "selection",
+    },
+  ]);
+
+  useEffect(() => {
+    dates[0].startDate && setStartDate(dates[0].startDate.getTime().toString());
+    dates[0].endDate && setEndDate(dates[0].endDate.getTime().toString());
+  }, [dates, setStartDate, setEndDate]);
+
   return (
-    <Form className="PlanningForm" onSubmit={handleSubmit}>
-      <Form.Group controlId="start-date" className="start-date">
-        <Form.Label>Start Date</Form.Label>
-        <Form.Control
-          type="date"
-          value={date1}
-          onChange={(e) => setDate1(e.target.value)}
-          required
-        ></Form.Control>
-      </Form.Group>
-      <Form.Group controlId="end-date" className="end-date">
-        <Form.Label>End Date</Form.Label>
-        <Form.Control
-          type="date"
-          value={date2}
-          onChange={(e) => setDate2(e.target.value)}
-          required
-        ></Form.Control>
-      </Form.Group>
-      <Button variant="warning" type="submit" className="generate-button">
+    <div className="PlanningForm">
+      <DateRange
+        editableDateInputs={true}
+        onChange={(item) => setDates([item.selection])}
+        moveRangeOnFirstSelection={false}
+        ranges={dates}
+      />
+      <Button
+        variant="warning"
+        type="submit"
+        className="generate-button"
+        onClick={handleSubmit}
+      >
         Generate Itinerary
       </Button>
-    </Form>
+    </div>
   );
 };
 

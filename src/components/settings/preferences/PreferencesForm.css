@@ -1,0 +1,125 @@
+.PreferencesForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.PreferencesForm div {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.PreferencesForm input {
+  display: none;
+}
+
+.PreferencesForm label {
+  background-color: #e6e6e6;
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 0.7em;
+  text-align: center;
+  width: 23%;
+  height: 7em;
+  border-radius: 1em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0.4em 0.2em;
+  flex-direction: column;
+  cursor: pointer;
+  color: #353839;
+}
+
+.PreferencesForm i {
+  font-size: 1em;
+  margin-bottom: 0.5em;
+}
+
+.PreferencesForm input:checked + label {
+  border: 2px solid #f0b202;
+  box-sizing: border-box;
+}
+
+.PreferencesForm .fa-heart {
+  color: pink;
+}
+
+.PreferencesForm .fa-bowl-food {
+  color: firebrick;
+}
+.PreferencesForm .fa-martini-glass-citrus {
+  color: lightseagreen;
+}
+.PreferencesForm .fa-torii-gate {
+  color: brown;
+}
+.PreferencesForm .fa-chess-rook {
+  color: darkslategray;
+}
+.PreferencesForm .fa-building-columns {
+  color: goldenrod;
+}
+.PreferencesForm .fa-masks-theater {
+  color: black;
+}
+.PreferencesForm .fa-music {
+  color: black;
+}
+.PreferencesForm .fa-glasses {
+  color: black;
+}
+.PreferencesForm .fa-peace {
+  color: purple;
+}
+.PreferencesForm .fa-gem {
+  color: darkblue;
+}
+.PreferencesForm .fa-baby {
+  color: palevioletred;
+}
+.PreferencesForm .fa-rainbow {
+  color: deeppink;
+}
+.PreferencesForm .fa-people-group {
+  color: purple;
+}
+.PreferencesForm .fa-umbrella-beach {
+  color: burlywood;
+}
+.PreferencesForm .fa-graduation-cap {
+  color: darkslategray;
+}
+.PreferencesForm .fa-person-skiing {
+  color: orange;
+}
+.PreferencesForm .fa-tree {
+  color: forestgreen;
+}
+.PreferencesForm .fa-wine-glass {
+  color: darkred;
+}
+.PreferencesForm .fa-bag-shopping {
+  color: limegreen;
+}
+
+.PreferencesForm button {
+  width: 80%;
+  height: 2.2em;
+  background-color: #f0b202;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 0.5em;
+  border: none;
+  color: #353839;
+  font-family: "Oswald", sans-serif;
+  font-size: 1.5em;
+  margin: 1em 0;
+}
+
+@media only screen and (min-width: 768px) {
+  .PreferencesForm {
+    width: 50%;
+  }
+}

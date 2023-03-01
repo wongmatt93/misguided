@@ -1,3 +1,7 @@
+.InviteFriendsModal .modal-title {
+  color: #353839;
+}
+
 .InviteFriendsModal form {
   display: flex;
   flex-direction: column;
@@ -13,4 +17,6 @@
 .InviteFriendsModal .invite-friends-button {
   margin-top: 1em;
   width: 50%;
+  color: #353839;
+  background-color: #f0b202;
 }

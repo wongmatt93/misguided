@@ -1,12 +1,15 @@
 .TripDetailsHeader {
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1em;
 }
 
 .TripDetailsHeader h1 {
-  font-size: 1.3em;
+  color: #f0b202;
 }
 
 .TripDetailsHeader p {
   font-size: 0.8em;
+  color: #353839;
 }

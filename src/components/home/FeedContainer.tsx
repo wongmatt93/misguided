@@ -25,7 +25,11 @@ const FeedContainer = () => {
                 trip.accepted &&
                 getTripById(trip.tripId).then((response) => {
                   response.completed &&
-                    today.getTime() - new Date(response.date2).getTime() >= 0 &&
+                    today.getTime() -
+                      (response.endDate
+                        ? Number(response.endDate)
+                        : Number(response.startDate)) >=
+                      0 &&
                     trips.push(response);
                 })
             )
@@ -37,7 +41,7 @@ const FeedContainer = () => {
         );
         setFriendsPastTrips(sortTripsDescending(uniqueTrips));
       });
-  }, [following]);
+  }, [following, userProfile]);
 
   return (
     <main className="FeedContainer">

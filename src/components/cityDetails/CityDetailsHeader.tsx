@@ -33,7 +33,6 @@ const CityDetailsHeader = ({ city, goBack }: Props) => {
       <div className="rating">
         {rating > 0 ? (
           <>
-            {" "}
             <p>{rating.toFixed(1)}</p>
             <RiStarFill />
           </>

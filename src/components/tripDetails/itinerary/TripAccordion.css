@@ -1,6 +1,10 @@
+.TripAccordion h4 {
+  color: #353839;
+}
+
 .TripAccordion .accordion-button {
   background-color: #f0b202;
-  color: black;
+  color: #353839;
 }
 
 .TripAccordion .collapsed {

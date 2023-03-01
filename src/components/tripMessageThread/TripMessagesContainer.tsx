@@ -1,3 +1,4 @@
+import { RiQuestionAnswerFill } from "react-icons/ri";
 import { useEffect, useRef, useState } from "react";
 import { Spinner } from "react-bootstrap";
 import Trip from "../../models/Trip";
@@ -20,7 +21,7 @@ const TripMessagesContainer = ({ trip }: Props) => {
       dataFetchedRef.current = true;
       setLoaded(true);
     }
-  }, [count]);
+  }, [trip, count]);
 
   useEffect(() => {
     messagesEnd.current &&
@@ -29,22 +30,30 @@ const TripMessagesContainer = ({ trip }: Props) => {
 
   return (
     <div className="TripMessagesContainer">
-      <>
-        <ul
-          style={{
-            display: loaded ? "block" : "none",
-          }}
-        >
-          {trip.messages.map((message) => (
-            <TripMessage
-              key={message.date + message.uid}
-              message={message}
-              setCount={setCount}
-            />
-          ))}
-        </ul>
-        <div ref={messagesEnd} />
-      </>
+      {trip.messages.length > 0 ? (
+        <>
+          <ul
+            style={{
+              display: loaded ? "block" : "none",
+            }}
+          >
+            {trip.messages.map((message) => (
+              <TripMessage
+                key={message.date + message.uid}
+                message={message}
+                setCount={setCount}
+              />
+            ))}
+          </ul>
+          <div ref={messagesEnd} />
+        </>
+      ) : (
+        <div className="empty">
+          <RiQuestionAnswerFill />
+          <p>No messages yet</p>
+          <p>Start chatting about your upcoming trip!</p>
+        </div>
+      )}
       {trip && !loaded && (
         <div className="loading">
           <Spinner animation="border" role="status">

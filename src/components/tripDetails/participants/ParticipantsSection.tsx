@@ -22,7 +22,6 @@ interface Props {
   userProfile: UserProfile;
   participants: UserProfile[];
   refreshTrip: (tripId: string) => Promise<void>;
-  tripCreator: boolean;
 }
 
 const ParticipantsSection = ({
@@ -30,7 +29,6 @@ const ParticipantsSection = ({
   userProfile,
   participants,
   refreshTrip,
-  tripCreator,
 }: Props) => {
   const [invited, setInvited] = useState(false);
   const [accepted, setAccepted] = useState(false);
@@ -51,7 +49,9 @@ const ParticipantsSection = ({
   }, [userProfile, trip]);
 
   useEffect(() => {
-    const endDate = new Date(trip.date2);
+    const endDate = trip.endDate
+      ? new Date(Number(trip.endDate))
+      : new Date(Number(trip.startDate));
 
     if (today.getTime() - endDate.getTime() >= 0) {
       setPastTrip(true);
@@ -87,12 +87,12 @@ const ParticipantsSection = ({
     <section className="ParticipantsSection">
       <div className="participants-label-row">
         <h4>Participants</h4>
-        {tripCreator && !pastTrip && (
+        {trip.creatorUid === userProfile.uid && !pastTrip && (
           <Button variant="warning" onClick={handleShow}>
             Invite Friends
           </Button>
         )}
-        {!tripCreator &&
+        {trip.creatorUid !== userProfile.uid &&
           invited &&
           (accepted ? (
             <Button variant="warning" onClick={handleDeleteTrip}>

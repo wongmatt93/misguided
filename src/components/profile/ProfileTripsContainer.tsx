@@ -27,7 +27,9 @@ const ProfileTripsContainer = ({ profile, setPastTripsCount }: Props) => {
 
         response.forEach((item) => {
           if (item.completed) {
-            const endDate: Date = new Date(item.date2);
+            const endDate: Date = item.endDate
+              ? new Date(Number(item.endDate))
+              : new Date(Number(item.startDate));
 
             today.getTime() - endDate.getTime() >= 0 && past.push(item);
           }

@@ -41,7 +41,7 @@ const TripMessagesCard = ({ trip, userProfile }: Props) => {
           notif.tripId === trip._id!
       )
     );
-  }, [userProfile]);
+  }, [userProfile, trip]);
 
   useEffect(() => {
     if (trip.messages.length > 0) {
@@ -83,8 +83,10 @@ const TripMessagesCard = ({ trip, userProfile }: Props) => {
             <img src={city.photoURL} alt={city.photoURL} />
             <div className="trip-message-container">
               <p className="trip-name">
-                {city.cityName}: {trip.date1}
-                {trip.date1 !== trip.date2 && ` - ${trip.date2}`}
+                {city.cityName}:{" "}
+                {new Date(Number(trip.startDate)).toLocaleDateString()}
+                {trip.startDate !== trip.endDate &&
+                  ` - ${new Date(Number(trip.endDate)).toLocaleDateString()}`}
               </p>
               {latestMessage ? (
                 <p className="latest-message">

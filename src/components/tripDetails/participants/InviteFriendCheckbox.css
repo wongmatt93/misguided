@@ -35,6 +35,7 @@
 
 .InviteFriendCheckbox p {
   font-size: 0.5em;
+  color: #353839;
 }
 
 .InviteFriendCheckbox input:checked + label img {

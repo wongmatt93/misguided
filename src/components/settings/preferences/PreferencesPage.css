@@ -1,0 +1,17 @@
+.PreferencesHeader {
+  display: flex;
+  align-items: center;
+  padding: 1em;
+}
+
+.PreferencesHeader h1 {
+  color: #f0b202;
+}
+
+.PreferencesMain {
+  padding: 1em;
+}
+
+.PreferencesMain h2 {
+  margin-bottom: 1em;
+}
