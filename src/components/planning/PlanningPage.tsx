@@ -154,17 +154,21 @@ const PlanningPage = () => {
   };
 
   return (
-    <main className="PlanningPage">
-      <h2>Choose your dates to see your fate</h2>
-      <PlanningForm
-        date1={date1}
-        date2={date2}
-        setDate1={setDate1}
-        setDate2={setDate2}
-        handleSubmit={handleSubmit}
-      />
-      <ItineraryModal trip={trip} show={show} handleClose={handleClose} />
-    </main>
+    <>
+      <header className="PlanningHeader">
+        <h1>choose your dates</h1>
+      </header>
+      <main className="PlanningMain">
+        <PlanningForm
+          date1={date1}
+          date2={date2}
+          setDate1={setDate1}
+          setDate2={setDate2}
+          handleSubmit={handleSubmit}
+        />
+        <ItineraryModal trip={trip} show={show} handleClose={handleClose} />
+      </main>
+    </>
   );
 };
 

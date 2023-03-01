@@ -1,18 +1,31 @@
+/* color scheme
+  onyx: #353839
+  Xanthous: #f0b202
+  white smoke: #f5f5f5
+*/
+
 /* resets */
 
 body,
+div,
+span,
 ul,
 li,
 h1,
 h2,
 h3,
 h4,
+h5,
 p,
-a {
+a,
+img,
+form {
   margin: 0;
   padding: 0;
+  border: 0;
   list-style: none;
   text-decoration: none;
+  vertical-align: baseline;
 }
 
 .App {

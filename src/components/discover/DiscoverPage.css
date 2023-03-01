@@ -1,19 +1,29 @@
-.DiscoverPage h2 {
-  font-size: 1.7em;
-  font-weight: 900;
+.DiscoverHeader {
+  display: flex;
+  align-items: center;
+  padding: 1em;
 }
 
-.DiscoverPage .like-buttons-container {
+.DiscoverHeader h1 {
+  color: #f0b202;
+}
+
+.DiscoverMain {
+  padding: 1em;
+}
+
+.DiscoverMain .like-buttons-container {
   display: flex;
   justify-content: space-evenly;
   font-size: 4em;
+  margin-top: 1rem;
 }
 
-.DiscoverPage .thumbs {
+.DiscoverMain .thumbs {
   cursor: pointer;
 }
 
-.DiscoverPage .thumbs:hover {
+.DiscoverMain .thumbs:hover {
   transform: scale(1.2);
   transition: 0.5s ease;
   color: #f0b202;

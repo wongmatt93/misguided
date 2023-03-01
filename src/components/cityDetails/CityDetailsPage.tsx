@@ -35,7 +35,8 @@ const CityDetailsPage = () => {
 
   const goBack = (): void => navigate(-1);
 
-  const handleItinerary = (): void => navigate(`/plan-trip/${city!._id}`);
+  const handleItinerary = (): void =>
+    navigate(`/plan-trip/get-itinerary/${city!._id}`);
 
   return (
     <>

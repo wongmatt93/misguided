@@ -1,3 +1,21 @@
 .UpcomingTripsContainer {
   padding: 1em;
 }
+
+.UpcomingTripsContainer .empty {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  color: #353839;
+}
+
+.UpcomingTripsContainer .empty svg {
+  font-size: 5em;
+}
+
+.UpcomingTripsContainer .empty a {
+  color: #353839;
+  text-decoration: underline;
+}

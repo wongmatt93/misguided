@@ -13,17 +13,21 @@
   width: 6em;
   object-fit: cover;
   border-radius: 50%;
-  margin-bottom: 1em;
 }
 
 .UserCard .card-title {
   text-align: center;
+  margin-top: 0.5em;
+  margin-bottom: 0;
 }
 
-.SearchUsers .view-profile-button {
+.UserCard .card-text {
+  margin-top: 0.5em;
+}
+
+.UserCard .view-profile-button {
   width: 50%;
   margin-top: 1em;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   font-family: "Oswald", sans-serif;
   font-size: 1em;
   background-color: #f0b202;

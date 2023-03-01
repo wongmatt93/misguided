@@ -45,15 +45,19 @@ const InboxNotificationsSection = ({ userProfile }: Props) => {
         </h2>
         <RiArrowRightSLine />
       </div>
-      <ListGroup variant="flush">
-        {notifsPreview.map((notification) => (
-          <NotificationCard
-            key={notification.date}
-            uid={userProfile.uid}
-            notification={notification}
-          />
-        ))}
-      </ListGroup>
+      {notifsPreview.length > 0 ? (
+        <ListGroup variant="flush">
+          {notifsPreview.map((notification) => (
+            <NotificationCard
+              key={notification.date}
+              uid={userProfile.uid}
+              notification={notification}
+            />
+          ))}
+        </ListGroup>
+      ) : (
+        <p className="no-notifs">No Notifications Yet</p>
+      )}
     </section>
   );
 };

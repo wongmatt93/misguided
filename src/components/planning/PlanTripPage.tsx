@@ -10,19 +10,21 @@ const PlanTripPage = () => {
 
   return (
     <>
-      <header className="PlanTripPage-header">
-        <h1>Begin Trip Planning</h1>
+      <header className="PlanTripHeader">
+        <h1>trip planning</h1>
       </header>
-      <main className="PlanTripPage-main">
-        <p>Don't see a city you like? Discover new cities!</p>
-        <Button
-          className="discover-button"
-          variant="warning"
-          onClick={handleClick}
-        >
-          Discover
-        </Button>
+      <main className="PlanTripMain">
         <FavoritesContainer />
+        <div className="discover">
+          <p>Don't see a city you like? Discover new cities!</p>
+          <Button
+            className="discover-button"
+            variant="warning"
+            onClick={handleClick}
+          >
+            Discover
+          </Button>
+        </div>
       </main>
     </>
   );
