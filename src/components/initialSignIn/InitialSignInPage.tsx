@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AuthContext from "../../context/AuthContext";
-import PreferencesForm from "./../userProfile/preferences/PreferencesForm";
+import PreferencesForm from "../settings/preferences/PreferencesForm";
 import "./InitialSignInPage.css";
 import InitialPhotoUploadForm from "./InitialPhotoUploadForm";
 import InitialHometownForm from "./InitialHometownForm";
@@ -11,7 +11,6 @@ const InitialSignInPage = () => {
   const { userProfile, refreshProfile } = useContext(AuthContext);
   const navigate = useNavigate();
   const [stage, setStage] = useState("username");
-  const [show, setShow] = useState(false);
 
   useEffect(() => {
     if (userProfile) {
@@ -57,7 +56,7 @@ const InitialSignInPage = () => {
           {stage === "preferences" && (
             <>
               <h2>Choose your preferences</h2>
-              <PreferencesForm setShow={setShow} />
+              <PreferencesForm />
             </>
           )}
         </>

@@ -1,5 +1,6 @@
 .GallerySection {
   margin-bottom: 0.5em;
+  color: #353839;
 }
 
 .GallerySection .gallery-label-row {
@@ -12,4 +13,5 @@
 .GallerySection .gallery-label-row button {
   font-size: 0.7em;
   background-color: #f0b202;
+  color: #353839;
 }

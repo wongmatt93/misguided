@@ -1,6 +1,7 @@
 .ParticipantsSection {
   display: flex;
   flex-direction: column;
+  color: #353839;
 }
 
 .ParticipantsSection .participants-label-row {

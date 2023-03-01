@@ -1,7 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import TripMessageThreadPage from "../tripMessageThread/TripMessageThreadPage";
 import InboxPage from "./InboxPage";
-import "./InboxRouter.css";
 import AllNotificationsPage from "./notifications/AllNotificationsPage";
 
 const InboxRouter = () => {

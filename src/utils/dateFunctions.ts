@@ -16,12 +16,12 @@ export const sortNotifications = (
 
 export const sortTripsAscending = (tripArray: Trip[]): Trip[] =>
   tripArray.sort(function (a, b) {
-    return new Date(a.date1).valueOf() - new Date(b.date1).valueOf();
+    return Number(a.startDate) - Number(b.startDate);
   });
 
 export const sortTripsDescending = (tripArray: Trip[]): Trip[] =>
   tripArray.sort(function (a, b) {
-    if (b.date2 + b._id! < a.date2 + a._id!) {
+    if (b.endDate + b._id! < a.endDate + a._id!) {
       return -1;
     } else {
       return 1;

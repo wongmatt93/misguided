@@ -29,7 +29,9 @@ const TripsPage = () => {
           (item) => item.tripId === trip._id!
         );
 
-        const endDate = new Date(trip.date2);
+        const endDate: Date = trip.endDate
+          ? new Date(Number(trip.endDate))
+          : new Date(Number(trip.startDate));
 
         if (userTrip) {
           accepted = userTrip.accepted;

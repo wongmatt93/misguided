@@ -31,19 +31,23 @@ const AccountInformationPage = () => {
   };
 
   return (
-    <main className="AccountInformationPage">
-      <h2>Update your information</h2>
-      <form onSubmit={handleSubmit}>
-        <input ref={fileInputRef} type="file" />
-        <Button
-          variant="warning"
-          type="submit"
-          className="upload-photos-button"
-        >
-          Upload
-        </Button>
-      </form>
-    </main>
+    <>
+      <header className="AccountHeader">
+        <h1>settings / account</h1>
+      </header>
+      <main className="AccountMain">
+        <form onSubmit={handleSubmit}>
+          <input ref={fileInputRef} type="file" />
+          <Button
+            variant="warning"
+            type="submit"
+            className="upload-photos-button"
+          >
+            Upload
+          </Button>
+        </form>
+      </main>
+    </>
   );
 };
 

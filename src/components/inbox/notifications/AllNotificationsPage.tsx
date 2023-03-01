@@ -36,11 +36,14 @@ const AllNotificationsPage = () => {
 
   return (
     <>
-      <header className="AllNotificationsPage-header">
-        <h1>All notifications</h1>
-        <button onClick={markAllRead}>Mark all as read</button>
+      <header className="AllNotificationsHeader">
+        <h1>inbox / notifications</h1>
+        <div className="mark-all" onClick={markAllRead}>
+          <p>Mark all</p>
+          <p>as read</p>
+        </div>
       </header>
-      <main className="AllNotificationsPage-main">
+      <main className="AllNotificationsMain">
         {userProfile && (
           <ListGroup variant="flush">
             {sortNotifications(filteredNotifs).map((notification) => (

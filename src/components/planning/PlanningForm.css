@@ -11,9 +11,28 @@
   margin: 1em;
 }
 
+.PlanningForm .rdrDateInput {
+  border: none;
+}
+
 .PlanningForm input {
-  font-size: 2em;
+  background-color: #f5f5f5;
+  border: none;
+  padding: 0;
   text-align: center;
+  color: #353839;
+}
+
+.PlanningForm option {
+  color: #353839;
+}
+
+.PlanningForm .rdrCalendarWrapper {
+  background-color: #f5f5f5;
+}
+
+.PlanningForm .rdrDay {
+  color: #353839 !important;
 }
 
 .PlanningForm .generate-button {

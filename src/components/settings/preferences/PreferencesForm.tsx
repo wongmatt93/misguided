@@ -1,11 +1,12 @@
 import { FormEvent, useContext, useEffect, useState } from "react";
+import { Button } from "react-bootstrap";
 import AuthContext from "../../../context/AuthContext";
 import { Preferences } from "../../../models/UserProfile";
 import { updateUserPreferences } from "../../../services/userService";
 import "./PreferencesForm.css";
 
 interface Props {
-  setShow: React.Dispatch<React.SetStateAction<boolean>>;
+  setShow?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const PreferencesForm = ({ setShow }: Props) => {
@@ -57,7 +58,7 @@ const PreferencesForm = ({ setShow }: Props) => {
     };
     updateUserPreferences(userProfile!.uid, newPreference).then(() => {
       refreshProfile(userProfile!.uid);
-      setShow(true);
+      setShow && setShow(true);
     });
   };
 
@@ -375,16 +376,9 @@ const PreferencesForm = ({ setShow }: Props) => {
         </label>
       </div>
       {userProfile!.preferences ? (
-        <button className="update-pref-button">
-          <span>Update Preferences</span>
-          <img
-            className="checkmark"
-            src="https://i.cloudup.com/2ZAX3hVsBE-3000x3000.png"
-            alt="check"
-            height="62"
-            width="62"
-          ></img>
-        </button>
+        <Button className="update-pref-button" variant="warning" type="submit">
+          Update Preferences
+        </Button>
       ) : (
         <button>Continue</button>
       )}

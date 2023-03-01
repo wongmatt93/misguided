@@ -46,7 +46,7 @@ const TripMessage = ({ message, setCount }: Props) => {
             </h3>
             <p>{message.text}</p>
             <p className="date">
-              {new Date(Number(message.date)).toDateString()}
+              {new Date(Number(message.date)).toLocaleDateString()}
             </p>
           </div>
         </li>

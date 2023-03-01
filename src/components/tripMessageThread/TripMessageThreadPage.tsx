@@ -32,7 +32,7 @@ const TripMessageThreadPage = () => {
       {trip && (
         <>
           <TripMessageThreadHeader trip={trip} />
-          <main className="TripMessageThreadPage-main">
+          <main className="TripMessageThreadMain">
             <TripMessagesContainer trip={trip} />
             <NewMessageForm tripId={trip._id!} refreshTrip={refreshTrip} />
           </main>

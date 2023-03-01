@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { Button } from "react-bootstrap";
-import { BsChevronCompactRight } from "react-icons/bs";
+import { RiArrowRightSLine } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
 import AuthContext from "../../context/AuthContext";
 import useCityFetcher from "../../hooks/useCityFetcher";
@@ -67,6 +67,8 @@ const PastTripCard = ({ trip }: Props) => {
     refreshProfile(uid);
   };
 
+  console.log();
+
   return (
     <>
       {city && userProfile && (
@@ -76,12 +78,12 @@ const PastTripCard = ({ trip }: Props) => {
             <div className="name-date-container">
               <h3>{city.cityName}</h3>
               <h4>
-                {new Date(trip.date1).toLocaleDateString()}
-                {trip.date1 !== trip.date2 &&
-                  ` - ${new Date(trip.date2).toLocaleDateString()}`}
+                {new Date(Number(trip.startDate)).toLocaleDateString()}
+                {trip.startDate !== trip.endDate &&
+                  ` - ${new Date(Number(trip.endDate)).toLocaleDateString()}`}
               </h4>
             </div>
-            <BsChevronCompactRight />
+            <RiArrowRightSLine />
           </div>
           {!trip.completed && (
             <div className="confirm-complete-container">

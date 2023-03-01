@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { useParams, Outlet } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import Trip from "../../models/Trip";
 import { getTripById } from "../../services/tripServices";
 import "./TripDetailsPage.css";

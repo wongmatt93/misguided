@@ -1,5 +1,19 @@
 .TripMessagesContainer {
   padding: 1em;
+  height: 100%;
+}
+
+.TripMessagesContainer .empty {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  color: #353839;
+}
+
+.TripMessagesContainer .empty svg {
+  font-size: 5em;
 }
 
 .TripMessagesContainer .loading {

@@ -1,5 +1,6 @@
 .ItinerarySection {
   flex: 1;
+  color: #353839;
 }
 
 .ItinerarySection .itinerary-label-row {

@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import useCityFetcher from "../../hooks/useCityFetcher";
 import City from "../../models/City";
 import Trip from "../../models/Trip";
@@ -10,22 +9,16 @@ interface Props {
 
 const TripDetailsHeader = ({ trip }: Props) => {
   const city: City | null = useCityFetcher(trip.cityId);
-  const [startDate, setStartDate] = useState<Date | null>(null);
-  const [endDate, setEndDate] = useState<Date | null>(null);
-
-  useEffect(() => {
-    setStartDate(new Date(trip.date1));
-    setEndDate(new Date(trip.date2));
-  }, [trip]);
 
   return (
     <>
-      {startDate && endDate && city && (
+      {city && (
         <header className="TripDetailsHeader">
-          <h1>{city.cityName}</h1>
+          <h1>{city.cityName.toLowerCase()}</h1>
           <p>
-            {startDate.toLocaleDateString()}
-            {trip.date1 !== trip.date2 && ` - ${endDate.toLocaleDateString()}`}
+            {new Date(Number(trip.startDate)).toLocaleDateString()}
+            {trip.startDate !== trip.endDate &&
+              ` - ${new Date(Number(trip.endDate)).toLocaleDateString()}`}
           </p>
         </header>
       )}

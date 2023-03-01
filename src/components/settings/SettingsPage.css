@@ -1,23 +1,37 @@
-.UserProfilePage .contents {
+.SettingsHeader {
+  display: flex;
+  align-items: center;
+  padding: 1em;
+}
+
+.SettingsHeader h1 {
+  color: #f0b202;
+}
+
+.SettingsMain {
+  padding: 1em;
+}
+
+.SettingsMain .contents {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 1.5em;
 }
 
-.UserProfilePage h2 {
+.SettingsMain h2 {
   font-family: "Merriweather", serif;
   margin-top: 1em;
+  color: #353839;
 }
 
-.UserProfilePage img {
+.SettingsMain img {
   height: 7em;
   width: 7em;
   object-fit: cover;
   border-radius: 50%;
 }
 
-.UserProfilePage ul {
+.SettingsMain ul {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -25,35 +39,36 @@
   margin: 1em 0;
 }
 
-.UserProfilePage a {
-  color: black;
+.SettingsMain a {
+  color: #353839;
   width: 100%;
   padding: 1em 0;
   border-bottom: 1px solid rgba(0, 0, 0, 0.25);
 }
 
-.UserProfilePage a:last-child {
+.SettingsMain a:last-child {
   border-bottom: 0;
 }
 
-.UserProfilePage li {
+.SettingsMain li {
   display: flex;
   justify-content: space-between;
   align-items: center;
   font-family: "Roboto", sans-serif;
 }
 
-.UserProfilePage svg {
+.SettingsMain svg {
   color: #f0b202;
 }
 
-.UserProfilePage button {
+.SettingsMain button {
   width: 60%;
   height: 2.2em;
-  background: #f0b202;
+  background-color: #f0b202;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 0.3em;
   border: none;
+  color: #353839;
   font-family: "Oswald", sans-serif;
   font-size: 1.5em;
 }

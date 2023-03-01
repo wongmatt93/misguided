@@ -2,6 +2,7 @@
   display: flex;
   align-items: center;
   padding: 1em;
+  color: #353839;
 }
 
 .PlanTripHeader h1 {
@@ -10,10 +11,12 @@
 
 .PlanTripMain {
   padding: 1em;
+  color: #353839;
 }
 
 .PlanTripMain .discover-button {
-  background: #f0b202;
+  background-color: #f0b202;
+  color: #353839;
 }
 
 .PlanTripMain .discover {

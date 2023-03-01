@@ -1,8 +1,33 @@
-.AllNotificationsPage-main {
+.AllNotificationsHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1em;
+}
+
+.AllNotificationsHeader h1 {
+  color: #f0b202;
+}
+
+.AllNotificationsHeader .mark-all {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 0.7em;
+  color: #353839;
+  border-bottom: 1px solid #353839;
+  line-height: 1em;
+}
+
+.AllNotificationsHeader .mark-all {
+  cursor: pointer;
+}
+
+.AllNotificationsMain {
   padding: 0 1em;
 }
 
-.AllNotificationsPage-main .loading {
+.AllNotificationsMain .loading {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -10,7 +35,7 @@
   width: 100%;
 }
 
-.AllNotificationsPage-main .spinner-border {
+.AllNotificationsMain .spinner-border {
   height: 5em;
   width: 5em;
   color: #f0b202;

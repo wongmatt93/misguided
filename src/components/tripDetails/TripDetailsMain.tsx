@@ -22,21 +22,12 @@ const TripDetailsMain = ({ trip, userProfile, refreshTrip }: Props) => {
   const navigate = useNavigate();
 
   const [participants, setParticipants] = useState<UserProfile[]>([]);
-  const [tripCreator, setTripCreator] = useState(false);
 
   useEffect(() => {
     Promise.all(
       trip.participants.map(async (item) => await getUserByUid(item.uid))
     ).then((response) => setParticipants(response));
   }, [trip]);
-
-  useEffect(() => {
-    if (userProfile) {
-      if (userProfile.uid === trip.creatorUid) {
-        setTripCreator(true);
-      }
-    }
-  }, [userProfile]);
 
   const handleDeleteTrip = async (): Promise<void> => {
     await Promise.allSettled([
@@ -63,10 +54,9 @@ const TripDetailsMain = ({ trip, userProfile, refreshTrip }: Props) => {
         userProfile={userProfile}
         participants={participants}
         refreshTrip={refreshTrip}
-        tripCreator={tripCreator}
       />
       <ItinerarySection trip={trip} />
-      {tripCreator && (
+      {trip.creatorUid === userProfile.uid && (
         <Button
           className="delete-button"
           variant="link"
