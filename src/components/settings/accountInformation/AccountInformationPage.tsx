@@ -1,52 +1,29 @@
-import Button from "react-bootstrap/Button";
-import { FormEvent, useContext, useRef } from "react";
-import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
-import { storage } from "../../../firebaseConfig";
+import { ListGroup } from "react-bootstrap";
+import { useContext } from "react";
 import AuthContext from "../../../context/AuthContext";
 import "./AccountInformationPage.css";
-import { updateUserPhoto } from "../../../services/userService";
+import UpdatePhoto from "./UpdatePhoto";
 
 const AccountInformationPage = () => {
-  const { userProfile, refreshProfile } = useContext(AuthContext);
-  const fileInputRef = useRef<HTMLInputElement>(null);
-
-  const handleSubmit = (e: FormEvent): void => {
-    e.preventDefault();
-
-    const files = fileInputRef.current?.files;
-    if (files && files[0]) {
-      const file = files[0]; // Here is the file we need
-      const storageRef = ref(
-        storage,
-        `user-photos/${userProfile!.uid}/${file.name}`
-      );
-      uploadBytes(storageRef, file).then((snapshot) => {
-        getDownloadURL(snapshot.ref).then((url) => {
-          updateUserPhoto(userProfile!.uid, url).then(() =>
-            refreshProfile(userProfile!.uid)
-          );
-        });
-      });
-    }
-  };
+  const { userProfile } = useContext(AuthContext);
 
   return (
     <>
       <header className="AccountHeader">
         <h1>settings / account</h1>
       </header>
-      <main className="AccountMain">
-        <form onSubmit={handleSubmit}>
-          <input ref={fileInputRef} type="file" />
-          <Button
-            variant="warning"
-            type="submit"
-            className="upload-photos-button"
-          >
-            Upload
-          </Button>
-        </form>
-      </main>
+      {userProfile && (
+        <main className="AccountMain">
+          <UpdatePhoto userProfile={userProfile} />
+          <h2 className="username">{userProfile.username}</h2>
+          <ListGroup variant="flush">
+            <ListGroup.Item>name</ListGroup.Item>
+            <ListGroup.Item>email</ListGroup.Item>
+            <ListGroup.Item>phone</ListGroup.Item>
+            <ListGroup.Item>hometown</ListGroup.Item>
+          </ListGroup>
+        </main>
+      )}
     </>
   );
 };

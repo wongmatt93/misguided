@@ -1,6 +1,37 @@
+.CommentCard {
+  display: flex;
+  align-items: center;
+  color: #353839;
+  margin-bottom: 1em;
+}
+
 .CommentCard .commentor-image {
-  height: 3em;
-  width: 3em;
+  height: 2em;
+  width: 2em;
   border-radius: 50%;
   object-fit: cover;
+  margin-right: 1em;
+}
+
+.CommentCard .commentor-image:hover {
+  cursor: pointer;
+}
+
+.CommentCard h2 {
+  font-size: 0.8em;
+  font-weight: 600;
+}
+
+.CommentCard h2:hover {
+  cursor: pointer;
+}
+
+.CommentCard .comment {
+  font-size: 0.9em;
+  line-height: 1em;
+  margin: 0.3em 0;
+}
+
+.CommentCard .date-time {
+  font-size: 0.7em;
 }

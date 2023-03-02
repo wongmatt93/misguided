@@ -3,6 +3,7 @@ import Card from "react-bootstrap/Card";
 import City from "../../models/City";
 import "./DiscoverCard.css";
 import { useNavigate } from "react-router-dom";
+import { RiStarFill } from "react-icons/ri";
 
 interface Props {
   currentCity: City;
@@ -31,7 +32,14 @@ const DiscoverCard = ({ currentCity, cityRating }: Props) => {
             <Card.Text>{currentCity.country}</Card.Text>
           </div>
         </div>
-        <Card.Text>{cityRating ? cityRating : "No Ratings Yet"}</Card.Text>
+        {cityRating ? (
+          <div className="rating">
+            <Card.Text>{cityRating.toFixed(1)}</Card.Text>
+            <RiStarFill />
+          </div>
+        ) : (
+          <Card.Text>No Ratings Yet</Card.Text>
+        )}
       </Card.Body>
     </Card>
   );

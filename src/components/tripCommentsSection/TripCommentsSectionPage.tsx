@@ -21,11 +21,11 @@ const TripCommentsSectionPage = () => {
 
   return (
     <>
-      <header>
+      <header className="TripCommentsHeader">
         <h1>Comments</h1>
       </header>
       {trip && (
-        <main>
+        <main className="TripCommentsMain">
           <TripCommentsContainer trip={trip} />
           <AddCommentForm trip={trip} refreshTrip={refreshTrip} />
         </main>

@@ -1,6 +1,6 @@
 import { RiArrowRightSLine } from "react-icons/ri";
 import { useContext } from "react";
-import { Button } from "react-bootstrap";
+import { Button, ListGroup } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import AuthContext from "../../context/AuthContext";
 import { signOut } from "../../firebaseConfig";
@@ -19,37 +19,31 @@ const SettingsPage = () => {
       <header className="SettingsHeader">
         <h1>settings</h1>
       </header>
-      <main className="SettingsMain">
-        {userProfile && (
-          <div className="contents">
-            <img src={userProfile.photoURL!} alt="profile-pic" />
-            <h2>{userProfile.displayName}</h2>
-            <ul>
-              <Link to="/settings/account">
-                <li>
-                  <p>Account Information</p>
-                  <RiArrowRightSLine />
-                </li>
-              </Link>
-              <Link to="/settings/preferences">
-                <li>
-                  <p>Update Preferences</p>
-                  <RiArrowRightSLine />
-                </li>
-              </Link>
-              <Link to="/add-city">
-                <li>
-                  <p>Add Cities</p>
-                  <RiArrowRightSLine />
-                </li>
-              </Link>
-            </ul>
-            <Button variant="warning" onClick={signOutAction}>
-              Sign Out
-            </Button>
-          </div>
-        )}
-      </main>
+      {userProfile && (
+        <main className="SettingsMain">
+          <ListGroup variant="flush">
+            <ListGroup.Item as={Link} to="/settings/account">
+              <p>Account Information</p>
+              <RiArrowRightSLine />
+            </ListGroup.Item>
+            <ListGroup.Item as={Link} to="/settings/preferences">
+              <p>Update Preferences</p>
+              <RiArrowRightSLine />
+            </ListGroup.Item>
+            <ListGroup.Item as={Link} to="/settings/notifications">
+              <p>Notifications</p>
+              <RiArrowRightSLine />
+            </ListGroup.Item>
+            <ListGroup.Item as={Link} to="/settings/add-city">
+              <p>Add Cities</p>
+              <RiArrowRightSLine />
+            </ListGroup.Item>
+          </ListGroup>
+          <Button variant="warning" onClick={signOutAction}>
+            Sign Out
+          </Button>
+        </main>
+      )}
     </>
   );
 };

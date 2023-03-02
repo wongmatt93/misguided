@@ -1,3 +1,4 @@
+import { RiMessage2Fill } from "react-icons/ri";
 import Trip from "../../models/Trip";
 import CommentCard from "./CommentCard";
 import "./TripCommentsContainer.css";
@@ -12,11 +13,14 @@ const TripCommentsContainer = ({ trip }: Props) => {
       {trip.comments.length > 0 ? (
         <ul>
           {trip.comments.map((comment) => (
-            <CommentCard key={comment.uid} comment={comment} />
+            <CommentCard key={comment.uid + comment.date} comment={comment} />
           ))}
         </ul>
       ) : (
-        <p>Be the first to comment!</p>
+        <div className="empty">
+          <RiMessage2Fill />
+          <p>Be the first to comment!</p>
+        </div>
       )}
     </div>
   );

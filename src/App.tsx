@@ -14,7 +14,6 @@ import MobileNavigation from "./components/mobileNavigation/MobileNavigation";
 import TripsPage from "./components/trips/TripsPage";
 import "./App.css";
 import ProfilePage from "./components/profile/ProfilePage";
-import AddCityPage from "./components/admin/AddCityPage";
 import CityDetailsPage from "./components/cityDetails/CityDetailsPage";
 import InitialSigninPage from "./components/initialSignIn/InitialSignInPage";
 import Homepage from "./components/home/Homepage";
@@ -58,7 +57,6 @@ function App() {
               <Route path="/inbox/*" element={<InboxRouter />} />
               <Route path="/settings/*" element={<SettingsRouter />} />
               <Route path="/profile/:uid" element={<ProfilePage />} />
-              <Route path="/add-city" element={<AddCityPage />} />
               <Route path="/trip/:tripId/*" element={<TripRouter />} />
               <Route path="*" element={<Navigate to="/routes" />} />
             </>
