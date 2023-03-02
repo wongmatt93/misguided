@@ -9,7 +9,7 @@ import Trip from "../../models/Trip";
 import { Notification } from "../../models/UserProfile";
 import { addVisitor } from "../../services/cityService";
 import { completeTrip, deleteTrip } from "../../services/tripServices";
-import { addNotification } from "../../services/userService";
+import { addNotification, deleteUserTrip } from "../../services/userService";
 import { createRatingNotif } from "../../utils/notificationsFunctions";
 import "./PastTripCard.css";
 
@@ -44,17 +44,15 @@ const PastTripCard = ({ trip }: Props) => {
     await Promise.allSettled(
       trip.participants
         .filter((participant) => participant.uid !== uid)
-        .map((participant) => {
-          addNotification(participant.uid, newNotification);
+        .map((participant) =>
+          addNotification(participant.uid, newNotification).then(() => {
+            const match: Visitor | undefined = city.visitors.find(
+              (visitor) => visitor.uid === participant.uid
+            );
 
-          const match: Visitor | undefined = city.visitors.find(
-            (visitor) => visitor.uid === participant.uid
-          );
-
-          if (!match) {
-            addVisitor(city._id!, { uid: participant.uid });
-          }
-        })
+            !match && addVisitor(city._id!, { uid: participant.uid });
+          })
+        )
     );
 
     const firstVisit: boolean = !city.ratings.some((user) => user.uid === uid);
@@ -67,7 +65,19 @@ const PastTripCard = ({ trip }: Props) => {
     refreshProfile(uid);
   };
 
-  console.log();
+  const handleUnconfirmTrip = async (
+    trip: Trip,
+    uid: string
+  ): Promise<void> => {
+    await Promise.allSettled([
+      deleteTrip(trip._id!),
+      Promise.allSettled(
+        trip.participants.map((item) => deleteUserTrip(item.uid, trip._id!))
+      ),
+    ]);
+
+    refreshProfile(uid);
+  };
 
   return (
     <>
@@ -97,7 +107,12 @@ const PastTripCard = ({ trip }: Props) => {
                 >
                   Yes
                 </Button>
-                <Button variant="warning">No</Button>
+                <Button
+                  variant="warning"
+                  onClick={() => handleUnconfirmTrip(trip, userProfile.uid)}
+                >
+                  No
+                </Button>
               </div>
             </div>
           )}

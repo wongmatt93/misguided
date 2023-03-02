@@ -73,16 +73,6 @@ const AuthContextProvider = ({ children }: Props) => {
     });
   }, []);
 
-  useEffect(() => {
-    if (userProfile) {
-      const interval = setInterval(() => {
-        refreshProfile(userProfile!.uid);
-      }, 1000);
-
-      return () => clearInterval(interval);
-    }
-  }, [userProfile]);
-
   return (
     <AuthContext.Provider
       value={{

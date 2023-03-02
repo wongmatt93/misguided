@@ -36,3 +36,13 @@
   height: 100%;
   color: #f0b202;
 }
+
+.DiscoverCard .rating {
+  display: flex;
+  align-items: center;
+  font-size: 1.5em;
+}
+
+.DiscoverCard svg {
+  color: #f0b202;
+}

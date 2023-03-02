@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { getCities } from "../../services/airlabsService";
+import { getCities } from "../../../services/airlabsService";
 import AddCityForm from "./AddCityForm";
 import "./AddCityPage.css";
 

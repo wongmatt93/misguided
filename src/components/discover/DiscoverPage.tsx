@@ -5,16 +5,19 @@ import DiscoverContext from "../../context/DiscoverContext";
 import DiscoverCard from "./DiscoverCard";
 import { CityVote } from "../../models/UserProfile";
 import AuthContext from "../../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 const DiscoverPage = () => {
   const { userProfile } = useContext(AuthContext);
   const { currentCity, likeCity, dislikeCity } = useContext(DiscoverContext);
+  const navigate = useNavigate();
   const [cityRating, setCityRating] = useState(0);
 
   const handleLikeCity = async (uid: string, cityId: string): Promise<void> => {
     const newLike: CityVote = { cityId };
 
     await likeCity(uid, newLike);
+    navigate(`/plan-trip/city-details/${cityId}`);
   };
 
   const handleDislikeCity = async (
@@ -35,6 +38,8 @@ const DiscoverPage = () => {
           0
         );
         setCityRating(ratingsSum / numberOfRatings);
+      } else {
+        setCityRating(0);
       }
     }
   }, [currentCity]);
