@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { AiFillLike, AiFillDislike } from "react-icons/ai";
+import { RiThumbUpFill, RiThumbDownFill } from "react-icons/ri";
 import DiscoverContext from "../../context/DiscoverContext";
 import City from "../../models/City";
 import UserProfile, { CityVote } from "../../models/UserProfile";
@@ -32,11 +32,11 @@ const CityDetailsButtonsContainer = ({ city, userProfile, goBack }: Props) => {
 
   return (
     <div className="CityDetailsButtonsContainer">
-      <AiFillLike
+      <RiThumbUpFill
         className="thumbs"
         onClick={() => handleLikeCity(userProfile.uid, city._id!)}
       />
-      <AiFillDislike
+      <RiThumbDownFill
         className="thumbs"
         onClick={() => handleDislikeCity(userProfile.uid, city._id!)}
       />

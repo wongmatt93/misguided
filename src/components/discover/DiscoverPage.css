@@ -28,3 +28,21 @@
   transition: 0.5s ease;
   color: #f0b202;
 }
+
+.DiscoverMain .empty {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  color: #353839;
+}
+
+.DiscoverMain .empty svg {
+  font-size: 5em;
+}
+
+.DiscoverMain .empty .refresh-button {
+  color: #353839;
+  background-color: #f0b202;
+}

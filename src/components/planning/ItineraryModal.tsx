@@ -1,5 +1,5 @@
 import Modal from "react-bootstrap/Modal";
-import { AiFillLike } from "react-icons/ai";
+import { RiThumbUpFill } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
 import Trip from "../../models/Trip";
 import "./ItineraryModal.css";
@@ -38,8 +38,8 @@ const ItineraryModal = ({ trip, show, handleClose }: Props) => {
           </Modal.Body>
           <Modal.Footer>
             <div className="like-buttons-container">
-              <AiFillLike className="thumbs" onClick={handleClick} />
-              <AiFillLike
+              <RiThumbUpFill className="thumbs" onClick={handleClick} />
+              <RiThumbUpFill
                 className="thumbs thumbs-down"
                 onClick={handleClick}
               />
