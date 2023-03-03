@@ -53,11 +53,20 @@ export const addLikedCity = async (
 ): Promise<CityVote> =>
   (await axios.put(`${baseURL}/users/${uid}/likes`, newCity)).data;
 
+export const removeLikedCity = async (
+  uid: string,
+  cityId: string
+): Promise<string> =>
+  (await axios.put(`${baseURL}/users/${uid}/${cityId}/remove-like`)).data;
+
 export const addDislikedCity = async (
   uid: string,
   newCity: CityVote
 ): Promise<CityVote> =>
   (await axios.put(`${baseURL}/users/${uid}/dislikes`, newCity)).data;
+
+export const removeAllDislikedCities = async (uid: string): Promise<string> =>
+  (await axios.put(`${baseURL}/users/${uid}/remove-all-dislikes`)).data;
 
 export const addFollowing = async (
   uid: string,
@@ -126,3 +135,28 @@ export const readNotification = async (
       `${baseURL}/users/${uid}/${notifUid}/${date}/read-notification`
     )
   ).data;
+
+export const unreadNotification = async (
+  uid: string,
+  notifUid: string,
+  date: string
+): Promise<string> =>
+  (
+    await axios.put(
+      `${baseURL}/users/${uid}/${notifUid}/${date}/unread-notification`
+    )
+  ).data;
+
+export const deleteNotification = async (
+  uid: string,
+  notifUid: string,
+  date: string
+): Promise<string> =>
+  (
+    await axios.put(
+      `${baseURL}/users/${uid}/${notifUid}/${date}/delete-notification`
+    )
+  ).data;
+
+export const deleteAllNotifications = async (uid: string): Promise<string> =>
+  (await axios.put(`${baseURL}/users/${uid}/delete-all-notifications`)).data;
