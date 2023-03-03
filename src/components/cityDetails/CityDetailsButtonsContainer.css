@@ -1,9 +1,9 @@
 .CityDetailsButtonsContainer {
   display: flex;
   justify-content: space-evenly;
-  font-size: 4em;
+  font-size: 4rem;
   width: 100%;
-  padding: 1rem 1rem 0;
+  padding: 1rem;
 }
 
 .CityDetailsButtonsContainer .thumbs {

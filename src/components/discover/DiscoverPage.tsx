@@ -1,14 +1,17 @@
 import { useContext, useEffect, useState } from "react";
-import { AiFillLike, AiFillDislike } from "react-icons/ai";
+import { RiThumbUpFill, RiThumbDownFill } from "react-icons/ri";
 import "./DiscoverPage.css";
 import DiscoverContext from "../../context/DiscoverContext";
 import DiscoverCard from "./DiscoverCard";
 import { CityVote } from "../../models/UserProfile";
 import AuthContext from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { RiGlobeFill } from "react-icons/ri";
+import { Button } from "react-bootstrap";
+import { removeAllDislikedCities } from "../../services/userService";
 
 const DiscoverPage = () => {
-  const { userProfile } = useContext(AuthContext);
+  const { userProfile, refreshProfile } = useContext(AuthContext);
   const { currentCity, likeCity, dislikeCity } = useContext(DiscoverContext);
   const navigate = useNavigate();
   const [cityRating, setCityRating] = useState(0);
@@ -27,6 +30,11 @@ const DiscoverPage = () => {
     const newDislike: CityVote = { cityId };
 
     await dislikeCity(uid, newDislike);
+  };
+
+  const handleRefreshTrips = async (uid: string): Promise<void> => {
+    await removeAllDislikedCities(uid);
+    refreshProfile(uid);
   };
 
   useEffect(() => {
@@ -49,29 +57,42 @@ const DiscoverPage = () => {
       <header className="DiscoverHeader">
         <h1>discover</h1>
       </header>
-      <main className="DiscoverMain">
-        {currentCity && userProfile ? (
-          <>
-            <DiscoverCard currentCity={currentCity} cityRating={cityRating} />
-            <div className="like-buttons-container">
-              <AiFillLike
-                className="thumbs"
-                onClick={() =>
-                  handleLikeCity(userProfile.uid, currentCity._id!)
-                }
-              />
-              <AiFillDislike
-                className="thumbs"
-                onClick={() =>
-                  handleDislikeCity(userProfile.uid, currentCity._id!)
-                }
-              />
+      {userProfile && (
+        <main className="DiscoverMain">
+          {currentCity ? (
+            <>
+              <DiscoverCard currentCity={currentCity} cityRating={cityRating} />
+              <div className="like-buttons-container">
+                <RiThumbUpFill
+                  className="thumbs"
+                  onClick={() =>
+                    handleLikeCity(userProfile.uid, currentCity._id!)
+                  }
+                />
+                <RiThumbDownFill
+                  className="thumbs"
+                  onClick={() =>
+                    handleDislikeCity(userProfile.uid, currentCity._id!)
+                  }
+                />
+              </div>
+            </>
+          ) : (
+            <div className="empty">
+              <RiGlobeFill />
+              <p>You're out of cities!</p>
+              <Button
+                className="refresh-button"
+                variant="warning"
+                type="button"
+                onClick={() => handleRefreshTrips(userProfile.uid)}
+              >
+                Refresh Cities
+              </Button>
             </div>
-          </>
-        ) : (
-          <p>You're out of cities! Stay tuned while we add more cities</p>
-        )}
-      </main>
+          )}
+        </main>
+      )}
     </>
   );
 };
