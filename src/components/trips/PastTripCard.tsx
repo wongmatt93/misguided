@@ -86,7 +86,7 @@ const PastTripCard = ({ trip }: Props) => {
           <div className="info-container" onClick={handleViewTrip}>
             <img src={city.photoURL} alt={city.photoURL} />
             <div className="name-date-container">
-              <h3>{city.cityName}</h3>
+              <h3>{trip.nickname ? trip.nickname : city.cityName}</h3>
               <h4>
                 {new Date(Number(trip.startDate)).toLocaleDateString()}
                 {trip.startDate !== trip.endDate &&

@@ -9,15 +9,21 @@ import GallerySection from "./gallery/GallerySection";
 import ItinerarySection from "./itinerary/ItinerarySection";
 import ParticipantsSection from "./participants/ParticipantsSection";
 import "./TripDetailsMain.css";
-import UserProfile from "../../models/UserProfile";
+import UserProfile, { UserTrip } from "../../models/UserProfile";
 
 interface Props {
   trip: Trip;
-  userProfile: UserProfile;
+  cityName: string;
+  userProfile: UserProfile | undefined;
   refreshTrip: (tripId: string) => Promise<void>;
 }
 
-const TripDetailsMain = ({ trip, userProfile, refreshTrip }: Props) => {
+const TripDetailsMain = ({
+  trip,
+  cityName,
+  userProfile,
+  refreshTrip,
+}: Props) => {
   const { refreshProfile } = useContext(AuthContext);
   const navigate = useNavigate();
 
@@ -26,7 +32,25 @@ const TripDetailsMain = ({ trip, userProfile, refreshTrip }: Props) => {
   useEffect(() => {
     Promise.all(
       trip.participants.map(async (item) => await getUserByUid(item.uid))
-    ).then((response) => setParticipants(response));
+    ).then((response) => {
+      const accepted: UserProfile[] = [];
+      const notAccepted: UserProfile[] = [];
+
+      response.forEach((user) => {
+        const match: UserTrip | undefined = user.trips.find(
+          (userTrip) => userTrip.tripId === trip._id!
+        );
+        if (match) {
+          if (match.accepted) {
+            accepted.push(user);
+          } else {
+            notAccepted.push(user);
+          }
+        }
+      });
+
+      setParticipants(accepted.concat(notAccepted));
+    });
   }, [trip]);
 
   const handleDeleteTrip = async (): Promise<void> => {
@@ -55,8 +79,8 @@ const TripDetailsMain = ({ trip, userProfile, refreshTrip }: Props) => {
         participants={participants}
         refreshTrip={refreshTrip}
       />
-      <ItinerarySection trip={trip} />
-      {trip.creatorUid === userProfile.uid && (
+      <ItinerarySection trip={trip} cityName={cityName} />
+      {userProfile && trip.creatorUid === userProfile.uid && (
         <Button
           className="delete-button"
           variant="link"

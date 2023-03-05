@@ -19,7 +19,7 @@ import "./ParticipantsSection.css";
 
 interface Props {
   trip: Trip;
-  userProfile: UserProfile;
+  userProfile: UserProfile | undefined;
   participants: UserProfile[];
   refreshTrip: (tripId: string) => Promise<void>;
 }
@@ -36,14 +36,16 @@ const ParticipantsSection = ({
   const [pastTrip, setPastTrip] = useState(false);
 
   useEffect(() => {
-    if (userProfile.trips.length > 0) {
-      const found: UserTrip | undefined = userProfile.trips.find(
-        (item) => item.tripId === trip._id!
-      );
+    if (userProfile) {
+      if (userProfile.trips.length > 0) {
+        const found: UserTrip | undefined = userProfile.trips.find(
+          (item) => item.tripId === trip._id!
+        );
 
-      if (found) {
-        setInvited(true);
-        setAccepted(found.accepted);
+        if (found) {
+          setInvited(true);
+          setAccepted(found.accepted);
+        }
       }
     }
   }, [userProfile, trip]);
@@ -62,10 +64,10 @@ const ParticipantsSection = ({
   const handleShow = (): void => setShow(true);
 
   const handleAcceptTrip = async (): Promise<void> => {
-    const newNotification = createTripAcceptNotif(userProfile.uid, trip._id!);
+    const newNotification = createTripAcceptNotif(userProfile!.uid, trip._id!);
 
     await Promise.allSettled([
-      acceptUserTrip(userProfile.uid, trip._id!),
+      acceptUserTrip(userProfile!.uid, trip._id!),
       addNotification(trip.creatorUid, newNotification),
     ]);
     refreshTrip(trip._id!);
@@ -87,12 +89,13 @@ const ParticipantsSection = ({
     <section className="ParticipantsSection">
       <div className="participants-label-row">
         <h4>Participants</h4>
-        {trip.creatorUid === userProfile.uid && !pastTrip && (
+        {userProfile && trip.creatorUid === userProfile.uid && !pastTrip && (
           <Button variant="warning" onClick={handleShow}>
             Invite Friends
           </Button>
         )}
-        {trip.creatorUid !== userProfile.uid &&
+        {userProfile &&
+          trip.creatorUid !== userProfile.uid &&
           invited &&
           (accepted ? (
             <Button variant="warning" onClick={handleDeleteTrip}>
@@ -122,13 +125,15 @@ const ParticipantsSection = ({
           />
         ))}
       </ul>
-      <InviteFriendsModal
-        trip={trip}
-        userProfile={userProfile}
-        show={show}
-        refreshTrip={refreshTrip}
-        handleClose={handleClose}
-      />
+      {userProfile && (
+        <InviteFriendsModal
+          trip={trip}
+          userProfile={userProfile}
+          show={show}
+          refreshTrip={refreshTrip}
+          handleClose={handleClose}
+        />
+      )}
     </section>
   );
 };

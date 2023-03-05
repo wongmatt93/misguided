@@ -32,7 +32,7 @@ const ProfileTripCard = ({ trip }: Props) => {
         <li className="ProfileTripCard" onClick={handleClick}>
           <img src={cardImage} alt={cardImage} />
           <div className="info-container">
-            <h4>{city.cityName}</h4>
+            <h4>{trip.nickname ? trip.nickname : city.cityName}</h4>
           </div>
         </li>
       )}

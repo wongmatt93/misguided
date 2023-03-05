@@ -50,6 +50,7 @@ export default interface Trip {
   _id?: string;
   cityId: string;
   creatorUid: string;
+  nickname: string;
   startDate: string;
   endDate: string;
   hotel: string | null;

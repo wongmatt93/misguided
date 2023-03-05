@@ -38,7 +38,7 @@ function App() {
             <>
               <Route path="/" element={<LandingPage />} />
               <Route path="/profile/:uid" element={<ProfilePage />} />
-              <Route path="/trip/:tripId" element={<TripRouter />} />
+              <Route path="/trip/:tripId/*" element={<TripRouter />} />
               <Route path="*" element={<Navigate to="/" />} />
             </>
           ) : (
