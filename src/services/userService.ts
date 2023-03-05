@@ -34,6 +34,13 @@ export const updateUsername = async (
   (await axios.put(`${baseURL}/users/${uid}/update-username`, { username }))
     .data;
 
+export const updateUserPhone = async (
+  uid: string,
+  phoneNumber: string
+): Promise<string> =>
+  (await axios.put(`${baseURL}/users/${uid}/update-phone`, { phoneNumber }))
+    .data;
+
 export const updateUserPhoto = async (
   uid: string,
   photoURL: string
