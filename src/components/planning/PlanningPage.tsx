@@ -70,6 +70,7 @@ const PlanningPage = () => {
       const newTrip: Trip = {
         creatorUid: userProfile.uid,
         cityId: city._id!,
+        nickname: "",
         startDate,
         endDate,
         hotel: duration > 1 ? hotels[index].name : null,

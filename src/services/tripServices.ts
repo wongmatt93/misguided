@@ -21,6 +21,13 @@ export const deleteTrip = async (tripId: string): Promise<void> =>
 export const getLatestTrip = async (uid: string): Promise<Trip[]> =>
   (await axios.get(`${baseURL}/trips/${uid}/latest`)).data;
 
+export const updateNickname = async (
+  tripId: string,
+  nickname: string
+): Promise<string> =>
+  (await axios.put(`${baseURL}/trips/${tripId}/${nickname}/update-nickname`))
+    .data;
+
 export const addNewParticipantToTrip = async (
   tripId: string,
   newParticipant: Participant

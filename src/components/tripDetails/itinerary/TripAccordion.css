@@ -1,7 +1,3 @@
-.TripAccordion h4 {
-  color: #353839;
-}
-
 .TripAccordion .accordion-button {
   background-color: #f0b202;
   color: #353839;
@@ -9,4 +5,8 @@
 
 .TripAccordion .collapsed {
   background-color: transparent;
+}
+
+.TripAccordion .city-name {
+  color: #353839;
 }
