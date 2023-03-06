@@ -1,40 +1,49 @@
 import { useContext, useEffect, useState } from "react";
-import { RiThumbUpFill, RiThumbDownFill } from "react-icons/ri";
 import "./DiscoverPage.css";
-import DiscoverContext from "../../context/DiscoverContext";
 import DiscoverCard from "./DiscoverCard";
-import { CityVote } from "../../models/UserProfile";
 import AuthContext from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { RiGlobeFill } from "react-icons/ri";
 import { Button } from "react-bootstrap";
 import { removeAllDislikedCities } from "../../services/userService";
+import { getAllCities } from "../../services/cityService";
+import City from "../../models/City";
+import ThumbsContainer from "../common/ThumbsContainer";
 
 const DiscoverPage = () => {
   const { userProfile, refreshProfile } = useContext(AuthContext);
-  const { currentCity, likeCity, dislikeCity } = useContext(DiscoverContext);
   const navigate = useNavigate();
+  const [currentCity, setCurrentCity] = useState<City | null>(null);
   const [cityRating, setCityRating] = useState(0);
 
-  const handleLikeCity = async (uid: string, cityId: string): Promise<void> => {
-    const newLike: CityVote = { cityId };
+  useEffect(() => {
+    userProfile &&
+      getAllCities().then((response) => {
+        const votedCities: string[] = userProfile.likesCityIds.concat(
+          userProfile.dislikesCityIds
+        );
+        const remainingCities: City[] = response
+          .filter((city) => !votedCities.some((cityId) => cityId === city._id))
+          .filter((city) => city._id !== userProfile.hometownId);
 
-    await likeCity(uid, newLike);
+        if (remainingCities.length > 0) {
+          const index: number = Math.floor(
+            Math.random() * remainingCities.length
+          );
+          const city = remainingCities[index];
+          setCurrentCity(city);
+        } else {
+          setCurrentCity(null);
+        }
+      });
+  }, [userProfile]);
+
+  const navigateDetails = (cityId: string) =>
     navigate(`/plan-trip/city-details/${cityId}`);
-  };
-
-  const handleDislikeCity = async (
-    uid: string,
-    cityId: string
-  ): Promise<void> => {
-    const newDislike: CityVote = { cityId };
-
-    await dislikeCity(uid, newDislike);
-  };
 
   const handleRefreshTrips = async (uid: string): Promise<void> => {
     await removeAllDislikedCities(uid);
-    refreshProfile(uid);
+    refreshProfile();
   };
 
   useEffect(() => {
@@ -62,20 +71,12 @@ const DiscoverPage = () => {
           {currentCity ? (
             <>
               <DiscoverCard currentCity={currentCity} cityRating={cityRating} />
-              <div className="like-buttons-container">
-                <RiThumbUpFill
-                  className="thumbs"
-                  onClick={() =>
-                    handleLikeCity(userProfile.uid, currentCity._id!)
-                  }
-                />
-                <RiThumbDownFill
-                  className="thumbs"
-                  onClick={() =>
-                    handleDislikeCity(userProfile.uid, currentCity._id!)
-                  }
-                />
-              </div>
+              <ThumbsContainer
+                city={currentCity}
+                userProfile={userProfile}
+                refreshProfile={refreshProfile}
+                navigateDetails={navigateDetails}
+              />
             </>
           ) : (
             <div className="empty">

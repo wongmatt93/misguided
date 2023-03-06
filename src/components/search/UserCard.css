@@ -11,8 +11,6 @@
 .UserCard img {
   height: 6em;
   width: 6em;
-  object-fit: cover;
-  border-radius: 50%;
 }
 
 .UserCard .card-title {

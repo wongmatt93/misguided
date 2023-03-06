@@ -4,8 +4,8 @@
   align-items: center;
   box-shadow: 0px 2px 2px 2px rgba(0, 0, 0, 0.2);
   border-radius: 5px;
-  padding: 1em;
-  margin-bottom: 1.5em;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
   user-select: none;
   color: #353839;
 }
@@ -26,39 +26,37 @@
 }
 
 .PastTripCard img {
-  border-radius: 50%;
-  object-fit: cover;
-  height: 4em;
-  width: 4em;
+  height: 4rem;
+  width: 4rem;
 }
 
 .PastTripCard h3 {
   font-family: "Oswald", sans-serif;
   font-style: normal;
-  font-size: 1.2em;
+  font-size: 1.2rem;
   text-align: right;
 }
 
 .PastTripCard h4 {
   font-family: "Roboto", "sans-serif";
-  font-size: 0.9em;
+  font-size: 0.9rem;
   text-align: right;
 }
 
 .PastTripCard svg {
   color: #f0b202;
-  font-size: 2em;
-  margin: -0.4em;
+  font-size: 2rem;
+  margin: -0.4rem;
 }
 
 .PastTripCard .confirm-complete-container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 1em;
+  margin-top: 1rem;
   border-top: 1px solid rgba(0, 0, 0, 0.2);
   width: 100%;
-  padding-top: 0.5em;
+  padding-top: 0.5rem;
 }
 
 .PastTripCard .button-container {
@@ -68,8 +66,8 @@
 }
 
 .PastTripCard .button-container button {
-  width: 4em;
-  padding: 0em;
-  margin-top: 0.5em;
+  width: 4rem;
+  padding: 0;
+  margin-top: 0.5rem;
   background-color: #f0b202;
 }

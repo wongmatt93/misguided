@@ -76,14 +76,10 @@ const PlanningPage = () => {
         hotel: duration > 1 ? hotels[index].name : null,
         schedule: [],
         photos: [],
-        participants: [
-          {
-            uid: userProfile.uid,
-          },
-        ],
+        participantsUids: [userProfile.uid],
         messages: [],
         completed: false,
-        likes: [],
+        likesUids: [],
         comments: [],
       };
 
@@ -141,7 +137,7 @@ const PlanningPage = () => {
           };
 
           addNewUserTrip(userProfile.uid, newUserTrip).then(() =>
-            refreshProfile(userProfile.uid)
+            refreshProfile()
           );
         });
       });

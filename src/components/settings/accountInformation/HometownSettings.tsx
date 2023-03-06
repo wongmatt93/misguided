@@ -1,27 +1,22 @@
-import { FormEvent, useContext, useEffect, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { RiEditFill, RiCheckFill, RiCloseCircleFill } from "react-icons/ri";
-import AuthContext from "../../../context/AuthContext";
 import useCityFetcher from "../../../hooks/useCityFetcher";
+import useFetchAllCities from "../../../hooks/useFetchAllCities";
 import City from "../../../models/City";
 import UserProfile from "../../../models/UserProfile";
-import { getAllCities } from "../../../services/cityService";
 import { updateUserHometown } from "../../../services/userService";
 import "./HometownSettings.css";
 
 interface Props {
   userProfile: UserProfile;
+  refreshProfile: () => Promise<void>;
 }
 
-const HometownSettings = ({ userProfile }: Props) => {
-  const { refreshProfile } = useContext(AuthContext);
+const HometownSettings = ({ userProfile, refreshProfile }: Props) => {
   const hometown: City | null = useCityFetcher(userProfile.hometownId!);
-  const [cities, setCities] = useState<City[]>([]);
+  const cities: City[] = useFetchAllCities();
   const [locked, setLocked] = useState(true);
   const [hometownId, setHometownId] = useState<string | null>(null);
-
-  useEffect(() => {
-    getAllCities().then((response) => setCities(response));
-  }, []);
 
   useEffect(() => {
     hometown && setHometownId(hometown._id!);
@@ -33,7 +28,7 @@ const HometownSettings = ({ userProfile }: Props) => {
   ): Promise<void> => {
     e.preventDefault();
     await updateUserHometown(userProfile.uid, newHometownId);
-    await refreshProfile(userProfile.uid);
+    await refreshProfile();
     setLocked(true);
   };
 
@@ -59,7 +54,7 @@ const HometownSettings = ({ userProfile }: Props) => {
             <div className="name-container">
               <div className="label">hometown</div>
               <select
-                value={hometownId!}
+                value={hometownId}
                 onChange={(e) => setHometownId(e.target.value)}
               >
                 {cities.sort().map((city) => (

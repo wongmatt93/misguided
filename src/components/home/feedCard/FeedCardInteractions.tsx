@@ -1,7 +1,7 @@
 import { AiOutlineHeart, AiFillHeart, AiOutlineMessage } from "react-icons/ai";
 import { useContext, useEffect, useState } from "react";
 import AuthContext from "../../../context/AuthContext";
-import Trip, { Like } from "../../../models/Trip";
+import Trip from "../../../models/Trip";
 import { likeTrip, unlikeTrip } from "../../../services/tripServices";
 import "./FeedCardInteractions.css";
 import { useNavigate } from "react-router-dom";
@@ -18,23 +18,19 @@ const FeedCardInteractions = ({ trip }: Props) => {
   const [commentsQuantity, setCommentsQuantity] = useState(0);
 
   useEffect(() => {
-    userProfile && trip.likes.some((item) => item.uid === userProfile.uid)
+    userProfile && trip.likesUids.some((uid) => uid === userProfile.uid)
       ? setLiked(true)
       : setLiked(false);
 
-    setLikesQuantity(trip.likes.length);
+    setLikesQuantity(trip.likesUids.length);
     setCommentsQuantity(trip.comments.length);
   }, [trip, userProfile]);
 
-  const handleLikeTrip = (): Promise<Like | void> =>
-    likeTrip(trip._id!, { uid: userProfile!.uid }).then(() =>
-      refreshProfile(userProfile!.uid)
-    );
+  const handleLikeTrip = (): Promise<string | void> =>
+    likeTrip(trip._id!, userProfile!.uid).then(() => refreshProfile());
 
   const handleUnlikeTrip = (): Promise<void> =>
-    unlikeTrip(trip._id!, userProfile!.uid).then(() =>
-      refreshProfile(userProfile!.uid)
-    );
+    unlikeTrip(trip._id!, userProfile!.uid).then(() => refreshProfile());
 
   return (
     <div className="FeedCardInteractions">

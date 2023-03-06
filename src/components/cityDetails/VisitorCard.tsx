@@ -23,7 +23,11 @@ const VisitorCard = ({ uid }: Props) => {
             className="VisitorCard"
             onClick={() => navigate(`/profile/${uid}`)}
           >
-            <img src={user.photoURL!} alt={user.photoURL!} />
+            <img
+              src={user.photoURL!}
+              alt={user.photoURL!}
+              className="circle-image"
+            />
           </li>
         </OverlayTrigger>
       )}

@@ -3,8 +3,6 @@ import { auth } from "../firebaseConfig";
 import AuthContext from "./AuthContext";
 import UserProfile from "../models/UserProfile";
 import { addNewUser, getUserByUid } from "../services/userService";
-import Trip from "../models/Trip";
-import { getTripsByTripIdArray } from "../services/tripServices";
 
 interface Props {
   children: ReactNode;
@@ -14,25 +12,9 @@ const AuthContextProvider = ({ children }: Props) => {
   const [userProfile, setUserProfile] = useState<UserProfile | undefined>(
     undefined
   );
-  const [userTrips, setUserTrips] = useState<Trip[]>([]);
 
-  const getAllUserTrips = (userProfile: UserProfile) => {
-    const tripIds: string[] = [];
-
-    userProfile.trips.forEach((trip) => tripIds.push(trip.tripId));
-
-    getTripsByTripIdArray(tripIds).then((response) => setUserTrips(response));
-  };
-
-  const refreshProfile = (uid: string): Promise<void> =>
-    getUserByUid(uid).then((response) => {
-      setUserProfile(response);
-      if (response.trips.length > 0) {
-        getAllUserTrips(response);
-      } else {
-        setUserTrips([]);
-      }
-    });
+  const refreshProfile = async (): Promise<void> =>
+    setUserProfile(await getUserByUid(userProfile!.uid));
 
   useEffect(() => {
     // useEffect to only register once at start
@@ -52,21 +34,15 @@ const AuthContextProvider = ({ children }: Props) => {
               preferences: null,
               followersUids: [],
               followingUids: [],
-              likes: [],
-              dislikes: [],
+              likesCityIds: [],
+              dislikesCityIds: [],
               trips: [],
               notifications: [],
             };
             addNewUser(newUserProfile);
             setUserProfile(newUserProfile);
-            if (newUserProfile.trips.length > 0) {
-              getAllUserTrips(newUserProfile);
-            }
           } else {
             setUserProfile(response);
-            if (response.trips.length > 0) {
-              getAllUserTrips(response);
-            }
           }
         });
       }
@@ -77,7 +53,6 @@ const AuthContextProvider = ({ children }: Props) => {
     <AuthContext.Provider
       value={{
         userProfile,
-        userTrips,
         setUserProfile,
         refreshProfile,
       }}

@@ -10,7 +10,7 @@ import FollowContext from "../../context/FollowContext";
 import { getUserByUid } from "../../services/userService";
 
 const ProfilePage = () => {
-  const { userProfile } = useContext(AuthContext);
+  const { userProfile, refreshProfile } = useContext(AuthContext);
   const { friends } = useContext(FollowContext);
   const uid: string | undefined = useParams().uid;
   const [profile, setProfile] = useState<UserProfile | null>(null);
@@ -44,6 +44,7 @@ const ProfilePage = () => {
           <ProfileInfo
             profile={profile}
             userProfile={userProfile}
+            refreshProfile={refreshProfile}
             followStatus={followStatus}
             pastTripsCount={pastTripsCount}
           />

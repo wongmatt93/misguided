@@ -7,9 +7,9 @@ import "./CityDetailsPage.css";
 import { Button } from "react-bootstrap";
 import CityDetailsHeader from "./CityDetailsHeader";
 import CityCharacteristics from "./CityCharacteristics";
-import CityDetailsButtonsContainer from "./CityDetailsButtonsContainer";
 import CityVisitors from "./CityVisitors";
 import { addDislikedCity, removeLikedCity } from "../../services/userService";
+import ThumbsContainer from "../common/ThumbsContainer";
 
 const CityDetailsPage = () => {
   const { userProfile, refreshProfile } = useContext(AuthContext);
@@ -26,7 +26,7 @@ const CityDetailsPage = () => {
 
   useEffect(() => {
     if (userProfile) {
-      if (userProfile.likes.some((like) => like.cityId === cityId)) {
+      if (userProfile.likesCityIds.some((like) => like === cityId)) {
         setLiked(true);
       } else if (userProfile.hometownId === cityId) {
         setLiked(true);
@@ -42,9 +42,9 @@ const CityDetailsPage = () => {
   const unlikeCity = async (uid: string, cityId: string): Promise<void> => {
     await Promise.allSettled([
       removeLikedCity(uid, cityId),
-      addDislikedCity(uid, { cityId }),
+      addDislikedCity(uid, cityId),
     ]);
-    refreshProfile(uid);
+    refreshProfile();
     navigate("/plan-trip");
   };
 
@@ -52,7 +52,7 @@ const CityDetailsPage = () => {
     <>
       {city && userProfile && (
         <>
-          <CityDetailsHeader city={city} goBack={goBack} />
+          <CityDetailsHeader city={city} />
           <main className="CityDetailsPage">
             <div className="image-container">
               <img src={city.photoURL} alt={city.cityName} />
@@ -70,9 +70,10 @@ const CityDetailsPage = () => {
             <p className="description">{city.cityDescription}</p>
             <CityCharacteristics city={city} userProfile={userProfile} />
             {!liked && (
-              <CityDetailsButtonsContainer
+              <ThumbsContainer
                 city={city}
                 userProfile={userProfile}
+                refreshProfile={refreshProfile}
                 goBack={goBack}
               />
             )}

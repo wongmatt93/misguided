@@ -1,11 +1,10 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Trip, { Message } from "../../../models/Trip";
 import { getUserByUid, readNotification } from "../../../services/userService";
 import ListGroup from "react-bootstrap/ListGroup";
 import "./TripMessagesCard.css";
 import UserProfile, { Notification } from "../../../models/UserProfile";
-import AuthContext from "../../../context/AuthContext";
 import { getHhMm } from "../../../utils/dateFunctions";
 import City from "../../../models/City";
 import useCityFetcher from "../../../hooks/useCityFetcher";
@@ -13,10 +12,10 @@ import useCityFetcher from "../../../hooks/useCityFetcher";
 interface Props {
   trip: Trip;
   userProfile: UserProfile;
+  refreshProfile: () => Promise<void>;
 }
 
-const TripMessagesCard = ({ trip, userProfile }: Props) => {
-  const { refreshProfile } = useContext(AuthContext);
+const TripMessagesCard = ({ trip, userProfile, refreshProfile }: Props) => {
   const navigate = useNavigate();
   const city: City | null = useCityFetcher(trip.cityId);
   const [unreadMessages, setUnreadMessages] = useState<Notification[]>([]);
@@ -29,7 +28,7 @@ const TripMessagesCard = ({ trip, userProfile }: Props) => {
         readNotification(userProfile.uid, notif.uid, notif.date)
       )
     );
-    refreshProfile(userProfile.uid);
+    refreshProfile();
   };
 
   useEffect(() => {
@@ -80,14 +79,22 @@ const TripMessagesCard = ({ trip, userProfile }: Props) => {
             <p className="unread-count">{unreadMessages.length}</p>
           </div>
           <div className="image-message-container">
-            <img src={city.photoURL} alt={city.photoURL} />
+            <img
+              src={city.photoURL}
+              alt={city.photoURL}
+              className="circle-image"
+            />
             <div className="trip-message-container">
-              <p className="trip-name">
-                {city.cityName}:{" "}
-                {new Date(Number(trip.startDate)).toLocaleDateString()}
-                {trip.startDate !== trip.endDate &&
-                  ` - ${new Date(Number(trip.endDate)).toLocaleDateString()}`}
-              </p>
+              {trip.nickname ? (
+                <p className="trip-name">{trip.nickname}</p>
+              ) : (
+                <p className="trip-name">
+                  {city.cityName}:{" "}
+                  {new Date(Number(trip.startDate)).toLocaleDateString()}
+                  {trip.startDate !== trip.endDate &&
+                    ` - ${new Date(Number(trip.endDate)).toLocaleDateString()}`}
+                </p>
+              )}
               {latestMessage ? (
                 <p className="latest-message">
                   {latestSender}: {latestMessage.text}

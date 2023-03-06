@@ -1,14 +1,15 @@
-import { FormEvent, useContext, useState } from "react";
+import { FormEvent, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import DiscoverContext from "../../context/DiscoverContext";
+import useFetchAllCities from "../../hooks/useFetchAllCities";
+import City from "../../models/City";
 import UserProfile from "../../models/UserProfile";
 import { updateUserHometown } from "../../services/userService";
 import "./InitialHometownForm.css";
 
 interface Props {
   userProfile: UserProfile;
-  refreshProfile: (uid: string) => Promise<void>;
+  refreshProfile: () => Promise<void>;
   setStage: React.Dispatch<React.SetStateAction<string>>;
 }
 
@@ -17,15 +18,15 @@ const InitialHometownForm = ({
   refreshProfile,
   setStage,
 }: Props) => {
-  const { cities } = useContext(DiscoverContext);
-  const [hometownId, setHometownId] = useState(cities[0]._id!);
+  const cities: City[] = useFetchAllCities();
+  const [hometownId, setHometownId] = useState("");
 
-  const handleSubmit = (e: FormEvent): void => {
+  const handleSubmit = async (e: FormEvent): Promise<void> => {
     e.preventDefault();
 
-    updateUserHometown(userProfile.uid, hometownId)
-      .then(() => refreshProfile(userProfile!.uid))
-      .then(() => setStage("preferences"));
+    await updateUserHometown(userProfile.uid, hometownId);
+    await refreshProfile();
+    setStage("preferences");
   };
 
   return (
@@ -37,6 +38,9 @@ const InitialHometownForm = ({
             value={hometownId}
             onChange={(e) => setHometownId(e.target.value)}
           >
+            <option disabled value="">
+              -- Select Your Hometown --
+            </option>
             {cities.sort().map((city) => (
               <option key={city.cityCode} value={city._id!}>
                 {city.cityName}
@@ -44,7 +48,9 @@ const InitialHometownForm = ({
             ))}
           </Form.Select>
         </Form.Group>
-        <Button type="submit">Next</Button>
+        <Button type="submit" disabled={hometownId ? false : true}>
+          Next
+        </Button>
       </Form>
     </div>
   );

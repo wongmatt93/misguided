@@ -50,7 +50,11 @@ const InviteFriendCheckbox = ({
       />
       <label htmlFor={friend.uid}>
         <div className="image-container">
-          <img src={friend.photoURL!} alt={friend.photoURL!} />
+          <img
+            src={friend.photoURL!}
+            alt={friend.photoURL!}
+            className="circle-image"
+          />
           <BsCheckLg />
         </div>
         <p>{friend.username}</p>

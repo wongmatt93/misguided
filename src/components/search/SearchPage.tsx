@@ -49,7 +49,7 @@ const SearchPage = () => {
           <UserCard userProfile={userProfile} searchProfile={searchProfile} />
         )}
         {badSearch && (
-          <div className="empty">
+          <div className="no-results">
             <p>No Results Found</p>
           </div>
         )}

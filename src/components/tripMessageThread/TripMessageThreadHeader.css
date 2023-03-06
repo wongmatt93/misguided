@@ -1,16 +1,4 @@
-.TripMessageThreadHeader {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1em;
-}
-
-.TripMessageThreadHeader h1 {
-  color: #f0b202;
-  font-family: "Roboto", sans-serif;
-}
-
 .TripMessageThreadHeader p {
-  font-size: 0.8em;
+  font-size: 0.8rem;
   color: #353839;
 }

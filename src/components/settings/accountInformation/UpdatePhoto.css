@@ -6,30 +6,26 @@
 .UpdatePhoto img {
   height: 7em;
   width: 7em;
-  object-fit: cover;
-  border-radius: 50%;
 }
 
 .UpdatePhoto .edit-photo {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 3.5rem;
-  width: 7rem;
+  height: 2rem;
+  width: 2rem;
   position: absolute;
+  border-radius: 50%;
   bottom: 0;
-  border-bottom-left-radius: 150px;
-  border-bottom-right-radius: 150px;
-  background-color: rgba(0, 0, 0, 0.5);
-  opacity: 0;
+  right: 0;
+  background-color: #353839;
 }
 
 .UpdatePhoto .edit-photo:hover {
-  opacity: 1;
   cursor: pointer;
 }
 
 .UpdatePhoto .edit-photo svg {
   color: #f0b202;
-  font-size: 2rem;
+  font-size: 1.5em;
 }

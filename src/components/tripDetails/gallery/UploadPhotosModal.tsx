@@ -1,4 +1,4 @@
-import { FormEvent, useContext, useRef } from "react";
+import { FormEvent, useRef } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
@@ -6,16 +6,20 @@ import { storage } from "../../../firebaseConfig";
 import "./UploadPhotosModal.css";
 import Trip from "../../../models/Trip";
 import { addPhotosToTrip } from "../../../services/tripServices";
-import AuthContext from "../../../context/AuthContext";
 
 interface Props {
   trip: Trip;
   show: boolean;
   handleClose: () => void;
+  refreshProfile: () => Promise<void>;
 }
 
-const UploadPhotosModal = ({ trip, show, handleClose }: Props) => {
-  const { userProfile, refreshProfile } = useContext(AuthContext);
+const UploadPhotosModal = ({
+  trip,
+  show,
+  handleClose,
+  refreshProfile,
+}: Props) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleSubmit = (e: FormEvent): void => {
@@ -27,9 +31,7 @@ const UploadPhotosModal = ({ trip, show, handleClose }: Props) => {
       const storageRef = ref(storage, `trip_photos/${trip._id!}/${file.name}`);
       uploadBytes(storageRef, file).then((snapshot) => {
         getDownloadURL(snapshot.ref).then((url) => {
-          addPhotosToTrip(trip!._id!, url).then(() =>
-            refreshProfile(userProfile!.uid)
-          );
+          addPhotosToTrip(trip!._id!, url).then(() => refreshProfile());
         });
       });
     }

@@ -38,6 +38,7 @@ const TripMessage = ({ message, setCount }: Props) => {
           <img
             src={author.photoURL!}
             alt={author.photoURL!}
+            className="circle-image"
             onClick={handleClick}
           />
           <div className="content">

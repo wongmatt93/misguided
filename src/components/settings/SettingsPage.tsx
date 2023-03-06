@@ -21,6 +21,17 @@ const SettingsPage = () => {
       </header>
       {userProfile && (
         <main className="SettingsMain">
+          <div className="user-info">
+            <img
+              src={userProfile.photoURL!}
+              alt={userProfile.photoURL!}
+              className="circle-image"
+            />
+            <div className="user-name">
+              <p>{userProfile.username}</p>
+              <p>{userProfile.email}</p>
+            </div>
+          </div>
           <ListGroup variant="flush">
             <ListGroup.Item as={Link} to="/settings/account">
               <p>Account Information</p>

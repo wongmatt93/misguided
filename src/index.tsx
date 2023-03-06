@@ -6,7 +6,6 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import AuthContextProvider from "./context/AuthContextProvider";
-import DiscoverContextProvider from "./context/DiscoverContextProvider";
 import FollowContextProvider from "./context/FollowContextProvider";
 
 const root = ReactDOM.createRoot(
@@ -15,11 +14,9 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <AuthContextProvider>
-      <DiscoverContextProvider>
-        <FollowContextProvider>
-          <App />
-        </FollowContextProvider>
-      </DiscoverContextProvider>
+      <FollowContextProvider>
+        <App />
+      </FollowContextProvider>
     </AuthContextProvider>
   </React.StrictMode>
 );

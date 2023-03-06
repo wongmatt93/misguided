@@ -58,7 +58,7 @@ const InviteFriendsModal = ({
         return Promise.allSettled([
           addNotification(friend, newNotification),
           addNewUserTrip(friend, newTrip),
-          addNewParticipantToTrip(trip._id!, { uid: friend }),
+          addNewParticipantToTrip(trip._id!, friend),
         ]);
       })
     );

@@ -19,7 +19,11 @@ const TripCard = ({ trip }: Props) => {
     <li className="TripCard" onClick={handleClick}>
       {city && (
         <div className="info-container">
-          <img src={city.photoURL} alt={city.photoURL} />
+          <img
+            src={city.photoURL}
+            alt={city.photoURL}
+            className="circle-image"
+          />
           <div className="name-date-container">
             <h3>{trip.nickname ? trip.nickname : city.cityName}</h3>
             <h4>

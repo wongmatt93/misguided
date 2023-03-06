@@ -5,16 +5,3 @@
 .FeedContainer ul li:last-child {
   margin: 0;
 }
-
-.FeedContainer .empty {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-  color: #353839;
-}
-
-.FeedContainer .empty svg {
-  font-size: 5em;
-}

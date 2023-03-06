@@ -9,9 +9,10 @@ import { RiArrowRightSLine } from "react-icons/ri";
 
 interface Props {
   userProfile: UserProfile;
+  refreshProfile: () => Promise<void>;
 }
 
-const InboxNotificationsSection = ({ userProfile }: Props) => {
+const InboxNotificationsSection = ({ userProfile, refreshProfile }: Props) => {
   const navigate = useNavigate();
   const [unread, setUnread] = useState(0);
   const [notifsPreview, setNotifsPreview] = useState<Notification[]>([]);
@@ -52,6 +53,7 @@ const InboxNotificationsSection = ({ userProfile }: Props) => {
               key={notification.date}
               uid={userProfile.uid}
               notification={notification}
+              refreshProfile={refreshProfile}
             />
           ))}
         </ListGroup>

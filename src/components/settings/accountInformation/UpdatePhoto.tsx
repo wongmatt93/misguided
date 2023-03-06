@@ -6,9 +6,10 @@ import UpdatePhotoModal from "./UpdatePhotoModal";
 
 interface Props {
   userProfile: UserProfile;
+  refreshProfile: () => Promise<void>;
 }
 
-const UpdatePhoto = ({ userProfile }: Props) => {
+const UpdatePhoto = ({ userProfile, refreshProfile }: Props) => {
   const [show, setShow] = useState(false);
 
   const handleClose = (): void => setShow(false);
@@ -16,7 +17,11 @@ const UpdatePhoto = ({ userProfile }: Props) => {
 
   return (
     <div className="UpdatePhoto">
-      <img src={userProfile.photoURL!} alt="profile-pic" />
+      <img
+        src={userProfile.photoURL!}
+        alt="profile-pic"
+        className="circle-image"
+      />
       <div className="edit-photo" onClick={handleShow}>
         <RiImageEditFill />
       </div>
@@ -24,6 +29,7 @@ const UpdatePhoto = ({ userProfile }: Props) => {
         show={show}
         handleClose={handleClose}
         userProfile={userProfile}
+        refreshProfile={refreshProfile}
       />
     </div>
   );

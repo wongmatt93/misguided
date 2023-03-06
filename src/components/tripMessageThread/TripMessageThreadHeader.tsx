@@ -18,12 +18,11 @@ const TripMessageThreadHeader = ({ trip }: Props) => {
     <>
       {city && (
         <header className="TripMessageThreadHeader" onClick={handleClick}>
-          <h1>{city.cityName.toLowerCase()}</h1>
-          <p>
-            {new Date(Number(trip.startDate)).toLocaleDateString()}
-            {trip.startDate !== trip.endDate &&
-              ` - ${new Date(Number(trip.endDate)).toLocaleDateString()}`}
-          </p>
+          <h1>
+            {trip.nickname
+              ? trip.nickname.toLowerCase()
+              : city.cityName.toLowerCase()}
+          </h1>
         </header>
       )}
     </>

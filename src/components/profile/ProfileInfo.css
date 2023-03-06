@@ -6,10 +6,8 @@
 }
 
 .ProfileInfo .profile-pic {
-  height: 7em;
-  width: 7em;
-  object-fit: cover;
-  border-radius: 50%;
+  height: 7rem;
+  width: 7rem;
 }
 
 .ProfileInfo .counts {

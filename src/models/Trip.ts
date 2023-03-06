@@ -1,15 +1,7 @@
-export interface Like {
-  uid: string;
-}
-
 export interface Comment {
   uid: string;
   comment: string;
   date: string;
-}
-
-export interface Participant {
-  uid: string;
 }
 
 export interface Message {
@@ -56,9 +48,9 @@ export default interface Trip {
   hotel: string | null;
   schedule: SingleDaySchedule[];
   photos: string[];
-  participants: Participant[];
+  participantsUids: string[];
   messages: Message[];
   completed: boolean;
-  likes: Like[];
+  likesUids: string[];
   comments: Comment[];
 }

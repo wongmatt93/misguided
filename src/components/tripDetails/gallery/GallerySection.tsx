@@ -8,11 +8,17 @@ import UploadPhotosModal from "./UploadPhotosModal";
 
 interface Props {
   userProfile: UserProfile | undefined;
+  refreshProfile: () => Promise<void>;
   trip: Trip;
   participants: UserProfile[];
 }
 
-const GallerySection = ({ userProfile, trip, participants }: Props) => {
+const GallerySection = ({
+  userProfile,
+  refreshProfile,
+  trip,
+  participants,
+}: Props) => {
   const [participated, setParticipated] = useState(false);
   const [show, setShow] = useState(false);
 
@@ -42,7 +48,12 @@ const GallerySection = ({ userProfile, trip, participants }: Props) => {
         )}
       </div>
       <PhotoContainer photos={trip.photos} />
-      <UploadPhotosModal trip={trip} show={show} handleClose={handleClose} />
+      <UploadPhotosModal
+        trip={trip}
+        show={show}
+        handleClose={handleClose}
+        refreshProfile={refreshProfile}
+      />
     </section>
   );
 };

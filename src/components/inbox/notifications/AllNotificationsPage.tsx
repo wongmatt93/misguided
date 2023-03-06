@@ -35,12 +35,12 @@ const AllNotificationsPage = () => {
       )
     );
 
-    refreshProfile(userProfile!.uid);
+    refreshProfile();
   };
 
   const deleteAll = async (uid: string): Promise<void> => {
     await deleteAllNotifications(uid);
-    refreshProfile(uid);
+    refreshProfile();
   };
 
   return (
@@ -70,6 +70,7 @@ const AllNotificationsPage = () => {
                   key={notification.date}
                   uid={userProfile.uid}
                   notification={notification}
+                  refreshProfile={refreshProfile}
                 />
               ))}
             </ListGroup>

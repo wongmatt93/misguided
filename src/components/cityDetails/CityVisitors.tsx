@@ -15,7 +15,7 @@ const CityVisitors = ({ city, userProfile }: Props) => {
   useEffect(() => {
     setVisitors(
       userProfile.followingUids.filter((uid) =>
-        city.visitors.find((visitor) => visitor.uid === uid)
+        city.visitorsUids.find((visitor) => visitor === uid)
       )
     );
   }, [userProfile, city]);

@@ -50,14 +50,12 @@ const TripDetailsHeader = ({
               ? trip.nickname.toLowerCase()
               : cityName.toLowerCase()}
           </h1>
-          {
+          {accepted && (
             <RiEditFill
-              style={{
-                opacity: accepted && showEdit ? "1" : "0",
-              }}
+              style={{ opacity: showEdit ? "1" : "0" }}
               onClick={handleShow}
             />
-          }
+          )}
         </div>
         <EditNicknameModal
           trip={trip}

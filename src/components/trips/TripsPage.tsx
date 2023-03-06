@@ -10,64 +10,78 @@ import {
   sortTripsDescending,
   today,
 } from "../../utils/dateFunctions";
-import TripsHeader from "./TripsHeader";
 import { Navigate, Route, Routes } from "react-router-dom";
+import TripsNav from "./TripsNav";
+import { getTripsByTripIdArray } from "../../services/tripServices";
 
 const TripsPage = () => {
-  const { userProfile, userTrips } = useContext(AuthContext);
+  const { userProfile } = useContext(AuthContext);
   const [upcomingTrips, setUpcomingTrips] = useState<Trip[]>([]);
   const [pastTrips, setPastTrips] = useState<Trip[]>([]);
 
   useEffect(() => {
-    if (userTrips.length > 0) {
-      const upcoming: Trip[] = [];
-      const past: Trip[] = [];
+    if (userProfile) {
+      if (userProfile.trips.length > 0) {
+        const tripIds: string[] = [];
 
-      userTrips.forEach((trip) => {
-        let accepted: boolean = true;
-        const userTrip: UserTrip | undefined = userProfile!.trips.find(
-          (item) => item.tripId === trip._id!
-        );
+        userProfile.trips.forEach((trip) => tripIds.push(trip.tripId));
 
-        const endDate: Date = trip.endDate
-          ? new Date(Number(trip.endDate))
-          : new Date(Number(trip.startDate));
+        getTripsByTripIdArray(tripIds).then((response) => {
+          const upcoming: Trip[] = [];
+          const past: Trip[] = [];
 
-        if (userTrip) {
-          accepted = userTrip.accepted;
-        }
+          response.forEach((trip) => {
+            let accepted: boolean = true;
+            const userTrip: UserTrip | undefined = userProfile!.trips.find(
+              (item) => item.tripId === trip._id!
+            );
 
-        if (accepted) {
-          if (today.getTime() - endDate.getTime() < 0) {
-            upcoming.push(trip);
-          } else {
-            past.push(trip);
-          }
-        }
-      });
+            const endDate: Date = trip.endDate
+              ? new Date(Number(trip.endDate))
+              : new Date(Number(trip.startDate));
 
-      setUpcomingTrips(sortTripsAscending(upcoming));
-      setPastTrips(sortTripsDescending(past));
+            if (userTrip) {
+              accepted = userTrip.accepted;
+            }
+
+            if (accepted) {
+              if (today.getTime() - endDate.getTime() < 0) {
+                upcoming.push(trip);
+              } else {
+                past.push(trip);
+              }
+            }
+          });
+
+          setUpcomingTrips(sortTripsAscending(upcoming));
+          setPastTrips(sortTripsDescending(past));
+        });
+      }
     }
-  }, [userProfile, userTrips]);
+  }, [userProfile]);
 
   return (
     <>
-      <TripsHeader />
-      <Routes>
-        <Route
-          index
-          element={<Navigate to="/trips/upcoming-trips" replace />}
-        />
-        <Route
-          path="/upcoming-trips"
-          element={<UpcomingTripsContainer upcomingTrips={upcomingTrips} />}
-        />
-        <Route
-          path="/past-trips"
-          element={<PastTripsContainer pastTrips={pastTrips} />}
-        />
-      </Routes>
+      <header className="TripsHeader">
+        <h1>trips</h1>
+      </header>
+      <main className="TripsPageMain">
+        <TripsNav />
+        <Routes>
+          <Route
+            index
+            element={<Navigate to="/trips/upcoming-trips" replace />}
+          />
+          <Route
+            path="/upcoming-trips"
+            element={<UpcomingTripsContainer upcomingTrips={upcomingTrips} />}
+          />
+          <Route
+            path="/past-trips"
+            element={<PastTripsContainer pastTrips={pastTrips} />}
+          />
+        </Routes>
+      </main>
     </>
   );
 };
