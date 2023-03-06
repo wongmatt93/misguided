@@ -11,8 +11,8 @@ const FavoritesContainer = () => {
     <ul className="FavoritesContainer">
       <HometownCard />
       {userProfile &&
-        userProfile?.likes.map((liked) => (
-          <FavoriteCard key={liked.cityId} liked={liked} />
+        userProfile.likesCityIds.map((cityId) => (
+          <FavoriteCard key={cityId} cityId={cityId} />
         ))}
     </ul>
   );

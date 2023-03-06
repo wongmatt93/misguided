@@ -7,7 +7,7 @@ import HometownSettings from "./HometownSettings";
 import PhoneSettings from "./PhoneSettings";
 
 const AccountInformationPage = () => {
-  const { userProfile } = useContext(AuthContext);
+  const { userProfile, refreshProfile } = useContext(AuthContext);
 
   return (
     <>
@@ -16,7 +16,10 @@ const AccountInformationPage = () => {
       </header>
       {userProfile && (
         <main className="AccountMain">
-          <UpdatePhoto userProfile={userProfile} />
+          <UpdatePhoto
+            userProfile={userProfile}
+            refreshProfile={refreshProfile}
+          />
           <h2 className="username">{userProfile.username}</h2>
           <ListGroup className="account-items-list" variant="flush">
             <ListGroup.Item>
@@ -28,10 +31,16 @@ const AccountInformationPage = () => {
               <div>{userProfile.email}</div>
             </ListGroup.Item>
             <ListGroup.Item>
-              <PhoneSettings userProfile={userProfile} />
+              <PhoneSettings
+                userProfile={userProfile}
+                refreshProfile={refreshProfile}
+              />
             </ListGroup.Item>
             <ListGroup.Item>
-              <HometownSettings userProfile={userProfile} />
+              <HometownSettings
+                userProfile={userProfile}
+                refreshProfile={refreshProfile}
+              />
             </ListGroup.Item>
           </ListGroup>
         </main>

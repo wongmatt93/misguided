@@ -6,15 +6,21 @@ import InboxNotificationsSection from "./notifications/InboxNotificationsSection
 import TripMessagesSection from "./messages/TripMessagesSection";
 
 const InboxPage = () => {
-  const { userProfile } = useContext(AuthContext);
+  const { userProfile, refreshProfile } = useContext(AuthContext);
 
   return (
     <>
       <InboxHeader />
       {userProfile && (
         <main className="Inbox-main">
-          <InboxNotificationsSection userProfile={userProfile} />
-          <TripMessagesSection userProfile={userProfile} />
+          <InboxNotificationsSection
+            userProfile={userProfile}
+            refreshProfile={refreshProfile}
+          />
+          <TripMessagesSection
+            userProfile={userProfile}
+            refreshProfile={refreshProfile}
+          />
         </main>
       )}
     </>

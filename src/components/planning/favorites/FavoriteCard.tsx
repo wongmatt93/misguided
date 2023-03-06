@@ -1,26 +1,18 @@
-import { useEffect, useState } from "react";
 import Card from "react-bootstrap/Card";
 import { useNavigate } from "react-router-dom";
+import useCityFetcher from "../../../hooks/useCityFetcher";
 import City from "../../../models/City";
-import { CityVote } from "../../../models/UserProfile";
-import { getCityById } from "../../../services/cityService";
 import "./FavoriteCard.css";
 
 interface Props {
-  liked: CityVote;
+  cityId: string;
 }
 
-const FavoriteCard = ({ liked }: Props) => {
+const FavoriteCard = ({ cityId }: Props) => {
   const navigate = useNavigate();
-  const [city, setCity] = useState<City | null>(null);
+  const city: City | null = useCityFetcher(cityId);
 
-  useEffect(() => {
-    getCityById(liked.cityId).then((response) => setCity(response));
-  }, [liked]);
-
-  const handleClick = (): void => {
-    navigate(`/plan-trip/city-details/${liked!.cityId}`);
-  };
+  const handleClick = (): void => navigate(`/plan-trip/city-details/${cityId}`);
 
   return (
     <li className="FavoriteCard">

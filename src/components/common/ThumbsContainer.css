@@ -1,4 +1,4 @@
-.CityDetailsButtonsContainer {
+.ThumbsContainer {
   display: flex;
   justify-content: space-evenly;
   font-size: 4rem;
@@ -6,11 +6,11 @@
   padding: 1rem;
 }
 
-.CityDetailsButtonsContainer .thumbs {
+.ThumbsContainer .thumbs {
   cursor: pointer;
 }
 
-.CityDetailsButtonsContainer .thumbs:hover {
+.ThumbsContainer .thumbs:hover {
   transform: scale(1.2);
   transition: 0.5s ease;
   color: #f0b202;

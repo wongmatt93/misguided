@@ -57,7 +57,7 @@ const PreferencesForm = ({ setShow }: Props) => {
       shopping,
     };
     updateUserPreferences(userProfile!.uid, newPreference).then(() => {
-      refreshProfile(userProfile!.uid);
+      refreshProfile();
       setShow && setShow(true);
     });
   };

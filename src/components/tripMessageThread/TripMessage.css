@@ -1,7 +1,7 @@
 .TripMessage {
   display: flex;
   align-items: flex-end;
-  margin-bottom: 0.3em;
+  margin-bottom: 0.3rem;
   color: #353839;
 }
 
@@ -10,11 +10,9 @@
 }
 
 .TripMessage img {
-  height: 2em;
-  width: 2em;
-  border-radius: 50%;
-  object-fit: cover;
-  margin-right: 0.3em;
+  height: 2rem;
+  width: 2rem;
+  margin-right: 0.3rem;
 }
 
 .TripMessage img:hover {
@@ -23,15 +21,15 @@
 
 .user-profile img {
   margin-right: 0;
-  margin-left: 0.3em;
+  margin-left: 0.3rem;
 }
 
 .TripMessage .content {
   display: inline-block;
   background-color: lightgray;
   max-width: 70%;
-  padding: 0.5em;
-  border-radius: 0.5em;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
 }
 
 .user-profile .content {
@@ -39,7 +37,7 @@
 }
 
 .TripMessage .author {
-  font-size: 0.8em;
+  font-size: 0.8rem;
   font-weight: 600;
 }
 
@@ -48,9 +46,9 @@
 }
 
 .TripMessage p {
-  font-size: 0.9em;
+  font-size: 0.9rem;
 }
 
 .TripMessage .date {
-  font-size: 0.7em;
+  font-size: 0.7rem;
 }

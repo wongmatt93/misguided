@@ -1,20 +1,24 @@
 import { Modal, Button } from "react-bootstrap";
-import { FormEvent, useContext, useRef } from "react";
+import { FormEvent, useRef } from "react";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { storage } from "../../../firebaseConfig";
 import { updateUserPhoto } from "../../../services/userService";
 import "./UpdatePhotoModal.css";
-import AuthContext from "../../../context/AuthContext";
 import UserProfile from "../../../models/UserProfile";
 
 interface Props {
   show: boolean;
   handleClose: () => void;
   userProfile: UserProfile;
+  refreshProfile: () => Promise<void>;
 }
 
-const UpdatePhotoModal = ({ show, handleClose, userProfile }: Props) => {
-  const { refreshProfile } = useContext(AuthContext);
+const UpdatePhotoModal = ({
+  show,
+  handleClose,
+  userProfile,
+  refreshProfile,
+}: Props) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleSubmit = async (e: FormEvent): Promise<void> => {
@@ -32,7 +36,7 @@ const UpdatePhotoModal = ({ show, handleClose, userProfile }: Props) => {
       const snapshot = await uploadBytes(storageRef, file);
       const url = await getDownloadURL(snapshot.ref);
       await updateUserPhoto(userProfile.uid, url);
-      await refreshProfile(userProfile.uid);
+      await refreshProfile();
 
       handleClose();
     }

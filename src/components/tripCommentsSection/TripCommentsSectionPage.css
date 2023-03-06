@@ -1,13 +1,3 @@
-.TripCommentsHeader {
-  display: flex;
-  align-items: center;
-  padding: 1em;
-}
-
-.TripCommentsHeader h1 {
-  color: #f0b202;
-}
-
 .TripCommentsMain {
-  padding: 1em;
+  padding: 1rem;
 }

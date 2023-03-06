@@ -1,7 +1,7 @@
 .TripDetailsMain {
   display: flex;
   flex-direction: column;
-  padding: 1em;
+  padding: 1rem;
 }
 
 .TripDetailsMain .delete-button {

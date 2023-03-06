@@ -20,8 +20,6 @@
 .FeedCardParticipantCard .participant-image {
   height: 2.5em;
   width: 2.5em;
-  object-fit: cover;
-  border-radius: 50%;
 }
 
 .FeedCardParticipantCard p {

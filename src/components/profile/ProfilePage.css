@@ -1,5 +1,5 @@
 .ProfilePage {
-  padding: 1em;
+  padding: 1rem;
 }
 
 .ProfilePage .loading {
@@ -11,7 +11,7 @@
 }
 
 .ProfilePage .spinner-border {
-  height: 5em;
-  width: 5em;
+  height: 5rem;
+  width: 5rem;
   color: #f0b202;
 }

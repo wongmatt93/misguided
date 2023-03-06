@@ -8,9 +8,10 @@ import ListGroup from "react-bootstrap/ListGroup";
 
 interface Props {
   userProfile: UserProfile;
+  refreshProfile: () => Promise<void>;
 }
 
-const TripMessagesSection = ({ userProfile }: Props) => {
+const TripMessagesSection = ({ userProfile, refreshProfile }: Props) => {
   const [unread, setUnread] = useState(0);
   const [trips, setTrips] = useState<Trip[]>([]);
 
@@ -31,7 +32,7 @@ const TripMessagesSection = ({ userProfile }: Props) => {
     if (trips.length > 0) {
       getTripsByTripIdArray(trips).then((response) => {
         const initialArray: Trip[] = response.filter(
-          (trip) => trip.participants.length > 1
+          (trip) => trip.participantsUids.length > 1
         );
         const hasMessages: Trip[] = [];
         const noMessages: Trip[] = [];
@@ -77,6 +78,7 @@ const TripMessagesSection = ({ userProfile }: Props) => {
               key={trip._id!}
               trip={trip}
               userProfile={userProfile}
+              refreshProfile={refreshProfile}
             />
           ))}
         </ListGroup>

@@ -1,16 +1,15 @@
-import { FormEvent, useContext, useState } from "react";
+import { FormEvent, useState } from "react";
 import { RiCheckFill, RiCloseCircleFill, RiEditFill } from "react-icons/ri";
-import AuthContext from "../../../context/AuthContext";
 import UserProfile from "../../../models/UserProfile";
 import { updateUserPhone } from "../../../services/userService";
 import "./PhoneSettings.css";
 
 interface Props {
   userProfile: UserProfile;
+  refreshProfile: () => Promise<void>;
 }
 
-const PhoneSettings = ({ userProfile }: Props) => {
-  const { refreshProfile } = useContext(AuthContext);
+const PhoneSettings = ({ userProfile, refreshProfile }: Props) => {
   const [phoneNumber, setPhoneNumber] = useState<string | null>(
     userProfile.phoneNumber
   );
@@ -22,7 +21,7 @@ const PhoneSettings = ({ userProfile }: Props) => {
   ): Promise<void> => {
     e.preventDefault();
     await updateUserPhone(userProfile.uid, phoneNumber);
-    await refreshProfile(userProfile.uid);
+    await refreshProfile();
     setLocked(true);
   };
 

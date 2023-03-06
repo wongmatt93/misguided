@@ -34,6 +34,7 @@ const ParticipantCard = ({ participant, tripId }: Props) => {
           src={participant.photoURL!}
           alt={participant.photoURL!}
           style={{ filter: accepted ? "none" : "brightness(30%)" }}
+          className="circle-image"
         />
         <p className="pending" style={{ display: accepted ? "none" : "block" }}>
           Pending

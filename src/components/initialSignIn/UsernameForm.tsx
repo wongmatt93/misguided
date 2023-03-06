@@ -6,7 +6,7 @@ import "./UsernameForm.css";
 
 interface Props {
   userProfile: UserProfile;
-  refreshProfile: (uid: string) => Promise<void>;
+  refreshProfile: () => Promise<void>;
   setStage: React.Dispatch<React.SetStateAction<string>>;
 }
 
@@ -23,7 +23,7 @@ const UsernameForm = ({ userProfile, refreshProfile, setStage }: Props) => {
       } else {
         setTaken(false);
         updateUsername(userProfile.uid, username).then(() =>
-          refreshProfile(userProfile.uid).then(() => setStage("image"))
+          refreshProfile().then(() => setStage("image"))
         );
       }
     });

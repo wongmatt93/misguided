@@ -2,15 +2,13 @@
   display: flex;
   align-items: center;
   color: #353839;
-  margin-bottom: 1em;
+  margin-bottom: 1rem;
 }
 
 .CommentCard .commentor-image {
-  height: 2em;
-  width: 2em;
-  border-radius: 50%;
-  object-fit: cover;
-  margin-right: 1em;
+  height: 2rem;
+  width: 2rem;
+  margin-right: 1rem;
 }
 
 .CommentCard .commentor-image:hover {
@@ -18,7 +16,7 @@
 }
 
 .CommentCard h2 {
-  font-size: 0.8em;
+  font-size: 0.8rem;
   font-weight: 600;
 }
 
@@ -27,9 +25,9 @@
 }
 
 .CommentCard .comment {
-  font-size: 0.9em;
-  line-height: 1em;
-  margin: 0.3em 0;
+  font-size: 0.9rem;
+  line-height: 1rem;
+  margin: 0.3rem 0;
 }
 
 .CommentCard .date-time {

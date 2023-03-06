@@ -1,7 +1,6 @@
 import { Button } from "react-bootstrap";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import AuthContext from "../../context/AuthContext";
 import Trip from "../../models/Trip";
 import { deleteTrip } from "../../services/tripServices";
 import { deleteUserTrip, getUserByUid } from "../../services/userService";
@@ -15,6 +14,7 @@ interface Props {
   trip: Trip;
   cityName: string;
   userProfile: UserProfile | undefined;
+  refreshProfile: () => Promise<void>;
   refreshTrip: (tripId: string) => Promise<void>;
 }
 
@@ -22,16 +22,16 @@ const TripDetailsMain = ({
   trip,
   cityName,
   userProfile,
+  refreshProfile,
   refreshTrip,
 }: Props) => {
-  const { refreshProfile } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const [participants, setParticipants] = useState<UserProfile[]>([]);
 
   useEffect(() => {
     Promise.all(
-      trip.participants.map(async (item) => await getUserByUid(item.uid))
+      trip.participantsUids.map(async (uid) => await getUserByUid(uid))
     ).then((response) => {
       const accepted: UserProfile[] = [];
       const notAccepted: UserProfile[] = [];
@@ -57,10 +57,10 @@ const TripDetailsMain = ({
     await Promise.allSettled([
       deleteTrip(trip._id!),
       Promise.allSettled(
-        trip!.participants.map((item) => deleteUserTrip(item.uid, trip._id!))
+        trip!.participantsUids.map((uid) => deleteUserTrip(uid, trip._id!))
       ),
     ]);
-    refreshProfile(userProfile!.uid);
+    refreshProfile();
     navigate("/trips");
   };
 
@@ -69,6 +69,7 @@ const TripDetailsMain = ({
       {trip.completed && (
         <GallerySection
           userProfile={userProfile}
+          refreshProfile={refreshProfile}
           trip={trip}
           participants={participants}
         />

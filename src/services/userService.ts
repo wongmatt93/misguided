@@ -1,6 +1,5 @@
 import axios from "axios";
 import UserProfile, {
-  CityVote,
   Notification,
   Preferences,
   UserTrip,
@@ -56,9 +55,9 @@ export const updateUserHometown = async (
 
 export const addLikedCity = async (
   uid: string,
-  newCity: CityVote
-): Promise<CityVote> =>
-  (await axios.put(`${baseURL}/users/${uid}/likes`, newCity)).data;
+  newCity: string
+): Promise<string> =>
+  (await axios.put(`${baseURL}/users/${uid}/likes`, { newCity })).data;
 
 export const removeLikedCity = async (
   uid: string,
@@ -68,9 +67,9 @@ export const removeLikedCity = async (
 
 export const addDislikedCity = async (
   uid: string,
-  newCity: CityVote
-): Promise<CityVote> =>
-  (await axios.put(`${baseURL}/users/${uid}/dislikes`, newCity)).data;
+  newCity: string
+): Promise<string> =>
+  (await axios.put(`${baseURL}/users/${uid}/dislikes`, { newCity })).data;
 
 export const removeAllDislikedCities = async (uid: string): Promise<string> =>
   (await axios.put(`${baseURL}/users/${uid}/remove-all-dislikes`)).data;
@@ -110,7 +109,7 @@ export const updateUserPreferences = async (
 export const addNewUserTrip = async (
   uid: string,
   newTrip: UserTrip
-): Promise<CityVote> =>
+): Promise<UserTrip> =>
   (await axios.put(`${baseURL}/users/${uid}/add-trip`, newTrip)).data;
 
 export const acceptUserTrip = async (

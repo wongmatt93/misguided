@@ -17,7 +17,7 @@ const CommentCard = ({ comment }: Props) => {
       {commentor && (
         <>
           <img
-            className="commentor-image"
+            className="commentor-image circle-image"
             src={commentor.photoURL!}
             alt={commentor.photoURL!}
             onClick={() => navigate(`/profile/${commentor.uid}`)}

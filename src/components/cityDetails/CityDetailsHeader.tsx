@@ -1,14 +1,13 @@
 import { useEffect, useState } from "react";
-import { RiArrowLeftLine, RiStarFill } from "react-icons/ri";
+import { RiStarFill } from "react-icons/ri";
 import City from "../../models/City";
 import "./CityDetailsHeader.css";
 
 interface Props {
   city: City;
-  goBack: () => void;
 }
 
-const CityDetailsHeader = ({ city, goBack }: Props) => {
+const CityDetailsHeader = ({ city }: Props) => {
   const [rating, setRating] = useState(0);
 
   useEffect(() => {
@@ -25,11 +24,7 @@ const CityDetailsHeader = ({ city, goBack }: Props) => {
 
   return (
     <header className="CityDetailsHeader">
-      <button onClick={goBack} className="back-button">
-        <RiArrowLeftLine />
-        <p>Back</p>
-      </button>
-      <h1 className="city-name">{city.cityName}</h1>
+      <h1 className="city-name">{city.cityName.toLowerCase()}</h1>
       <div className="rating">
         {rating > 0 ? (
           <>

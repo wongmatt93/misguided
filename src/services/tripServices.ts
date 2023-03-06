@@ -1,5 +1,5 @@
 import axios from "axios";
-import Trip, { Comment, Like, Message, Participant } from "../models/Trip";
+import Trip, { Comment, Message } from "../models/Trip";
 
 const baseURL: string = process.env.REACT_APP_API_URL || "";
 
@@ -25,13 +25,13 @@ export const updateNickname = async (
   tripId: string,
   nickname: string
 ): Promise<string> =>
-  (await axios.put(`${baseURL}/trips/${tripId}/${nickname}/update-nickname`))
+  (await axios.put(`${baseURL}/trips/${tripId}/update-nickname`, { nickname }))
     .data;
 
 export const addNewParticipantToTrip = async (
   tripId: string,
-  newParticipant: Participant
-): Promise<Participant> =>
+  newParticipant: string
+): Promise<string> =>
   (
     await axios.put(`${baseURL}/trips/${tripId}/new-participant`, {
       newParticipant,
@@ -61,7 +61,7 @@ export const addPhotosToTrip = async (
 ): Promise<string> =>
   (await axios.put(`${baseURL}/trips/${tripId}/photos`, { photo })).data;
 
-export const likeTrip = async (tripId: string, like: Like): Promise<Like> =>
+export const likeTrip = async (tripId: string, like: string): Promise<string> =>
   (await axios.put(`${baseURL}/trips/${tripId}/like-trip`, { like })).data;
 
 export const unlikeTrip = async (tripId: string, uid: string): Promise<void> =>

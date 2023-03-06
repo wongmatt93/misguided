@@ -1,17 +1,5 @@
 .HomeHeader {
-  display: flex;
   justify-content: space-between;
-  align-items: center;
-  padding: 1em;
-  width: 100%;
-}
-
-.HomeHeader h1 {
-  color: #f0b202;
-}
-
-.HomeHeader h1:hover {
-  cursor: default;
 }
 
 .HomeHeader svg {

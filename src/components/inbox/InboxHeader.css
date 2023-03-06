@@ -1,9 +1,0 @@
-.InboxHeader {
-  display: flex;
-  align-items: center;
-  padding: 1em;
-}
-
-.InboxHeader h1 {
-  color: #f0b202;
-}

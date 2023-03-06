@@ -9,7 +9,7 @@ interface Props {
 
 const PastTripsContainer = ({ pastTrips }: Props) => {
   return (
-    <main className="PastTripsContainer">
+    <section className="PastTripsContainer">
       {pastTrips.length > 0 ? (
         <ul>
           {pastTrips.map((trip) => (
@@ -22,7 +22,7 @@ const PastTripsContainer = ({ pastTrips }: Props) => {
           <p>Your completed trips will to populate here</p>
         </div>
       )}
-    </main>
+    </section>
   );
 };
 

@@ -10,7 +10,7 @@ interface Props {
 
 const UpcomingTripsContainer = ({ upcomingTrips }: Props) => {
   return (
-    <main className="UpcomingTripsContainer">
+    <section className="UpcomingTripsContainer">
       {upcomingTrips.length > 0 ? (
         <ul>
           {upcomingTrips.map((trip) => (
@@ -24,7 +24,7 @@ const UpcomingTripsContainer = ({ upcomingTrips }: Props) => {
           <Link to="/plan-trip">Click here to start planning one!</Link>
         </div>
       )}
-    </main>
+    </section>
   );
 };
 

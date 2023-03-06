@@ -8,7 +8,7 @@ import UserProfile from "../../models/UserProfile";
 
 interface Props {
   userProfile: UserProfile;
-  refreshProfile: (uid: string) => Promise<void>;
+  refreshProfile: () => Promise<void>;
   setStage: React.Dispatch<React.SetStateAction<string>>;
 }
 
@@ -32,7 +32,7 @@ const InitialPhotoUploadForm = ({
       uploadBytes(storageRef, file).then((snapshot) => {
         getDownloadURL(snapshot.ref).then((url) => {
           updateUserPhoto(userProfile!.uid, url).then(() =>
-            refreshProfile(userProfile!.uid).then(() => setStage("hometown"))
+            refreshProfile().then(() => setStage("hometown"))
           );
         });
       });

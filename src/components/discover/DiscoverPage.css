@@ -1,45 +1,5 @@
-.DiscoverHeader {
-  display: flex;
-  align-items: center;
-  padding: 1em;
-}
-
-.DiscoverHeader h1 {
-  color: #f0b202;
-}
-
 .DiscoverMain {
   padding: 1em;
-}
-
-.DiscoverMain .like-buttons-container {
-  display: flex;
-  justify-content: space-evenly;
-  font-size: 4em;
-  margin-top: 1rem;
-}
-
-.DiscoverMain .thumbs {
-  cursor: pointer;
-}
-
-.DiscoverMain .thumbs:hover {
-  transform: scale(1.2);
-  transition: 0.5s ease;
-  color: #f0b202;
-}
-
-.DiscoverMain .empty {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-  color: #353839;
-}
-
-.DiscoverMain .empty svg {
-  font-size: 5em;
 }
 
 .DiscoverMain .empty .refresh-button {

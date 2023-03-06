@@ -4,7 +4,7 @@ import { RiArrowRightSLine } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
 import AuthContext from "../../context/AuthContext";
 import useCityFetcher from "../../hooks/useCityFetcher";
-import City, { Visitor } from "../../models/City";
+import City from "../../models/City";
 import Trip from "../../models/Trip";
 import { Notification } from "../../models/UserProfile";
 import { addVisitor } from "../../services/cityService";
@@ -31,26 +31,26 @@ const PastTripCard = ({ trip }: Props) => {
   ): Promise<void> => {
     await completeTrip(trip._id!);
 
-    const match: Visitor | undefined = city.visitors.find(
-      (visitor) => visitor.uid === uid
+    const match: string | undefined = city.visitorsUids.find(
+      (visitor) => visitor === uid
     );
 
     if (!match) {
-      addVisitor(city._id!, { uid });
+      addVisitor(city._id!, uid);
     }
 
     const newNotification: Notification = createRatingNotif(uid, trip._id!);
 
     await Promise.allSettled(
-      trip.participants
-        .filter((participant) => participant.uid !== uid)
+      trip.participantsUids
+        .filter((participant) => participant !== uid)
         .map((participant) =>
-          addNotification(participant.uid, newNotification).then(() => {
-            const match: Visitor | undefined = city.visitors.find(
-              (visitor) => visitor.uid === participant.uid
+          addNotification(participant, newNotification).then(() => {
+            const match: string | undefined = city.visitorsUids.find(
+              (visitor) => visitor === participant
             );
 
-            !match && addVisitor(city._id!, { uid: participant.uid });
+            !match && addVisitor(city._id!, participant);
           })
         )
     );
@@ -62,21 +62,18 @@ const PastTripCard = ({ trip }: Props) => {
       navigate(`/rating/${trip.cityId}/subsequent`);
     }
 
-    refreshProfile(uid);
+    refreshProfile();
   };
 
-  const handleUnconfirmTrip = async (
-    trip: Trip,
-    uid: string
-  ): Promise<void> => {
+  const handleUnconfirmTrip = async (trip: Trip): Promise<void> => {
     await Promise.allSettled([
       deleteTrip(trip._id!),
       Promise.allSettled(
-        trip.participants.map((item) => deleteUserTrip(item.uid, trip._id!))
+        trip.participantsUids.map((item) => deleteUserTrip(item, trip._id!))
       ),
     ]);
 
-    refreshProfile(uid);
+    refreshProfile();
   };
 
   return (
@@ -84,7 +81,11 @@ const PastTripCard = ({ trip }: Props) => {
       {city && userProfile && (
         <li className="PastTripCard">
           <div className="info-container" onClick={handleViewTrip}>
-            <img src={city.photoURL} alt={city.photoURL} />
+            <img
+              src={city.photoURL}
+              alt={city.photoURL}
+              className="circle-image"
+            />
             <div className="name-date-container">
               <h3>{trip.nickname ? trip.nickname : city.cityName}</h3>
               <h4>
@@ -109,7 +110,7 @@ const PastTripCard = ({ trip }: Props) => {
                 </Button>
                 <Button
                   variant="warning"
-                  onClick={() => handleUnconfirmTrip(trip, userProfile.uid)}
+                  onClick={() => handleUnconfirmTrip(trip)}
                 >
                   No
                 </Button>

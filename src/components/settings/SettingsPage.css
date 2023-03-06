@@ -1,18 +1,21 @@
-.SettingsHeader {
-  display: flex;
-  align-items: center;
-  padding: 1rem;
-}
-
-.SettingsHeader h1 {
-  color: #f0b202;
-}
-
 .SettingsMain {
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 1rem;
+  color: #353839;
+}
+
+.SettingsMain .user-info {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.SettingsMain .user-info img {
+  height: 3rem;
+  width: 3rem;
+  margin-right: 0.5em;
 }
 
 .SettingsMain .list-group {

@@ -1,6 +1,5 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import AuthContext from "../../../context/AuthContext";
 import useProfileFetcher from "../../../hooks/useProfileFetcher";
 import UserProfile, { Notification } from "../../../models/UserProfile";
 import {
@@ -25,10 +24,10 @@ import {
 interface Props {
   uid: string;
   notification: Notification;
+  refreshProfile: () => Promise<void>;
 }
 
-const NotificationCard = ({ uid, notification }: Props) => {
-  const { refreshProfile } = useContext(AuthContext);
+const NotificationCard = ({ uid, notification, refreshProfile }: Props) => {
   const profile: UserProfile | null = useProfileFetcher(notification.uid);
   const navigate = useNavigate();
   const [active, setActive] = useState(false);
@@ -38,7 +37,7 @@ const NotificationCard = ({ uid, notification }: Props) => {
       setActive(false);
     } else {
       await readNotification(uid, notification.uid, notification.date);
-      refreshProfile(uid);
+      refreshProfile();
       notification.type === "follow" &&
         navigate(`/profile/${notification.uid}`);
       (notification.type === "tripRequest" ||
@@ -80,7 +79,7 @@ const NotificationCard = ({ uid, notification }: Props) => {
       : await readNotification(uid, notification.uid, notification.date);
 
     setActive(false);
-    refreshProfile(uid);
+    refreshProfile();
   };
 
   const handleSlideAction = (
@@ -95,7 +94,7 @@ const NotificationCard = ({ uid, notification }: Props) => {
   ): Promise<void> => {
     e.stopPropagation();
     await deleteNotification(uid, notification.uid, notification.date);
-    refreshProfile(uid);
+    refreshProfile();
   };
 
   return (
@@ -117,7 +116,11 @@ const NotificationCard = ({ uid, notification }: Props) => {
           >
             <div className="image-message-container">
               <RiMore2Line onClick={(e) => handleSlideAction(e)} />
-              <img src={profile.photoURL!} alt={profile.photoURL!} />
+              <img
+                src={profile.photoURL!}
+                alt={profile.photoURL!}
+                className="circle-image"
+              />
               <div className="notification-message">
                 <p className="username">{profile.username}</p>
                 {notification.type === "follow" && <p>started following you</p>}

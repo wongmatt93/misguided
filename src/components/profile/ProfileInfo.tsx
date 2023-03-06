@@ -5,6 +5,7 @@ import "./ProfileInfo.css";
 interface Props {
   profile: UserProfile;
   userProfile: UserProfile;
+  refreshProfile: () => Promise<void>;
   followStatus: string;
   pastTripsCount: number;
 }
@@ -12,13 +13,14 @@ interface Props {
 const ProfileInfo = ({
   profile,
   userProfile,
+  refreshProfile,
   followStatus,
   pastTripsCount,
 }: Props) => {
   return (
     <section className="ProfileInfo">
       <img
-        className="profile-pic"
+        className="profile-pic circle-image"
         src={profile.photoURL!}
         alt={profile.photoURL!}
       />
@@ -40,6 +42,7 @@ const ProfileInfo = ({
       {userProfile && userProfile!.uid !== profile.uid && (
         <FriendButton
           userProfile={userProfile}
+          refreshProfile={refreshProfile}
           otherProfile={profile}
           followStatus={followStatus}
         />

@@ -1,19 +1,10 @@
-.TripDetailsHeader {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1em;
-}
-
 .TripDetailsHeader .name-container {
   display: flex;
   align-items: center;
 }
 
 .TripDetailsHeader h1 {
-  color: #f0b202;
   margin-right: 0.3em;
-  cursor: default;
 }
 
 .TripDetailsHeader svg {

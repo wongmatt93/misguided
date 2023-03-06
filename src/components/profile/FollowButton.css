@@ -11,7 +11,7 @@
 .FriendButton button {
   width: 100%;
   font-family: "Oswald", sans-serif;
-  font-size: 1em;
+  font-size: 1rem;
   background-color: #f0b202;
   color: #353839;
 }

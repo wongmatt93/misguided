@@ -17,7 +17,7 @@ const TripDetailsPage = () => {
   const refreshTrip = async (tripId: string): Promise<void> => {
     await Promise.allSettled([
       setTrip(await getTripById(tripId)),
-      refreshProfile(userProfile!.uid),
+      refreshProfile(),
     ]);
   };
 
@@ -51,6 +51,7 @@ const TripDetailsPage = () => {
             trip={trip}
             cityName={cityName}
             userProfile={userProfile}
+            refreshProfile={refreshProfile}
             refreshTrip={refreshTrip}
           />
         </>
