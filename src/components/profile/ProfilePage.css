@@ -1,17 +1,3 @@
 .ProfilePage {
   padding: 1rem;
 }
-
-.ProfilePage .loading {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-  width: 100%;
-}
-
-.ProfilePage .spinner-border {
-  height: 5rem;
-  width: 5rem;
-  color: #f0b202;
-}

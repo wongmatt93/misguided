@@ -8,8 +8,8 @@ import {
   unreadNotification,
 } from "../../../services/userService";
 import ListGroup from "react-bootstrap/ListGroup";
-import "./NotificationCard.css";
-import { getHhMm } from "../../../utils/dateFunctions";
+import "./InboxNotificationCard.css";
+import { timeStamp } from "../../../utils/dateFunctions";
 import { getTripById } from "../../../services/tripServices";
 import Trip from "../../../models/Trip";
 import { getCityById } from "../../../services/cityService";
@@ -20,6 +20,8 @@ import {
   RiEyeOffFill,
   RiMore2Line,
 } from "react-icons/ri";
+import useTimer from "../../../hooks/useTimer";
+import { Button } from "react-bootstrap";
 
 interface Props {
   uid: string;
@@ -27,10 +29,15 @@ interface Props {
   refreshProfile: () => Promise<void>;
 }
 
-const NotificationCard = ({ uid, notification, refreshProfile }: Props) => {
+const InboxNotificationCard = ({
+  uid,
+  notification,
+  refreshProfile,
+}: Props) => {
   const profile: UserProfile | null = useProfileFetcher(notification.uid);
   const navigate = useNavigate();
   const [active, setActive] = useState(false);
+  const timesUp: boolean = useTimer(1000);
 
   const handleViewClick = async (notification: Notification): Promise<void> => {
     if (active) {
@@ -71,7 +78,7 @@ const NotificationCard = ({ uid, notification, refreshProfile }: Props) => {
   };
 
   const handleReadClick = async (
-    e: React.MouseEvent<HTMLDivElement, MouseEvent>
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ): Promise<void> => {
     e.stopPropagation();
     notification.read
@@ -90,7 +97,7 @@ const NotificationCard = ({ uid, notification, refreshProfile }: Props) => {
   };
 
   const handleDeleteClick = async (
-    e: React.MouseEvent<HTMLDivElement, MouseEvent>
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ): Promise<void> => {
     e.stopPropagation();
     await deleteNotification(uid, notification.uid, notification.date);
@@ -99,20 +106,17 @@ const NotificationCard = ({ uid, notification, refreshProfile }: Props) => {
 
   return (
     <>
-      {profile && (
+      {profile && timesUp && (
         <ListGroup.Item
-          className="NotificationCard"
+          className="InboxNotificationCard"
           onClick={() => handleViewClick(notification)}
         >
           <div
-            className="notification-dot"
-            style={{
-              backgroundColor: notification.read ? "transparent" : "#f0b202",
-            }}
-          ></div>
-          <div
             className="total-container"
-            style={{ left: active ? "-6em" : "0" }}
+            style={{
+              left: active ? "-6.5em" : "0",
+              backgroundColor: notification.read ? "#f5f5f5" : "#FEEEC2",
+            }}
           >
             <div className="image-message-container">
               <RiMore2Line onClick={(e) => handleSlideAction(e)} />
@@ -138,18 +142,23 @@ const NotificationCard = ({ uid, notification, refreshProfile }: Props) => {
                 )}
               </div>
             </div>
-            <p>{getHhMm(notification.date)}</p>
+            <p>{timeStamp(notification.date)}</p>
           </div>
           <div className="hidden-buttons">
-            <div className="read-button" onClick={(e) => handleReadClick(e)}>
+            <Button
+              className="read-button"
+              variant="warning"
+              onClick={(e) => handleReadClick(e)}
+            >
               {notification.read ? <RiEyeOffFill /> : <RiEyeFill />}
-            </div>
-            <div
+            </Button>
+            <Button
               className="delete-button"
+              variant="danger"
               onClick={(e) => handleDeleteClick(e)}
             >
               <RiDeleteBin5Fill />
-            </div>
+            </Button>
           </div>
         </ListGroup.Item>
       )}
@@ -157,4 +166,4 @@ const NotificationCard = ({ uid, notification, refreshProfile }: Props) => {
   );
 };
 
-export default NotificationCard;
+export default InboxNotificationCard;

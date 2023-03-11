@@ -1,4 +1,4 @@
-.TripsNav {
+.InboxNav {
   position: sticky;
   top: 0;
   height: 100%;
@@ -7,7 +7,7 @@
   background-color: #f5f5f5;
 }
 
-.TripsNav ul {
+.InboxNav ul {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -15,15 +15,24 @@
   height: 100%;
 }
 
-.TripsNav li {
+.InboxNav li {
   display: flex;
   align-items: center;
+  position: relative;
   height: 50%;
   width: 100%;
   border-right: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-.TripsNav a {
+.InboxNav .badge {
+  position: absolute;
+  top: 1em;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #f0b202 !important;
+}
+
+.InboxNav a {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -36,6 +45,6 @@
   border-left: 1px solid transparent;
 }
 
-.TripsNav .active {
+.InboxNav .active {
   border-left: 1px solid #f0b202;
 }

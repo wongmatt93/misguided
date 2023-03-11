@@ -7,12 +7,15 @@ import TripDetailsHeader from "./header/TripDetailsHeader";
 import TripDetailsMain from "./TripDetailsMain";
 import AuthContext from "../../context/AuthContext";
 import { getCityById } from "../../services/cityService";
+import useTimer from "../../hooks/useTimer";
+import LoadingTravel from "../common/LoadingTravel";
 
 const TripDetailsPage = () => {
   const { userProfile, refreshProfile } = useContext(AuthContext);
   const tripId: string | undefined = useParams().tripId;
   const [trip, setTrip] = useState<Trip | null>(null);
   const [cityName, setCityName] = useState("");
+  const timesUp = useTimer(2000);
 
   const refreshTrip = async (tripId: string): Promise<void> => {
     await Promise.allSettled([
@@ -29,23 +32,20 @@ const TripDetailsPage = () => {
   }, [trip]);
 
   useEffect(() => {
-    if (tripId) {
-      const interval = setInterval(() => {
-        getTripById(tripId).then((response) => setTrip(response));
-      }, 1000);
-      return () => clearInterval(interval);
-    }
+    tripId && getTripById(tripId).then((response) => setTrip(response));
   }, [tripId]);
 
   return (
     <>
-      {trip && (
+      {!timesUp && <LoadingTravel />}
+      {trip && userProfile && (
         <>
           <TripDetailsHeader
             trip={trip}
             cityName={cityName}
             refreshTrip={refreshTrip}
-            userProfile={userProfile}
+            userTrips={userProfile.trips}
+            timesUp={timesUp}
           />
           <TripDetailsMain
             trip={trip}
@@ -53,6 +53,7 @@ const TripDetailsPage = () => {
             userProfile={userProfile}
             refreshProfile={refreshProfile}
             refreshTrip={refreshTrip}
+            timesUp={timesUp}
           />
         </>
       )}

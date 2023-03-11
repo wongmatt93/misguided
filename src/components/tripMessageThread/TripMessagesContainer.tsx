@@ -1,9 +1,9 @@
 import { RiQuestionAnswerFill } from "react-icons/ri";
 import { useEffect, useRef, useState } from "react";
-import { Spinner } from "react-bootstrap";
 import Trip from "../../models/Trip";
 import TripMessage from "./TripMessage";
 import "./TripMessagesContainer.css";
+import LoadingSpinner from "../common/LoadingSpinner";
 
 interface Props {
   trip: Trip;
@@ -54,13 +54,7 @@ const TripMessagesContainer = ({ trip }: Props) => {
           <p>Start chatting about your upcoming trip!</p>
         </div>
       )}
-      {trip && !loaded && (
-        <div className="loading">
-          <Spinner animation="border" role="status">
-            <span className="visually-hidden">Loading...</span>
-          </Spinner>
-        </div>
-      )}
+      {trip && !loaded && <LoadingSpinner />}
     </div>
   );
 };

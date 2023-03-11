@@ -7,3 +7,7 @@
   color: #353839;
   text-decoration: underline;
 }
+
+.UpcomingTripsContainer li:last-child {
+  margin-bottom: 0;
+}

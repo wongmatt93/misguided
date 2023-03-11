@@ -2,15 +2,16 @@ import { useContext } from "react";
 import { Button } from "react-bootstrap";
 import { RiArrowRightSLine } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
-import AuthContext from "../../context/AuthContext";
-import useCityFetcher from "../../hooks/useCityFetcher";
-import City from "../../models/City";
-import Trip from "../../models/Trip";
-import { Notification } from "../../models/UserProfile";
-import { addVisitor } from "../../services/cityService";
-import { completeTrip, deleteTrip } from "../../services/tripServices";
-import { addNotification, deleteUserTrip } from "../../services/userService";
-import { createRatingNotif } from "../../utils/notificationsFunctions";
+import AuthContext from "../../../context/AuthContext";
+import useCityFetcher from "../../../hooks/useCityFetcher";
+import useTimer from "../../../hooks/useTimer";
+import City from "../../../models/City";
+import Trip from "../../../models/Trip";
+import { Notification } from "../../../models/UserProfile";
+import { addVisitor } from "../../../services/cityService";
+import { completeTrip, deleteTrip } from "../../../services/tripServices";
+import { addNotification, deleteUserTrip } from "../../../services/userService";
+import { createRatingNotif } from "../../../utils/notificationsFunctions";
 import "./PastTripCard.css";
 
 interface Props {
@@ -19,8 +20,9 @@ interface Props {
 
 const PastTripCard = ({ trip }: Props) => {
   const { userProfile, refreshProfile } = useContext(AuthContext);
-  const city: City | null = useCityFetcher(trip.cityId);
   const navigate = useNavigate();
+  const city: City | null = useCityFetcher(trip.cityId);
+  const timesUp = useTimer(600);
 
   const handleViewTrip = (): void => navigate(`/trip/${trip._id!}`);
 
@@ -78,7 +80,7 @@ const PastTripCard = ({ trip }: Props) => {
 
   return (
     <>
-      {city && userProfile && (
+      {city && userProfile && timesUp && (
         <li className="PastTripCard">
           <div className="info-container" onClick={handleViewTrip}>
             <img

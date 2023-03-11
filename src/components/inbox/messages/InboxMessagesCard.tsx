@@ -3,11 +3,12 @@ import { useNavigate } from "react-router-dom";
 import Trip, { Message } from "../../../models/Trip";
 import { getUserByUid, readNotification } from "../../../services/userService";
 import ListGroup from "react-bootstrap/ListGroup";
-import "./TripMessagesCard.css";
+import "./InboxMessagesCard.css";
 import UserProfile, { Notification } from "../../../models/UserProfile";
 import { getHhMm } from "../../../utils/dateFunctions";
 import City from "../../../models/City";
 import useCityFetcher from "../../../hooks/useCityFetcher";
+import useTimer from "../../../hooks/useTimer";
 
 interface Props {
   trip: Trip;
@@ -15,12 +16,13 @@ interface Props {
   refreshProfile: () => Promise<void>;
 }
 
-const TripMessagesCard = ({ trip, userProfile, refreshProfile }: Props) => {
+const InboxMessagesCard = ({ trip, userProfile, refreshProfile }: Props) => {
   const navigate = useNavigate();
   const city: City | null = useCityFetcher(trip.cityId);
   const [unreadMessages, setUnreadMessages] = useState<Notification[]>([]);
   const [latestMessage, setLatestMessage] = useState<Message | null>(null);
   const [latestSender, setLatestSender] = useState("");
+  const timesUp: boolean = useTimer(1000);
 
   const markRead = async (): Promise<void> => {
     await Promise.allSettled(
@@ -56,28 +58,20 @@ const TripMessagesCard = ({ trip, userProfile, refreshProfile }: Props) => {
   }, [trip]);
 
   const handleViewClick = (): void => {
-    navigate(`/inbox/thread/${trip._id!}`);
-    markRead();
-  };
-
-  const handleReadClick = (
-    e: React.MouseEvent<HTMLDivElement, MouseEvent>
-  ): void => {
-    e.stopPropagation();
+    navigate(`/thread/${trip._id!}`);
     markRead();
   };
 
   return (
     <>
-      {city && (
-        <ListGroup.Item className="TripMessagesCard" onClick={handleViewClick}>
-          <div
-            className="unread-count-container"
-            style={{ display: unreadMessages.length > 0 ? "flex" : "none" }}
-            onClick={(e) => handleReadClick(e)}
-          >
-            <p className="unread-count">{unreadMessages.length}</p>
-          </div>
+      {city && timesUp && (
+        <ListGroup.Item
+          className="InboxMessagesCard"
+          style={{
+            backgroundColor: unreadMessages.length > 0 ? "#FEEEC2" : "#f5f5f5",
+          }}
+          onClick={handleViewClick}
+        >
           <div className="image-message-container">
             <img
               src={city.photoURL}
@@ -113,4 +107,4 @@ const TripMessagesCard = ({ trip, userProfile, refreshProfile }: Props) => {
   );
 };
 
-export default TripMessagesCard;
+export default InboxMessagesCard;

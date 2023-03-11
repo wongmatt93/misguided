@@ -1,4 +1,3 @@
-import Spinner from "react-bootstrap/Spinner";
 import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import AuthContext from "../../context/AuthContext";
@@ -8,6 +7,7 @@ import ProfileInfo from "./ProfileInfo";
 import ProfileTripsContainer from "./ProfileTripsContainer";
 import FollowContext from "../../context/FollowContext";
 import { getUserByUid } from "../../services/userService";
+import LoadingSpinner from "../common/LoadingSpinner";
 
 const ProfilePage = () => {
   const { userProfile, refreshProfile } = useContext(AuthContext);
@@ -54,11 +54,7 @@ const ProfilePage = () => {
           />
         </>
       ) : (
-        <div className="loading">
-          <Spinner animation="border" role="status">
-            <span className="visually-hidden">Loading...</span>
-          </Spinner>
-        </div>
+        <LoadingSpinner />
       )}
     </main>
   );

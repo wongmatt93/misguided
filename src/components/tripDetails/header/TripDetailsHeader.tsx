@@ -1,7 +1,7 @@
 import { RiEditFill } from "react-icons/ri";
 import { useEffect, useState } from "react";
 import Trip from "../../../models/Trip";
-import UserProfile, { UserTrip } from "../../../models/UserProfile";
+import { UserTrip } from "../../../models/UserProfile";
 import EditNicknameModal from "./EditNicknameModal";
 import "./TripDetailsHeader.css";
 
@@ -9,37 +9,40 @@ interface Props {
   trip: Trip;
   cityName: string;
   refreshTrip: (tripId: string) => Promise<void>;
-  userProfile: UserProfile | undefined;
+  userTrips: UserTrip[];
+  timesUp: boolean;
 }
 
 const TripDetailsHeader = ({
   trip,
   cityName,
   refreshTrip,
-  userProfile,
+  userTrips,
+  timesUp,
 }: Props) => {
   const [showModal, setShowModal] = useState(false);
   const [accepted, setAccepted] = useState(false);
   const [showEdit, setShowEdit] = useState(false);
 
   useEffect(() => {
-    if (userProfile) {
-      const match: UserTrip | undefined = userProfile.trips.find(
-        (userTrip) => userTrip.tripId === trip._id!
-      );
+    const match: UserTrip | undefined = userTrips.find(
+      (userTrip) => userTrip.tripId === trip._id!
+    );
 
-      if (match) {
-        setAccepted(match.accepted);
-      }
+    if (match) {
+      setAccepted(match.accepted);
     }
-  }, [trip, userProfile]);
+  }, [trip, userTrips]);
 
   const handleShow = (): void => setShowModal(true);
   const handleClose = (): void => setShowModal(false);
 
   return (
     <>
-      <header className="TripDetailsHeader">
+      <header
+        className="TripDetailsHeader"
+        style={{ display: timesUp ? "flex" : "none" }}
+      >
         <div
           className="name-container"
           onMouseEnter={() => setShowEdit(true)}

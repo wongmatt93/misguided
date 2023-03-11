@@ -19,11 +19,12 @@ import InitialSigninPage from "./components/initialSignIn/InitialSignInPage";
 import Homepage from "./components/home/Homepage";
 import SearchPage from "./components/search/SearchPage";
 import { useMediaQuery } from "react-responsive";
-import InboxRouter from "./components/inbox/InboxRouter";
 import TripRouter from "./components/tripDetails/TripRouter";
 import RatingPage from "./components/rating/RatingPage";
 import PlanningRouter from "./components/planning/PlanningRouter";
 import SettingsRouter from "./components/settings/SettingsRouter";
+import InboxPage from "./components/inbox/InboxPage";
+import TripMessageThreadPage from "./components/tripMessageThread/TripMessageThreadPage";
 
 function App() {
   const { userProfile } = useContext(AuthContext);
@@ -54,7 +55,11 @@ function App() {
                 path="/city-details/:cityId"
                 element={<CityDetailsPage />}
               />
-              <Route path="/inbox/*" element={<InboxRouter />} />
+              <Route path="/inbox/*" element={<InboxPage />} />
+              <Route
+                path="/thread/:tripId"
+                element={<TripMessageThreadPage />}
+              />
               <Route path="/settings/*" element={<SettingsRouter />} />
               <Route path="/profile/:uid" element={<ProfilePage />} />
               <Route path="/trip/:tripId/*" element={<TripRouter />} />

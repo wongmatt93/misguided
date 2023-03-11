@@ -2,6 +2,7 @@ import Trip from "../models/Trip";
 import { Notification } from "../models/UserProfile";
 
 export let today: Date = new Date();
+
 const dd = String(today.getDate()).padStart(2, "0");
 const mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
 const yyyy = today.getFullYear();
@@ -38,4 +39,20 @@ export const getHhMm = (date: string): string => {
   mm = mm < 10 ? "0" + mm : mm;
 
   return hh + ":" + mm + " " + amPm;
+};
+
+export const timeStamp = (date: string) => {
+  let difference: number = Number(new Date()) - Number(date);
+
+  if (difference < 86400000) {
+    return getHhMm(date);
+  } else if (difference < 604800000) {
+    const days = Math.floor(difference / 86400000);
+    return `${days} day${days > 1 ? "s" : ""} ago`;
+  } else if (difference < 31560000000) {
+    return new Date(Number(date)).toLocaleDateString();
+  } else {
+    const years = Math.floor(difference / 31560000000);
+    return `${years} year${years > 1 ? "s" : ""}s ago`;
+  }
 };
