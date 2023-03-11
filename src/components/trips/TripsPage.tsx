@@ -2,8 +2,8 @@ import { useContext, useEffect, useState } from "react";
 import AuthContext from "../../context/AuthContext";
 import Trip from "../../models/Trip";
 import "./TripsPage.css";
-import UpcomingTripsContainer from "./UpcomingTripsContainer";
-import PastTripsContainer from "./PastTripsContainer";
+import UpcomingTripsContainer from "./upcomingTrips/UpcomingTripsContainer";
+import PastTripsContainer from "./pastTrips/PastTripsContainer";
 import { UserTrip } from "../../models/UserProfile";
 import {
   sortTripsAscending,

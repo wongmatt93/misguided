@@ -49,6 +49,23 @@ const AuthContextProvider = ({ children }: Props) => {
     });
   }, []);
 
+  useEffect(() => {
+    if (userProfile) {
+      const interval = setInterval(() => {
+        getUserByUid(userProfile.uid).then((response) => {
+          const array1: string = response.notifications.toString();
+          const array2: string = userProfile.notifications.toString();
+
+          if (array1 !== array2) {
+            setUserProfile(response);
+          }
+        });
+      }, 1000);
+
+      return () => clearInterval(interval);
+    }
+  }, [userProfile]);
+
   return (
     <AuthContext.Provider
       value={{

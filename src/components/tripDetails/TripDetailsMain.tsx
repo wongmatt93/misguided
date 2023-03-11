@@ -13,9 +13,10 @@ import UserProfile, { UserTrip } from "../../models/UserProfile";
 interface Props {
   trip: Trip;
   cityName: string;
-  userProfile: UserProfile | undefined;
+  userProfile: UserProfile;
   refreshProfile: () => Promise<void>;
   refreshTrip: (tripId: string) => Promise<void>;
+  timesUp: boolean;
 }
 
 const TripDetailsMain = ({
@@ -24,6 +25,7 @@ const TripDetailsMain = ({
   userProfile,
   refreshProfile,
   refreshTrip,
+  timesUp,
 }: Props) => {
   const navigate = useNavigate();
 
@@ -65,7 +67,10 @@ const TripDetailsMain = ({
   };
 
   return (
-    <main className="TripDetailsMain">
+    <main
+      className="TripDetailsMain"
+      style={{ display: timesUp ? "flex" : "none" }}
+    >
       {trip.completed && (
         <GallerySection
           userProfile={userProfile}

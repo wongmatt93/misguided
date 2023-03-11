@@ -80,3 +80,14 @@ form {
   border-radius: 50%;
   object-fit: cover;
 }
+
+.App .centered-bottom {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #353839;
+  text-decoration: none;
+  font-size: 0.8rem;
+  width: 100%;
+  height: 4rem;
+}

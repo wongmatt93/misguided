@@ -1,0 +1,12 @@
+.InboxHeader .dropdown-toggle {
+  display: flex;
+  padding: 0.3em;
+}
+
+.InboxHeader svg {
+  color: #f5f5f5;
+}
+
+.InboxHeader .dropdown-toggle::after {
+  display: none;
+}

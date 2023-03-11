@@ -4,6 +4,7 @@ import AuthContext from "../../context/AuthContext";
 import useProfileFetcher from "../../hooks/useProfileFetcher";
 import { Message } from "../../models/Trip";
 import UserProfile from "../../models/UserProfile";
+import { timeStamp } from "../../utils/dateFunctions";
 import "./TripMessage.css";
 
 interface Props {
@@ -46,9 +47,7 @@ const TripMessage = ({ message, setCount }: Props) => {
               {author.username}
             </h3>
             <p>{message.text}</p>
-            <p className="date">
-              {new Date(Number(message.date)).toLocaleDateString()}
-            </p>
+            <p className="date">{timeStamp(message.date)}</p>
           </div>
         </li>
       )}

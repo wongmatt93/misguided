@@ -1,0 +1,80 @@
+.InboxNotificationCard {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0;
+  color: #353839;
+  background-color: #f5f5f5;
+  transition: 0.3s;
+}
+
+.InboxNotificationCard .total-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  transition: 0.3s;
+  background-color: #f5f5f5;
+  padding: 0.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+.InboxNotificationCard .total-container:hover {
+  cursor: pointer;
+}
+
+.InboxNotificationCard .image-message-container {
+  display: flex;
+  align-items: center;
+}
+
+.InboxNotificationCard .image-message-container svg {
+  margin-left: -0.5rem;
+  height: 1.5rem;
+  width: 1.5rem;
+}
+
+.InboxNotificationCard img {
+  height: 2.5rem;
+  width: 2.5rem;
+  margin-right: 0.5rem;
+}
+
+.InboxNotificationCard p {
+  font-size: 0.8rem;
+}
+
+.InboxNotificationCard .username {
+  font-weight: 700;
+}
+
+.InboxNotificationCard .hidden-buttons {
+  display: flex;
+  position: absolute;
+  right: 0.5rem;
+}
+
+.InboxNotificationCard .hidden-buttons button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 0.5rem;
+  border: none;
+}
+
+.InboxNotificationCard .read-button {
+  margin-right: 0.5rem;
+  background-color: #f0b202;
+}
+
+.InboxNotificationCard .delete-button {
+  background-color: #ff4000;
+}
+
+.InboxNotificationCard .read-button svg,
+.InboxNotificationCard .delete-button svg {
+  color: #f5f5f5;
+}

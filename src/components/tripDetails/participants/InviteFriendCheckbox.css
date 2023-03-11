@@ -20,6 +20,8 @@
 .InviteFriendCheckbox img {
   width: 3em;
   height: 3em;
+  border-radius: 50%;
+  object-fit: cover;
 }
 
 .InviteFriendCheckbox .image-container svg {

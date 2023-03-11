@@ -1,0 +1,9 @@
+.InboxMessagesContainer {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.InboxMessagesContainer .list-group {
+  flex: 1;
+}
