@@ -38,7 +38,7 @@ const PastTripsContainer = ({ pastTrips }: Props) => {
       {pastTrips.length > 0 ? (
         <>
           {!timesUp && <LoadingSpinner />}
-          <ul style={{ display: timesUp ? "flex" : "none" }}>
+          <ul style={{ display: timesUp ? "block" : "none" }}>
             {Object.keys(paginatedTrips).map(
               (key, index) =>
                 Number(key) <= page && (
