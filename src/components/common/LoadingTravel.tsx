@@ -4,7 +4,7 @@ import "./LoadingTravel.css";
 const LoadingTravel = () => {
   return (
     <div className="LoadingTravel">
-      <RiSuitcase2Fill className="plane" />
+      <RiSuitcase2Fill className="luggage" />
     </div>
   );
 };

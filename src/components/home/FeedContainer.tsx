@@ -1,4 +1,4 @@
-import { RiGalleryFill } from "react-icons/ri";
+import { RiCameraOffFill } from "react-icons/ri";
 import { useContext, useEffect, useState } from "react";
 import AuthContext from "../../context/AuthContext";
 import FollowContext from "../../context/FollowContext";
@@ -7,11 +7,14 @@ import { getTripById } from "../../services/tripServices";
 import { sortTripsDescending, today } from "../../utils/dateFunctions";
 import FeedCard from "./feedCard/FeedCard";
 import "./FeedContainer.css";
+import useTimer from "../../hooks/useTimer";
+import LoadingCamera from "../common/LoadingCamera";
 
 const FeedContainer = () => {
   const { userProfile } = useContext(AuthContext);
   const { following } = useContext(FollowContext);
   const [friendsPastTrips, setFriendsPastTrips] = useState<Trip[]>([]);
+  const timesUp = useTimer(2000);
 
   useEffect(() => {
     const trips: Trip[] = [];
@@ -45,15 +48,16 @@ const FeedContainer = () => {
 
   return (
     <main className="FeedContainer">
+      {!timesUp && <LoadingCamera />}
       {friendsPastTrips.length > 0 ? (
-        <ul>
+        <ul style={{ display: timesUp ? "block" : "none" }}>
           {friendsPastTrips.map((trip) => (
             <FeedCard key={trip._id!} trip={trip} />
           ))}
         </ul>
       ) : (
         <div className="empty">
-          <RiGalleryFill />
+          <RiCameraOffFill />
           <p>Your feed is currently empty.</p>
           <p>Search for users to follow!</p>
         </div>

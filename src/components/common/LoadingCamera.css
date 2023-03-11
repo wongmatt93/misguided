@@ -1,0 +1,31 @@
+.LoadingCamera {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+.LoadingCamera .camera {
+  height: 5rem;
+  width: 5rem;
+  color: #f0b202;
+  position: relative;
+  animation-name: bounce;
+  animation-duration: 500ms;
+  animation-iteration-count: infinite;
+  animation-fill-mode: linear;
+}
+
+@keyframes bounce {
+  0% {
+    bottom: 0;
+  }
+  50% {
+    bottom: 1rem;
+  }
+  100% {
+    bottom: 0;
+  }
+}
