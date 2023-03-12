@@ -5,7 +5,6 @@ import City from "../../models/City";
 import { getCityById } from "../../services/cityService";
 import "./CityDetailsPage.css";
 import { Button } from "react-bootstrap";
-import CityDetailsHeader from "./CityDetailsHeader";
 import CityCharacteristics from "./CityCharacteristics";
 import CityVisitors from "./CityVisitors";
 import { addDislikedCity, removeLikedCity } from "../../services/userService";
@@ -51,43 +50,40 @@ const CityDetailsPage = () => {
   return (
     <>
       {city && userProfile && (
-        <>
-          <CityDetailsHeader city={city} />
-          <main className="CityDetailsPage">
-            <div className="image-container">
-              <img src={city.photoURL} alt={city.cityName} />
-              {liked && (
-                <Button
-                  variant="warning"
-                  className="itinerary-button"
-                  onClick={handleItinerary}
-                >
-                  Get Itinerary
-                </Button>
-              )}
-            </div>
-            <CityVisitors city={city} userProfile={userProfile} />
-            <p className="description">{city.cityDescription}</p>
-            <CityCharacteristics city={city} userProfile={userProfile} />
-            {!liked && (
-              <ThumbsContainer
-                city={city}
-                userProfile={userProfile}
-                refreshProfile={refreshProfile}
-                goBack={goBack}
-              />
-            )}
-            {liked && userProfile.hometownId !== city._id! && (
+        <main className="CityDetailsPage">
+          <div className="image-container">
+            <img src={city.photoURL} alt={city.cityName} />
+            {liked && (
               <Button
-                className="remove-button"
-                variant="link"
-                onClick={() => unlikeCity(userProfile.uid, city._id!)}
+                variant="warning"
+                className="itinerary-button"
+                onClick={handleItinerary}
               >
-                Remove City
+                Get Itinerary
               </Button>
             )}
-          </main>
-        </>
+          </div>
+          <CityVisitors city={city} userProfile={userProfile} />
+          <p className="description">{city.cityDescription}</p>
+          <CityCharacteristics city={city} userProfile={userProfile} />
+          {!liked && (
+            <ThumbsContainer
+              city={city}
+              userProfile={userProfile}
+              refreshProfile={refreshProfile}
+              goBack={goBack}
+            />
+          )}
+          {liked && userProfile.hometownId !== city._id! && (
+            <Button
+              className="remove-button"
+              variant="link"
+              onClick={() => unlikeCity(userProfile.uid, city._id!)}
+            >
+              Remove City
+            </Button>
+          )}
+        </main>
       )}
     </>
   );

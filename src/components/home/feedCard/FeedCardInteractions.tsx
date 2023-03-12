@@ -44,7 +44,7 @@ const FeedCardInteractions = ({ trip }: Props) => {
       </div>
       <div className="comments">
         <AiOutlineMessage
-          onClick={() => navigate(`/trip/${trip._id!}/comments`)}
+          onClick={() => navigate(`/trip-details/${trip._id!}/comments`)}
         />
         <p>{commentsQuantity}</p>
       </div>

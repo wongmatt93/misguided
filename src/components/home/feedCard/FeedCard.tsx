@@ -4,7 +4,6 @@ import Trip from "../../../models/Trip";
 import "./FeedCard.css";
 import FeedCardHeader from "./FeedCardHeader";
 import FriendCardPhotoCarousel from "./FriendCardPhotoCarousel";
-import PlaceholderCard from "./PlaceholderCard";
 import FeedCardInteractions from "./FeedCardInteractions";
 import FeedCardLocation from "./FeedCardLocation";
 import City from "../../../models/City";
@@ -17,7 +16,6 @@ interface Props {
 const FeedCard = ({ trip }: Props) => {
   const navigate = useNavigate();
   const city: City | null = useCityFetcher(trip.cityId);
-  const [fullyLoaded, setFullyLoaded] = useState(false);
   const [photos, setPhotos] = useState<string[]>([]);
 
   useEffect(() => {
@@ -31,16 +29,14 @@ const FeedCard = ({ trip }: Props) => {
       } else {
         setPhotos([city.photoURL]);
       }
-
-      setFullyLoaded(true);
     }
   }, [trip, city]);
 
-  const handleViewTrip = (): void => navigate(`/trip/${trip._id!}`);
+  const handleViewTrip = (): void => navigate(`/trip-details/${trip._id!}`);
 
   return (
     <>
-      {fullyLoaded ? (
+      {city && (
         <li className="FeedCard">
           <FeedCardHeader trip={trip} />
           <FeedCardLocation trip={trip} city={city!} />
@@ -50,8 +46,6 @@ const FeedCard = ({ trip }: Props) => {
           />
           <FeedCardInteractions trip={trip} />
         </li>
-      ) : (
-        <PlaceholderCard />
       )}
     </>
   );

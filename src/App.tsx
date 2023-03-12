@@ -7,7 +7,7 @@ import {
 } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import AuthContext from "./context/AuthContext";
-import Header from "./components/header/Header";
+import Header from "./components/Headers/Header";
 import LandingPage from "./components/landingPage/LandingPage";
 import DiscoverPage from "./components/discover/DiscoverPage";
 import MobileNavigation from "./components/mobileNavigation/MobileNavigation";
@@ -25,6 +25,7 @@ import PlanningRouter from "./components/planning/PlanningRouter";
 import SettingsRouter from "./components/settings/SettingsRouter";
 import InboxPage from "./components/inbox/InboxPage";
 import TripMessageThreadPage from "./components/tripMessageThread/TripMessageThreadPage";
+import MobileHeader from "./components/Headers/MobileHeaders/MobileHeader";
 
 function App() {
   const { userProfile } = useContext(AuthContext);
@@ -33,13 +34,13 @@ function App() {
   return (
     <div className="App">
       <Router>
-        {userProfile && isDesktop && <Header />}
+        {userProfile && (isDesktop ? <Header /> : <MobileHeader />)}
         <Routes>
           {!userProfile ? (
             <>
               <Route path="/" element={<LandingPage />} />
               <Route path="/profile/:uid" element={<ProfilePage />} />
-              <Route path="/trip/:tripId/*" element={<TripRouter />} />
+              <Route path="/trip-details/:tripId/*" element={<TripRouter />} />
               <Route path="*" element={<Navigate to="/" />} />
             </>
           ) : (
@@ -62,7 +63,7 @@ function App() {
               />
               <Route path="/settings/*" element={<SettingsRouter />} />
               <Route path="/profile/:uid" element={<ProfilePage />} />
-              <Route path="/trip/:tripId/*" element={<TripRouter />} />
+              <Route path="/trip-details/:tripId/*" element={<TripRouter />} />
               <Route path="*" element={<Navigate to="/routes" />} />
             </>
           )}

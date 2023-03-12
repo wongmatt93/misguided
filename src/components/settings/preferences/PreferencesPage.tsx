@@ -9,9 +9,6 @@ const PreferencesPage = () => {
 
   return (
     <>
-      <header className="PreferencesHeader">
-        <h1>settings / preferences</h1>
-      </header>
       <main className="PreferencesMain">
         <PreferencesForm setShow={setShow} />
         <ToastContainer position="top-center">

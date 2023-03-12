@@ -27,9 +27,6 @@ const SearchPage = () => {
 
   return (
     <>
-      <header className="SearchHeader">
-        <h1>search users</h1>
-      </header>
       <main className="SearchMain">
         <Form onSubmit={handleSubmit}>
           <Form.Group controlId="username">
