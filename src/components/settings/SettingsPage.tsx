@@ -16,9 +16,6 @@ const SettingsPage = () => {
 
   return (
     <>
-      <header className="SettingsHeader">
-        <h1>settings</h1>
-      </header>
       {userProfile && (
         <main className="SettingsMain">
           <div className="user-info">

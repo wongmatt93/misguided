@@ -62,9 +62,6 @@ const TripsPage = () => {
 
   return (
     <>
-      <header className="TripsHeader">
-        <h1>trips</h1>
-      </header>
       <main className="TripsPageMain">
         <TripsNav />
         <Routes>

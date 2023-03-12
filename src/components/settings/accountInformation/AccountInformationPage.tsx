@@ -11,9 +11,6 @@ const AccountInformationPage = () => {
 
   return (
     <>
-      <header className="AccountHeader">
-        <h1>settings / account</h1>
-      </header>
       {userProfile && (
         <main className="AccountMain">
           <UpdatePhoto

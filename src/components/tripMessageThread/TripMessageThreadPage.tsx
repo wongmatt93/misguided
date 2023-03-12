@@ -4,7 +4,6 @@ import Trip from "../../models/Trip";
 import { getTripById } from "../../services/tripServices";
 import NewMessageForm from "./NewMessageForm";
 import TripMessagesContainer from "./TripMessagesContainer";
-import TripMessageThreadHeader from "./TripMessageThreadHeader";
 import "./TripMessageThreadPage.css";
 
 const TripMessageThreadPage = () => {
@@ -37,13 +36,10 @@ const TripMessageThreadPage = () => {
   return (
     <>
       {trip && (
-        <>
-          <TripMessageThreadHeader trip={trip} />
-          <main className="TripMessageThreadMain">
-            <TripMessagesContainer trip={trip} />
-            <NewMessageForm tripId={trip._id!} refreshTrip={refreshTrip} />
-          </main>
-        </>
+        <main className="TripMessageThreadMain">
+          <TripMessagesContainer trip={trip} />
+          <NewMessageForm tripId={trip._id!} refreshTrip={refreshTrip} />
+        </main>
       )}
     </>
   );

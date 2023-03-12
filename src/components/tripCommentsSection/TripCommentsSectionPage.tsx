@@ -21,9 +21,6 @@ const TripCommentsSectionPage = () => {
 
   return (
     <>
-      <header className="TripCommentsHeader">
-        <h1>Comments</h1>
-      </header>
       {trip && (
         <main className="TripCommentsMain">
           <TripCommentsContainer trip={trip} />

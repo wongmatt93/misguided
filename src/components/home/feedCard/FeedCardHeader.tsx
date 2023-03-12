@@ -11,7 +11,7 @@ interface Props {
 const FeedCardHeader = ({ trip }: Props) => {
   const navigate = useNavigate();
 
-  const handleViewTrip = (): void => navigate(`/trip/${trip._id!}`);
+  const handleViewTrip = (): void => navigate(`/trip-details/${trip._id!}`);
 
   return (
     <div className="FeedCardHeader">

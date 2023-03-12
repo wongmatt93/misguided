@@ -3,7 +3,6 @@ import { useParams } from "react-router-dom";
 import Trip from "../../models/Trip";
 import { getTripById } from "../../services/tripServices";
 import "./TripDetailsPage.css";
-import TripDetailsHeader from "./header/TripDetailsHeader";
 import TripDetailsMain from "./TripDetailsMain";
 import AuthContext from "../../context/AuthContext";
 import { getCityById } from "../../services/cityService";
@@ -39,23 +38,14 @@ const TripDetailsPage = () => {
     <>
       {!timesUp && <LoadingTravel />}
       {trip && userProfile && (
-        <>
-          <TripDetailsHeader
-            trip={trip}
-            cityName={cityName}
-            refreshTrip={refreshTrip}
-            userTrips={userProfile.trips}
-            timesUp={timesUp}
-          />
-          <TripDetailsMain
-            trip={trip}
-            cityName={cityName}
-            userProfile={userProfile}
-            refreshProfile={refreshProfile}
-            refreshTrip={refreshTrip}
-            timesUp={timesUp}
-          />
-        </>
+        <TripDetailsMain
+          trip={trip}
+          cityName={cityName}
+          userProfile={userProfile}
+          refreshProfile={refreshProfile}
+          refreshTrip={refreshTrip}
+          timesUp={timesUp}
+        />
       )}
     </>
   );

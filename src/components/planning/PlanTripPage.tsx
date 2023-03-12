@@ -10,9 +10,6 @@ const PlanTripPage = () => {
 
   return (
     <>
-      <header className="PlanTripHeader">
-        <h1>trip planning</h1>
-      </header>
       <main className="PlanTripMain">
         <FavoritesContainer />
         <div className="discover">
