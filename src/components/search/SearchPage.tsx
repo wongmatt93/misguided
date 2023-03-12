@@ -26,32 +26,30 @@ const SearchPage = () => {
   };
 
   return (
-    <>
-      <main className="SearchMain">
-        <Form onSubmit={handleSubmit}>
-          <Form.Group controlId="username">
-            <Form.Control
-              type="text"
-              placeholder="Search usernames"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              required
-            ></Form.Control>
-          </Form.Group>
-          <Button variant="warning" type="submit" className="search-button">
-            Search
-          </Button>
-        </Form>
-        {userProfile && searchProfile && (
-          <UserCard userProfile={userProfile} searchProfile={searchProfile} />
-        )}
-        {badSearch && (
-          <div className="no-results">
-            <p>No Results Found</p>
-          </div>
-        )}
-      </main>
-    </>
+    <section className="SearchPage">
+      <Form onSubmit={handleSubmit}>
+        <Form.Group controlId="username">
+          <Form.Control
+            type="text"
+            placeholder="Search usernames"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            required
+          ></Form.Control>
+        </Form.Group>
+        <Button variant="warning" type="submit" className="search-button">
+          Search
+        </Button>
+      </Form>
+      {userProfile && searchProfile && (
+        <UserCard userProfile={userProfile} searchProfile={searchProfile} />
+      )}
+      {badSearch && (
+        <div className="no-results">
+          <p>No Results Found</p>
+        </div>
+      )}
+    </section>
   );
 };
 

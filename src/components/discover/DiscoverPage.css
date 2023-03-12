@@ -1,8 +1,9 @@
-.DiscoverMain {
+.DiscoverPage {
   padding: 1em;
+  height: 100%;
 }
 
-.DiscoverMain .empty .refresh-button {
+.DiscoverPage .empty .refresh-button {
   color: #353839;
   background-color: #f0b202;
 }

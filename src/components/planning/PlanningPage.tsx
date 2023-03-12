@@ -147,14 +147,14 @@ const PlanningPage = () => {
   };
 
   return (
-    <main className="PlanningMain">
+    <section className="PlanningPage">
       <PlanningForm
         setStartDate={setStartDate}
         setEndDate={setEndDate}
         handleSubmit={handleSubmit}
       />
       <ItineraryModal trip={trip} show={show} handleClose={handleClose} />
-    </main>
+    </section>
   );
 };
 

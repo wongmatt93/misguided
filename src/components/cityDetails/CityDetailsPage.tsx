@@ -50,7 +50,7 @@ const CityDetailsPage = () => {
   return (
     <>
       {city && userProfile && (
-        <main className="CityDetailsPage">
+        <section className="CityDetailsPage">
           <div className="image-container">
             <img src={city.photoURL} alt={city.cityName} />
             {liked && (
@@ -83,7 +83,7 @@ const CityDetailsPage = () => {
               Remove City
             </Button>
           )}
-        </main>
+        </section>
       )}
     </>
   );

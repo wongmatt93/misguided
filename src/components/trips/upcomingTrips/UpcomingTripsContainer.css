@@ -1,6 +1,8 @@
 .UpcomingTripsContainer {
   flex: 1;
-  padding: 1rem;
+  padding: 1rem 1rem 0;
+  height: 100%;
+  overflow: scroll;
 }
 
 .UpcomingTripsContainer .empty a {

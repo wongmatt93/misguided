@@ -22,10 +22,10 @@ const TripCommentsSectionPage = () => {
   return (
     <>
       {trip && (
-        <main className="TripCommentsMain">
+        <section className="TripCommentsSectionPage">
           <TripCommentsContainer trip={trip} />
           <AddCommentForm trip={trip} refreshTrip={refreshTrip} />
-        </main>
+        </section>
       )}
     </>
   );

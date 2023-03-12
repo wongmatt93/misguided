@@ -35,39 +35,47 @@ function App() {
     <div className="App">
       <Router>
         {userProfile && (isDesktop ? <Header /> : <MobileHeader />)}
-        <Routes>
-          {!userProfile ? (
-            <>
-              <Route path="/" element={<LandingPage />} />
-              <Route path="/profile/:uid" element={<ProfilePage />} />
-              <Route path="/trip-details/:tripId/*" element={<TripRouter />} />
-              <Route path="*" element={<Navigate to="/" />} />
-            </>
-          ) : (
-            <>
-              <Route path="/routes" element={<InitialSigninPage />} />
-              <Route path="/home" element={<Homepage />} />
-              <Route path="/search" element={<SearchPage />} />
-              <Route path="/trips/*" element={<TripsPage />} />
-              <Route path="/rating/:cityId/*" element={<RatingPage />} />
-              <Route path="plan-trip/*" element={<PlanningRouter />} />
-              <Route path="/discover" element={<DiscoverPage />} />
-              <Route
-                path="/city-details/:cityId"
-                element={<CityDetailsPage />}
-              />
-              <Route path="/inbox/*" element={<InboxPage />} />
-              <Route
-                path="/thread/:tripId"
-                element={<TripMessageThreadPage />}
-              />
-              <Route path="/settings/*" element={<SettingsRouter />} />
-              <Route path="/profile/:uid" element={<ProfilePage />} />
-              <Route path="/trip-details/:tripId/*" element={<TripRouter />} />
-              <Route path="*" element={<Navigate to="/routes" />} />
-            </>
-          )}
-        </Routes>
+        <main>
+          <Routes>
+            {!userProfile ? (
+              <>
+                <Route path="/" element={<LandingPage />} />
+                <Route path="/profile/:uid" element={<ProfilePage />} />
+                <Route
+                  path="/trip-details/:tripId/*"
+                  element={<TripRouter />}
+                />
+                <Route path="*" element={<Navigate to="/" />} />
+              </>
+            ) : (
+              <>
+                <Route path="/routes" element={<InitialSigninPage />} />
+                <Route path="/home" element={<Homepage />} />
+                <Route path="/search" element={<SearchPage />} />
+                <Route path="/trips/*" element={<TripsPage />} />
+                <Route path="/rating/:cityId/*" element={<RatingPage />} />
+                <Route path="plan-trip/*" element={<PlanningRouter />} />
+                <Route path="/discover" element={<DiscoverPage />} />
+                <Route
+                  path="/city-details/:cityId"
+                  element={<CityDetailsPage />}
+                />
+                <Route path="/inbox/*" element={<InboxPage />} />
+                <Route
+                  path="/thread/:tripId"
+                  element={<TripMessageThreadPage />}
+                />
+                <Route path="/settings/*" element={<SettingsRouter />} />
+                <Route path="/profile/:uid" element={<ProfilePage />} />
+                <Route
+                  path="/trip-details/:tripId/*"
+                  element={<TripRouter />}
+                />
+                <Route path="*" element={<Navigate to="/routes" />} />
+              </>
+            )}
+          </Routes>
+        </main>
         {userProfile && !isDesktop && <MobileNavigation />}
       </Router>
     </div>

@@ -67,7 +67,7 @@ const TripDetailsMain = ({
   };
 
   return (
-    <main
+    <section
       className="TripDetailsMain"
       style={{ display: timesUp ? "flex" : "none" }}
     >
@@ -95,7 +95,7 @@ const TripDetailsMain = ({
           Delete Trip
         </Button>
       )}
-    </main>
+    </section>
   );
 };
 

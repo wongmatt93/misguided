@@ -1,23 +1,23 @@
-.SearchMain {
-  padding: 1em;
+.SearchPage {
+  padding: 1rem;
 }
 
-.SearchMain form {
+.SearchPage form {
   display: flex;
   flex-direction: column;
-  margin: 1.5em 0;
+  margin: 1.5rem 0;
 }
 
-.SearchMain input {
-  margin-bottom: 1.5em;
+.SearchPage input {
+  margin-bottom: 1.5rem;
 }
 
-.SearchMain button {
+.SearchPage button {
   font-family: "Oswald", sans-serif;
   color: #353839;
   background-color: #f0b202;
 }
 
-.SearchMain .no-results {
+.SearchPage .no-results {
   text-align: center;
 }

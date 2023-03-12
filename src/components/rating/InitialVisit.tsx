@@ -40,7 +40,7 @@ const InitialVisit = () => {
   };
 
   return (
-    <main className="InitialVisit">
+    <section className="InitialVisit">
       <h2>It looks like this was your first visit</h2>
       <div className="stars-container">
         {[...new Array(totalStars)].map((star, index) =>
@@ -73,7 +73,7 @@ const InitialVisit = () => {
         </Button>
       )}
       <SubmissionModal show={show} handleClose={handleClose} />
-    </main>
+    </section>
   );
 };
 

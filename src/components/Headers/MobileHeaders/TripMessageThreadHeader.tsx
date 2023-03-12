@@ -24,7 +24,7 @@ const TripMessageThreadHeader = ({ path }: Props) => {
     }
   }, [path]);
 
-  const handleClick = (): void => navigate(`/trip/${trip!._id!}`);
+  const handleClick = (): void => navigate(`/trip-details/${trip!._id!}`);
 
   return (
     <>

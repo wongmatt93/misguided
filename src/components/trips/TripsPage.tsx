@@ -61,25 +61,23 @@ const TripsPage = () => {
   }, [userProfile]);
 
   return (
-    <>
-      <main className="TripsPageMain">
-        <TripsNav />
-        <Routes>
-          <Route
-            index
-            element={<Navigate to="/trips/upcoming-trips" replace />}
-          />
-          <Route
-            path="/upcoming-trips"
-            element={<UpcomingTripsContainer upcomingTrips={upcomingTrips} />}
-          />
-          <Route
-            path="/past-trips"
-            element={<PastTripsContainer pastTrips={pastTrips} />}
-          />
-        </Routes>
-      </main>
-    </>
+    <section className="TripsPage">
+      <TripsNav />
+      <Routes>
+        <Route
+          index
+          element={<Navigate to="/trips/upcoming-trips" replace />}
+        />
+        <Route
+          path="/upcoming-trips"
+          element={<UpcomingTripsContainer upcomingTrips={upcomingTrips} />}
+        />
+        <Route
+          path="/past-trips"
+          element={<PastTripsContainer pastTrips={pastTrips} />}
+        />
+      </Routes>
+    </section>
   );
 };
 
