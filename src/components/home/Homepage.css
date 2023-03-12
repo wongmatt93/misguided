@@ -1,0 +1,12 @@
+.Homepage {
+  height: 100%;
+  width: 100%;
+}
+
+.Homepage .feed-container {
+  padding: 1rem;
+}
+
+.Homepage li:last-child {
+  margin: 0;
+}

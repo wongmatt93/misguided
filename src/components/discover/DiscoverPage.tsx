@@ -63,11 +63,8 @@ const DiscoverPage = () => {
 
   return (
     <>
-      <header className="DiscoverHeader">
-        <h1>discover</h1>
-      </header>
       {userProfile && (
-        <main className="DiscoverMain">
+        <section className="DiscoverPage">
           {currentCity ? (
             <>
               <DiscoverCard currentCity={currentCity} cityRating={cityRating} />
@@ -92,7 +89,7 @@ const DiscoverPage = () => {
               </Button>
             </div>
           )}
-        </main>
+        </section>
       )}
     </>
   );

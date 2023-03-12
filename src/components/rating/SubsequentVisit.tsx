@@ -47,7 +47,7 @@ const SubsequentVisit = () => {
   const handleCancel = (): void => navigate("/home");
 
   return (
-    <main className="SubsequentVisit">
+    <section className="SubsequentVisit">
       <h2>It looks like you've been here before.</h2>
       <p>Would you like to update your rating?</p>
       <div className="stars-container">
@@ -82,7 +82,7 @@ const SubsequentVisit = () => {
         </div>
       )}
       <SubmissionModal show={show} handleClose={handleClose} />
-    </main>
+    </section>
   );
 };
 

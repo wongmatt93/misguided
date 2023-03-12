@@ -7,7 +7,6 @@ import "./TripDetailsHeader.css";
 import { getCityById } from "../../../services/cityService";
 import { getTripById } from "../../../services/tripServices";
 import AuthContext from "../../../context/AuthContext";
-import useTimer from "../../../hooks/useTimer";
 
 interface Props {
   path: string;
@@ -20,7 +19,6 @@ const TripDetailsHeader = ({ path }: Props) => {
   const [showModal, setShowModal] = useState(false);
   const [accepted, setAccepted] = useState(false);
   const [showEdit, setShowEdit] = useState(false);
-  const timesUp = useTimer(2000);
 
   const refreshTrip = async (tripId: string): Promise<void> => {
     await Promise.allSettled([
@@ -58,10 +56,7 @@ const TripDetailsHeader = ({ path }: Props) => {
   return (
     <>
       {trip && (
-        <header
-          className="TripDetailsHeader"
-          style={{ display: timesUp ? "flex" : "none" }}
-        >
+        <header className="TripDetailsHeader">
           <div
             className="name-container"
             onMouseEnter={() => setShowEdit(true)}

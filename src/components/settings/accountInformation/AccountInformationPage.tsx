@@ -12,7 +12,7 @@ const AccountInformationPage = () => {
   return (
     <>
       {userProfile && (
-        <main className="AccountMain">
+        <section className="AccountInformationPage">
           <UpdatePhoto
             userProfile={userProfile}
             refreshProfile={refreshProfile}
@@ -40,7 +40,7 @@ const AccountInformationPage = () => {
               />
             </ListGroup.Item>
           </ListGroup>
-        </main>
+        </section>
       )}
     </>
   );

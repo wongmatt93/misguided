@@ -8,23 +8,21 @@ const PreferencesPage = () => {
   const [show, setShow] = useState(false);
 
   return (
-    <>
-      <main className="PreferencesMain">
-        <PreferencesForm setShow={setShow} />
-        <ToastContainer position="top-center">
-          <Toast
-            onClose={() => setShow(false)}
-            show={show}
-            delay={3000}
-            bg="warning"
-            style={{ marginTop: "1em", textAlign: "center" }}
-            autohide
-          >
-            <Toast.Body>Your preferences have been saved</Toast.Body>
-          </Toast>
-        </ToastContainer>
-      </main>
-    </>
+    <section className="PreferencesPage">
+      <PreferencesForm setShow={setShow} />
+      <ToastContainer position="top-center">
+        <Toast
+          onClose={() => setShow(false)}
+          show={show}
+          delay={3000}
+          bg="warning"
+          style={{ marginTop: "1em", textAlign: "center" }}
+          autohide
+        >
+          <Toast.Body>Your preferences have been saved</Toast.Body>
+        </Toast>
+      </ToastContainer>
+    </section>
   );
 };
 

@@ -1,3 +1,7 @@
 .TripMessagesContainer {
   height: 100%;
 }
+
+.TripMessagesContainer ul {
+  padding: 1rem;
+}

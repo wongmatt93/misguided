@@ -18,7 +18,7 @@ const SettingsHeader = ({ path }: Props) => {
     } else {
       setPage("");
     }
-  });
+  }, [path]);
 
   return (
     <header className="SettingsHeader">

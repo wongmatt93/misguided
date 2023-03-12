@@ -1,24 +1,25 @@
-.SettingsMain {
+.SettingsPage {
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 1rem;
   color: #353839;
+  height: 100%;
 }
 
-.SettingsMain .user-info {
+.SettingsPage .user-info {
   display: flex;
   align-items: center;
   width: 100%;
 }
 
-.SettingsMain .user-info img {
+.SettingsPage .user-info img {
   height: 3rem;
   width: 3rem;
   margin-right: 0.5em;
 }
 
-.SettingsMain .list-group {
+.SettingsPage .list-group {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -27,14 +28,14 @@
   margin-bottom: 1rem;
 }
 
-.SettingsMain .list-group-item {
+.SettingsPage .list-group-item {
   width: 100%;
   padding: 1rem 0;
   border-bottom: 1px solid rgba(0, 0, 0, 0.25);
   background-color: transparent;
 }
 
-.SettingsMain a {
+.SettingsPage a {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -42,12 +43,12 @@
   color: #353839;
 }
 
-.SettingsMain svg {
+.SettingsPage svg {
   color: #f0b202;
   font-size: 2rem;
 }
 
-.SettingsMain button {
+.SettingsPage button {
   width: 60%;
   padding: 0.5rem 2rem;
   background-color: #f0b202;

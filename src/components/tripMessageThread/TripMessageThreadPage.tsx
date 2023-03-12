@@ -36,10 +36,10 @@ const TripMessageThreadPage = () => {
   return (
     <>
       {trip && (
-        <main className="TripMessageThreadMain">
+        <section className="TripMessageThreadPage">
           <TripMessagesContainer trip={trip} />
           <NewMessageForm tripId={trip._id!} refreshTrip={refreshTrip} />
-        </main>
+        </section>
       )}
     </>
   );

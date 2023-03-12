@@ -5,15 +5,10 @@ import SubsequentVisit from "./SubsequentVisit";
 
 const RatingPage = () => {
   return (
-    <>
-      <header>
-        <h1>Rate this City</h1>
-      </header>
-      <Routes>
-        <Route index element={<InitialVisit />} />
-        <Route path="/subsequent" element={<SubsequentVisit />} />
-      </Routes>
-    </>
+    <Routes>
+      <Route index element={<InitialVisit />} />
+      <Route path="/subsequent" element={<SubsequentVisit />} />
+    </Routes>
   );
 };
 

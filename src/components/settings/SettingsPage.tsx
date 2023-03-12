@@ -17,7 +17,7 @@ const SettingsPage = () => {
   return (
     <>
       {userProfile && (
-        <main className="SettingsMain">
+        <section className="SettingsPage">
           <div className="user-info">
             <img
               src={userProfile.photoURL!}
@@ -50,7 +50,7 @@ const SettingsPage = () => {
           <Button variant="warning" onClick={signOutAction}>
             Sign Out
           </Button>
-        </main>
+        </section>
       )}
     </>
   );

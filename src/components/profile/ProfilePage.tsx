@@ -38,7 +38,7 @@ const ProfilePage = () => {
   }, [userProfile, profile, friends]);
 
   return (
-    <main className="ProfilePage">
+    <section className="ProfilePage">
       {profile && userProfile ? (
         <>
           <ProfileInfo
@@ -56,7 +56,7 @@ const ProfilePage = () => {
       ) : (
         <LoadingSpinner />
       )}
-    </main>
+    </section>
   );
 };
 

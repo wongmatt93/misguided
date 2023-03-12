@@ -9,21 +9,19 @@ const PlanTripPage = () => {
   const handleClick = (): void => navigate("/discover");
 
   return (
-    <>
-      <main className="PlanTripMain">
-        <FavoritesContainer />
-        <div className="discover">
-          <p>Don't see a city you like? Discover new cities!</p>
-          <Button
-            className="discover-button"
-            variant="warning"
-            onClick={handleClick}
-          >
-            Discover
-          </Button>
-        </div>
-      </main>
-    </>
+    <section className="PlanTripPage">
+      <FavoritesContainer />
+      <div className="discover">
+        <p>Don't see a city you like? Discover new cities!</p>
+        <Button
+          className="discover-button"
+          variant="warning"
+          onClick={handleClick}
+        >
+          Discover
+        </Button>
+      </div>
+    </section>
   );
 };
 

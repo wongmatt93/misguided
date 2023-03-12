@@ -1,9 +1,8 @@
 import { useContext, useEffect, useState } from "react";
 import { Dropdown } from "react-bootstrap";
 import { RiMoreFill } from "react-icons/ri";
-import { useLocation } from "react-router-dom";
 import AuthContext from "../../../context/AuthContext";
-import UserProfile, { Notification } from "../../../models/UserProfile";
+import { Notification } from "../../../models/UserProfile";
 import {
   deleteAllNotifications,
   readNotification,

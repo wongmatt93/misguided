@@ -49,9 +49,9 @@ const InboxNotificationCard = ({
         navigate(`/profile/${notification.uid}`);
       (notification.type === "tripRequest" ||
         notification.type === "tripAccept") &&
-        navigate(`/trip/${notification.tripId}`);
+        navigate(`/trip-details/${notification.tripId}`);
       notification.type === "tripDecline" &&
-        navigate(`/trip/${notification.tripId}`);
+        navigate(`/trip-details/${notification.tripId}`);
       if (notification.type === "cityRating") {
         const trip: Trip | null = await getTripById(notification.tripId!);
 

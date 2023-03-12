@@ -12,7 +12,7 @@ const InboxPage = () => {
   return (
     <>
       {userProfile && (
-        <main className="InboxMain">
+        <section className="InboxPage">
           <InboxNav userProfile={userProfile} />
           <Routes>
             <Route index element={<Navigate to="/inbox/messages" replace />} />
@@ -35,7 +35,7 @@ const InboxPage = () => {
               }
             />
           </Routes>
-        </main>
+        </section>
       )}
     </>
   );

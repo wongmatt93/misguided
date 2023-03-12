@@ -1,18 +1,14 @@
-.PlanTripHeader h1 {
-  color: #f0b202;
-}
-
-.PlanTripMain {
+.PlanTripPage {
   padding: 1em;
   color: #353839;
 }
 
-.PlanTripMain .discover-button {
+.PlanTripPage .discover-button {
   background-color: #f0b202;
   color: #353839;
 }
 
-.PlanTripMain .discover {
+.PlanTripPage .discover {
   margin-top: 1em;
   text-align: center;
 }

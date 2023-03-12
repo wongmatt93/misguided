@@ -2,15 +2,7 @@
   height: 100%;
 }
 
-.TripCommentsContainer .empty {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+.TripCommentsContainer ul {
   height: 100%;
-  color: #353839;
-}
-
-.TripCommentsContainer .empty svg {
-  font-size: 5rem;
+  padding: 1rem;
 }
