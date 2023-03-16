@@ -1,28 +1,13 @@
-.Header {
-  display: none;
-}
-
-.Header .outer-list {
+.Header div {
   display: flex;
-  justify-content: space-between;
   align-items: center;
 }
 
-.Header .header-item {
-  width: 30%;
+.Header svg {
+  height: 1.5rem;
+  width: 1.5rem;
 }
 
-.Header .inner-list {
-  display: flex;
-  justify-content: space-between;
-}
-
-.Header .inner-list li {
-  text-align: center;
-}
-
-@media only screen and (min-width: 768px) {
-  .Header {
-    display: block;
-  }
+.Header .username {
+  margin-right: 0.5rem;
 }

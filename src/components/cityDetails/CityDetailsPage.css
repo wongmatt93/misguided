@@ -2,6 +2,7 @@
   display: flex;
   flex-direction: column;
   height: 100%;
+  flex: 1;
 }
 
 .CityDetailsPage .image-container {
@@ -42,4 +43,10 @@
 .CityDetailsPage .remove-button {
   color: #ff4000;
   text-decoration: none;
+}
+
+@media only screen and (min-width: 768px) {
+  .CityDetailsPage {
+    padding: 0 2rem 1rem;
+  }
 }

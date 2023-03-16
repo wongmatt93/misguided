@@ -28,7 +28,9 @@ const TripDetailsHeader = ({ path }: Props) => {
   };
 
   useEffect(() => {
-    if (path.includes("trip-details")) {
+    if (path.includes("trips/trip-details/")) {
+      getTripById(path.slice(20)).then((response) => setTrip(response));
+    } else if (path.includes("trip-details")) {
       getTripById(path.slice(14)).then((response) => setTrip(response));
     }
   }, [path]);

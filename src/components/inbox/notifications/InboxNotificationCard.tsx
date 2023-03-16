@@ -119,7 +119,10 @@ const InboxNotificationCard = ({
             }}
           >
             <div className="image-message-container">
-              <RiMore2Line onClick={(e) => handleSlideAction(e)} />
+              <RiMore2Line
+                className="more-button"
+                onClick={(e) => handleSlideAction(e)}
+              />
               <img
                 src={profile.photoURL!}
                 alt={profile.photoURL!}

@@ -7,9 +7,9 @@ import ListGroup from "react-bootstrap/ListGroup";
 import { RiChatDeleteFill } from "react-icons/ri";
 import usePaginate from "../../../hooks/usePaginate";
 import useTimer from "../../../hooks/useTimer";
-import InboxMessagesCluster from "./InboxMessagesCluster";
 import LoadingSpinner from "../../common/LoadingSpinner";
 import { Button } from "react-bootstrap";
+import InboxMessagesCluster from "./InboxMessagesCluster";
 
 interface Props {
   userProfile: UserProfile;

@@ -39,3 +39,32 @@
 .TripsNav .active {
   border-left: 1px solid #f0b202;
 }
+
+@media only screen and (min-width: 768px) {
+  .TripsNav {
+    height: 3rem;
+    width: 100%;
+  }
+
+  .TripsNav ul {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .TripsNav li {
+    height: 100%;
+    border-right: 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .TripsNav a {
+    writing-mode: horizontal-tb;
+    transform: rotate(0deg);
+    border-bottom: 1px solid transparent;
+  }
+
+  .TripsNav .active {
+    border-left: 0;
+    border-bottom: 1px solid #f0b202;
+  }
+}

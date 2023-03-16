@@ -24,12 +24,12 @@ const MobileHeader = () => {
       setPage("home");
     } else if (path.includes("search")) {
       setPage("search");
+    } else if (path.includes("trip-details")) {
+      setPage("tripDetails");
     } else if (path.includes("trips")) {
       setPage("trips");
     } else if (path.includes("comments")) {
       setPage("tripComments");
-    } else if (path.includes("trip-details")) {
-      setPage("tripDetails");
     } else if (path.includes("city-details")) {
       setPage("cityDetails");
     } else if (path.includes("rating")) {

@@ -10,8 +10,8 @@ import AuthContext from "./context/AuthContext";
 import Header from "./components/Headers/Header";
 import LandingPage from "./components/landingPage/LandingPage";
 import DiscoverPage from "./components/discover/DiscoverPage";
-import MobileNavigation from "./components/mobileNavigation/MobileNavigation";
-import TripsPage from "./components/trips/TripsPage";
+import MobileNavigation from "./components/MobileNavigation/MobileNavigation";
+import TripsPage from "./components/Trips/TripsPage";
 import "./App.css";
 import ProfilePage from "./components/profile/ProfilePage";
 import CityDetailsPage from "./components/cityDetails/CityDetailsPage";
@@ -23,9 +23,9 @@ import TripRouter from "./components/tripDetails/TripRouter";
 import RatingPage from "./components/rating/RatingPage";
 import PlanningRouter from "./components/planning/PlanningRouter";
 import SettingsRouter from "./components/settings/SettingsRouter";
-import InboxPage from "./components/inbox/InboxPage";
-import TripMessageThreadPage from "./components/tripMessageThread/TripMessageThreadPage";
+import InboxPage from "./components/Inbox/InboxPage";
 import MobileHeader from "./components/Headers/MobileHeaders/MobileHeader";
+import DesktopNavigation from "./components/desktopNavigation/DesktopNavigation";
 
 function App() {
   const { userProfile } = useContext(AuthContext);
@@ -34,8 +34,12 @@ function App() {
   return (
     <div className="App">
       <Router>
-        {userProfile && (isDesktop ? <Header /> : <MobileHeader />)}
+        {userProfile &&
+          (isDesktop ? <Header userProfile={userProfile} /> : <MobileHeader />)}
         <main>
+          {userProfile && isDesktop && (
+            <DesktopNavigation notifications={userProfile.notifications} />
+          )}
           <Routes>
             {!userProfile ? (
               <>
@@ -52,7 +56,10 @@ function App() {
                 <Route path="/routes" element={<InitialSigninPage />} />
                 <Route path="/home" element={<Homepage />} />
                 <Route path="/search" element={<SearchPage />} />
-                <Route path="/trips/*" element={<TripsPage />} />
+                <Route
+                  path="/trips/*"
+                  element={<TripsPage userTrips={userProfile.trips} />}
+                />
                 <Route path="/rating/:cityId/*" element={<RatingPage />} />
                 <Route path="plan-trip/*" element={<PlanningRouter />} />
                 <Route path="/discover" element={<DiscoverPage />} />
@@ -61,10 +68,6 @@ function App() {
                   element={<CityDetailsPage />}
                 />
                 <Route path="/inbox/*" element={<InboxPage />} />
-                <Route
-                  path="/thread/:tripId"
-                  element={<TripMessageThreadPage />}
-                />
                 <Route path="/settings/*" element={<SettingsRouter />} />
                 <Route path="/profile/:uid" element={<ProfilePage />} />
                 <Route
@@ -76,7 +79,9 @@ function App() {
             )}
           </Routes>
         </main>
-        {userProfile && !isDesktop && <MobileNavigation />}
+        {userProfile && !isDesktop && (
+          <MobileNavigation notifications={userProfile.notifications} />
+        )}
       </Router>
     </div>
   );
