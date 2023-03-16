@@ -8,7 +8,7 @@ import {
 import "bootstrap/dist/css/bootstrap.min.css";
 import AuthContext from "./context/AuthContext";
 import Header from "./components/Headers/Header";
-import LandingPage from "./components/landingPage/LandingPage";
+import LandingPage from "./components/LandingPage/LandingPage";
 import DiscoverPage from "./components/discover/DiscoverPage";
 import MobileNavigation from "./components/MobileNavigation/MobileNavigation";
 import TripsPage from "./components/Trips/TripsPage";
