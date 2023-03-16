@@ -5,3 +5,18 @@
 .TripMessagesContainer ul {
   padding: 1rem;
 }
+
+@media only screen and (min-width: 768px) {
+  .TripMessagesContainer {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .TripMessagesContainer ul {
+    flex: 1;
+    margin-top: -1rem;
+    padding: 2rem 1rem 4.5rem;
+    border-left: 1px solid rgba(0, 0, 0, 0.1);
+    border-right: 1px solid rgba(0, 0, 0, 0.1);
+  }
+}

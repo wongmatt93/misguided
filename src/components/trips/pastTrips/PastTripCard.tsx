@@ -24,7 +24,8 @@ const PastTripCard = ({ trip }: Props) => {
   const city: City | null = useCityFetcher(trip.cityId);
   const timesUp = useTimer(600);
 
-  const handleViewTrip = (): void => navigate(`/trip-details/${trip._id!}`);
+  const handleViewTrip = (): void =>
+    navigate(`/trips/trip-details/${trip._id!}`);
 
   const handleCompleteTrip = async (
     trip: Trip,

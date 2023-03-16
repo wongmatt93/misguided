@@ -1,9 +1,8 @@
-import { useContext, useEffect, useState } from "react";
-import AuthContext from "../../context/AuthContext";
+import { useEffect, useState } from "react";
 import Trip from "../../models/Trip";
 import "./TripsPage.css";
-import UpcomingTripsContainer from "./upcomingTrips/UpcomingTripsContainer";
-import PastTripsContainer from "./pastTrips/PastTripsContainer";
+import UpcomingTripsContainer from "./UpcomingTrips/UpcomingTripsContainer";
+import PastTripsContainer from "./PastTrips/PastTripsContainer";
 import { UserTrip } from "../../models/UserProfile";
 import {
   sortTripsAscending,
@@ -13,52 +12,54 @@ import {
 import { Navigate, Route, Routes } from "react-router-dom";
 import TripsNav from "./TripsNav";
 import { getTripsByTripIdArray } from "../../services/tripServices";
+import TripRouter from "../tripDetails/TripRouter";
 
-const TripsPage = () => {
-  const { userProfile } = useContext(AuthContext);
+interface Props {
+  userTrips: UserTrip[];
+}
+
+const TripsPage = ({ userTrips }: Props) => {
   const [upcomingTrips, setUpcomingTrips] = useState<Trip[]>([]);
   const [pastTrips, setPastTrips] = useState<Trip[]>([]);
 
   useEffect(() => {
-    if (userProfile) {
-      if (userProfile.trips.length > 0) {
-        const tripIds: string[] = [];
+    if (userTrips.length > 0) {
+      const tripIds: string[] = [];
 
-        userProfile.trips.forEach((trip) => tripIds.push(trip.tripId));
+      userTrips.forEach((trip) => tripIds.push(trip.tripId));
 
-        getTripsByTripIdArray(tripIds).then((response) => {
-          const upcoming: Trip[] = [];
-          const past: Trip[] = [];
+      getTripsByTripIdArray(tripIds).then((response) => {
+        const upcoming: Trip[] = [];
+        const past: Trip[] = [];
 
-          response.forEach((trip) => {
-            let accepted: boolean = true;
-            const userTrip: UserTrip | undefined = userProfile!.trips.find(
-              (item) => item.tripId === trip._id!
-            );
+        response.forEach((trip) => {
+          let accepted: boolean = true;
+          const userTrip: UserTrip | undefined = userTrips.find(
+            (item) => item.tripId === trip._id!
+          );
 
-            const endDate: Date = trip.endDate
-              ? new Date(Number(trip.endDate))
-              : new Date(Number(trip.startDate));
+          const endDate: Date = trip.endDate
+            ? new Date(Number(trip.endDate))
+            : new Date(Number(trip.startDate));
 
-            if (userTrip) {
-              accepted = userTrip.accepted;
+          if (userTrip) {
+            accepted = userTrip.accepted;
+          }
+
+          if (accepted) {
+            if (today.getTime() - endDate.getTime() < 0) {
+              upcoming.push(trip);
+            } else {
+              past.push(trip);
             }
-
-            if (accepted) {
-              if (today.getTime() - endDate.getTime() < 0) {
-                upcoming.push(trip);
-              } else {
-                past.push(trip);
-              }
-            }
-          });
-
-          setUpcomingTrips(sortTripsAscending(upcoming));
-          setPastTrips(sortTripsDescending(past));
+          }
         });
-      }
+
+        setUpcomingTrips(sortTripsAscending(upcoming));
+        setPastTrips(sortTripsDescending(past));
+      });
     }
-  }, [userProfile]);
+  }, [userTrips]);
 
   return (
     <section className="TripsPage">
@@ -76,6 +77,7 @@ const TripsPage = () => {
           path="/past-trips"
           element={<PastTripsContainer pastTrips={pastTrips} />}
         />
+        <Route path="/trip-details/:tripId/*" element={<TripRouter />} />
       </Routes>
     </section>
   );

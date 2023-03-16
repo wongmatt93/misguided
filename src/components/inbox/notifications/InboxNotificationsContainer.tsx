@@ -5,9 +5,9 @@ import "./InboxNotificationsContainer.css";
 import { ListGroup, Button } from "react-bootstrap/";
 import { RiMailCloseFill } from "react-icons/ri";
 import usePaginate from "../../../hooks/usePaginate";
-import InboxNotificationsCluster from "./InboxNotificationsCluster";
 import useTimer from "../../../hooks/useTimer";
 import LoadingSpinner from "../../common/LoadingSpinner";
+import InboxNotificationsCluster from "./InboxNotificationsCluster";
 
 interface Props {
   userProfile: UserProfile;

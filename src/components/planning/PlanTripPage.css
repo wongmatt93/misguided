@@ -1,6 +1,7 @@
 .PlanTripPage {
   padding: 1em;
   color: #353839;
+  flex: 1;
 }
 
 .PlanTripPage .discover-button {
@@ -11,4 +12,10 @@
 .PlanTripPage .discover {
   margin-top: 1em;
   text-align: center;
+}
+
+@media only screen and (min-width: 768px) {
+  .PlanTripPage {
+    padding: 0 2rem 1rem;
+  }
 }

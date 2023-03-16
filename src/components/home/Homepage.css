@@ -1,6 +1,6 @@
 .Homepage {
+  flex: 1;
   height: 100%;
-  width: 100%;
 }
 
 .Homepage .feed-container {
@@ -9,4 +9,10 @@
 
 .Homepage li:last-child {
   margin: 0;
+}
+
+@media only screen and (min-width: 768px) {
+  .Homepage .feed-container {
+    padding: 0 2rem 1rem;
+  }
 }

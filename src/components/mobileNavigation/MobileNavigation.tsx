@@ -7,20 +7,19 @@ import {
   RiLuggageCartFill,
 } from "react-icons/ri";
 import "./MobileNavigation.css";
-import { useContext, useEffect, useState } from "react";
-import AuthContext from "../../context/AuthContext";
+import { useEffect, useState } from "react";
+import { Notification } from "../../models/UserProfile";
 
-const MobileNavigation = () => {
-  const { userProfile } = useContext(AuthContext);
+interface Props {
+  notifications: Notification[];
+}
+
+const MobileNavigation = ({ notifications }: Props) => {
   const [unreadCount, setUnreadCount] = useState(0);
 
   useEffect(() => {
-    if (userProfile) {
-      setUnreadCount(
-        userProfile.notifications.filter((notifs) => !notifs.read).length
-      );
-    }
-  }, [userProfile]);
+    setUnreadCount(notifications.filter((notifs) => !notifs.read).length);
+  }, [notifications]);
 
   return (
     <footer className="MobileNavigation">

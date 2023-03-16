@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Trip, { Message } from "../../../models/Trip";
 import { getUserByUid, readNotification } from "../../../services/userService";
 import ListGroup from "react-bootstrap/ListGroup";
 import "./InboxMessagesCard.css";
 import UserProfile, { Notification } from "../../../models/UserProfile";
-import { getHhMm } from "../../../utils/dateFunctions";
+import { timeStamp } from "../../../utils/dateFunctions";
 import City from "../../../models/City";
 import useCityFetcher from "../../../hooks/useCityFetcher";
 import useTimer from "../../../hooks/useTimer";
@@ -58,7 +58,7 @@ const InboxMessagesCard = ({ trip, userProfile, refreshProfile }: Props) => {
   }, [trip]);
 
   const handleViewClick = (): void => {
-    navigate(`/thread/${trip._id!}`);
+    navigate(`/inbox/thread/${trip._id!}`);
     markRead();
   };
 
@@ -99,7 +99,9 @@ const InboxMessagesCard = ({ trip, userProfile, refreshProfile }: Props) => {
             </div>
           </div>
           {latestMessage && (
-            <p className="latest-message-time">{getHhMm(latestMessage.date)}</p>
+            <p className="latest-message-time">
+              {timeStamp(latestMessage.date)}
+            </p>
           )}
         </ListGroup.Item>
       )}

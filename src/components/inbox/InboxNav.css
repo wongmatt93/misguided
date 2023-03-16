@@ -48,3 +48,39 @@
 .InboxNav .active {
   border-left: 1px solid #f0b202;
 }
+
+@media only screen and (min-width: 768px) {
+  .InboxNav {
+    height: 3rem;
+    width: 100%;
+  }
+
+  .InboxNav ul {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .InboxNav li {
+    height: 100%;
+    border-right: 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .InboxNav a {
+    writing-mode: horizontal-tb;
+    transform: rotate(0deg);
+    border-bottom: 1px solid transparent;
+  }
+
+  .InboxNav .active {
+    border-left: 0;
+    border-bottom: 1px solid #f0b202;
+  }
+
+  .InboxNav .badge {
+    top: 50%;
+    left: 1rem;
+    transform: translateY(-50%);
+    background-color: #f0b202 !important;
+  }
+}

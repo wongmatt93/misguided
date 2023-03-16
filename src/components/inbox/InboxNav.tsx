@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import Badge from "react-bootstrap/Badge";
 import "./InboxNav.css";
 import UserProfile from "../../models/UserProfile";
@@ -11,6 +11,16 @@ interface Props {
 const InboxNav = ({ userProfile }: Props) => {
   const [unreadMessageCount, setUnreadMessageCount] = useState(0);
   const [unreadNotifCount, setUnreadNotifCount] = useState(0);
+  const [detailsShowing, setDetailsShowing] = useState(false);
+  const location: string = useLocation().pathname;
+
+  useEffect(() => {
+    if (location.includes("thread")) {
+      setDetailsShowing(true);
+    } else {
+      setDetailsShowing(false);
+    }
+  }, [location]);
 
   useEffect(() => {
     setUnreadMessageCount(
@@ -26,7 +36,10 @@ const InboxNav = ({ userProfile }: Props) => {
   }, [userProfile]);
 
   return (
-    <nav className="InboxNav">
+    <nav
+      className="InboxNav"
+      style={{ display: detailsShowing ? "none" : "block" }}
+    >
       <ul>
         <li>
           <Badge>{unreadMessageCount}</Badge>

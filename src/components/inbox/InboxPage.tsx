@@ -1,10 +1,11 @@
 import { useContext } from "react";
 import AuthContext from "../../context/AuthContext";
 import "./InboxPage.css";
-import InboxNotificationsContainer from "./notifications/InboxNotificationsContainer";
-import InboxMessagesContainer from "./messages/InboxMessagesContainer";
-import InboxNav from "./InboxNav";
+import InboxNotificationsContainer from "./Notifications/InboxNotificationsContainer";
+import InboxMessagesContainer from "./Messages/InboxMessagesContainer";
 import { Navigate, Route, Routes } from "react-router-dom";
+import TripMessageThreadPage from "../tripMessageThread/TripMessageThreadPage";
+import InboxNav from "./InboxNav";
 
 const InboxPage = () => {
   const { userProfile, refreshProfile } = useContext(AuthContext);
@@ -34,6 +35,7 @@ const InboxPage = () => {
                 />
               }
             />
+            <Route path="/thread/:tripId" element={<TripMessageThreadPage />} />
           </Routes>
         </section>
       )}
