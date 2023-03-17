@@ -1,6 +1,6 @@
-# Getting Started with Create React App
+# Welcome to Misguided
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Misguided is a travel planning app with a twist. Instead of helping you plan the trip of your dreams, we're here to help you plan a trip of nightmares. All you have to do is pick the dates and location and we will do the rest for you. Enjoy!
 
 ## Available Scripts
 
