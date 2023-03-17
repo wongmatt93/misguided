@@ -1,27 +1,34 @@
 import { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import AuthContext from "../../context/AuthContext";
 import UserProfile from "../../models/UserProfile";
 import "./ProfilePage.css";
-import ProfileInfo from "./ProfileInfo";
-import ProfileTripsContainer from "./ProfileTripsContainer";
 import FollowContext from "../../context/FollowContext";
 import { getUserByUid } from "../../services/userService";
 import LoadingSpinner from "../common/LoadingSpinner";
+import ProfileInfo from "./ProfileInfo";
+import ProfileTripsContainer from "./ProfileTripsContainer";
 
 const ProfilePage = () => {
   const { userProfile, refreshProfile } = useContext(AuthContext);
   const { friends } = useContext(FollowContext);
   const uid: string | undefined = useParams().uid;
+  const navigate = useNavigate();
   const [profile, setProfile] = useState<UserProfile | null>(null);
   const [followStatus, setFollowStatus] = useState("none");
   const [pastTripsCount, setPastTripsCount] = useState(0);
 
   useEffect(() => {
+    if (!userProfile && uid) {
+      navigate(`/profile/${uid}`);
+    }
+  }, [userProfile, uid, navigate]);
+
+  useEffect(() => {
     if (uid) {
       getUserByUid(uid).then((response) => setProfile(response));
     }
-  }, [uid, userProfile]);
+  }, [uid]);
 
   useEffect(() => {
     if (profile && userProfile) {
@@ -39,7 +46,7 @@ const ProfilePage = () => {
 
   return (
     <section className="ProfilePage">
-      {profile && userProfile ? (
+      {profile ? (
         <>
           <ProfileInfo
             profile={profile}

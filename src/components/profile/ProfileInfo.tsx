@@ -1,10 +1,10 @@
 import UserProfile from "../../models/UserProfile";
-import FriendButton from "./FollowButton";
+import FollowButton from "./FollowButton";
 import "./ProfileInfo.css";
 
 interface Props {
   profile: UserProfile;
-  userProfile: UserProfile;
+  userProfile: UserProfile | undefined;
   refreshProfile: () => Promise<void>;
   followStatus: string;
   pastTripsCount: number;
@@ -40,7 +40,7 @@ const ProfileInfo = ({
         </div>
       </div>
       {userProfile && userProfile!.uid !== profile.uid && (
-        <FriendButton
+        <FollowButton
           userProfile={userProfile}
           refreshProfile={refreshProfile}
           otherProfile={profile}

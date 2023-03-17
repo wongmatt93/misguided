@@ -2,19 +2,13 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  flex: 1;
   background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
     url("/public/assets/landing_background.jpg");
   background-position: center;
   background-size: 150%;
   overflow: hidden;
   padding-bottom: 0;
-}
-
-.LandingPage h1 {
-  text-align: center;
-  margin: 1em 0;
-  color: #f0b202;
+  height: 100%;
 }
 
 .LandingPage h2 {
@@ -62,4 +56,12 @@
   font-weight: 400;
   font-size: 20px;
   border: none;
+}
+
+@media only screen and (min-width: 768px) {
+  .LandingPage {
+    justify-content: center;
+    width: calc(100% + 2rem);
+    margin: -1rem;
+  }
 }

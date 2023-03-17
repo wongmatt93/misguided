@@ -37,3 +37,9 @@
     border: 1px solid rgba(0, 0, 0, 0.1);
   }
 }
+
+@media only screen and (min-width: 1024px) {
+  .NewMessageForm {
+    right: 14rem;
+  }
+}

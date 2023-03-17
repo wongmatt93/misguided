@@ -1,14 +1,19 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { useMediaQuery } from "react-responsive";
 import Trip from "../../models/Trip";
 import { getTripById } from "../../services/tripServices";
 import NewMessageForm from "./NewMessageForm";
 import TripMessagesContainer from "./TripMessagesContainer";
+import TripMessageSidebar from "./TripMessageSidebar";
 import "./TripMessageThreadPage.css";
+import TripMessageHeaderDesktop from "./TripMessageHeaderDesktop";
 
 const TripMessageThreadPage = () => {
   const tripId: string | undefined = useParams().tripId;
   const [trip, setTrip] = useState<Trip | null>(null);
+  const isDesktop = useMediaQuery({ minWidth: 768 });
+  const isLargeScreen = useMediaQuery({ minWidth: 1024 });
 
   const refreshTrip = async (tripId: string): Promise<void> =>
     setTrip(await getTripById(tripId));
@@ -37,8 +42,14 @@ const TripMessageThreadPage = () => {
     <>
       {trip && (
         <section className="TripMessageThreadPage">
-          <TripMessagesContainer trip={trip} />
-          <NewMessageForm tripId={trip._id!} refreshTrip={refreshTrip} />
+          <div className="TripMessageThread">
+            {isDesktop && <TripMessageHeaderDesktop trip={trip} />}
+            <TripMessagesContainer trip={trip} />
+            <NewMessageForm tripId={trip._id!} refreshTrip={refreshTrip} />
+          </div>
+          {isLargeScreen && (
+            <TripMessageSidebar participantsUids={trip.participantsUids} />
+          )}
         </section>
       )}
     </>

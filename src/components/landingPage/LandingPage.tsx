@@ -4,9 +4,8 @@ import "animate.css";
 
 const LandingPage = () => {
   return (
-    <main className="LandingPage">
+    <section className="LandingPage">
       <div className="logo-container">
-        <h1>misguided</h1>
         <h2>
           Plan Your{" "}
           <span
@@ -27,7 +26,7 @@ const LandingPage = () => {
           </button>
         </div>
       </div>
-    </main>
+    </section>
   );
 };
 

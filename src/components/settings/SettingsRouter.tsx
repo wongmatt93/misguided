@@ -1,8 +1,8 @@
 import { Route, Routes } from "react-router-dom";
-import AddCityPage from "./admin/AddCityPage";
-import AccountInformationPage from "./accountInformation/AccountInformationPage";
-import NotificationsSettingsPage from "./notifications/NotificationsSettingsPage";
-import PreferencesPage from "./preferences/PreferencesPage";
+import AddCityPage from "./Admin/AddCityPage";
+import AccountInformationPage from "./AccountInformation/AccountInformationPage";
+import NotificationsSettingsPage from "./Notifications/NotificationsSettingsPage";
+import PreferencesPage from "./Preferences/PreferencesPage";
 import SettingsPage from "./SettingsPage";
 
 const SettingsRouter = () => {

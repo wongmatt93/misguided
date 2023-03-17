@@ -1,0 +1,24 @@
+.TripMessageSidebar {
+  align-self: flex-start;
+  position: sticky;
+  top: 0;
+  width: 11rem;
+  padding-left: 3rem;
+}
+
+.TripMessageSidebar h3 {
+  font-size: 1.5rem;
+}
+
+.TripMessageSidebar .participant {
+  display: flex;
+  align-items: center;
+  padding-top: 0.5rem;
+  cursor: pointer;
+}
+
+.TripMessageSidebar img {
+  height: 2rem;
+  width: 2rem;
+  margin-right: 0.5rem;
+}
