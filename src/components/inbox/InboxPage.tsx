@@ -4,7 +4,7 @@ import "./InboxPage.css";
 import InboxNotificationsContainer from "./Notifications/InboxNotificationsContainer";
 import InboxMessagesContainer from "./Messages/InboxMessagesContainer";
 import { Navigate, Route, Routes } from "react-router-dom";
-import TripMessageThreadPage from "../tripMessageThread/TripMessageThreadPage";
+import TripMessageThreadPage from "../TripMessageThread/TripMessageThreadPage";
 import InboxNav from "./InboxNav";
 
 const InboxPage = () => {

@@ -3,8 +3,8 @@ import { useContext } from "react";
 import AuthContext from "../../../context/AuthContext";
 import "./AccountInformationPage.css";
 import UpdatePhoto from "./UpdatePhoto";
-import HometownSettings from "./HometownSettings";
 import PhoneSettings from "./PhoneSettings";
+import HometownSettings from "./HometownSettings";
 
 const AccountInformationPage = () => {
   const { userProfile, refreshProfile } = useContext(AuthContext);

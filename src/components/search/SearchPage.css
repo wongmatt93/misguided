@@ -1,11 +1,12 @@
 .SearchPage {
   padding: 1rem;
+  flex: 1;
 }
 
 .SearchPage form {
   display: flex;
   flex-direction: column;
-  margin: 1.5rem 0;
+  margin-bottom: 1.5rem;
 }
 
 .SearchPage input {
@@ -20,4 +21,10 @@
 
 .SearchPage .no-results {
   text-align: center;
+}
+
+@media only screen and (min-width: 768px) {
+  .SearchPage {
+    padding: 0 2rem 1rem;
+  }
 }

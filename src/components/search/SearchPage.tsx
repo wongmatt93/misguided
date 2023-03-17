@@ -1,13 +1,15 @@
 import { Form, Button } from "react-bootstrap";
-import { FormEvent, useContext, useState } from "react";
+import { FormEvent, useState } from "react";
 import UserProfile from "../../models/UserProfile";
 import { getUserByUsername } from "../../services/userService";
 import "./SearchPage.css";
 import UserCard from "./UserCard";
-import AuthContext from "../../context/AuthContext";
 
-const SearchPage = () => {
-  const { userProfile } = useContext(AuthContext);
+interface Props {
+  userProfile: UserProfile;
+}
+
+const SearchPage = ({ userProfile }: Props) => {
   const [username, setUsername] = useState("");
   const [searchProfile, setSearchProfile] = useState<UserProfile | null>(null);
   const [badSearch, setBadSearch] = useState(false);
@@ -41,7 +43,7 @@ const SearchPage = () => {
           Search
         </Button>
       </Form>
-      {userProfile && searchProfile && (
+      {searchProfile && (
         <UserCard userProfile={userProfile} searchProfile={searchProfile} />
       )}
       {badSearch && (

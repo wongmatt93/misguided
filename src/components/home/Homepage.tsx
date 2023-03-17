@@ -7,7 +7,7 @@ import Trip from "../../models/Trip";
 import { getTripById } from "../../services/tripServices";
 import { sortTripsDescending, today } from "../../utils/dateFunctions";
 import LoadingCamera from "../common/LoadingCamera";
-import FeedCard from "./feedCard/FeedCard";
+import FeedCard from "./FeedCard/FeedCard";
 import "./Homepage.css";
 
 const Homepage = () => {
