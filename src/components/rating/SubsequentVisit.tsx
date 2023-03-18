@@ -5,8 +5,8 @@ import "./SubsequentVisit.css";
 import AuthContext from "../../context/AuthContext";
 import { useNavigate, useParams } from "react-router-dom";
 import { getCityById, updateRating } from "../../services/cityService";
-import SubmissionModal from "./SubmissionModal";
 import { Rating } from "../../models/City";
+import SubmissionModal from "./SubmissionModal";
 
 const SubsequentVisit = () => {
   const { userProfile } = useContext(AuthContext);

@@ -34,7 +34,7 @@ const UserCard = ({ userProfile, searchProfile }: Props) => {
   }, [searchProfile]);
 
   const handleClick = (): void => {
-    navigate(`/search/profile/${searchProfile.uid}`);
+    navigate(`/explorers/profile/${searchProfile.uid}`);
   };
 
   return (

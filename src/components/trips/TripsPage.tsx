@@ -12,7 +12,8 @@ import {
 import { Navigate, Route, Routes } from "react-router-dom";
 import TripsNav from "./TripsNav";
 import { getTripsByTripIdArray } from "../../services/tripServices";
-import TripDetailsPage from "../tripDetails/TripDetailsPage";
+import TripDetailsPage from "../TripDetails/TripDetailsPage";
+import RatingPage from "../Rating/RatingPage";
 
 interface Props {
   userTrips: UserTrip[];
@@ -78,6 +79,7 @@ const TripsPage = ({ userTrips }: Props) => {
           element={<PastTripsContainer pastTrips={pastTrips} />}
         />
         <Route path="/trip-details/:tripId/*" element={<TripDetailsPage />} />
+        <Route path="/rating/:cityId/*" element={<RatingPage />} />
       </Routes>
     </section>
   );

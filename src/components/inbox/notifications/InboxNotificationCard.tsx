@@ -66,9 +66,9 @@ const InboxNotificationCard = ({
                 (user) => user.uid === uid
               );
               if (firstVisit) {
-                navigate(`/rating/${trip.cityId}`);
+                navigate(`/trips/rating/${trip.cityId}`);
               } else {
-                navigate(`/rating/${trip.cityId}/subsequent`);
+                navigate(`/trips/rating/${trip.cityId}/subsequent`);
               }
             }
           }

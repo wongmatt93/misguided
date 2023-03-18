@@ -57,9 +57,9 @@ const DesktopNavigation = ({ notifications }: Props) => {
           </NavLink>
         </li>
         <li>
-          <NavLink to="/search">
+          <NavLink to="/explorers">
             <RiSearchLine />
-            <span>Search</span>
+            <span>Explorers</span>
           </NavLink>
         </li>
         <li>

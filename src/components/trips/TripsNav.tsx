@@ -7,7 +7,7 @@ const TripsNav = () => {
   const location: string = useLocation().pathname;
 
   useEffect(() => {
-    if (location.includes("trip-details")) {
+    if (location.includes("trip-details") || location.includes("rating")) {
       setDetailsShowing(true);
     } else {
       setDetailsShowing(false);

@@ -3,37 +3,37 @@ import { useLocation } from "react-router-dom";
 import ChooseDatesHeader from "./ChooseDatesHeader";
 import CityDetailsHeader from "./CityDetailsHeader";
 import DiscoverHeader from "./DiscoverHeader";
-import HomeHeader from "./HomeHeader";
+import FeedHeader from "./FeedHeader";
 import InboxHeader from "./InboxHeader";
 import "./MobileHeader.css";
 import PlanTripHeader from "./PlanTripHeader";
 import RatingHeader from "./RatingHeader";
-import SearchHeader from "./SearchHeader";
 import SettingsHeader from "./SettingsHeader";
 import TripCommentsHeader from "./TripCommentsHeader";
 import TripDetailsHeader from "./TripDetailsHeader";
 import TripMessageThreadHeader from "./TripMessageThreadHeader";
 import TripsHeader from "./TripsHeader";
+import ExplorersHeader from "./ExplorersHeader";
 
 const MobileHeader = () => {
-  const [page, setPage] = useState("home");
+  const [page, setPage] = useState("feed");
   const path: string = useLocation().pathname;
 
   useEffect(() => {
-    if (path.includes("home")) {
-      setPage("home");
-    } else if (path.includes("search")) {
-      setPage("search");
-    } else if (path.includes("trip-details")) {
+    if (path.includes("trip-details")) {
       setPage("tripDetails");
+    } else if (path.includes("feed")) {
+      setPage("feed");
+    } else if (path.includes("explorers")) {
+      setPage("explorers");
+    } else if (path.includes("rating")) {
+      setPage("rating");
     } else if (path.includes("trips")) {
       setPage("trips");
     } else if (path.includes("comments")) {
       setPage("tripComments");
     } else if (path.includes("city-details")) {
       setPage("cityDetails");
-    } else if (path.includes("rating")) {
-      setPage("rating");
     } else if (path.includes("plan-trip/get-itinerary")) {
       setPage("getItinerary");
     } else if (path.includes("plan-trip")) {
@@ -51,8 +51,8 @@ const MobileHeader = () => {
 
   return (
     <>
-      {page === "home" && <HomeHeader />}
-      {page === "search" && <SearchHeader />}
+      {page === "feed" && <FeedHeader />}
+      {page === "explorers" && <ExplorersHeader />}
       {page === "trips" && <TripsHeader />}
       {page === "tripDetails" && <TripDetailsHeader path={path} />}
       {page === "tripComments" && <TripCommentsHeader />}

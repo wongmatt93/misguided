@@ -1,9 +1,8 @@
 import { useContext, useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, NavigateFunction } from "react-router-dom";
 import AuthContext from "../../context/AuthContext";
 import UserProfile from "../../models/UserProfile";
 import "./ProfilePage.css";
-import FollowContext from "../../context/FollowContext";
 import { getUserByUid } from "../../services/userService";
 import LoadingSpinner from "../common/LoadingSpinner";
 import ProfileInfo from "./ProfileInfo";
@@ -11,38 +10,38 @@ import ProfileTripsContainer from "./ProfileTripsContainer";
 
 const ProfilePage = () => {
   const { userProfile, refreshProfile } = useContext(AuthContext);
-  const { friends } = useContext(FollowContext);
   const uid: string | undefined = useParams().uid;
-  const navigate = useNavigate();
+  const navigate: NavigateFunction = useNavigate();
   const [profile, setProfile] = useState<UserProfile | null>(null);
   const [followStatus, setFollowStatus] = useState("none");
   const [pastTripsCount, setPastTripsCount] = useState(0);
 
-  useEffect(() => {
-    if (!userProfile && uid) {
-      navigate(`/profile/${uid}`);
-    }
-  }, [userProfile, uid, navigate]);
+  console.log("why");
 
   useEffect(() => {
     if (uid) {
       getUserByUid(uid).then((response) => setProfile(response));
-    }
-  }, [uid]);
 
-  useEffect(() => {
-    if (profile && userProfile) {
-      if (friends.some((friend) => friend.uid === profile.uid)) {
-        setFollowStatus("friend");
-      } else if (userProfile.followersUids.some((uid) => uid === profile.uid)) {
-        setFollowStatus("follower");
-      } else if (userProfile.followingUids.some((uid) => uid === profile.uid)) {
-        setFollowStatus("following");
+      if (!userProfile) {
+        navigate(`/profile/${uid}`);
       } else {
-        setFollowStatus("none");
+        const isFollowing: boolean = userProfile.followingUids.some(
+          (followingUid) => followingUid === uid
+        );
+        const isFollower: boolean = userProfile.followersUids.some(
+          (followerUid) => followerUid === uid
+        );
+
+        isFollowing && isFollower
+          ? setFollowStatus("friend")
+          : isFollowing
+          ? setFollowStatus("following")
+          : isFollower
+          ? setFollowStatus("follower")
+          : setFollowStatus("none");
       }
     }
-  }, [userProfile, profile, friends]);
+  }, [uid, userProfile, navigate]);
 
   return (
     <section className="ProfilePage">
@@ -57,6 +56,7 @@ const ProfilePage = () => {
           />
           <ProfileTripsContainer
             profile={profile}
+            userProfile={userProfile}
             setPastTripsCount={setPastTripsCount}
           />
         </>

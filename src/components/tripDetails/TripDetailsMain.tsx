@@ -4,11 +4,12 @@ import { useNavigate } from "react-router-dom";
 import Trip from "../../models/Trip";
 import { deleteTrip } from "../../services/tripServices";
 import { deleteUserTrip, getUserByUid } from "../../services/userService";
-import GallerySection from "./gallery/GallerySection";
-import ItinerarySection from "./itinerary/ItinerarySection";
-import ParticipantsSection from "./participants/ParticipantsSection";
+
 import "./TripDetailsMain.css";
 import UserProfile, { UserTrip } from "../../models/UserProfile";
+import GallerySection from "./Gallery/GallerySection";
+import ParticipantsSection from "./Participants/ParticipantsSection";
+import ItinerarySection from "./Itinerary/ItinerarySection";
 
 interface Props {
   trip: Trip;

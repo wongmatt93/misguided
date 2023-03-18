@@ -1,14 +1,17 @@
-import { FormEvent, useContext, useEffect, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import FollowContext from "../../../context/FollowContext";
 import Trip from "../../../models/Trip";
 import UserProfile, {
   Notification,
   UserTrip,
 } from "../../../models/UserProfile";
 import { addNewParticipantToTrip } from "../../../services/tripServices";
-import { addNewUserTrip, addNotification } from "../../../services/userService";
+import {
+  addNewUserTrip,
+  addNotification,
+  getAllUsersByUidArray,
+} from "../../../services/userService";
 import { createTripRequestNotif } from "../../../utils/notificationsFunctions";
 import InviteFriendCheckbox from "./InviteFriendCheckbox";
 import "./InviteFriendsModal.css";
@@ -28,17 +31,35 @@ const InviteFriendsModal = ({
   refreshTrip,
   handleClose,
 }: Props) => {
-  const { friends } = useContext(FollowContext);
   const [filteredFriends, setFilteredFriends] = useState<UserProfile[]>([]);
   const [invitedFriends, setInvitedFriends] = useState<string[]>([]);
 
   useEffect(() => {
-    setFilteredFriends(
-      friends.filter(
-        (friend) => !friend.trips.some((item) => item.tripId === trip._id!)
-      )
+    let higherQuantity: string[];
+    let lowerQuantity: string[];
+
+    if (userProfile.followingUids.length > userProfile.followersUids.length) {
+      higherQuantity = userProfile.followingUids;
+      lowerQuantity = userProfile.followersUids;
+    } else {
+      higherQuantity = userProfile.followersUids;
+      lowerQuantity = userProfile.followingUids;
+    }
+
+    const friends: string[] = lowerQuantity.filter((lowerItem) =>
+      higherQuantity.includes(lowerItem)
     );
-  }, [friends, trip]);
+
+    if (friends.length > 0) {
+      getAllUsersByUidArray(friends).then((response) => {
+        setFilteredFriends(
+          response.filter(
+            (friend) => !friend.trips.some((item) => item.tripId === trip._id!)
+          )
+        );
+      });
+    }
+  }, [userProfile, trip]);
 
   const handleSubmit = async (e: FormEvent): Promise<void> => {
     e.preventDefault();
@@ -59,6 +80,7 @@ const InviteFriendsModal = ({
           addNotification(friend, newNotification),
           addNewUserTrip(friend, newTrip),
           addNewParticipantToTrip(trip._id!, friend),
+          setInvitedFriends([]),
         ]);
       })
     );
