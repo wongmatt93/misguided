@@ -1,12 +1,10 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import AuthContext from "../../context/AuthContext";
 import City from "../../models/City";
 import { Hotel } from "../../models/amadeus/HotelResponse";
 import { getHotelsByCity } from "../../services/amadeusService";
 import { getCityById } from "../../services/cityService";
-import ItineraryModal from "./ItineraryModal";
-import PlanningForm from "./PlanningForm";
+
 import "./PlanningPage.css";
 import {
   searchYelpArts,
@@ -18,9 +16,15 @@ import Trip from "../../models/Trip";
 import { addTrip, getLatestTrip } from "../../services/tripServices";
 import { addNewUserTrip } from "../../services/userService";
 import { UserTrip } from "../../models/UserProfile";
+import PlanningForm from "./PlanningForm";
+import ItineraryModal from "./ItineraryModal";
 
-const PlanningPage = () => {
-  const { userProfile, refreshProfile } = useContext(AuthContext);
+interface Props {
+  uid: string;
+  refreshProfile: () => Promise<void>;
+}
+
+const PlanningPage = ({ uid, refreshProfile }: Props) => {
   const cityId: string | undefined = useParams().cityId;
   const [city, setCity] = useState<City | null>(null);
   const [startDate, setStartDate] = useState<string | undefined>(undefined);
@@ -57,7 +61,7 @@ const PlanningPage = () => {
   const handleShow = (): void => setShow(true);
 
   const handleSubmit = (): void => {
-    if (userProfile && city && startDate && endDate) {
+    if (city && startDate && endDate) {
       let duration: number = 1;
 
       if (endDate) {
@@ -68,7 +72,7 @@ const PlanningPage = () => {
       const index: number = Math.floor(Math.random() * hotels.length);
 
       const newTrip: Trip = {
-        creatorUid: userProfile.uid,
+        creatorUid: uid,
         cityId: city._id!,
         nickname: "",
         startDate,
@@ -76,7 +80,7 @@ const PlanningPage = () => {
         hotel: duration > 1 ? hotels[index].name : null,
         schedule: [],
         photos: [],
-        participantsUids: [userProfile.uid],
+        participantsUids: [uid],
         messages: [],
         completed: false,
         likesUids: [],
@@ -130,15 +134,13 @@ const PlanningPage = () => {
 
       setTrip(newTrip);
       addTrip(newTrip).then(() => {
-        getLatestTrip(userProfile.uid).then((response) => {
+        getLatestTrip(uid).then((response) => {
           const newUserTrip: UserTrip = {
             tripId: response[0]._id!,
             accepted: true,
           };
 
-          addNewUserTrip(userProfile.uid, newUserTrip).then(() =>
-            refreshProfile()
-          );
+          addNewUserTrip(uid, newUserTrip).then(() => refreshProfile());
         });
       });
 

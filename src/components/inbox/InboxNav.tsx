@@ -1,39 +1,40 @@
 import { NavLink, useLocation } from "react-router-dom";
 import Badge from "react-bootstrap/Badge";
 import "./InboxNav.css";
-import UserProfile from "../../models/UserProfile";
+import { Notification } from "../../models/UserProfile";
 import { useEffect, useState } from "react";
 
 interface Props {
-  userProfile: UserProfile;
+  notifications: Notification[];
 }
 
-const InboxNav = ({ userProfile }: Props) => {
+const InboxNav = ({ notifications }: Props) => {
   const [unreadMessageCount, setUnreadMessageCount] = useState(0);
   const [unreadNotifCount, setUnreadNotifCount] = useState(0);
   const [detailsShowing, setDetailsShowing] = useState(false);
   const location: string = useLocation().pathname;
 
   useEffect(() => {
-    if (location.includes("thread")) {
-      setDetailsShowing(true);
-    } else {
-      setDetailsShowing(false);
-    }
+    location.includes("thread")
+      ? setDetailsShowing(true)
+      : setDetailsShowing(false);
   }, [location]);
 
   useEffect(() => {
-    setUnreadMessageCount(
-      userProfile.notifications.filter(
-        (notif) => notif.type === "tripMessage" && !notif.read
-      ).length
-    );
-    setUnreadNotifCount(
-      userProfile.notifications.filter(
-        (notif) => notif.type !== "tripMessage" && !notif.read
-      ).length
-    );
-  }, [userProfile]);
+    const unreadMessages: Notification[] = [];
+    const unreadNotifs: Notification[] = [];
+
+    notifications.forEach((notif) => {
+      if (notif.type === "tripMessage" && !notif.read) {
+        unreadMessages.push(notif);
+      } else if (!notif.read) {
+        unreadNotifs.push(notif);
+      }
+    });
+
+    setUnreadMessageCount(unreadMessages.length);
+    setUnreadNotifCount(unreadNotifs.length);
+  }, [notifications]);
 
   return (
     <nav

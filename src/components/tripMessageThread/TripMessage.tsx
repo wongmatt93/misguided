@@ -1,6 +1,5 @@
-import { useContext, useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import AuthContext from "../../context/AuthContext";
 import useProfileFetcher from "../../hooks/useProfileFetcher";
 import { Message } from "../../models/Trip";
 import UserProfile from "../../models/UserProfile";
@@ -9,11 +8,11 @@ import "./TripMessage.css";
 
 interface Props {
   message: Message;
+  userUid: string;
   setCount: React.Dispatch<React.SetStateAction<number>>;
 }
 
-const TripMessage = ({ message, setCount }: Props) => {
-  const { userProfile } = useContext(AuthContext);
+const TripMessage = ({ message, userUid, setCount }: Props) => {
   const navigate = useNavigate();
   const author: UserProfile | null = useProfileFetcher(message.uid);
   const dataFetchedRef = useRef(false);
@@ -30,11 +29,9 @@ const TripMessage = ({ message, setCount }: Props) => {
 
   return (
     <>
-      {author && userProfile && (
+      {author && (
         <li
-          className={`TripMessage ${
-            author.uid === userProfile.uid && `user-profile`
-          }`}
+          className={`TripMessage ${author.uid === userUid && `user-profile`}`}
         >
           <img
             src={author.photoURL!}

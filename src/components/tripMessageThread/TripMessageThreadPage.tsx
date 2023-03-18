@@ -9,7 +9,11 @@ import TripMessageSidebar from "./TripMessageSidebar";
 import "./TripMessageThreadPage.css";
 import TripMessageHeaderDesktop from "./TripMessageHeaderDesktop";
 
-const TripMessageThreadPage = () => {
+interface Props {
+  userUid: string;
+}
+
+const TripMessageThreadPage = ({ userUid }: Props) => {
   const tripId: string | undefined = useParams().tripId;
   const [trip, setTrip] = useState<Trip | null>(null);
   const isDesktop = useMediaQuery({ minWidth: 768 });
@@ -44,8 +48,12 @@ const TripMessageThreadPage = () => {
         <section className="TripMessageThreadPage">
           <div className="TripMessageThread">
             {isDesktop && <TripMessageHeaderDesktop trip={trip} />}
-            <TripMessagesContainer trip={trip} />
-            <NewMessageForm tripId={trip._id!} refreshTrip={refreshTrip} />
+            <TripMessagesContainer trip={trip} userUid={userUid} />
+            <NewMessageForm
+              tripId={trip._id!}
+              userUid={userUid}
+              refreshTrip={refreshTrip}
+            />
           </div>
           {isLargeScreen && (
             <TripMessageSidebar participantsUids={trip.participantsUids} />

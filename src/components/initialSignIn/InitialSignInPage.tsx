@@ -1,14 +1,18 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import AuthContext from "../../context/AuthContext";
 import PreferencesForm from "../Settings/Preferences/PreferencesForm";
 import "./InitialSignInPage.css";
 import InitialPhotoUploadForm from "./InitialPhotoUploadForm";
 import InitialHometownForm from "./InitialHometownForm";
 import UsernameForm from "./UsernameForm";
+import UserProfile from "../../models/UserProfile";
 
-const InitialSignInPage = () => {
-  const { userProfile, refreshProfile } = useContext(AuthContext);
+interface Props {
+  userProfile: UserProfile;
+  refreshProfile: () => Promise<void>;
+}
+
+const InitialSignInPage = ({ userProfile, refreshProfile }: Props) => {
   const navigate = useNavigate();
   const [stage, setStage] = useState("username");
 
@@ -30,35 +34,34 @@ const InitialSignInPage = () => {
 
   return (
     <main className="InitialSignInPage">
-      {userProfile && (
+      {stage === "username" && (
+        <UsernameForm
+          uid={userProfile.uid}
+          refreshProfile={refreshProfile}
+          setStage={setStage}
+        />
+      )}
+      {stage === "image" && (
+        <InitialPhotoUploadForm
+          uid={userProfile.uid}
+          refreshProfile={refreshProfile}
+          setStage={setStage}
+        />
+      )}
+      {stage === "hometown" && (
+        <InitialHometownForm
+          uid={userProfile.uid}
+          refreshProfile={refreshProfile}
+          setStage={setStage}
+        />
+      )}
+      {stage === "preferences" && (
         <>
-          {stage === "username" && (
-            <UsernameForm
-              userProfile={userProfile}
-              refreshProfile={refreshProfile}
-              setStage={setStage}
-            />
-          )}
-          {stage === "image" && (
-            <InitialPhotoUploadForm
-              userProfile={userProfile}
-              refreshProfile={refreshProfile}
-              setStage={setStage}
-            />
-          )}
-          {stage === "hometown" && (
-            <InitialHometownForm
-              userProfile={userProfile}
-              refreshProfile={refreshProfile}
-              setStage={setStage}
-            />
-          )}
-          {stage === "preferences" && (
-            <>
-              <h2>Choose your preferences</h2>
-              <PreferencesForm />
-            </>
-          )}
+          <h2>Choose your preferences</h2>
+          <PreferencesForm
+            userProfile={userProfile}
+            refreshProfile={refreshProfile}
+          />
         </>
       )}
     </main>

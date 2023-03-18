@@ -3,28 +3,23 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import useFetchAllCities from "../../hooks/useFetchAllCities";
 import City from "../../models/City";
-import UserProfile from "../../models/UserProfile";
 import { updateUserHometown } from "../../services/userService";
 import "./InitialHometownForm.css";
 
 interface Props {
-  userProfile: UserProfile;
+  uid: string;
   refreshProfile: () => Promise<void>;
   setStage: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const InitialHometownForm = ({
-  userProfile,
-  refreshProfile,
-  setStage,
-}: Props) => {
+const InitialHometownForm = ({ uid, refreshProfile, setStage }: Props) => {
   const cities: City[] = useFetchAllCities();
   const [hometownId, setHometownId] = useState("");
 
   const handleSubmit = async (e: FormEvent): Promise<void> => {
     e.preventDefault();
 
-    await updateUserHometown(userProfile.uid, hometownId);
+    await updateUserHometown(uid, hometownId);
     await refreshProfile();
     setStage("preferences");
   };

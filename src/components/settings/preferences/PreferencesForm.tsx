@@ -1,16 +1,16 @@
-import { FormEvent, useContext, useEffect, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
-import AuthContext from "../../../context/AuthContext";
-import { Preferences } from "../../../models/UserProfile";
+import UserProfile, { Preferences } from "../../../models/UserProfile";
 import { updateUserPreferences } from "../../../services/userService";
 import "./PreferencesForm.css";
 
 interface Props {
   setShow?: React.Dispatch<React.SetStateAction<boolean>>;
+  userProfile: UserProfile;
+  refreshProfile: () => Promise<void>;
 }
 
-const PreferencesForm = ({ setShow }: Props) => {
-  const { userProfile, refreshProfile } = useContext(AuthContext);
+const PreferencesForm = ({ setShow, userProfile, refreshProfile }: Props) => {
   const [charming, setCharming] = useState(false);
   const [foodie, setFoodie] = useState(false);
   const [nightlife, setNightlife] = useState(false);
@@ -56,38 +56,36 @@ const PreferencesForm = ({ setShow }: Props) => {
       wineries,
       shopping,
     };
-    updateUserPreferences(userProfile!.uid, newPreference).then(() => {
+    updateUserPreferences(userProfile.uid, newPreference).then(() => {
       refreshProfile();
       setShow && setShow(true);
     });
   };
 
   useEffect(() => {
-    if (userProfile) {
-      const preferences: Preferences | null = userProfile.preferences;
+    const preferences: Preferences | null = userProfile.preferences;
 
-      if (preferences) {
-        setCharming(preferences.charming);
-        setFoodie(preferences.foodie);
-        setNightlife(preferences.nightlife);
-        setArchitecture(preferences.architecture);
-        setHistory(preferences.history);
-        setMuseums(preferences.museums);
-        setPerformingArts(preferences.performingArts);
-        setMusic(preferences.music);
-        setHipster(preferences.hipster);
-        setHippie(preferences.hippie);
-        setPosh(preferences.posh);
-        setFamilyFriendly(preferences.familyFriendly);
-        setLgbtScene(preferences.lGBTScene);
-        setDiversity(preferences.diversity);
-        setBeachTown(preferences.beachTown);
-        setCollegeTown(preferences.collegeTown);
-        setSkiTown(preferences.skiTown);
-        setOutdoorsy(preferences.outdoorsy);
-        setWineries(preferences.wineries);
-        setShopping(preferences.shopping);
-      }
+    if (preferences) {
+      setCharming(preferences.charming);
+      setFoodie(preferences.foodie);
+      setNightlife(preferences.nightlife);
+      setArchitecture(preferences.architecture);
+      setHistory(preferences.history);
+      setMuseums(preferences.museums);
+      setPerformingArts(preferences.performingArts);
+      setMusic(preferences.music);
+      setHipster(preferences.hipster);
+      setHippie(preferences.hippie);
+      setPosh(preferences.posh);
+      setFamilyFriendly(preferences.familyFriendly);
+      setLgbtScene(preferences.lGBTScene);
+      setDiversity(preferences.diversity);
+      setBeachTown(preferences.beachTown);
+      setCollegeTown(preferences.collegeTown);
+      setSkiTown(preferences.skiTown);
+      setOutdoorsy(preferences.outdoorsy);
+      setWineries(preferences.wineries);
+      setShopping(preferences.shopping);
     }
   }, [userProfile]);
 
@@ -375,7 +373,7 @@ const PreferencesForm = ({ setShow }: Props) => {
           Shopping
         </label>
       </div>
-      {userProfile!.preferences ? (
+      {userProfile.preferences ? (
         <Button className="update-pref-button" variant="warning" type="submit">
           Update Preferences
         </Button>

@@ -1,17 +1,21 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import AuthContext from "../../context/AuthContext";
 import City from "../../models/City";
 import { getCityById } from "../../services/cityService";
 import "./CityDetailsPage.css";
 import { Button } from "react-bootstrap";
-import CityCharacteristics from "./CityCharacteristics";
-import CityVisitors from "./CityVisitors";
 import { addDislikedCity, removeLikedCity } from "../../services/userService";
 import ThumbsContainer from "../common/ThumbsContainer";
+import CityVisitors from "./CityVisitors";
+import CityCharacteristics from "./CityCharacteristics";
+import UserProfile from "../../models/UserProfile";
 
-const CityDetailsPage = () => {
-  const { userProfile, refreshProfile } = useContext(AuthContext);
+interface Props {
+  userProfile: UserProfile;
+  refreshProfile: () => Promise<void>;
+}
+
+const CityDetailsPage = ({ userProfile, refreshProfile }: Props) => {
   const [city, setCity] = useState<City | null>(null);
   const [liked, setLiked] = useState(false);
   const navigate = useNavigate();
@@ -24,12 +28,10 @@ const CityDetailsPage = () => {
   }, [cityId]);
 
   useEffect(() => {
-    if (userProfile) {
-      if (userProfile.likesCityIds.some((like) => like === cityId)) {
-        setLiked(true);
-      } else if (userProfile.hometownId === cityId) {
-        setLiked(true);
-      }
+    if (userProfile.likesCityIds.some((like) => like === cityId)) {
+      setLiked(true);
+    } else if (userProfile.hometownId === cityId) {
+      setLiked(true);
     }
   }, [userProfile, cityId]);
 
@@ -49,7 +51,7 @@ const CityDetailsPage = () => {
 
   return (
     <>
-      {city && userProfile && (
+      {city && (
         <section className="CityDetailsPage">
           <div className="image-container">
             <img src={city.photoURL} alt={city.cityName} />
@@ -63,13 +65,16 @@ const CityDetailsPage = () => {
               </Button>
             )}
           </div>
-          <CityVisitors city={city} userProfile={userProfile} />
+          <CityVisitors city={city} followingUids={userProfile.followingUids} />
           <p className="description">{city.cityDescription}</p>
-          <CityCharacteristics city={city} userProfile={userProfile} />
+          <CityCharacteristics
+            city={city}
+            preferences={userProfile.preferences!}
+          />
           {!liked && (
             <ThumbsContainer
               city={city}
-              userProfile={userProfile}
+              uid={userProfile.uid}
               refreshProfile={refreshProfile}
               goBack={goBack}
             />

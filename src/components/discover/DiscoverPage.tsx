@@ -1,7 +1,5 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import "./DiscoverPage.css";
-import DiscoverCard from "./DiscoverCard";
-import AuthContext from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { RiGlobeFill } from "react-icons/ri";
 import { Button } from "react-bootstrap";
@@ -9,33 +7,38 @@ import { removeAllDislikedCities } from "../../services/userService";
 import { getAllCities } from "../../services/cityService";
 import City from "../../models/City";
 import ThumbsContainer from "../common/ThumbsContainer";
+import DiscoverCard from "./DiscoverCard";
+import UserProfile from "../../models/UserProfile";
 
-const DiscoverPage = () => {
-  const { userProfile, refreshProfile } = useContext(AuthContext);
+interface Props {
+  userProfile: UserProfile;
+  refreshProfile: () => Promise<void>;
+}
+
+const DiscoverPage = ({ userProfile, refreshProfile }: Props) => {
   const navigate = useNavigate();
   const [currentCity, setCurrentCity] = useState<City | null>(null);
   const [cityRating, setCityRating] = useState(0);
 
   useEffect(() => {
-    userProfile &&
-      getAllCities().then((response) => {
-        const votedCities: string[] = userProfile.likesCityIds.concat(
-          userProfile.dislikesCityIds
-        );
-        const remainingCities: City[] = response
-          .filter((city) => !votedCities.some((cityId) => cityId === city._id))
-          .filter((city) => city._id !== userProfile.hometownId);
+    getAllCities().then((response) => {
+      const votedCities: string[] = userProfile.likesCityIds.concat(
+        userProfile.dislikesCityIds
+      );
+      const remainingCities: City[] = response
+        .filter((city) => !votedCities.some((cityId) => cityId === city._id))
+        .filter((city) => city._id !== userProfile.hometownId);
 
-        if (remainingCities.length > 0) {
-          const index: number = Math.floor(
-            Math.random() * remainingCities.length
-          );
-          const city = remainingCities[index];
-          setCurrentCity(city);
-        } else {
-          setCurrentCity(null);
-        }
-      });
+      if (remainingCities.length > 0) {
+        const index: number = Math.floor(
+          Math.random() * remainingCities.length
+        );
+        const city = remainingCities[index];
+        setCurrentCity(city);
+      } else {
+        setCurrentCity(null);
+      }
+    });
   }, [userProfile]);
 
   const navigateDetails = (cityId: string) =>
@@ -62,36 +65,32 @@ const DiscoverPage = () => {
   }, [currentCity]);
 
   return (
-    <>
-      {userProfile && (
-        <section className="DiscoverPage">
-          {currentCity ? (
-            <>
-              <DiscoverCard currentCity={currentCity} cityRating={cityRating} />
-              <ThumbsContainer
-                city={currentCity}
-                userProfile={userProfile}
-                refreshProfile={refreshProfile}
-                navigateDetails={navigateDetails}
-              />
-            </>
-          ) : (
-            <div className="empty">
-              <RiGlobeFill />
-              <p>You're out of cities!</p>
-              <Button
-                className="refresh-button"
-                variant="warning"
-                type="button"
-                onClick={() => handleRefreshTrips(userProfile.uid)}
-              >
-                Refresh Cities
-              </Button>
-            </div>
-          )}
-        </section>
+    <section className="DiscoverPage">
+      {currentCity ? (
+        <>
+          <DiscoverCard currentCity={currentCity} cityRating={cityRating} />
+          <ThumbsContainer
+            city={currentCity}
+            uid={userProfile.uid}
+            refreshProfile={refreshProfile}
+            navigateDetails={navigateDetails}
+          />
+        </>
+      ) : (
+        <div className="empty">
+          <RiGlobeFill />
+          <p>You're out of cities!</p>
+          <Button
+            className="refresh-button"
+            variant="warning"
+            type="button"
+            onClick={() => handleRefreshTrips(userProfile.uid)}
+          >
+            Refresh Cities
+          </Button>
+        </div>
       )}
-    </>
+    </section>
   );
 };
 

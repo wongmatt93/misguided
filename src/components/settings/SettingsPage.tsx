@@ -5,9 +5,14 @@ import { Link } from "react-router-dom";
 import AuthContext from "../../context/AuthContext";
 import { signOut } from "../../firebaseConfig";
 import "./SettingsPage.css";
+import UserProfile from "../../models/UserProfile";
 
-const SettingsPage = () => {
-  const { userProfile, setUserProfile } = useContext(AuthContext);
+interface Props {
+  userProfile: UserProfile;
+}
+
+const SettingsPage = ({ userProfile }: Props) => {
+  const { setUserProfile } = useContext(AuthContext);
 
   const signOutAction = (): void => {
     signOut();

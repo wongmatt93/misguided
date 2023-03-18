@@ -1,6 +1,5 @@
-import { FormEvent, useContext, useEffect, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { Form, Button } from "react-bootstrap";
-import AuthContext from "../../context/AuthContext";
 import { Message } from "../../models/Trip";
 import UserProfile, { Notification } from "../../models/UserProfile";
 import { addMessageToTrip, getTripById } from "../../services/tripServices";
@@ -13,11 +12,11 @@ import "./NewMessageForm.css";
 
 interface Props {
   tripId: string;
+  userUid: string;
   refreshTrip: (tripId: string) => Promise<void>;
 }
 
-const NewMessageForm = ({ tripId, refreshTrip }: Props) => {
-  const { userProfile } = useContext(AuthContext);
+const NewMessageForm = ({ tripId, userUid, refreshTrip }: Props) => {
   const [participants, setParticipants] = useState<UserProfile[]>([]);
   const [text, setText] = useState("");
   const [sending, setSending] = useState(false);
@@ -25,26 +24,26 @@ const NewMessageForm = ({ tripId, refreshTrip }: Props) => {
   useEffect(() => {
     getTripById(tripId).then((response) => {
       const userUids: string[] = [];
-      response.participantsUids.forEach((participant) => {
-        if (participant !== userProfile!.uid) userUids.push(participant);
-      });
+      response.participantsUids.forEach(
+        (participant) => participant !== userUid && userUids.push(participant)
+      );
       getAllUsersByUidArray(userUids).then((response) =>
         setParticipants(response)
       );
     });
-  }, [userProfile, tripId]);
+  }, [userUid, tripId]);
 
   const handleSubmit = async (e: FormEvent): Promise<void> => {
     e.preventDefault();
 
     const newMessage: Message = {
-      uid: userProfile!.uid,
+      uid: userUid,
       text,
       date: Date.now().toString(),
     };
 
     const newNotification: Notification = createTripMessageNotif(
-      userProfile!.uid,
+      userUid,
       tripId
     );
 

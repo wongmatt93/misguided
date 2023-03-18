@@ -1,45 +1,46 @@
-import { useContext } from "react";
-import AuthContext from "../../context/AuthContext";
 import "./InboxPage.css";
 import InboxNotificationsContainer from "./Notifications/InboxNotificationsContainer";
 import InboxMessagesContainer from "./Messages/InboxMessagesContainer";
 import { Navigate, Route, Routes } from "react-router-dom";
 import TripMessageThreadPage from "../TripMessageThread/TripMessageThreadPage";
 import InboxNav from "./InboxNav";
+import UserProfile from "../../models/UserProfile";
 
-const InboxPage = () => {
-  const { userProfile, refreshProfile } = useContext(AuthContext);
+interface Props {
+  userProfile: UserProfile;
+  refreshProfile: () => Promise<void>;
+}
 
+const InboxPage = ({ userProfile, refreshProfile }: Props) => {
   return (
-    <>
-      {userProfile && (
-        <section className="InboxPage">
-          <InboxNav userProfile={userProfile} />
-          <Routes>
-            <Route index element={<Navigate to="/inbox/messages" replace />} />
-            <Route
-              path="/messages"
-              element={
-                <InboxMessagesContainer
-                  userProfile={userProfile}
-                  refreshProfile={refreshProfile}
-                />
-              }
+    <section className="InboxPage">
+      <InboxNav notifications={userProfile.notifications} />
+      <Routes>
+        <Route index element={<Navigate to="/inbox/messages" replace />} />
+        <Route
+          path="/messages"
+          element={
+            <InboxMessagesContainer
+              userProfile={userProfile}
+              refreshProfile={refreshProfile}
             />
-            <Route
-              path="/notifications"
-              element={
-                <InboxNotificationsContainer
-                  userProfile={userProfile}
-                  refreshProfile={refreshProfile}
-                />
-              }
+          }
+        />
+        <Route
+          path="/notifications"
+          element={
+            <InboxNotificationsContainer
+              userProfile={userProfile}
+              refreshProfile={refreshProfile}
             />
-            <Route path="/thread/:tripId" element={<TripMessageThreadPage />} />
-          </Routes>
-        </section>
-      )}
-    </>
+          }
+        />
+        <Route
+          path="/thread/:tripId"
+          element={<TripMessageThreadPage userUid={userProfile.uid} />}
+        />
+      </Routes>
+    </section>
   );
 };
 
