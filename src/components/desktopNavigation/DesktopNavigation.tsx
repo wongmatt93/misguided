@@ -26,9 +26,9 @@ const DesktopNavigation = ({ notifications }: Props) => {
     <nav className="DesktopNavigation">
       <ul>
         <li>
-          <NavLink to="/home">
+          <NavLink to="/feed">
             <RiHome2Fill />
-            <span>Home</span>
+            <span>Feed</span>
           </NavLink>
         </li>
         <li>

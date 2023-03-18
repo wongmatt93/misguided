@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import useProfileFetcher from "../../hooks/useProfileFetcher";
+import useTimer from "../../hooks/useTimer";
 import { Comment } from "../../models/Trip";
 import UserProfile from "../../models/UserProfile";
 import "./CommentCard.css";
@@ -10,12 +11,13 @@ interface Props {
 
 const CommentCard = ({ comment }: Props) => {
   const commentor: UserProfile | null = useProfileFetcher(comment.uid);
+  const timesUp = useTimer(600);
   const navigate = useNavigate();
 
   return (
-    <li className="CommentCard">
-      {commentor && (
-        <>
+    <>
+      {commentor && timesUp && (
+        <li className="CommentCard">
           <img
             className="commentor-image circle-image"
             src={commentor.photoURL!}
@@ -31,9 +33,9 @@ const CommentCard = ({ comment }: Props) => {
               {new Date(Number(comment.date)).toLocaleString()}
             </p>
           </div>
-        </>
+        </li>
       )}
-    </li>
+    </>
   );
 };
 

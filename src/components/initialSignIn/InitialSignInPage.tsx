@@ -23,7 +23,7 @@ const InitialSignInPage = () => {
       } else if (!userProfile.preferences) {
         setStage("preferences");
       } else {
-        navigate("/home");
+        navigate("/feed");
       }
     }
   }, [navigate, userProfile]);

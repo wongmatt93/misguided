@@ -2,10 +2,12 @@
   display: flex;
   align-items: center;
   color: #353839;
-  margin-bottom: 1rem;
+  padding: 0 1rem 1rem;
 }
 
 .CommentCard .commentor-image {
+  border-radius: 50%;
+  object-fit: cover;
   height: 2rem;
   width: 2rem;
   margin-right: 1rem;

@@ -26,7 +26,7 @@ const MobileNavigation = ({ notifications }: Props) => {
       <nav>
         <ul>
           <li>
-            <NavLink to="/home">
+            <NavLink to="/feed">
               <RiHome2Fill />
             </NavLink>
           </li>
