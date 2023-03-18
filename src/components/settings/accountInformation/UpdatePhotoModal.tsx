@@ -4,19 +4,18 @@ import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { storage } from "../../../firebaseConfig";
 import { updateUserPhoto } from "../../../services/userService";
 import "./UpdatePhotoModal.css";
-import UserProfile from "../../../models/UserProfile";
 
 interface Props {
   show: boolean;
   handleClose: () => void;
-  userProfile: UserProfile;
+  uid: string;
   refreshProfile: () => Promise<void>;
 }
 
 const UpdatePhotoModal = ({
   show,
   handleClose,
-  userProfile,
+  uid,
   refreshProfile,
 }: Props) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -28,14 +27,11 @@ const UpdatePhotoModal = ({
     if (files && files[0]) {
       const file = files[0]; // Here is the file we need
 
-      const storageRef = ref(
-        storage,
-        `user-photos/${userProfile!.uid}/${file.name}`
-      );
+      const storageRef = ref(storage, `user-photos/${uid}/${file.name}`);
 
       const snapshot = await uploadBytes(storageRef, file);
       const url = await getDownloadURL(snapshot.ref);
-      await updateUserPhoto(userProfile.uid, url);
+      await updateUserPhoto(uid, url);
       await refreshProfile();
 
       handleClose();

@@ -1,14 +1,16 @@
 import { ListGroup } from "react-bootstrap";
-import { useContext } from "react";
-import AuthContext from "../../../context/AuthContext";
 import "./AccountInformationPage.css";
 import UpdatePhoto from "./UpdatePhoto";
 import PhoneSettings from "./PhoneSettings";
 import HometownSettings from "./HometownSettings";
+import UserProfile from "../../../models/UserProfile";
 
-const AccountInformationPage = () => {
-  const { userProfile, refreshProfile } = useContext(AuthContext);
+interface Props {
+  userProfile: UserProfile;
+  refreshProfile: () => Promise<void>;
+}
 
+const AccountInformationPage = ({ userProfile, refreshProfile }: Props) => {
   return (
     <>
       {userProfile && (

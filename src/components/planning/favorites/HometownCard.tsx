@@ -1,27 +1,19 @@
 import Card from "react-bootstrap/Card";
-import { useContext, useEffect, useState } from "react";
-import AuthContext from "../../../context/AuthContext";
 import City from "../../../models/City";
-import { getCityById } from "../../../services/cityService";
 import "./HometownCard.css";
 import { useNavigate } from "react-router-dom";
+import useCityFetcher from "../../../hooks/useCityFetcher";
 
-const HometownCard = () => {
-  const { userProfile } = useContext(AuthContext);
+interface Props {
+  hometownId: string;
+}
+
+const HometownCard = ({ hometownId }: Props) => {
   const navigate = useNavigate();
-  const [hometown, setHometown] = useState<City | null>(null);
+  const hometown: City | null = useCityFetcher(hometownId);
 
-  useEffect(() => {
-    if (userProfile && userProfile.hometownId) {
-      getCityById(userProfile.hometownId).then((response) =>
-        setHometown(response)
-      );
-    }
-  }, [userProfile]);
-
-  const handleClick = (hometown: City): void => {
-    hometown._id && navigate(`/plan-trip/city-details/${hometown._id}`);
-  };
+  const handleClick = (hometown: City): void =>
+    navigate(`/plan-trip/city-details/${hometown._id}`);
 
   return (
     <li className="HometownCard">

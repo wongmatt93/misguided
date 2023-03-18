@@ -3,13 +3,23 @@ import ToastContainer from "react-bootstrap/ToastContainer";
 import { useState } from "react";
 import PreferencesForm from "./PreferencesForm";
 import "./PreferencesPage.css";
+import UserProfile from "../../../models/UserProfile";
 
-const PreferencesPage = () => {
+interface Props {
+  userProfile: UserProfile;
+  refreshProfile: () => Promise<void>;
+}
+
+const PreferencesPage = ({ userProfile, refreshProfile }: Props) => {
   const [show, setShow] = useState(false);
 
   return (
     <section className="PreferencesPage">
-      <PreferencesForm setShow={setShow} />
+      <PreferencesForm
+        setShow={setShow}
+        userProfile={userProfile}
+        refreshProfile={refreshProfile}
+      />
       <ToastContainer position="top-center">
         <Toast
           onClose={() => setShow(false)}

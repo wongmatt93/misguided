@@ -1,24 +1,23 @@
 import { useEffect, useState } from "react";
 import City from "../../models/City";
-import UserProfile from "../../models/UserProfile";
 import "./CityVisitors.css";
 import VisitorCard from "./VisitorCard";
 
 interface Props {
   city: City;
-  userProfile: UserProfile;
+  followingUids: string[];
 }
 
-const CityVisitors = ({ city, userProfile }: Props) => {
+const CityVisitors = ({ city, followingUids }: Props) => {
   const [visitors, setVisitors] = useState<string[]>([]);
 
   useEffect(() => {
     setVisitors(
-      userProfile.followingUids.filter((uid) =>
+      followingUids.filter((uid) =>
         city.visitorsUids.find((visitor) => visitor === uid)
       )
     );
-  }, [userProfile, city]);
+  }, [followingUids, city]);
 
   return (
     <>

@@ -9,17 +9,17 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import AuthContext from "./context/AuthContext";
 import Header from "./components/Headers/Header";
 import LandingPage from "./components/LandingPage/LandingPage";
-import DiscoverPage from "./components/discover/DiscoverPage";
+import DiscoverPage from "./components/Discover/DiscoverPage";
 import MobileNavigation from "./components/MobileNavigation/MobileNavigation";
 import TripsPage from "./components/Trips/TripsPage";
 import "./App.css";
 import ProfilePage from "./components/Profile/ProfilePage";
-import CityDetailsPage from "./components/cityDetails/CityDetailsPage";
+import CityDetailsPage from "./components/CityDetails/CityDetailsPage";
 import InitialSigninPage from "./components/initialSignIn/InitialSignInPage";
 import FeedPage from "./components/Feed/FeedPage";
 import { useMediaQuery } from "react-responsive";
 import RatingPage from "./components/rating/RatingPage";
-import PlanningRouter from "./components/planning/PlanningRouter";
+import PlanningRouter from "./components/Planning/PlanningRouter";
 import SettingsRouter from "./components/Settings/SettingsRouter";
 import InboxPage from "./components/Inbox/InboxPage";
 import MobileHeader from "./components/Headers/MobileHeaders/MobileHeader";
@@ -29,7 +29,7 @@ import SearchRouter from "./components/Search/SearchRouter";
 import TripDetailsPage from "./components/tripDetails/TripDetailsPage";
 
 function App() {
-  const { userProfile } = useContext(AuthContext);
+  const { userProfile, refreshProfile } = useContext(AuthContext);
   const isDesktop = useMediaQuery({ minWidth: 768 });
 
   return (
@@ -62,7 +62,15 @@ function App() {
               </>
             ) : (
               <>
-                <Route path="/routes" element={<InitialSigninPage />} />
+                <Route
+                  path="/routes"
+                  element={
+                    <InitialSigninPage
+                      userProfile={userProfile}
+                      refreshProfile={refreshProfile}
+                    />
+                  }
+                />
                 <Route
                   path="/feed"
                   element={<FeedPage userProfile={userProfile} />}
@@ -76,14 +84,51 @@ function App() {
                   element={<TripsPage userTrips={userProfile.trips} />}
                 />
                 <Route path="/rating/:cityId/*" element={<RatingPage />} />
-                <Route path="/plan-trip/*" element={<PlanningRouter />} />
-                <Route path="/discover" element={<DiscoverPage />} />
+                <Route
+                  path="/plan-trip/*"
+                  element={
+                    <PlanningRouter
+                      userProfile={userProfile}
+                      refreshProfile={refreshProfile}
+                    />
+                  }
+                />
+                <Route
+                  path="/discover"
+                  element={
+                    <DiscoverPage
+                      userProfile={userProfile}
+                      refreshProfile={refreshProfile}
+                    />
+                  }
+                />
                 <Route
                   path="/city-details/:cityId"
-                  element={<CityDetailsPage />}
+                  element={
+                    <CityDetailsPage
+                      userProfile={userProfile}
+                      refreshProfile={refreshProfile}
+                    />
+                  }
                 />
-                <Route path="/inbox/*" element={<InboxPage />} />
-                <Route path="/settings/*" element={<SettingsRouter />} />
+                <Route
+                  path="/inbox/*"
+                  element={
+                    <InboxPage
+                      userProfile={userProfile}
+                      refreshProfile={refreshProfile}
+                    />
+                  }
+                />
+                <Route
+                  path="/settings/*"
+                  element={
+                    <SettingsRouter
+                      userProfile={userProfile}
+                      refreshProfile={refreshProfile}
+                    />
+                  }
+                />
                 <Route path="/profile/:uid" element={<ProfilePage />} />
                 <Route
                   path="/trip-details/:tripId/*"

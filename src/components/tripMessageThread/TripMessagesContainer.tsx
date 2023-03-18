@@ -7,9 +7,10 @@ import LoadingSpinner from "../common/LoadingSpinner";
 
 interface Props {
   trip: Trip;
+  userUid: string;
 }
 
-const TripMessagesContainer = ({ trip }: Props) => {
+const TripMessagesContainer = ({ trip, userUid }: Props) => {
   const [count, setCount] = useState(0);
   const [loaded, setLoaded] = useState(false);
   const dataFetchedRef = useRef(false);
@@ -41,6 +42,7 @@ const TripMessagesContainer = ({ trip }: Props) => {
               <TripMessage
                 key={message.date + message.uid}
                 message={message}
+                userUid={userUid}
                 setCount={setCount}
               />
             ))}

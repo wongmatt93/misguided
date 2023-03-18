@@ -1,16 +1,21 @@
 import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import FavoritesContainer from "./favorites/FavoritesContainer";
+import UserProfile from "../../models/UserProfile";
+import FavoritesContainer from "./Favorites/FavoritesContainer";
 import "./PlanTripPage.css";
 
-const PlanTripPage = () => {
+interface Props {
+  userProfile: UserProfile;
+}
+
+const PlanTripPage = ({ userProfile }: Props) => {
   const navigate = useNavigate();
 
   const handleClick = (): void => navigate("/discover");
 
   return (
     <section className="PlanTripPage">
-      <FavoritesContainer />
+      <FavoritesContainer userProfile={userProfile} />
       <div className="discover">
         <p>Don't see a city you like? Discover new cities!</p>
         <Button

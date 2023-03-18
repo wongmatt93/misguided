@@ -1,16 +1,15 @@
 import { FormEvent, useState } from "react";
 import { Button, Form } from "react-bootstrap";
-import UserProfile from "../../models/UserProfile";
 import { getUserByUsername, updateUsername } from "../../services/userService";
 import "./UsernameForm.css";
 
 interface Props {
-  userProfile: UserProfile;
+  uid: string;
   refreshProfile: () => Promise<void>;
   setStage: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const UsernameForm = ({ userProfile, refreshProfile, setStage }: Props) => {
+const UsernameForm = ({ uid, refreshProfile, setStage }: Props) => {
   const [username, setUsername] = useState("");
   const [taken, setTaken] = useState(false);
 
@@ -22,7 +21,7 @@ const UsernameForm = ({ userProfile, refreshProfile, setStage }: Props) => {
         setTaken(true);
       } else {
         setTaken(false);
-        updateUsername(userProfile.uid, username).then(() =>
+        updateUsername(uid, username).then(() =>
           refreshProfile().then(() => setStage("image"))
         );
       }

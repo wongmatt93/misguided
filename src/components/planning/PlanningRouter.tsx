@@ -1,17 +1,34 @@
 import { Route, Routes } from "react-router-dom";
-import CityDetailsPage from "../cityDetails/CityDetailsPage";
+import UserProfile from "../../models/UserProfile";
+import CityDetailsPage from "../CityDetails/CityDetailsPage";
 import PlanningPage from "./PlanningPage";
 import PlanTripPage from "./PlanTripPage";
 
-const PlanningRouter = () => {
+interface Props {
+  userProfile: UserProfile;
+  refreshProfile: () => Promise<void>;
+}
+
+const PlanningRouter = ({ userProfile, refreshProfile }: Props) => {
   return (
-    <>
-      <Routes>
-        <Route index element={<PlanTripPage />} />
-        <Route path="/city-details/:cityId" element={<CityDetailsPage />} />
-        <Route path="/get-itinerary/:cityId" element={<PlanningPage />} />
-      </Routes>
-    </>
+    <Routes>
+      <Route index element={<PlanTripPage userProfile={userProfile} />} />
+      <Route
+        path="/city-details/:cityId"
+        element={
+          <CityDetailsPage
+            userProfile={userProfile}
+            refreshProfile={refreshProfile}
+          />
+        }
+      />
+      <Route
+        path="/get-itinerary/:cityId"
+        element={
+          <PlanningPage uid={userProfile.uid} refreshProfile={refreshProfile} />
+        }
+      />
+    </Routes>
   );
 };
 

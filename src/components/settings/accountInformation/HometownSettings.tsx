@@ -20,7 +20,7 @@ const HometownSettings = ({ userProfile, refreshProfile }: Props) => {
 
   useEffect(() => {
     hometown && setHometownId(hometown._id!);
-  }, [userProfile, hometown]);
+  }, [hometown]);
 
   const handleSubmit = async (
     e: FormEvent,

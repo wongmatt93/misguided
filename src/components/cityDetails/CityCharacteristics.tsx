@@ -1,13 +1,13 @@
 import City from "../../models/City";
-import UserProfile from "../../models/UserProfile";
+import { Preferences } from "../../models/UserProfile";
 import "./CityCharacteristics.css";
 
 interface Props {
   city: City;
-  userProfile: UserProfile;
+  preferences: Preferences;
 }
 
-const CityCharacteristics = ({ city, userProfile }: Props) => {
+const CityCharacteristics = ({ city, preferences }: Props) => {
   return (
     <ul className="CityCharacteristics">
       {city.knownFor.map((item, index) => {
@@ -23,10 +23,7 @@ const CityCharacteristics = ({ city, userProfile }: Props) => {
           <li
             key={index}
             style={
-              userProfile &&
-              userProfile.preferences![
-                known as keyof typeof userProfile.preferences
-              ]
+              preferences[known as keyof typeof preferences]
                 ? { backgroundColor: "#f0b202" }
                 : { backgroundColor: "#ededed" }
             }
