@@ -15,16 +15,13 @@ const ProfileTripCard = ({ trip }: Props) => {
   const [cardImage, setCardImage] = useState("");
 
   useEffect(() => {
-    if (city) {
-      if (trip.photos.length > 0) {
-        setCardImage(trip.photos[0]);
-      } else {
-        setCardImage(city.photoURL);
-      }
-    }
+    city &&
+      (trip.photos.length > 0
+        ? setCardImage(trip.photos[0])
+        : setCardImage(city.photoURL));
   }, [city, trip]);
 
-  const handleClick = (): void => navigate(`/trip/${trip._id!}`);
+  const handleClick = (): void => navigate(`/trip-details/${trip._id!}`);
 
   return (
     <>

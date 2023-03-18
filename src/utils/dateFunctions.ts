@@ -1,4 +1,4 @@
-import Trip from "../models/Trip";
+import Trip, { Comment } from "../models/Trip";
 import { Notification } from "../models/UserProfile";
 
 export let today: Date = new Date();
@@ -23,6 +23,15 @@ export const sortTripsAscending = (tripArray: Trip[]): Trip[] =>
 export const sortTripsDescending = (tripArray: Trip[]): Trip[] =>
   tripArray.sort(function (a, b) {
     if (b.endDate + b._id! < a.endDate + a._id!) {
+      return -1;
+    } else {
+      return 1;
+    }
+  });
+
+export const sortCommentsDescending = (comments: Comment[]): Comment[] =>
+  comments.sort(function (a, b) {
+    if (b.date + b.uid < a.date + a.uid) {
       return -1;
     } else {
       return 1;
