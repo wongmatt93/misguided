@@ -15,6 +15,7 @@ import {
 } from "../../../utils/notificationsFunctions";
 import InviteFriendsModal from "./InviteFriendsModal";
 import ParticipantCard from "./ParticipantCard";
+
 import "./ParticipantsSection.css";
 
 interface Props {

@@ -13,31 +13,29 @@ interface Props {
 
 const SettingsRouter = ({ userProfile, refreshProfile }: Props) => {
   return (
-    <>
-      <Routes>
-        <Route index element={<SettingsPage userProfile={userProfile} />} />
-        <Route
-          path="/account"
-          element={
-            <AccountInformationPage
-              userProfile={userProfile}
-              refreshProfile={refreshProfile}
-            />
-          }
-        />
-        <Route
-          path="/preferences"
-          element={
-            <PreferencesPage
-              userProfile={userProfile}
-              refreshProfile={refreshProfile}
-            />
-          }
-        />
-        <Route path="/notifications" element={<NotificationsSettingsPage />} />
-        <Route path="/add-city" element={<AddCityPage />} />
-      </Routes>
-    </>
+    <Routes>
+      <Route index element={<SettingsPage userProfile={userProfile} />} />
+      <Route
+        path="/account"
+        element={
+          <AccountInformationPage
+            userProfile={userProfile}
+            refreshProfile={refreshProfile}
+          />
+        }
+      />
+      <Route
+        path="/preferences"
+        element={
+          <PreferencesPage
+            userProfile={userProfile}
+            refreshProfile={refreshProfile}
+          />
+        }
+      />
+      <Route path="/notifications" element={<NotificationsSettingsPage />} />
+      <Route path="/add-city" element={<AddCityPage />} />
+    </Routes>
   );
 };
 

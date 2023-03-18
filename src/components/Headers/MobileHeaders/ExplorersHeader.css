@@ -1,12 +1,12 @@
-.HomeHeader {
+.ExplorersHeader {
   justify-content: space-between;
 }
 
-.HomeHeader svg {
+.ExplorersHeader svg {
   font-size: 1.5em;
   color: #353839;
 }
 
-.HomeHeader svg:hover {
+.ExplorersHeader svg:hover {
   cursor: pointer;
 }

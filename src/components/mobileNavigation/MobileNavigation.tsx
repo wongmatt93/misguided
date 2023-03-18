@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
 import {
   RiDiscussFill,
-  RiSpyFill,
+  RiGroupFill,
   RiHome2Fill,
   RiAddBoxFill,
   RiLuggageCartFill,
@@ -53,8 +53,8 @@ const MobileNavigation = ({ notifications }: Props) => {
             </NavLink>
           </li>
           <li>
-            <NavLink to="/settings">
-              <RiSpyFill />
+            <NavLink to="/explorers">
+              <RiGroupFill />
             </NavLink>
           </li>
         </ul>

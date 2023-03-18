@@ -16,17 +16,16 @@ import "./App.css";
 import ProfilePage from "./components/Profile/ProfilePage";
 import CityDetailsPage from "./components/CityDetails/CityDetailsPage";
 import InitialSigninPage from "./components/initialSignIn/InitialSignInPage";
-import FeedPage from "./components/Feed/FeedPage";
 import { useMediaQuery } from "react-responsive";
-import RatingPage from "./components/rating/RatingPage";
 import PlanningRouter from "./components/Planning/PlanningRouter";
 import SettingsRouter from "./components/Settings/SettingsRouter";
 import InboxPage from "./components/Inbox/InboxPage";
 import MobileHeader from "./components/Headers/MobileHeaders/MobileHeader";
 import DesktopNavigation from "./components/DesktopNavigation/DesktopNavigation";
 import LandingHeader from "./components/LandingPage/LandingHeader";
-import SearchRouter from "./components/Search/SearchRouter";
-import TripDetailsPage from "./components/tripDetails/TripDetailsPage";
+import TripDetailsPage from "./components/TripDetails/TripDetailsPage";
+import FeedRouter from "./components/Feed/FeedRouter";
+import ExplorersRouter from "./components/Explorers/ExplorersRouter";
 
 function App() {
   const { userProfile, refreshProfile } = useContext(AuthContext);
@@ -55,7 +54,15 @@ function App() {
                 <Route path="/profile/:uid" element={<ProfilePage />} />
                 <Route path="/search/profile/:uid" element={<ProfilePage />} />
                 <Route
-                  path="/trip-details/:tripId/*"
+                  path="/explorers/profile/:uid"
+                  element={<ProfilePage />}
+                />
+                <Route
+                  path="/trip-details/:tripId/"
+                  element={<TripDetailsPage />}
+                />
+                <Route
+                  path="/feed/trip-details/:tripId/"
                   element={<TripDetailsPage />}
                 />
                 <Route path="*" element={<Navigate to="/" />} />
@@ -72,18 +79,17 @@ function App() {
                   }
                 />
                 <Route
-                  path="/feed"
-                  element={<FeedPage userProfile={userProfile} />}
+                  path="/feed/*"
+                  element={<FeedRouter userProfile={userProfile} />}
                 />
                 <Route
-                  path="/search/*"
-                  element={<SearchRouter userProfile={userProfile} />}
+                  path="/explorers/*"
+                  element={<ExplorersRouter userProfile={userProfile} />}
                 />
                 <Route
                   path="/trips/*"
                   element={<TripsPage userTrips={userProfile.trips} />}
                 />
-                <Route path="/rating/:cityId/*" element={<RatingPage />} />
                 <Route
                   path="/plan-trip/*"
                   element={
@@ -128,11 +134,6 @@ function App() {
                       refreshProfile={refreshProfile}
                     />
                   }
-                />
-                <Route path="/profile/:uid" element={<ProfilePage />} />
-                <Route
-                  path="/trip-details/:tripId/*"
-                  element={<TripDetailsPage />}
                 />
                 <Route path="*" element={<Navigate to="/routes" />} />
               </>

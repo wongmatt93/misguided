@@ -8,10 +8,15 @@ import "./ProfileTripsContainer.css";
 
 interface Props {
   profile: UserProfile;
+  userProfile: UserProfile | undefined;
   setPastTripsCount: React.Dispatch<React.SetStateAction<number>>;
 }
 
-const ProfileTripsContainer = ({ profile, setPastTripsCount }: Props) => {
+const ProfileTripsContainer = ({
+  profile,
+  userProfile,
+  setPastTripsCount,
+}: Props) => {
   const [pastTrips, setPastTrips] = useState<Trip[]>([]);
 
   useEffect(() => {
@@ -44,7 +49,11 @@ const ProfileTripsContainer = ({ profile, setPastTripsCount }: Props) => {
   return (
     <ul className="ProfileTripsContainer">
       {pastTrips.map((trip) => (
-        <ProfileTripCard key={trip._id!} trip={trip} />
+        <ProfileTripCard
+          key={trip._id!}
+          trip={trip}
+          userProfile={userProfile}
+        />
       ))}
     </ul>
   );

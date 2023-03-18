@@ -52,7 +52,7 @@ const FeedCard = ({ tripId, userProfile }: Props) => {
     <>
       {city && trip && (
         <li className="FeedCard">
-          <FeedCardHeader trip={trip} />
+          <FeedCardHeader trip={trip} userTrips={userProfile.trips} />
           <FeedCardLocation trip={trip} city={city} />
           <FriendCardPhotoCarousel
             photos={photos}

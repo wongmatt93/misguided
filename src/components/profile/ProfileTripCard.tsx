@@ -3,13 +3,15 @@ import { useNavigate } from "react-router-dom";
 import useCityFetcher from "../../hooks/useCityFetcher";
 import City from "../../models/City";
 import Trip from "../../models/Trip";
+import UserProfile from "../../models/UserProfile";
 import "./ProfileTripCard.css";
 
 interface Props {
   trip: Trip;
+  userProfile: UserProfile | undefined;
 }
 
-const ProfileTripCard = ({ trip }: Props) => {
+const ProfileTripCard = ({ trip, userProfile }: Props) => {
   const navigate = useNavigate();
   const city: City | null = useCityFetcher(trip.cityId);
   const [cardImage, setCardImage] = useState("");
@@ -21,7 +23,13 @@ const ProfileTripCard = ({ trip }: Props) => {
         : setCardImage(city.photoURL));
   }, [city, trip]);
 
-  const handleClick = (): void => navigate(`/trip-details/${trip._id!}`);
+  const handleClick = (): void => {
+    !userProfile
+      ? navigate(`/trip-details/${trip._id!}`)
+      : userProfile.trips.some((userTrip) => userTrip.tripId === trip._id!)
+      ? navigate(`/trips/trip-details/${trip._id!}`)
+      : navigate(`/explorers/trip-details/${trip._id!}`);
+  };
 
   return (
     <>

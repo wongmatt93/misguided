@@ -11,7 +11,7 @@ const FeedCardParticipantCard = ({ participant }: Props) => {
   const navigate = useNavigate();
   const userProfile: UserProfile | null = useProfileFetcher(participant);
 
-  const handleClick = (): void => navigate(`/profile/${participant}`);
+  const handleClick = (): void => navigate(`/explorers/profile/${participant}`);
 
   return (
     <>

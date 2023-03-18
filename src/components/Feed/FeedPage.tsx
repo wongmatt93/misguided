@@ -1,10 +1,10 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { RiCameraOffFill } from "react-icons/ri";
-import FollowContext from "../../context/FollowContext";
 import useTimer from "../../hooks/useTimer";
 import Trip from "../../models/Trip";
 import UserProfile from "../../models/UserProfile";
 import { getTripById } from "../../services/tripServices";
+import { getAllUsersByUidArray } from "../../services/userService";
 import { sortTripsDescending, today } from "../../utils/dateFunctions";
 import LoadingCamera from "../common/LoadingCamera";
 import FeedCard from "./FeedCard/FeedCard";
@@ -15,52 +15,57 @@ interface Props {
 }
 
 const FeedPage = ({ userProfile }: Props) => {
-  const { following } = useContext(FollowContext);
-  const [friendsPastTrips, setFriendsPastTrips] = useState<string[]>([]);
+  const [feedTrips, setFeedTrips] = useState<string[]>([]);
   const timesUp = useTimer(2000);
+
+  console.log("why");
 
   useEffect(() => {
     const trips: Trip[] = [];
 
-    Promise.allSettled(
-      following.concat(userProfile).map((user) =>
+    if (userProfile.followingUids.length > 0) {
+      getAllUsersByUidArray(userProfile.followingUids).then((response) => {
         Promise.allSettled(
-          user.trips.map(
-            (trip) =>
-              trip.accepted &&
-              getTripById(trip.tripId).then((response) => {
-                if (response.completed) {
-                  if (
-                    today.getTime() -
-                      (response.endDate
-                        ? Number(response.endDate)
-                        : Number(response.startDate)) >=
-                    0
-                  ) {
-                    if (!trips.some((trip) => trip._id === response._id)) {
-                      trips.push(response);
+          response.concat(userProfile).map((user) =>
+            Promise.allSettled(
+              user.trips.map(
+                (trip) =>
+                  trip.accepted &&
+                  getTripById(trip.tripId).then((response) => {
+                    if (response.completed) {
+                      if (
+                        today.getTime() -
+                          (response.endDate
+                            ? Number(response.endDate)
+                            : Number(response.startDate)) >=
+                        0
+                      ) {
+                        if (!trips.some((trip) => trip._id === response._id)) {
+                          trips.push(response);
+                        }
+                      }
                     }
-                  }
-                }
-              })
+                  })
+              )
+            )
           )
-        )
-      )
-    ).then(() => {
-      const sorted: Trip[] = sortTripsDescending(trips);
-      setFriendsPastTrips(sorted.map((item) => item._id!));
-    });
-  }, [following, userProfile]);
+        ).then(() => {
+          const sorted: Trip[] = sortTripsDescending(trips);
+          setFeedTrips(sorted.map((item) => item._id!));
+        });
+      });
+    }
+  }, [userProfile]);
 
   return (
     <section className="FeedPage">
       {!timesUp && <LoadingCamera />}
-      {friendsPastTrips.length > 0 ? (
+      {feedTrips.length > 0 ? (
         <ul
           className="feed-container"
           style={{ display: timesUp ? "block" : "none" }}
         >
-          {friendsPastTrips.map((tripId) => (
+          {feedTrips.map((tripId) => (
             <FeedCard key={tripId} tripId={tripId} userProfile={userProfile} />
           ))}
         </ul>
