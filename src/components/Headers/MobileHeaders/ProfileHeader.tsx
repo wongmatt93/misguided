@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { RiMenuLine } from "react-icons/ri";
 import UserProfile from "../../../models/UserProfile";
 import { getUserByUid } from "../../../services/userService";
 import "./ProfileHeader.css";
@@ -17,9 +18,16 @@ const ProfileHeader = ({ path }: Props) => {
   }, [path]);
 
   return (
-    <header className="ProfileHeader">
-      {user && <h1>{user.username}</h1>}
-    </header>
+    <>
+      {user && (
+        <div className="ProfileHeader MobileHeaderDiv">
+          <h1>{user.username}</h1>
+          <button className="menu-button">
+            <RiMenuLine />
+          </button>
+        </div>
+      )}
+    </>
   );
 };
 

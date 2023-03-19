@@ -4,8 +4,7 @@ import {
   RiDiscussFill,
   RiHome2Fill,
   RiLuggageCartFill,
-  RiSearchLine,
-  RiSettings2Fill,
+  RiTeamFill,
 } from "react-icons/ri";
 import { NavLink } from "react-router-dom";
 import { Notification } from "../../models/UserProfile";
@@ -32,15 +31,21 @@ const DesktopNavigation = ({ notifications }: Props) => {
           </NavLink>
         </li>
         <li>
-          <NavLink to="/trips">
-            <RiLuggageCartFill />
-            <span>Trips</span>
+          <NavLink to="/explorers">
+            <RiTeamFill />
+            <span>Explorers</span>
           </NavLink>
         </li>
         <li>
           <NavLink to="/plan-trip">
             <RiAddBoxFill />
             <span>Plan</span>
+          </NavLink>
+        </li>
+        <li>
+          <NavLink to="/trips">
+            <RiLuggageCartFill />
+            <span>Trips</span>
           </NavLink>
         </li>
         <li>
@@ -54,18 +59,6 @@ const DesktopNavigation = ({ notifications }: Props) => {
               <RiDiscussFill />
               <span>Inbox</span>
             </div>
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to="/explorers">
-            <RiSearchLine />
-            <span>Explorers</span>
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to="/settings">
-            <RiSettings2Fill />
-            <span>Settings</span>
           </NavLink>
         </li>
       </ul>

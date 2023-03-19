@@ -1,6 +1,6 @@
 .InboxHeader .dropdown-toggle {
   display: flex;
-  padding: 0.3em;
+  padding: 0.3rem 0.4rem;
 }
 
 .InboxHeader svg {

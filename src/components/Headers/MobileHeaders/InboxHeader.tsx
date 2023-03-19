@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { Dropdown } from "react-bootstrap";
-import { RiMoreFill } from "react-icons/ri";
+import { RiMenuLine } from "react-icons/ri";
 import AuthContext from "../../../context/AuthContext";
 import { Notification } from "../../../models/UserProfile";
 import {
@@ -45,12 +45,12 @@ const InboxHeader = ({ path }: Props) => {
   };
 
   return (
-    <header className="InboxHeader">
+    <div className="InboxHeader MobileHeaderDiv">
       <h1>inbox</h1>
       {content === "notification" && (
         <Dropdown>
           <Dropdown.Toggle variant="warning">
-            <RiMoreFill />
+            <RiMenuLine />
           </Dropdown.Toggle>
           <Dropdown.Menu>
             <Dropdown.Item onClick={markAllRead}>Mark All Read</Dropdown.Item>
@@ -60,7 +60,7 @@ const InboxHeader = ({ path }: Props) => {
           </Dropdown.Menu>
         </Dropdown>
       )}
-    </header>
+    </div>
   );
 };
 

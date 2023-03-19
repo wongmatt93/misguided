@@ -1,0 +1,20 @@
+.AccountInformationSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+
+.AccountInformationSection .account-items-list {
+  width: 100%;
+}
+
+.AccountInformationSection .label {
+  font-size: 0.7em;
+  color: #f0b202;
+}
+
+.AccountInformationSection svg {
+  font-size: 1rem;
+}

@@ -6,6 +6,8 @@
 .UpdatePhoto img {
   height: 7em;
   width: 7em;
+  border-radius: 50%;
+  object-fit: cover;
 }
 
 .UpdatePhoto .edit-photo {

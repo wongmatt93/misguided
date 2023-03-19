@@ -7,7 +7,7 @@ import {
 } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import AuthContext from "./context/AuthContext";
-import Header from "./components/Headers/Header";
+import DesktopHeader from "./components/Headers/DesktopHeader";
 import LandingPage from "./components/LandingPage/LandingPage";
 import DiscoverPage from "./components/Discover/DiscoverPage";
 import MobileNavigation from "./components/MobileNavigation/MobileNavigation";
@@ -18,7 +18,6 @@ import CityDetailsPage from "./components/CityDetails/CityDetailsPage";
 import InitialSigninPage from "./components/initialSignIn/InitialSignInPage";
 import { useMediaQuery } from "react-responsive";
 import PlanningRouter from "./components/Planning/PlanningRouter";
-import SettingsRouter from "./components/Settings/SettingsRouter";
 import InboxPage from "./components/Inbox/InboxPage";
 import MobileHeader from "./components/Headers/MobileHeaders/MobileHeader";
 import DesktopNavigation from "./components/DesktopNavigation/DesktopNavigation";
@@ -35,11 +34,19 @@ function App() {
     <div className="App">
       <Router>
         {userProfile ? (
-          isDesktop ? (
-            <Header userProfile={userProfile} />
-          ) : (
-            <MobileHeader />
-          )
+          <>
+            {isDesktop ? (
+              <DesktopHeader
+                userProfile={userProfile}
+                refreshProfile={refreshProfile}
+              />
+            ) : (
+              <MobileHeader
+                userProfile={userProfile}
+                refreshProfile={refreshProfile}
+              />
+            )}
+          </>
         ) : (
           <LandingHeader />
         )}
@@ -126,15 +133,6 @@ function App() {
                   path="/inbox/*"
                   element={
                     <InboxPage
-                      userProfile={userProfile}
-                      refreshProfile={refreshProfile}
-                    />
-                  }
-                />
-                <Route
-                  path="/settings/*"
-                  element={
-                    <SettingsRouter
                       userProfile={userProfile}
                       refreshProfile={refreshProfile}
                     />

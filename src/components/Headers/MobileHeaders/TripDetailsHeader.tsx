@@ -58,7 +58,7 @@ const TripDetailsHeader = ({ path }: Props) => {
   return (
     <>
       {trip && (
-        <header className="TripDetailsHeader">
+        <div className="TripDetailsHeader MobileHeaderDiv">
           <div
             className="name-container"
             onMouseEnter={() => setShowEdit(true)}
@@ -82,7 +82,7 @@ const TripDetailsHeader = ({ path }: Props) => {
             show={showModal}
             handleClose={handleClose}
           />
-        </header>
+        </div>
       )}
     </>
   );

@@ -1,10 +1,10 @@
 import { FormEvent, useEffect, useState } from "react";
 import { RiEditFill, RiCheckFill, RiCloseCircleFill } from "react-icons/ri";
-import useCityFetcher from "../../../hooks/useCityFetcher";
-import useFetchAllCities from "../../../hooks/useFetchAllCities";
-import City from "../../../models/City";
-import UserProfile from "../../../models/UserProfile";
-import { updateUserHometown } from "../../../services/userService";
+import useCityFetcher from "../../../../hooks/useCityFetcher";
+import useFetchAllCities from "../../../../hooks/useFetchAllCities";
+import City from "../../../../models/City";
+import UserProfile from "../../../../models/UserProfile";
+import { updateUserHometown } from "../../../../services/userService";
 import "./HometownSettings.css";
 
 interface Props {

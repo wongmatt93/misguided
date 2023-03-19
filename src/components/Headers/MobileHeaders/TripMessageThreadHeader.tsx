@@ -29,13 +29,13 @@ const TripMessageThreadHeader = ({ path }: Props) => {
   return (
     <>
       {city && trip && (
-        <header className="TripMessageThreadHeader">
+        <div className="TripMessageThreadHeader MobileHeaderDiv">
           <h1 onClick={handleClick}>
             {trip.nickname
               ? trip.nickname.toLowerCase()
               : city.cityName.toLowerCase()}
           </h1>
-        </header>
+        </div>
       )}
     </>
   );
