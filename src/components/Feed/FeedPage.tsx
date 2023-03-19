@@ -18,43 +18,36 @@ const FeedPage = ({ userProfile }: Props) => {
   const [feedTrips, setFeedTrips] = useState<string[]>([]);
   const timesUp = useTimer(2000);
 
-  console.log("why");
-
   useEffect(() => {
     const trips: Trip[] = [];
 
-    if (userProfile.followingUids.length > 0) {
-      getAllUsersByUidArray(userProfile.followingUids).then((response) => {
-        Promise.allSettled(
-          response.concat(userProfile).map((user) =>
-            Promise.allSettled(
-              user.trips.map(
-                (trip) =>
-                  trip.accepted &&
-                  getTripById(trip.tripId).then((response) => {
-                    if (response.completed) {
-                      if (
-                        today.getTime() -
-                          (response.endDate
-                            ? Number(response.endDate)
-                            : Number(response.startDate)) >=
-                        0
-                      ) {
-                        if (!trips.some((trip) => trip._id === response._id)) {
-                          trips.push(response);
-                        }
-                      }
-                    }
-                  })
-              )
+    getAllUsersByUidArray(
+      userProfile.followingUids.concat(userProfile.uid)
+    ).then((response) => {
+      Promise.allSettled(
+        response.map((user) =>
+          Promise.allSettled(
+            user.trips.map(
+              (trip) =>
+                trip.accepted &&
+                getTripById(trip.tripId).then(
+                  (response) =>
+                    response.completed &&
+                    today.getTime() -
+                      (response.endDate
+                        ? Number(response.endDate)
+                        : Number(response.startDate)) >=
+                      0 &&
+                    !trips.some((trip) => trip._id === response._id) &&
+                    trips.push(response)
+                )
             )
           )
-        ).then(() => {
-          const sorted: Trip[] = sortTripsDescending(trips);
-          setFeedTrips(sorted.map((item) => item._id!));
-        });
+        )
+      ).then(() => {
+        setFeedTrips(sortTripsDescending(trips).map((item) => item._id!));
       });
-    }
+    });
   }, [userProfile]);
 
   return (

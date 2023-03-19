@@ -15,7 +15,7 @@ const InboxNav = ({ notifications }: Props) => {
   const location: string = useLocation().pathname;
 
   useEffect(() => {
-    location.includes("thread")
+    location.includes("thread") || location.includes("trip-details")
       ? setDetailsShowing(true)
       : setDetailsShowing(false);
   }, [location]);

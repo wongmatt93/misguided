@@ -14,15 +14,7 @@ const CityDetailsHeader = ({ path }: Props) => {
 
   useEffect(() => {
     if (path.includes("city-details")) {
-      let cityId: string;
-
-      if (path.includes("plan-trip")) {
-        cityId = path.slice(24);
-      } else {
-        cityId = path.slice(14);
-      }
-
-      getCityById(cityId).then((response) => {
+      getCityById(path.split("city-details/")[1]).then((response) => {
         setCity(response);
 
         if (response) {

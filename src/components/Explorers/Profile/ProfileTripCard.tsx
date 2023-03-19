@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import useCityFetcher from "../../hooks/useCityFetcher";
-import City from "../../models/City";
-import Trip from "../../models/Trip";
-import UserProfile from "../../models/UserProfile";
+import useCityFetcher from "../../../hooks/useCityFetcher";
+import City from "../../../models/City";
+import Trip from "../../../models/Trip";
+import UserProfile from "../../../models/UserProfile";
 import "./ProfileTripCard.css";
 
 interface Props {

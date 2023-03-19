@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
 import {
   RiDiscussFill,
-  RiGroupFill,
+  RiTeamFill,
   RiHome2Fill,
   RiAddBoxFill,
   RiLuggageCartFill,
@@ -31,13 +31,18 @@ const MobileNavigation = ({ notifications }: Props) => {
             </NavLink>
           </li>
           <li>
-            <NavLink to="/trips">
-              <RiLuggageCartFill />
+            <NavLink to="/explorers">
+              <RiTeamFill />
             </NavLink>
           </li>
           <li>
             <NavLink to="/plan-trip">
               <RiAddBoxFill />
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/trips">
+              <RiLuggageCartFill />
             </NavLink>
           </li>
           <li>
@@ -50,11 +55,6 @@ const MobileNavigation = ({ notifications }: Props) => {
                 )}
                 <RiDiscussFill />
               </div>
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="/explorers">
-              <RiGroupFill />
             </NavLink>
           </li>
         </ul>

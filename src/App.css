@@ -50,12 +50,13 @@ form {
 
 .App header h1 {
   color: #f0b202;
-  cursor: default;
   user-select: none;
   font-family: "Roboto", sans-serif;
 }
 
 .App main {
+  display: flex;
+  flex-direction: column;
   flex: 1;
   background-color: #f5f5f5;
   overflow: auto;
@@ -98,7 +99,7 @@ form {
   }
 
   .App main {
-    display: flex;
+    flex-direction: row;
     margin: 3.5rem 0 0;
     padding: 1rem 1rem 0;
   }
