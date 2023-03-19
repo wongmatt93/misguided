@@ -1,3 +1,7 @@
+.PhoneSettings {
+  width: 100%;
+}
+
 .PhoneSettings button {
   background-color: transparent;
   border: none;

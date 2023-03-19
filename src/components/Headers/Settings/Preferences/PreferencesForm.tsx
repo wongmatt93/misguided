@@ -1,7 +1,7 @@
 import { FormEvent, useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
-import UserProfile, { Preferences } from "../../../models/UserProfile";
-import { updateUserPreferences } from "../../../services/userService";
+import UserProfile, { Preferences } from "../../../../models/UserProfile";
+import { updateUserPreferences } from "../../../../services/userService";
 import "./PreferencesForm.css";
 
 interface Props {
@@ -91,7 +91,7 @@ const PreferencesForm = ({ setShow, userProfile, refreshProfile }: Props) => {
 
   return (
     <form className="PreferencesForm" onSubmit={(e) => handleSubmit(e)}>
-      <div>
+      <div className="input-container">
         <input
           type="checkbox"
           name="charming"

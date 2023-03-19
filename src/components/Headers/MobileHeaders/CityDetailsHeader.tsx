@@ -33,9 +33,9 @@ const CityDetailsHeader = ({ path }: Props) => {
   }, [path]);
 
   return (
-    <header className="CityDetailsHeader">
+    <>
       {city && (
-        <>
+        <div className="CityDetailsHeader">
           <h1 className="city-name">{city.cityName.toLowerCase()}</h1>
           <div className="rating">
             {rating > 0 ? (
@@ -47,9 +47,9 @@ const CityDetailsHeader = ({ path }: Props) => {
               <p className="no-ratings">No Ratings Yet</p>
             )}
           </div>
-        </>
+        </div>
       )}
-    </header>
+    </>
   );
 };
 

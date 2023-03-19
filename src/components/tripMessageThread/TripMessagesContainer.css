@@ -10,12 +10,13 @@
   .TripMessagesContainer {
     display: flex;
     flex-direction: column;
+    height: calc(100% - 5.5rem);
     border-left: 1px solid rgba(0, 0, 0, 0.1);
     border-right: 1px solid rgba(0, 0, 0, 0.1);
   }
 
   .TripMessagesContainer ul {
     flex: 1;
-    padding: 3rem 1rem 4.5rem;
+    padding: 2rem 1rem 1rem;
   }
 }

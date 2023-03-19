@@ -1,16 +1,27 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import CityDetailsHeader from "./CityDetailsHeader";
-import InboxHeader from "./InboxHeader";
 import "./MobileHeader.css";
-import SettingsHeader from "./SettingsHeader";
 import TripDetailsHeader from "./TripDetailsHeader";
 import TripMessageThreadHeader from "./TripMessageThreadHeader";
 import ProfileHeader from "./ProfileHeader";
+import { RiMenuLine } from "react-icons/ri";
+import InboxHeader from "./InboxHeader";
+import SettingsOffcanvas from "../Settings/SettingsOffcanvas";
+import UserProfile from "../../../models/UserProfile";
 
-const MobileHeader = () => {
+interface Props {
+  userProfile: UserProfile;
+  refreshProfile: () => Promise<void>;
+}
+
+const MobileHeader = ({ userProfile, refreshProfile }: Props) => {
   const [page, setPage] = useState("feed");
+  const [show, setShow] = useState(false);
   const path: string = useLocation().pathname;
+
+  const handleClose = (): void => setShow(false);
+  const handleShow = (): void => setShow(true);
 
   useEffect(() => {
     if (path.includes("trip-details")) {
@@ -27,7 +38,7 @@ const MobileHeader = () => {
       setPage("trips");
     } else if (path.includes("city-details")) {
       setPage("cityDetails");
-    } else if (path.includes("plan-trip/get-itinerary")) {
+    } else if (path.includes("get-itinerary")) {
       setPage("choose your dates");
     } else if (path.includes("plan-trip")) {
       setPage("trip planning");
@@ -37,20 +48,35 @@ const MobileHeader = () => {
       setPage("inbox");
     } else if (path.includes("discover")) {
       setPage("discover");
-    } else if (path.includes("settings")) {
-      setPage("settings");
     }
   }, [path]);
 
   return (
-    <header>
-      {/* 
-      {page === "profile" && <ProfileHeader path={path} />}
-      {page === "tripDetails" && <TripDetailsHeader path={path} />}
-      {page === "cityDetails" && <CityDetailsHeader path={path} />}
-      {page === "thread" && <TripMessageThreadHeader path={path} />}
-      {page === "settings" && <SettingsHeader path={path} />} */}
-      <h1>{page}</h1>
+    <header className="MobileHeader">
+      {page === "profile" ? (
+        <ProfileHeader path={path} />
+      ) : page === "tripDetails" ? (
+        <TripDetailsHeader path={path} />
+      ) : page === "cityDetails" ? (
+        <CityDetailsHeader path={path} />
+      ) : page === "thread" ? (
+        <TripMessageThreadHeader path={path} />
+      ) : page === "inbox" ? (
+        <InboxHeader path={path} />
+      ) : (
+        <div className="MobileHeaderDiv">
+          <h1>{page}</h1>
+          <button className="menu-button" onClick={handleShow}>
+            <RiMenuLine />
+          </button>
+        </div>
+      )}
+      <SettingsOffcanvas
+        userProfile={userProfile}
+        refreshProfile={refreshProfile}
+        show={show}
+        handleClose={handleClose}
+      />
     </header>
   );
 };

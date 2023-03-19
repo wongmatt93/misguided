@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import PreferencesForm from "../Settings/Preferences/PreferencesForm";
+import PreferencesForm from "../Headers/Settings/Preferences/PreferencesForm";
 import "./InitialSignInPage.css";
 import InitialPhotoUploadForm from "./InitialPhotoUploadForm";
 import InitialHometownForm from "./InitialHometownForm";

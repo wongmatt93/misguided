@@ -37,7 +37,6 @@ form {
 
 .App header {
   display: flex;
-  justify-content: space-between;
   align-items: center;
   width: 100%;
   height: 3.5rem;
@@ -95,7 +94,7 @@ form {
 
 @media only screen and (min-width: 768px) {
   .App header {
-    padding: 1rem 2rem;
+    padding: 1rem 3rem;
   }
 
   .App main {

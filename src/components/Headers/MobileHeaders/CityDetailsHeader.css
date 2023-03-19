@@ -1,3 +1,10 @@
+.CityDetailsHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
 .CityDetailsHeader .rating {
   display: flex;
   justify-content: flex-end;

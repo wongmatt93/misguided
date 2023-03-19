@@ -2,19 +2,19 @@ import Toast from "react-bootstrap/Toast";
 import ToastContainer from "react-bootstrap/ToastContainer";
 import { useState } from "react";
 import PreferencesForm from "./PreferencesForm";
-import "./PreferencesPage.css";
-import UserProfile from "../../../models/UserProfile";
+import "./PreferencesSection.css";
+import UserProfile from "../../../../models/UserProfile";
 
 interface Props {
   userProfile: UserProfile;
   refreshProfile: () => Promise<void>;
 }
 
-const PreferencesPage = ({ userProfile, refreshProfile }: Props) => {
+const PreferencesSection = ({ userProfile, refreshProfile }: Props) => {
   const [show, setShow] = useState(false);
 
   return (
-    <section className="PreferencesPage">
+    <section className="PreferencesSection">
       <PreferencesForm
         setShow={setShow}
         userProfile={userProfile}
@@ -36,4 +36,4 @@ const PreferencesPage = ({ userProfile, refreshProfile }: Props) => {
   );
 };
 
-export default PreferencesPage;
+export default PreferencesSection;

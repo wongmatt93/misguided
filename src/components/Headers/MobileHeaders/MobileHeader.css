@@ -1,0 +1,19 @@
+.MobileHeader .MobileHeaderDiv {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.MobileHeader .menu-button {
+  display: flex;
+  border: 0;
+  padding: 0.3rem 0.4rem;
+  background-color: #f0b202;
+  color: #f5f5f5;
+  border-radius: 5px;
+}
+
+.MobileHeader .menu-button:active {
+  opacity: 0.8;
+}

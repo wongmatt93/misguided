@@ -1,7 +1,7 @@
 import { FormEvent, useState } from "react";
 import { RiCheckFill, RiCloseCircleFill, RiEditFill } from "react-icons/ri";
-import UserProfile from "../../../models/UserProfile";
-import { updateUserPhone } from "../../../services/userService";
+import UserProfile from "../../../../models/UserProfile";
+import { updateUserPhone } from "../../../../services/userService";
 import "./PhoneSettings.css";
 
 interface Props {
