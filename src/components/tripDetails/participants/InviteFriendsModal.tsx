@@ -1,17 +1,14 @@
 import { FormEvent, useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
+import useFriendsFetcher from "../../../hooks/useFriendsFetcher";
 import Trip from "../../../models/Trip";
 import UserProfile, {
   Notification,
   UserTrip,
 } from "../../../models/UserProfile";
 import { addNewParticipantToTrip } from "../../../services/tripServices";
-import {
-  addNewUserTrip,
-  addNotification,
-  getAllUsersByUidArray,
-} from "../../../services/userService";
+import { addNewUserTrip, addNotification } from "../../../services/userService";
 import { createTripRequestNotif } from "../../../utils/notificationsFunctions";
 import InviteFriendCheckbox from "./InviteFriendCheckbox";
 import "./InviteFriendsModal.css";
@@ -31,35 +28,17 @@ const InviteFriendsModal = ({
   refreshTrip,
   handleClose,
 }: Props) => {
+  const friends: UserProfile[] = useFriendsFetcher(userProfile);
   const [filteredFriends, setFilteredFriends] = useState<UserProfile[]>([]);
   const [invitedFriends, setInvitedFriends] = useState<string[]>([]);
 
   useEffect(() => {
-    let higherQuantity: string[];
-    let lowerQuantity: string[];
-
-    if (userProfile.followingUids.length > userProfile.followersUids.length) {
-      higherQuantity = userProfile.followingUids;
-      lowerQuantity = userProfile.followersUids;
-    } else {
-      higherQuantity = userProfile.followersUids;
-      lowerQuantity = userProfile.followingUids;
-    }
-
-    const friends: string[] = lowerQuantity.filter((lowerItem) =>
-      higherQuantity.includes(lowerItem)
+    setFilteredFriends(
+      friends.filter(
+        (friend) => !friend.trips.some((item) => item.tripId === trip._id!)
+      )
     );
-
-    if (friends.length > 0) {
-      getAllUsersByUidArray(friends).then((response) => {
-        setFilteredFriends(
-          response.filter(
-            (friend) => !friend.trips.some((item) => item.tripId === trip._id!)
-          )
-        );
-      });
-    }
-  }, [userProfile, trip]);
+  }, [friends, trip]);
 
   const handleSubmit = async (e: FormEvent): Promise<void> => {
     e.preventDefault();

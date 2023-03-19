@@ -5,6 +5,7 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import TripMessageThreadPage from "../TripMessageThread/TripMessageThreadPage";
 import InboxNav from "./InboxNav";
 import UserProfile from "../../models/UserProfile";
+import TripDetailsPage from "../TripDetails/TripDetailsPage";
 
 interface Props {
   userProfile: UserProfile;
@@ -39,6 +40,7 @@ const InboxPage = ({ userProfile, refreshProfile }: Props) => {
           path="/thread/:tripId"
           element={<TripMessageThreadPage userUid={userProfile.uid} />}
         />
+        <Route path="/trip-details/:tripId" element={<TripDetailsPage />} />
       </Routes>
     </section>
   );

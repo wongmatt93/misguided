@@ -64,7 +64,7 @@ const InboxNotificationsContainer = ({
                   <InboxNotificationsCluster
                     key={index}
                     notifications={paginatedNotifs[key]}
-                    uid={userProfile.uid}
+                    userProfile={userProfile}
                     refreshProfile={refreshProfile}
                   />
                 )

@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import Trip from "../../models/Trip";
-import UserProfile from "../../models/UserProfile";
-import { getTripsByTripIdArray } from "../../services/tripServices";
-import { today } from "../../utils/dateFunctions";
+import Trip from "../../../models/Trip";
+import UserProfile from "../../../models/UserProfile";
+import { getTripsByTripIdArray } from "../../../services/tripServices";
+import { today } from "../../../utils/dateFunctions";
 import ProfileTripCard from "./ProfileTripCard";
 import "./ProfileTripsContainer.css";
 

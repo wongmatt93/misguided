@@ -23,6 +23,12 @@ export const getUserByUsername = async (
 ): Promise<UserProfile> =>
   (await axios.get(`${baseURL}/users/${username}/username`)).data;
 
+export const getUserBySearch = async (
+  username: string,
+  search: string
+): Promise<UserProfile[]> =>
+  (await axios.get(`${baseURL}/users/${username}/${search}/search`)).data;
+
 export const addNewUser = async (user: UserProfile): Promise<UserProfile> =>
   (await axios.post(`${baseURL}/users`, user)).data;
 

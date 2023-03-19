@@ -1,0 +1,52 @@
+.ExplorersPage {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 1rem;
+}
+
+.ExplorersPage .search-input {
+  margin-bottom: 1rem;
+}
+
+.ExplorersPage .search-input button {
+  display: flex;
+  align-items: center;
+}
+
+.ExplorersPage h2 {
+  font-size: 1.2rem;
+  color: #353839;
+}
+
+.ExplorersPage .ExplorerCard {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  margin-top: 0.5rem;
+  padding: 0.5rem 1rem;
+  box-shadow: 0px 1px 1px 1px rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  user-select: none;
+  color: #353839;
+}
+
+.ExplorersPage .ExplorerCard:active:not(:focus-within) {
+  opacity: 0.7;
+}
+
+.ExplorersPage .ExplorerCard .image-name-container {
+  display: flex;
+  align-items: center;
+}
+
+.ExplorersPage .ExplorerCard img {
+  height: 2.5rem;
+  width: 2.5rem;
+  margin-right: 1rem;
+}
+
+.ExplorersPage .ExplorerCard .username {
+  font-size: 1.1rem;
+}

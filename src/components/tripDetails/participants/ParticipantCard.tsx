@@ -27,7 +27,7 @@ const ParticipantCard = ({ participant, tripId }: Props) => {
   return (
     <li
       className="ParticipantCard"
-      onClick={() => navigate(`/profile/${participant.uid}`)}
+      onClick={() => navigate(`/explorers/profile/${participant.uid}`)}
     >
       <div className="image-container">
         <img

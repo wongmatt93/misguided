@@ -17,20 +17,20 @@ const TripMessageThreadHeader = ({ path }: Props) => {
 
   useEffect(() => {
     if (path.includes("thread")) {
-      getTripById(path.slice(8)).then((response) => {
+      getTripById(path.split("thread/")[1]).then((response) => {
         setTrip(response);
         getCityById(response.cityId).then((response) => setCity(response));
       });
     }
   }, [path]);
 
-  const handleClick = (): void => navigate(`/trip-details/${trip!._id!}`);
+  const handleClick = (): void => navigate(`/trips/trip-details/${trip!._id!}`);
 
   return (
     <>
       {city && trip && (
-        <header className="TripMessageThreadHeader" onClick={handleClick}>
-          <h1>
+        <header className="TripMessageThreadHeader">
+          <h1 onClick={handleClick}>
             {trip.nickname
               ? trip.nickname.toLowerCase()
               : city.cityName.toLowerCase()}

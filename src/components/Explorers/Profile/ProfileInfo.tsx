@@ -1,4 +1,4 @@
-import UserProfile from "../../models/UserProfile";
+import UserProfile from "../../../models/UserProfile";
 import FollowButton from "./FollowButton";
 import "./ProfileInfo.css";
 
@@ -6,7 +6,6 @@ interface Props {
   profile: UserProfile;
   userProfile: UserProfile | undefined;
   refreshProfile: () => Promise<void>;
-  followStatus: string;
   pastTripsCount: number;
 }
 
@@ -14,7 +13,6 @@ const ProfileInfo = ({
   profile,
   userProfile,
   refreshProfile,
-  followStatus,
   pastTripsCount,
 }: Props) => {
   return (
@@ -44,7 +42,6 @@ const ProfileInfo = ({
           userProfile={userProfile}
           refreshProfile={refreshProfile}
           otherProfile={profile}
-          followStatus={followStatus}
         />
       )}
     </section>

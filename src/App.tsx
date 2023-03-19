@@ -13,7 +13,7 @@ import DiscoverPage from "./components/Discover/DiscoverPage";
 import MobileNavigation from "./components/MobileNavigation/MobileNavigation";
 import TripsPage from "./components/Trips/TripsPage";
 import "./App.css";
-import ProfilePage from "./components/Profile/ProfilePage";
+import ProfilePage from "./components/Explorers/Profile/ProfilePage";
 import CityDetailsPage from "./components/CityDetails/CityDetailsPage";
 import InitialSigninPage from "./components/initialSignIn/InitialSignInPage";
 import { useMediaQuery } from "react-responsive";
@@ -84,7 +84,12 @@ function App() {
                 />
                 <Route
                   path="/explorers/*"
-                  element={<ExplorersRouter userProfile={userProfile} />}
+                  element={
+                    <ExplorersRouter
+                      userProfile={userProfile}
+                      refreshProfile={refreshProfile}
+                    />
+                  }
                 />
                 <Route
                   path="/trips/*"

@@ -28,14 +28,10 @@ const TripDetailsHeader = ({ path }: Props) => {
   };
 
   useEffect(() => {
-    if (path.includes("trips/trip-details/")) {
-      getTripById(path.slice(20)).then((response) => setTrip(response));
-    } else if (path.includes("/feed/trip-details/")) {
-      getTripById(path.slice(19)).then((response) => setTrip(response));
-    } else if (path.includes("explorers/trip-details")) {
-      getTripById(path.slice(24)).then((response) => setTrip(response));
-    } else if (path.includes("trip-details")) {
-      getTripById(path.slice(14)).then((response) => setTrip(response));
+    if (path.includes("trip-details/")) {
+      getTripById(path.split("trip-details/")[1]).then((response) =>
+        setTrip(response)
+      );
     }
   }, [path]);
 

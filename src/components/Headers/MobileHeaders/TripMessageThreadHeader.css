@@ -1,4 +1,3 @@
-.TripMessageThreadHeader p {
-  font-size: 0.8rem;
-  color: #353839;
+.TripMessageThreadHeader h1 {
+  cursor: pointer;
 }
