@@ -7,7 +7,7 @@ import { getTripById } from "../../services/tripServices";
 import { getAllUsersByUidArray } from "../../services/userService";
 import { sortTripsDescending, today } from "../../utils/dateFunctions";
 import LoadingCamera from "../common/LoadingCamera";
-import FeedCard from "./FeedCard/FeedCard";
+import FeedCardContainer from "./FeedCardContainer";
 import "./FeedPage.css";
 
 interface Props {
@@ -54,14 +54,11 @@ const FeedPage = ({ userProfile }: Props) => {
     <section className="FeedPage">
       {!timesUp && <LoadingCamera />}
       {feedTrips.length > 0 ? (
-        <ul
-          className="feed-container"
-          style={{ display: timesUp ? "block" : "none" }}
-        >
-          {feedTrips.map((tripId) => (
-            <FeedCard key={tripId} tripId={tripId} userProfile={userProfile} />
-          ))}
-        </ul>
+        <FeedCardContainer
+          tripIds={feedTrips}
+          userProfile={userProfile}
+          timesUp={timesUp}
+        />
       ) : (
         <div className="empty">
           <RiCameraOffFill />
