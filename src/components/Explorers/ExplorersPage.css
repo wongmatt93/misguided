@@ -50,3 +50,9 @@
 .ExplorersPage .ExplorerCard .username {
   font-size: 1.1rem;
 }
+
+@media only screen and (min-width: 768px) {
+  .ExplorersPage {
+    padding: 0 2rem 1rem;
+  }
+}

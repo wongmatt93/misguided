@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useCityFetcher from "../../../hooks/useCityFetcher";
+import useTimer from "../../../hooks/useTimer";
 import City from "../../../models/City";
 import Trip from "../../../models/Trip";
 import UserProfile from "../../../models/UserProfile";
@@ -15,6 +16,7 @@ const ProfileTripCard = ({ trip, userProfile }: Props) => {
   const navigate = useNavigate();
   const city: City | null = useCityFetcher(trip.cityId);
   const [cardImage, setCardImage] = useState("");
+  const timesUp: boolean = useTimer(1000);
 
   useEffect(() => {
     city &&
@@ -33,7 +35,7 @@ const ProfileTripCard = ({ trip, userProfile }: Props) => {
 
   return (
     <>
-      {city && (
+      {city && timesUp && (
         <li className="ProfileTripCard" onClick={handleClick}>
           <img src={cardImage} alt={cardImage} />
           <div className="info-container">

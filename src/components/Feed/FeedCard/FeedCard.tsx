@@ -10,6 +10,7 @@ import City from "../../../models/City";
 import UserProfile from "../../../models/UserProfile";
 import { getTripById } from "../../../services/tripServices";
 import { getCityById } from "../../../services/cityService";
+import useTimer from "../../../hooks/useTimer";
 
 interface Props {
   tripId: string;
@@ -21,6 +22,7 @@ const FeedCard = ({ tripId, userProfile }: Props) => {
   const [trip, setTrip] = useState<Trip | null>(null);
   const [city, setCity] = useState<City | null>(null);
   const [photos, setPhotos] = useState<string[]>([]);
+  const timesUp: boolean = useTimer(1000);
 
   const refreshTrip = (tripId: string): Promise<void> =>
     getTripById(tripId).then((trip) => {
@@ -50,7 +52,7 @@ const FeedCard = ({ tripId, userProfile }: Props) => {
 
   return (
     <>
-      {city && trip && (
+      {city && trip && timesUp && (
         <li className="FeedCard">
           <FeedCardHeader trip={trip} userTrips={userProfile.trips} />
           <FeedCardLocation trip={trip} city={city} />

@@ -3,16 +3,6 @@
   height: 100%;
 }
 
-.FeedPage .feed-container {
-  padding: 1rem;
-}
-
 .FeedPage li:last-child {
   margin: 0;
-}
-
-@media only screen and (min-width: 768px) {
-  .FeedPage .feed-container {
-    padding: 0 2rem 1rem;
-  }
 }
