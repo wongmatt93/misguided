@@ -5,16 +5,19 @@ import {
   RiHome2Fill,
   RiAddBoxFill,
   RiLuggageCartFill,
+  RiRoadMapFill,
 } from "react-icons/ri";
 import "./MobileNavigation.css";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Notification } from "../../models/UserProfile";
+import AuthContext from "../../context/AuthContext";
 
 interface Props {
   notifications: Notification[];
 }
 
 const MobileNavigation = ({ notifications }: Props) => {
+  const { currentTrip } = useContext(AuthContext);
   const [unreadCount, setUnreadCount] = useState(0);
 
   useEffect(() => {
@@ -36,9 +39,16 @@ const MobileNavigation = ({ notifications }: Props) => {
             </NavLink>
           </li>
           <li>
-            <NavLink to="/plan-trip">
-              <RiAddBoxFill />
-            </NavLink>
+            {currentTrip && (
+              <NavLink to={`/current/trip-details/${currentTrip._id!}`}>
+                <RiRoadMapFill />
+              </NavLink>
+            )}
+            {!currentTrip && (
+              <NavLink to="/plan-trip">
+                <RiAddBoxFill />
+              </NavLink>
+            )}
           </li>
           <li>
             <NavLink to="/trips">

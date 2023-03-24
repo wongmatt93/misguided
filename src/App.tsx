@@ -1,6 +1,7 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import {
   BrowserRouter as Router,
+  Link,
   Navigate,
   Route,
   Routes,
@@ -25,57 +26,62 @@ import LandingHeader from "./components/LandingPage/LandingHeader";
 import TripDetailsPage from "./components/TripDetails/TripDetailsPage";
 import FeedRouter from "./components/Feed/FeedRouter";
 import ExplorersRouter from "./components/Explorers/ExplorersRouter";
+import { Toast, ToastContainer } from "react-bootstrap";
 
 function App() {
-  const { userProfile, refreshProfile } = useContext(AuthContext);
+  const { userProfile, refreshProfile, currentTrip } = useContext(AuthContext);
   const isDesktop = useMediaQuery({ minWidth: 768 });
+  const [show, setShow] = useState(false);
+
+  useEffect(() => {
+    setShow(Boolean(currentTrip));
+  }, [currentTrip]);
+
+  const toggleShow = (): void => setShow(!show);
 
   return (
     <div className="App">
       <Router>
-        {userProfile ? (
+        {!userProfile && <LandingHeader />}
+        {userProfile && (
           <>
-            {isDesktop ? (
+            {isDesktop && (
               <DesktopHeader
                 userProfile={userProfile}
                 refreshProfile={refreshProfile}
               />
-            ) : (
+            )}
+            {!isDesktop && (
               <MobileHeader
                 userProfile={userProfile}
                 refreshProfile={refreshProfile}
               />
             )}
           </>
-        ) : (
-          <LandingHeader />
         )}
         <main>
-          {userProfile && isDesktop && (
-            <DesktopNavigation notifications={userProfile.notifications} />
-          )}
-          <Routes>
-            {!userProfile ? (
-              <>
-                <Route path="/" element={<LandingPage />} />
-                <Route path="/profile/:uid" element={<ProfilePage />} />
-                <Route path="/search/profile/:uid" element={<ProfilePage />} />
-                <Route
-                  path="/explorers/profile/:uid"
-                  element={<ProfilePage />}
-                />
-                <Route
-                  path="/trip-details/:tripId/"
-                  element={<TripDetailsPage />}
-                />
-                <Route
-                  path="/feed/trip-details/:tripId/"
-                  element={<TripDetailsPage />}
-                />
-                <Route path="*" element={<Navigate to="/" />} />
-              </>
-            ) : (
-              <>
+          {userProfile && (
+            <>
+              {isDesktop && (
+                <DesktopNavigation notifications={userProfile.notifications} />
+              )}
+              {currentTrip && (
+                <ToastContainer position="top-center">
+                  <Toast show={show} onClose={toggleShow} bg="light">
+                    <Toast.Header>Trip Alert!</Toast.Header>
+                    <Toast.Body>
+                      It looks like you're currently on a trip!{" "}
+                      <Link
+                        to={`/current/trip-details/${currentTrip._id!}`}
+                        onClick={toggleShow}
+                      >
+                        Click here to view your trip.
+                      </Link>
+                    </Toast.Body>
+                  </Toast>
+                </ToastContainer>
+              )}
+              <Routes>
                 <Route
                   path="/routes"
                   element={
@@ -138,10 +144,31 @@ function App() {
                     />
                   }
                 />
+                <Route
+                  path="/current/trip-details/:tripId"
+                  element={<TripDetailsPage />}
+                />
                 <Route path="*" element={<Navigate to="/routes" />} />
-              </>
-            )}
-          </Routes>
+              </Routes>
+            </>
+          )}
+          {!userProfile && (
+            <Routes>
+              <Route path="/" element={<LandingPage />} />
+              <Route path="/profile/:uid" element={<ProfilePage />} />
+              <Route path="/search/profile/:uid" element={<ProfilePage />} />
+              <Route path="/explorers/profile/:uid" element={<ProfilePage />} />
+              <Route
+                path="/trip-details/:tripId/"
+                element={<TripDetailsPage />}
+              />
+              <Route
+                path="/feed/trip-details/:tripId/"
+                element={<TripDetailsPage />}
+              />
+              <Route path="*" element={<Navigate to="/" />} />
+            </Routes>
+          )}
         </main>
         {userProfile && !isDesktop && (
           <MobileNavigation notifications={userProfile.notifications} />
