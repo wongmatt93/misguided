@@ -2,7 +2,10 @@ import { Button } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Trip from "../../models/Trip";
-import { deleteTrip } from "../../services/tripServices";
+import {
+  deleteTrip,
+  removeParticipantFromTrip,
+} from "../../services/tripServices";
 import { deleteUserTrip, getUserByUid } from "../../services/userService";
 
 import "./TripDetailsMain.css";
@@ -10,6 +13,7 @@ import UserProfile, { UserTrip } from "../../models/UserProfile";
 import GallerySection from "./Gallery/GallerySection";
 import ParticipantsSection from "./Participants/ParticipantsSection";
 import ItinerarySection from "./Itinerary/ItinerarySection";
+import { today } from "../../utils/dateFunctions";
 
 interface Props {
   trip: Trip;
@@ -29,8 +33,8 @@ const TripDetailsMain = ({
   timesUp,
 }: Props) => {
   const navigate = useNavigate();
-
   const [participants, setParticipants] = useState<UserProfile[]>([]);
+  const tripStarted: boolean = Number(today) >= Number(trip.startDate);
 
   useEffect(() => {
     Promise.all(
@@ -52,9 +56,18 @@ const TripDetailsMain = ({
         }
       });
 
-      setParticipants(accepted.concat(notAccepted));
+      if (tripStarted) {
+        setParticipants(accepted);
+        notAccepted.forEach((user) => {
+          deleteUserTrip(user.uid, trip._id!);
+          removeParticipantFromTrip(trip._id!, user.uid);
+          refreshTrip(trip._id!);
+        });
+      } else {
+        setParticipants(accepted.concat(notAccepted));
+      }
     });
-  }, [trip]);
+  }, [trip, tripStarted, refreshTrip]);
 
   const handleDeleteTrip = async (): Promise<void> => {
     await Promise.allSettled([
@@ -72,7 +85,7 @@ const TripDetailsMain = ({
       className="TripDetailsMain"
       style={{ display: timesUp ? "flex" : "none" }}
     >
-      {trip.completed && (
+      {tripStarted && (
         <GallerySection
           userProfile={userProfile}
           refreshProfile={refreshProfile}

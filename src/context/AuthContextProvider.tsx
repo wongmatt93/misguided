@@ -3,6 +3,9 @@ import { auth } from "../firebaseConfig";
 import AuthContext from "./AuthContext";
 import UserProfile from "../models/UserProfile";
 import { addNewUser, getUserByUid } from "../services/userService";
+import Trip from "../models/Trip";
+import { getTripsByTripIdArray } from "../services/tripServices";
+import { today } from "../utils/dateFunctions";
 
 interface Props {
   children: ReactNode;
@@ -12,6 +15,7 @@ const AuthContextProvider = ({ children }: Props) => {
   const [userProfile, setUserProfile] = useState<UserProfile | undefined>(
     undefined
   );
+  const [currentTrip, setCurrentTrip] = useState<Trip | null>(null);
 
   const refreshProfile = async (): Promise<void> =>
     setUserProfile(await getUserByUid(userProfile!.uid));
@@ -43,6 +47,21 @@ const AuthContextProvider = ({ children }: Props) => {
             setUserProfile(newUserProfile);
           } else {
             setUserProfile(response);
+            const userAcceptedTrips: string[] = response.trips
+              .filter((trip) => trip.accepted)
+              .map((acceptedTrip) => acceptedTrip.tripId);
+
+            getTripsByTripIdArray(userAcceptedTrips).then((response) => {
+              for (let i = 0; i < response.length; i++) {
+                if (
+                  Number(today) >= Number(response[i].startDate) &&
+                  Number(response[i].endDate) >= Number(today)
+                ) {
+                  setCurrentTrip(response[i]);
+                  break;
+                }
+              }
+            });
           }
         });
       }
@@ -72,6 +91,7 @@ const AuthContextProvider = ({ children }: Props) => {
         userProfile,
         setUserProfile,
         refreshProfile,
+        currentTrip,
       }}
     >
       {children}
