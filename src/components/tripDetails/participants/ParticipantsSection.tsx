@@ -9,6 +9,7 @@ import {
   deleteUserTrip,
 } from "../../../services/userService";
 import { today } from "../../../utils/dateFunctions";
+import doubleBook from "../../../utils/doubleBook";
 import {
   createTripAcceptNotif,
   createTripDeclineNotif,
@@ -65,13 +66,27 @@ const ParticipantsSection = ({
   const handleShow = (): void => setShow(true);
 
   const handleAcceptTrip = async (): Promise<void> => {
-    const newNotification = createTripAcceptNotif(userProfile!.uid, trip._id!);
+    if (userProfile) {
+      const isDoubleBooked: Promise<boolean> = doubleBook(
+        userProfile,
+        trip.startDate,
+        trip.endDate
+      );
+      if (!isDoubleBooked) {
+        const newNotification = createTripAcceptNotif(
+          userProfile!.uid,
+          trip._id!
+        );
 
-    await Promise.allSettled([
-      acceptUserTrip(userProfile!.uid, trip._id!),
-      addNotification(trip.creatorUid, newNotification),
-    ]);
-    refreshTrip(trip._id!);
+        await Promise.allSettled([
+          acceptUserTrip(userProfile!.uid, trip._id!),
+          addNotification(trip.creatorUid, newNotification),
+        ]);
+        refreshTrip(trip._id!);
+      } else {
+        alert("You are double booking a trip!");
+      }
+    }
   };
 
   const handleDeleteTrip = async (): Promise<void> => {

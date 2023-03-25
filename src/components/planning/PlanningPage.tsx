@@ -15,16 +15,17 @@ import { Business } from "../../models/Yelp";
 import Trip from "../../models/Trip";
 import { addTrip, getLatestTrip } from "../../services/tripServices";
 import { addNewUserTrip } from "../../services/userService";
-import { UserTrip } from "../../models/UserProfile";
+import UserProfile, { UserTrip } from "../../models/UserProfile";
 import PlanningForm from "./PlanningForm";
 import ItineraryModal from "./ItineraryModal";
+import doubleBook from "../../utils/doubleBook";
 
 interface Props {
-  uid: string;
+  userProfile: UserProfile;
   refreshProfile: () => Promise<void>;
 }
 
-const PlanningPage = ({ uid, refreshProfile }: Props) => {
+const PlanningPage = ({ userProfile, refreshProfile }: Props) => {
   const cityId: string | undefined = useParams().cityId;
   const [city, setCity] = useState<City | null>(null);
   const [startDate, setStartDate] = useState<string | undefined>(undefined);
@@ -60,91 +61,103 @@ const PlanningPage = ({ uid, refreshProfile }: Props) => {
   };
   const handleShow = (): void => setShow(true);
 
-  const handleSubmit = (): void => {
+  const handleSubmit = async (): Promise<void> => {
     if (city && startDate && endDate) {
-      let duration: number = 1;
-
-      if (endDate) {
-        duration =
-          (Number(endDate) - Number(startDate)) / (1000 * 3600 * 24) + 1;
-      }
-
-      const index: number = Math.floor(Math.random() * hotels.length);
-
-      const newTrip: Trip = {
-        creatorUid: uid,
-        cityId: city._id!,
-        nickname: "",
+      const isDoubleBooked: boolean = await doubleBook(
+        userProfile,
         startDate,
-        endDate,
-        hotel: duration > 1 ? hotels[index].name : null,
-        schedule: [],
-        photos: [],
-        participantsUids: [uid],
-        messages: [],
-        completed: false,
-        likesUids: [],
-        comments: [],
-      };
+        endDate
+      );
 
-      for (let i = 0; i < duration; i++) {
-        if (restaurants.length) {
-          const index: number = Math.floor(Math.random() * breakfast.length);
-          const lunchIndex: number = Math.floor(
-            Math.random() * restaurants.length
-          );
-          const dinnerIndex: number = Math.floor(
-            Math.random() * restaurants.length
-          );
-          const eventOneIndex: number = Math.floor(
-            Math.random() * events.length
-          );
-          const eventTwoIndex: number = Math.floor(
-            Math.random() * events.length
-          );
-          newTrip.schedule.push({
-            breakfast: breakfast[index].name,
-            breakfastPhoto: breakfast[index].image_url,
-            breakfastAddress: breakfast[index].location.display_address,
-            breakfastPhone: breakfast[index].display_phone,
-            breakfastUrl: breakfast[index].url,
-            lunch: restaurants[lunchIndex].name,
-            lunchPhoto: restaurants[lunchIndex].image_url,
-            lunchAddress: restaurants[lunchIndex].location.display_address,
-            lunchPhone: restaurants[lunchIndex].display_phone,
-            lunchURL: restaurants[lunchIndex].url,
-            dinner: restaurants[dinnerIndex].name,
-            dinnerPhoto: restaurants[dinnerIndex].image_url,
-            dinnerAddress: restaurants[dinnerIndex].location.display_address,
-            dinnerPhone: restaurants[dinnerIndex].display_phone,
-            dinnerUrl: restaurants[dinnerIndex].url,
-            event1: events[eventOneIndex].name,
-            event1Photo: events[eventOneIndex].image_url,
-            event1Address: events[eventOneIndex].location.display_address,
-            event1Phone: events[eventOneIndex].display_phone,
-            event1Url: events[eventOneIndex].url,
-            event2: events[eventTwoIndex].name,
-            event2Photo: events[eventTwoIndex].image_url,
-            event2Address: events[eventTwoIndex].location.display_address,
-            event2Phone: events[eventTwoIndex].display_phone,
-            event2Url: events[eventTwoIndex].url,
-          });
+      if (!isDoubleBooked) {
+        let duration: number = 1;
+
+        if (endDate) {
+          duration =
+            (Number(endDate) - Number(startDate)) / (1000 * 3600 * 24) + 1;
         }
-      }
 
-      setTrip(newTrip);
-      addTrip(newTrip).then(() => {
-        getLatestTrip(uid).then((response) => {
-          const newUserTrip: UserTrip = {
-            tripId: response[0]._id!,
-            accepted: true,
-          };
+        const index: number = Math.floor(Math.random() * hotels.length);
 
-          addNewUserTrip(uid, newUserTrip).then(() => refreshProfile());
+        const newTrip: Trip = {
+          creatorUid: userProfile.uid,
+          cityId: city._id!,
+          nickname: "",
+          startDate,
+          endDate,
+          hotel: duration > 1 ? hotels[index].name : null,
+          schedule: [],
+          photos: [],
+          participantsUids: [userProfile.uid],
+          messages: [],
+          completed: false,
+          likesUids: [],
+          comments: [],
+        };
+
+        for (let i = 0; i < duration; i++) {
+          if (restaurants.length) {
+            const index: number = Math.floor(Math.random() * breakfast.length);
+            const lunchIndex: number = Math.floor(
+              Math.random() * restaurants.length
+            );
+            const dinnerIndex: number = Math.floor(
+              Math.random() * restaurants.length
+            );
+            const eventOneIndex: number = Math.floor(
+              Math.random() * events.length
+            );
+            const eventTwoIndex: number = Math.floor(
+              Math.random() * events.length
+            );
+            newTrip.schedule.push({
+              breakfast: breakfast[index].name,
+              breakfastPhoto: breakfast[index].image_url,
+              breakfastAddress: breakfast[index].location.display_address,
+              breakfastPhone: breakfast[index].display_phone,
+              breakfastUrl: breakfast[index].url,
+              lunch: restaurants[lunchIndex].name,
+              lunchPhoto: restaurants[lunchIndex].image_url,
+              lunchAddress: restaurants[lunchIndex].location.display_address,
+              lunchPhone: restaurants[lunchIndex].display_phone,
+              lunchURL: restaurants[lunchIndex].url,
+              dinner: restaurants[dinnerIndex].name,
+              dinnerPhoto: restaurants[dinnerIndex].image_url,
+              dinnerAddress: restaurants[dinnerIndex].location.display_address,
+              dinnerPhone: restaurants[dinnerIndex].display_phone,
+              dinnerUrl: restaurants[dinnerIndex].url,
+              event1: events[eventOneIndex].name,
+              event1Photo: events[eventOneIndex].image_url,
+              event1Address: events[eventOneIndex].location.display_address,
+              event1Phone: events[eventOneIndex].display_phone,
+              event1Url: events[eventOneIndex].url,
+              event2: events[eventTwoIndex].name,
+              event2Photo: events[eventTwoIndex].image_url,
+              event2Address: events[eventTwoIndex].location.display_address,
+              event2Phone: events[eventTwoIndex].display_phone,
+              event2Url: events[eventTwoIndex].url,
+            });
+          }
+        }
+
+        setTrip(newTrip);
+        addTrip(newTrip).then(() => {
+          getLatestTrip(userProfile.uid).then((response) => {
+            const newUserTrip: UserTrip = {
+              tripId: response[0]._id!,
+              accepted: true,
+            };
+
+            addNewUserTrip(userProfile.uid, newUserTrip).then(() =>
+              refreshProfile()
+            );
+          });
         });
-      });
 
-      handleShow();
+        handleShow();
+      } else {
+        alert("You have double booked your trip! Please select other dates");
+      }
     }
   };
 
