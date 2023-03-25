@@ -51,17 +51,19 @@ const AuthContextProvider = ({ children }: Props) => {
               .filter((trip) => trip.accepted)
               .map((acceptedTrip) => acceptedTrip.tripId);
 
-            getTripsByTripIdArray(userAcceptedTrips).then((response) => {
-              for (let i = 0; i < response.length; i++) {
-                if (
-                  Number(today) >= Number(response[i].startDate) &&
-                  Number(response[i].endDate) >= Number(today)
-                ) {
-                  setCurrentTrip(response[i]);
-                  break;
+            if (userAcceptedTrips.length > 0) {
+              getTripsByTripIdArray(userAcceptedTrips).then((response) => {
+                for (let i = 0; i < response.length; i++) {
+                  if (
+                    Number(today) >= Number(response[i].startDate) &&
+                    Number(response[i].endDate) >= Number(today)
+                  ) {
+                    setCurrentTrip(response[i]);
+                    break;
+                  }
                 }
-              }
-            });
+              });
+            }
           }
         });
       }
