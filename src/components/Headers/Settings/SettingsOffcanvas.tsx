@@ -86,6 +86,8 @@ const SettingsOffcanvas = ({
           <AccountInformationSection
             userProfile={userProfile}
             refreshProfile={refreshProfile}
+            setUserProfile={setUserProfile}
+            handleClose={handleClose}
           />
         )}
         {page === "preferences" && (

@@ -28,6 +28,13 @@ export const updateNickname = async (
   (await axios.put(`${baseURL}/trips/${tripId}/update-nickname`, { nickname }))
     .data;
 
+export const updateCreator = async (
+  tripId: string,
+  newUid: string
+): Promise<string> =>
+  (await axios.put(`${baseURL}/trips/${tripId}/update-creator`, { newUid }))
+    .data;
+
 export const addNewParticipantToTrip = async (
   tripId: string,
   newParticipant: string

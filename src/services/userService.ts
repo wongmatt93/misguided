@@ -32,6 +32,9 @@ export const getUserBySearch = async (
 export const addNewUser = async (user: UserProfile): Promise<UserProfile> =>
   (await axios.post(`${baseURL}/users`, user)).data;
 
+export const deleteUser = async (uid: string): Promise<void> =>
+  (await axios.delete(`${baseURL}/users/${uid}`)).data;
+
 export const updateUsername = async (
   uid: string,
   username: string
