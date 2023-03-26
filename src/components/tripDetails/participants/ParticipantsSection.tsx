@@ -67,11 +67,12 @@ const ParticipantsSection = ({
 
   const handleAcceptTrip = async (): Promise<void> => {
     if (userProfile) {
-      const isDoubleBooked: Promise<boolean> = doubleBook(
+      const isDoubleBooked: boolean = await doubleBook(
         userProfile,
         trip.startDate,
         trip.endDate
       );
+
       if (!isDoubleBooked) {
         const newNotification = createTripAcceptNotif(
           userProfile!.uid,

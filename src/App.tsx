@@ -27,6 +27,7 @@ import TripDetailsPage from "./components/TripDetails/TripDetailsPage";
 import FeedRouter from "./components/Feed/FeedRouter";
 import ExplorersRouter from "./components/Explorers/ExplorersRouter";
 import { Toast, ToastContainer } from "react-bootstrap";
+import GoodbyePage from "./components/Goodbye/GoodbyePage";
 
 function App() {
   const { userProfile, refreshProfile, currentTrip } = useContext(AuthContext);
@@ -148,6 +149,7 @@ function App() {
                   path="/current/trip-details/:tripId"
                   element={<TripDetailsPage />}
                 />
+                <Route path="/good-bye" element={<GoodbyePage />} />
                 <Route path="*" element={<Navigate to="/routes" />} />
               </Routes>
             </>
@@ -166,6 +168,7 @@ function App() {
                 path="/feed/trip-details/:tripId/"
                 element={<TripDetailsPage />}
               />
+              <Route path="/good-bye" element={<GoodbyePage />} />
               <Route path="*" element={<Navigate to="/" />} />
             </Routes>
           )}
