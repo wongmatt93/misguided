@@ -1,6 +1,6 @@
 import { MdLocationPin } from "react-icons/md";
 import Card from "react-bootstrap/Card";
-import City from "../../models/City";
+import City from "../../../models/City";
 import "./DiscoverCard.css";
 import { useNavigate } from "react-router-dom";
 import { RiStarFill } from "react-icons/ri";
@@ -14,7 +14,7 @@ const DiscoverCard = ({ currentCity, cityRating }: Props) => {
   const navigate = useNavigate();
 
   const handleClick = (): void => {
-    navigate(`/city-details/${currentCity!._id}`);
+    navigate(`/plan-trip/city-details/${currentCity!._id}`);
   };
 
   return (

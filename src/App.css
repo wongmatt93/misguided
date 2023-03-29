@@ -62,6 +62,12 @@ form {
   margin: 3.5rem 0 4rem;
 }
 
+.App .main-view {
+  display: flex;
+  height: 100%;
+  flex: 1;
+}
+
 .App .current-trip-toast {
   height: 100px;
   width: 100px;
@@ -106,5 +112,10 @@ form {
     flex-direction: row;
     margin: 3.5rem 0 0;
     padding: 1rem 1rem 0;
+  }
+
+  .App .main-view {
+    flex-direction: column;
+    padding: 0 2rem;
   }
 }

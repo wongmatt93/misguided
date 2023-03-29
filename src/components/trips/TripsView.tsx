@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import Trip from "../../models/Trip";
-import "./TripsPage.css";
 import UpcomingTripsContainer from "./UpcomingTrips/UpcomingTripsContainer";
 import PastTripsContainer from "./PastTrips/PastTripsContainer";
 import { UserTrip } from "../../models/UserProfile";
@@ -12,14 +11,14 @@ import {
 import { Navigate, Route, Routes } from "react-router-dom";
 import TripsNav from "./TripsNav";
 import { getTripsByTripIdArray } from "../../services/tripServices";
-import TripDetailsPage from "../TripDetails/TripDetailsPage";
+import TripDetailsPage from "../common/TripDetails/TripDetailsPage";
 import RatingPage from "../Rating/RatingPage";
 
 interface Props {
   userTrips: UserTrip[];
 }
 
-const TripsPage = ({ userTrips }: Props) => {
+const TripsView = ({ userTrips }: Props) => {
   const [upcomingTrips, setUpcomingTrips] = useState<Trip[]>([]);
   const [pastTrips, setPastTrips] = useState<Trip[]>([]);
 
@@ -63,7 +62,7 @@ const TripsPage = ({ userTrips }: Props) => {
   }, [userTrips]);
 
   return (
-    <section className="TripsPage">
+    <section className="main-view">
       <TripsNav />
       <Routes>
         <Route
@@ -85,4 +84,4 @@ const TripsPage = ({ userTrips }: Props) => {
   );
 };
 
-export default TripsPage;
+export default TripsView;

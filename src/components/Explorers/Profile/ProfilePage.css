@@ -1,10 +1,12 @@
 .ProfilePage {
+  display: flex;
+  flex-direction: column;
   flex: 1;
   padding-top: 1rem;
 }
 
 @media only screen and (min-width: 768px) {
   .ProfilePage {
-    padding: 0 2rem 1rem;
+    padding-top: 0;
   }
 }

@@ -1,20 +1,19 @@
-import "./InboxPage.css";
 import InboxNotificationsContainer from "./Notifications/InboxNotificationsContainer";
 import InboxMessagesContainer from "./Messages/InboxMessagesContainer";
 import { Navigate, Route, Routes } from "react-router-dom";
 import TripMessageThreadPage from "../TripMessageThread/TripMessageThreadPage";
 import InboxNav from "./InboxNav";
 import UserProfile from "../../models/UserProfile";
-import TripDetailsPage from "../TripDetails/TripDetailsPage";
+import TripDetailsPage from "../common/TripDetails/TripDetailsPage";
 
 interface Props {
   userProfile: UserProfile;
   refreshProfile: () => Promise<void>;
 }
 
-const InboxPage = ({ userProfile, refreshProfile }: Props) => {
+const InboxView = ({ userProfile, refreshProfile }: Props) => {
   return (
-    <section className="InboxPage">
+    <section className="main-view">
       <InboxNav notifications={userProfile.notifications} />
       <Routes>
         <Route index element={<Navigate to="/inbox/messages" replace />} />
@@ -46,4 +45,4 @@ const InboxPage = ({ userProfile, refreshProfile }: Props) => {
   );
 };
 
-export default InboxPage;
+export default InboxView;

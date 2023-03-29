@@ -1,19 +1,19 @@
 import { useEffect, useState } from "react";
 import { Button, Dropdown, DropdownButton } from "react-bootstrap";
-import Trip from "../../../models/Trip";
-import UserProfile, { UserTrip } from "../../../models/UserProfile";
-import { removeParticipantFromTrip } from "../../../services/tripServices";
+import Trip from "../../../../models/Trip";
+import UserProfile, { UserTrip } from "../../../../models/UserProfile";
+import { removeParticipantFromTrip } from "../../../../services/tripServices";
 import {
   acceptUserTrip,
   addNotification,
   deleteUserTrip,
-} from "../../../services/userService";
-import { today } from "../../../utils/dateFunctions";
-import doubleBook from "../../../utils/doubleBook";
+} from "../../../../services/userService";
+import { today } from "../../../../utils/dateFunctions";
+import doubleBook from "../../../../utils/doubleBook";
 import {
   createTripAcceptNotif,
   createTripDeclineNotif,
-} from "../../../utils/notificationsFunctions";
+} from "../../../../utils/notificationsFunctions";
 import InviteFriendsModal from "./InviteFriendsModal";
 import ParticipantCard from "./ParticipantCard";
 
