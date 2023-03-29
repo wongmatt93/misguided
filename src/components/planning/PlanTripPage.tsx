@@ -11,12 +11,12 @@ interface Props {
 const PlanTripPage = ({ userProfile }: Props) => {
   const navigate = useNavigate();
 
-  const handleClick = (): void => navigate("/discover");
+  const handleClick = (): void => navigate("/plan-trip/discover");
 
   return (
     <section className="PlanTripPage">
       <FavoritesContainer userProfile={userProfile} />
-      <div className="discover">
+      <div className="discover-text">
         <p>Don't see a city you like? Discover new cities!</p>
         <Button
           className="discover-button"

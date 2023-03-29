@@ -44,9 +44,3 @@
   color: #ff4000;
   text-decoration: none;
 }
-
-@media only screen and (min-width: 768px) {
-  .CityDetailsPage {
-    padding: 0 2rem 1rem;
-  }
-}

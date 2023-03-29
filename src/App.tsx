@@ -1,4 +1,6 @@
 import { useContext, useEffect, useState } from "react";
+import { Toast, ToastContainer } from "react-bootstrap";
+import { useMediaQuery } from "react-responsive";
 import {
   BrowserRouter as Router,
   Link,
@@ -6,28 +8,26 @@ import {
   Route,
   Routes,
 } from "react-router-dom";
-import "bootstrap/dist/css/bootstrap.min.css";
+
 import AuthContext from "./context/AuthContext";
 import DesktopHeader from "./components/Headers/DesktopHeader";
-import LandingPage from "./components/LandingPage/LandingPage";
-import DiscoverPage from "./components/Discover/DiscoverPage";
-import MobileNavigation from "./components/MobileNavigation/MobileNavigation";
-import TripsPage from "./components/Trips/TripsPage";
-import "./App.css";
-import ProfilePage from "./components/Explorers/Profile/ProfilePage";
-import CityDetailsPage from "./components/CityDetails/CityDetailsPage";
-import InitialSigninPage from "./components/initialSignIn/InitialSignInPage";
-import { useMediaQuery } from "react-responsive";
-import PlanningRouter from "./components/Planning/PlanningRouter";
-import InboxPage from "./components/Inbox/InboxPage";
+import LandingHeader from "./components/LandingPage/LandingHeader";
 import MobileHeader from "./components/Headers/MobileHeaders/MobileHeader";
 import DesktopNavigation from "./components/DesktopNavigation/DesktopNavigation";
-import LandingHeader from "./components/LandingPage/LandingHeader";
-import TripDetailsPage from "./components/TripDetails/TripDetailsPage";
-import FeedRouter from "./components/Feed/FeedRouter";
-import ExplorersRouter from "./components/Explorers/ExplorersRouter";
-import { Toast, ToastContainer } from "react-bootstrap";
+import MobileNavigation from "./components/MobileNavigation/MobileNavigation";
+import LandingPage from "./components/LandingPage/LandingPage";
+import InitialSigninPage from "./components/initialSignIn/InitialSignInPage";
+import FeedView from "./components/Feed/FeedView";
+import ExplorersView from "./components/Explorers/ExplorersView";
+import PlanningView from "./components/Planning/PlanningView";
+import TripsView from "./components/Trips/TripsView";
+import InboxView from "./components/Inbox/InboxView";
+import ProfilePage from "./components/Explorers/Profile/ProfilePage";
+import TripDetailsPage from "./components/common/TripDetails/TripDetailsPage";
 import GoodbyePage from "./components/Goodbye/GoodbyePage";
+
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./App.css";
 
 function App() {
   const { userProfile, refreshProfile, currentTrip } = useContext(AuthContext);
@@ -94,12 +94,12 @@ function App() {
                 />
                 <Route
                   path="/feed/*"
-                  element={<FeedRouter userProfile={userProfile} />}
+                  element={<FeedView userProfile={userProfile} />}
                 />
                 <Route
                   path="/explorers/*"
                   element={
-                    <ExplorersRouter
+                    <ExplorersView
                       userProfile={userProfile}
                       refreshProfile={refreshProfile}
                     />
@@ -107,30 +107,12 @@ function App() {
                 />
                 <Route
                   path="/trips/*"
-                  element={<TripsPage userTrips={userProfile.trips} />}
+                  element={<TripsView userTrips={userProfile.trips} />}
                 />
                 <Route
                   path="/plan-trip/*"
                   element={
-                    <PlanningRouter
-                      userProfile={userProfile}
-                      refreshProfile={refreshProfile}
-                    />
-                  }
-                />
-                <Route
-                  path="/discover"
-                  element={
-                    <DiscoverPage
-                      userProfile={userProfile}
-                      refreshProfile={refreshProfile}
-                    />
-                  }
-                />
-                <Route
-                  path="/city-details/:cityId"
-                  element={
-                    <CityDetailsPage
+                    <PlanningView
                       userProfile={userProfile}
                       refreshProfile={refreshProfile}
                     />
@@ -139,7 +121,7 @@ function App() {
                 <Route
                   path="/inbox/*"
                   element={
-                    <InboxPage
+                    <InboxView
                       userProfile={userProfile}
                       refreshProfile={refreshProfile}
                     />
@@ -166,6 +148,10 @@ function App() {
               />
               <Route
                 path="/feed/trip-details/:tripId/"
+                element={<TripDetailsPage />}
+              />
+              <Route
+                path="/explorers/trip-details/:tripId/"
                 element={<TripDetailsPage />}
               />
               <Route path="/good-bye" element={<GoodbyePage />} />

@@ -1,6 +1,6 @@
 import TripAccordion from "./TripAccordion";
 import "./ItinerarySection.css";
-import Trip from "../../../models/Trip";
+import Trip from "../../../../models/Trip";
 
 interface Props {
   trip: Trip;

@@ -3,17 +3,18 @@
   justify-content: space-between;
   align-items: center;
   position: absolute;
-  padding: 0 1em;
+  padding: 0 1rem;
   z-index: 1;
   background-color: rgba(0, 0, 0, 0.6);
   width: 100%;
-  border-top-right-radius: 1em;
-  border-top-left-radius: 1em;
-  height: 4.5em;
+  border-top-right-radius: 1rem;
+  border-top-left-radius: 1rem;
+  height: 4.5rem;
 }
 
 .FeedCardHeader button {
-  font-size: 0.7em;
-  padding: 0.5em 1em;
+  font-size: 0.7rem;
+  padding: 0.2rem 0;
+  width: 5rem;
   background-color: #f0b202;
 }

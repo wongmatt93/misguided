@@ -5,7 +5,6 @@ import "./MobileHeader.css";
 import TripDetailsHeader from "./TripDetailsHeader";
 import TripMessageThreadHeader from "./TripMessageThreadHeader";
 import ProfileHeader from "./ProfileHeader";
-import { RiMenuLine } from "react-icons/ri";
 import InboxHeader from "./InboxHeader";
 import SettingsOffcanvas from "../Settings/SettingsOffcanvas";
 import UserProfile from "../../../models/UserProfile";
@@ -40,14 +39,14 @@ const MobileHeader = ({ userProfile, refreshProfile }: Props) => {
       setPage("cityDetails");
     } else if (path.includes("get-itinerary")) {
       setPage("choose your dates");
+    } else if (path.includes("discover")) {
+      setPage("discover");
     } else if (path.includes("plan-trip")) {
       setPage("trip planning");
     } else if (path.includes("thread")) {
       setPage("thread");
     } else if (path.includes("inbox")) {
       setPage("inbox");
-    } else if (path.includes("discover")) {
-      setPage("discover");
     }
   }, [path]);
 
@@ -67,7 +66,11 @@ const MobileHeader = ({ userProfile, refreshProfile }: Props) => {
         <div className="MobileHeaderDiv">
           <h1>{page}</h1>
           <button className="menu-button" onClick={handleShow}>
-            <RiMenuLine />
+            <img
+              className="circle-image"
+              src={userProfile.photoURL!}
+              alt={userProfile.photoURL!}
+            />
           </button>
         </div>
       )}

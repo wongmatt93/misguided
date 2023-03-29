@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import UserProfile, { UserTrip } from "../../../models/UserProfile";
+import UserProfile, { UserTrip } from "../../../../models/UserProfile";
 import "./ParticipantCard.css";
 
 interface Props {

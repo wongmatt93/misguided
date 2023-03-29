@@ -31,11 +31,16 @@ const SettingsOffcanvas = ({
     setUserProfile(undefined);
   };
 
+  const closeAction = (): void => {
+    handleClose();
+    setPage("default");
+  };
+
   return (
     <Offcanvas
       className="SettingsOffcanvas"
       show={show}
-      onHide={handleClose}
+      onHide={closeAction}
       placement="end"
     >
       <Offcanvas.Header closeButton>
@@ -68,10 +73,12 @@ const SettingsOffcanvas = ({
                 <p>Notifications</p>
                 <RiArrowRightSLine />
               </ListGroup.Item>
-              <ListGroup.Item onClick={() => setPage("admin")}>
-                <p>Add Cities</p>
-                <RiArrowRightSLine />
-              </ListGroup.Item>
+              {userProfile.uid === "5VVUY8rg7XOSfVFz5N27Slop2ok1" && (
+                <ListGroup.Item onClick={() => setPage("admin")}>
+                  <p>Add Cities</p>
+                  <RiArrowRightSLine />
+                </ListGroup.Item>
+              )}
             </ListGroup>
             <Button
               className="sign-out-button"

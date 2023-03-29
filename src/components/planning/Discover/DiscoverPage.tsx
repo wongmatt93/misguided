@@ -3,12 +3,12 @@ import "./DiscoverPage.css";
 import { useNavigate } from "react-router-dom";
 import { RiGlobeFill } from "react-icons/ri";
 import { Button } from "react-bootstrap";
-import { removeAllDislikedCities } from "../../services/userService";
-import { getAllCities } from "../../services/cityService";
-import City from "../../models/City";
-import ThumbsContainer from "../common/ThumbsContainer";
+import { removeAllDislikedCities } from "../../../services/userService";
+import { getAllCities } from "../../../services/cityService";
+import City from "../../../models/City";
+import ThumbsContainer from "../../common/ThumbsContainer";
 import DiscoverCard from "./DiscoverCard";
-import UserProfile from "../../models/UserProfile";
+import UserProfile from "../../../models/UserProfile";
 
 interface Props {
   userProfile: UserProfile;
