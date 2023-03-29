@@ -85,6 +85,12 @@ const TripDetailsMain = ({
       className="TripDetailsMain"
       style={{ display: timesUp ? "flex" : "none" }}
     >
+      <ParticipantsSection
+        trip={trip}
+        userProfile={userProfile}
+        participants={participants}
+        refreshTrip={refreshTrip}
+      />
       {tripStarted && (
         <GallerySection
           userProfile={userProfile}
@@ -93,12 +99,6 @@ const TripDetailsMain = ({
           participants={participants}
         />
       )}
-      <ParticipantsSection
-        trip={trip}
-        userProfile={userProfile}
-        participants={participants}
-        refreshTrip={refreshTrip}
-      />
       <ItinerarySection trip={trip} cityName={cityName} />
       {userProfile && trip.creatorUid === userProfile.uid && (
         <Button
