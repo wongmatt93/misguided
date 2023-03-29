@@ -9,6 +9,8 @@ import {
   Routes,
 } from "react-router-dom";
 
+import "bootstrap/dist/css/bootstrap.min.css";
+
 import AuthContext from "./context/AuthContext";
 import DesktopHeader from "./components/Headers/DesktopHeader";
 import LandingHeader from "./components/LandingPage/LandingHeader";
@@ -26,7 +28,6 @@ import ProfilePage from "./components/Explorers/Profile/ProfilePage";
 import TripDetailsPage from "./components/common/TripDetails/TripDetailsPage";
 import GoodbyePage from "./components/Goodbye/GoodbyePage";
 
-import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 
 function App() {
