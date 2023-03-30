@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import {
   RiDiscussFill,
   RiTeamFill,
@@ -11,6 +11,7 @@ import "./MobileNavigation.css";
 import { useContext, useEffect, useState } from "react";
 import { Notification } from "../../models/UserProfile";
 import AuthContext from "../../context/AuthContext";
+import { isWelcome } from "../../utils/welcomeFunctions";
 
 interface Props {
   notifications: Notification[];
@@ -19,13 +20,17 @@ interface Props {
 const MobileNavigation = ({ notifications }: Props) => {
   const { currentTrip } = useContext(AuthContext);
   const [unreadCount, setUnreadCount] = useState(0);
+  const path: string = useLocation().pathname;
 
   useEffect(() => {
     setUnreadCount(notifications.filter((notifs) => !notifs.read).length);
   }, [notifications]);
 
   return (
-    <footer className="MobileNavigation">
+    <footer
+      className="MobileNavigation"
+      style={{ display: isWelcome(path) ? "none" : "block" }}
+    >
       <nav>
         <ul>
           <li>

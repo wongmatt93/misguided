@@ -9,6 +9,7 @@
   position: absolute;
   bottom: 0;
   height: 2.5rem;
+  z-index: 100;
 }
 
 .FeedCardInteractions .likes,

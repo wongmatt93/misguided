@@ -29,29 +29,30 @@ const UsernameForm = ({ uid, refreshProfile, setStage }: Props) => {
   };
 
   return (
-    <div className="UsernameForm">
-      <h2>Welcome to Misguided</h2>
-      <Form onSubmit={handleSubmit}>
-        <Form.Group controlId="username">
-          <Form.Control
-            type="text"
-            placeholder="username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value.replace(/\s/g, ""))}
-            required
-          ></Form.Control>
-          <Form.Control.Feedback
-            style={{ display: taken ? "block" : "none" }}
-            type="invalid"
-          >
-            Username has been taken
-          </Form.Control.Feedback>
-        </Form.Group>
-        <Button variant="warning" type="submit" className="search-button">
-          Submit
-        </Button>
-      </Form>
-    </div>
+    <Form
+      className="UsernameForm animate__animated animate__fadeIn animate__delay-1s"
+      onSubmit={handleSubmit}
+    >
+      <Form.Group controlId="username">
+        <Form.Label>Pick a username to begin</Form.Label>
+        <Form.Control
+          type="text"
+          placeholder="username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value.replace(/\s/g, ""))}
+          required
+        ></Form.Control>
+        <Form.Control.Feedback
+          style={{ display: taken ? "block" : "none" }}
+          type="invalid"
+        >
+          Username has been taken
+        </Form.Control.Feedback>
+      </Form.Group>
+      <Button variant="warning" type="submit" className="search-button">
+        Submit
+      </Button>
+    </Form>
   );
 };
 

@@ -378,7 +378,9 @@ const PreferencesForm = ({ setShow, userProfile, refreshProfile }: Props) => {
           Update Preferences
         </Button>
       ) : (
-        <button>Continue</button>
+        <Button variant="warning" type="submit">
+          Continue
+        </Button>
       )}
     </form>
   );

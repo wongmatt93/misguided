@@ -32,19 +32,13 @@ const InitialPhotoUploadForm = ({ uid, refreshProfile, setStage }: Props) => {
   };
 
   return (
-    <div className="InitiaPlhotoUploadForm">
-      <p>Please upload a profile picture</p>
-      <form onSubmit={handleSubmit}>
-        <input ref={fileInputRef} type="file" />
-        <Button
-          variant="warning"
-          type="submit"
-          className="upload-photos-button"
-        >
-          Upload
-        </Button>
-      </form>
-    </div>
+    <form className="InitialPhotoUploadForm" onSubmit={handleSubmit}>
+      <label htmlFor="profile-pic">Please upload a profile picture</label>
+      <input ref={fileInputRef} type="file" id="profile-pic" />
+      <Button variant="warning" type="submit" className="upload-photos-button">
+        Upload
+      </Button>
+    </form>
   );
 };
 

@@ -8,6 +8,7 @@ import ProfileHeader from "./ProfileHeader";
 import InboxHeader from "./InboxHeader";
 import SettingsOffcanvas from "../Settings/SettingsOffcanvas";
 import UserProfile from "../../../models/UserProfile";
+import { isWelcome } from "../../../utils/welcomeFunctions";
 
 interface Props {
   userProfile: UserProfile;
@@ -51,7 +52,10 @@ const MobileHeader = ({ userProfile, refreshProfile }: Props) => {
   }, [path]);
 
   return (
-    <header className="MobileHeader">
+    <header
+      className="MobileHeader"
+      style={{ display: isWelcome(path) ? "none" : "flex" }}
+    >
       {page === "profile" ? (
         <ProfileHeader path={path} />
       ) : page === "tripDetails" ? (

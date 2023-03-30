@@ -17,7 +17,7 @@ const ProfilePage = () => {
 
   useEffect(() => {
     !userProfile && navigate(`/profile/${uid}`);
-  }, [userProfile, navigate]);
+  }, [userProfile, navigate, uid]);
 
   useEffect(() => {
     uid && getUserByUid(uid).then((response) => setProfile(response));

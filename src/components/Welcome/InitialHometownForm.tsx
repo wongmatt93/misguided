@@ -25,29 +25,31 @@ const InitialHometownForm = ({ uid, refreshProfile, setStage }: Props) => {
   };
 
   return (
-    <div className="InitialHometownForm">
-      <h2>Select your hometown</h2>
-      <Form onSubmit={handleSubmit}>
-        <Form.Group>
-          <Form.Select
-            value={hometownId}
-            onChange={(e) => setHometownId(e.target.value)}
-          >
-            <option disabled value="">
-              -- Select Your Hometown --
+    <Form className="InitialHometownForm" onSubmit={handleSubmit}>
+      <Form.Label>Choose your hometown</Form.Label>
+      <Form.Group>
+        <Form.Select
+          value={hometownId}
+          onChange={(e) => setHometownId(e.target.value)}
+        >
+          <option disabled value="">
+            -- Select Your Hometown --
+          </option>
+          {cities.sort().map((city) => (
+            <option key={city.cityCode} value={city._id!}>
+              {city.cityName}
             </option>
-            {cities.sort().map((city) => (
-              <option key={city.cityCode} value={city._id!}>
-                {city.cityName}
-              </option>
-            ))}
-          </Form.Select>
-        </Form.Group>
-        <Button type="submit" disabled={hometownId ? false : true}>
-          Next
-        </Button>
-      </Form>
-    </div>
+          ))}
+        </Form.Select>
+      </Form.Group>
+      <Button
+        variant="warning"
+        type="submit"
+        disabled={hometownId ? false : true}
+      >
+        Next
+      </Button>
+    </Form>
   );
 };
 

@@ -1,0 +1,21 @@
+.UsernameForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  flex: 1;
+  width: 80%;
+  margin-top: 4rem;
+}
+
+.UsernameForm input {
+  text-align: center;
+}
+
+.UsernameForm div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  width: 100%;
+}

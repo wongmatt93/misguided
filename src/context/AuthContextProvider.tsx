@@ -81,7 +81,7 @@ const AuthContextProvider = ({ children }: Props) => {
             setUserProfile(response);
           }
         });
-      }, 5000);
+      }, 10000);
 
       return () => clearInterval(interval);
     }

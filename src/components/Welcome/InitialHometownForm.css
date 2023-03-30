@@ -1,0 +1,13 @@
+.InitialHometownForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  flex: 1;
+  width: 80%;
+  margin-top: 4rem;
+}
+
+.InitialHometownForm div {
+  flex: 1;
+}

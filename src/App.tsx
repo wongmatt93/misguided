@@ -18,7 +18,7 @@ import MobileHeader from "./components/Headers/MobileHeaders/MobileHeader";
 import DesktopNavigation from "./components/DesktopNavigation/DesktopNavigation";
 import MobileNavigation from "./components/MobileNavigation/MobileNavigation";
 import LandingPage from "./components/LandingPage/LandingPage";
-import InitialSigninPage from "./components/initialSignIn/InitialSignInPage";
+import WelcomeView from "./components/Welcome/WelcomeView";
 import FeedView from "./components/Feed/FeedView";
 import ExplorersView from "./components/Explorers/ExplorersView";
 import PlanningView from "./components/Planning/PlanningView";
@@ -85,9 +85,9 @@ function App() {
               )}
               <Routes>
                 <Route
-                  path="/routes"
+                  path="/welcome"
                   element={
-                    <InitialSigninPage
+                    <WelcomeView
                       userProfile={userProfile}
                       refreshProfile={refreshProfile}
                     />
@@ -133,7 +133,7 @@ function App() {
                   element={<TripDetailsPage />}
                 />
                 <Route path="/good-bye" element={<GoodbyePage />} />
-                <Route path="*" element={<Navigate to="/routes" />} />
+                <Route path="*" element={<Navigate to="/welcome" />} />
               </Routes>
             </>
           )}

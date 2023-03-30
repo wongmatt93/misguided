@@ -5,11 +5,13 @@
 }
 
 .PlanTripPage .discover-text {
-  margin-top: 1em;
+  font-size: 0.8rem;
+  padding: 1rem;
   text-align: center;
 }
 
 .PlanTripPage .discover-button {
+  font-size: 0.8rem;
   background-color: #f0b202;
   color: #353839;
 }

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import PreferencesForm from "../Headers/Settings/Preferences/PreferencesForm";
-import "./InitialSignInPage.css";
+import "./WelcomeView.css";
 import InitialPhotoUploadForm from "./InitialPhotoUploadForm";
 import InitialHometownForm from "./InitialHometownForm";
 import UsernameForm from "./UsernameForm";
@@ -12,7 +12,7 @@ interface Props {
   refreshProfile: () => Promise<void>;
 }
 
-const InitialSignInPage = ({ userProfile, refreshProfile }: Props) => {
+const WelcomeView = ({ userProfile, refreshProfile }: Props) => {
   const navigate = useNavigate();
   const [stage, setStage] = useState("username");
 
@@ -33,7 +33,10 @@ const InitialSignInPage = ({ userProfile, refreshProfile }: Props) => {
   }, [navigate, userProfile]);
 
   return (
-    <main className="InitialSignInPage">
+    <section className="WelcomeView">
+      <h1 className="animate__animated animate__fadeInDown animate__fast">
+        Welcome to Misguided
+      </h1>
       {stage === "username" && (
         <UsernameForm
           uid={userProfile.uid}
@@ -57,15 +60,15 @@ const InitialSignInPage = ({ userProfile, refreshProfile }: Props) => {
       )}
       {stage === "preferences" && (
         <>
-          <h2>Choose your preferences</h2>
+          <p className="preferences-label">Choose your preferences</p>
           <PreferencesForm
             userProfile={userProfile}
             refreshProfile={refreshProfile}
           />
         </>
       )}
-    </main>
+    </section>
   );
 };
 
-export default InitialSignInPage;
+export default WelcomeView;

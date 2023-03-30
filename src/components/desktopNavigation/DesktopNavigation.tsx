@@ -6,8 +6,9 @@ import {
   RiLuggageCartFill,
   RiTeamFill,
 } from "react-icons/ri";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import { Notification } from "../../models/UserProfile";
+import { isWelcome } from "../../utils/welcomeFunctions";
 import "./DesktopNavigation.css";
 
 interface Props {
@@ -16,13 +17,17 @@ interface Props {
 
 const DesktopNavigation = ({ notifications }: Props) => {
   const [unreadCount, setUnreadCount] = useState(0);
+  const path: string = useLocation().pathname;
 
   useEffect(() => {
     setUnreadCount(notifications.filter((notifs) => !notifs.read).length);
   }, [notifications]);
 
   return (
-    <nav className="DesktopNavigation">
+    <nav
+      className="DesktopNavigation"
+      style={{ display: isWelcome(path) ? "none" : "block" }}
+    >
       <ul>
         <li>
           <NavLink to="/feed">

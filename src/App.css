@@ -19,7 +19,8 @@ h4,
 h5,
 p,
 a,
-form {
+form,
+button {
   margin: 0;
   padding: 0;
   border: 0;
