@@ -3,6 +3,8 @@ import Trip from "../models/Trip";
 import UserProfile from "../models/UserProfile";
 
 export interface AuthContextModel {
+  firstTimeUser: boolean;
+  setFirstTimeUser: React.Dispatch<React.SetStateAction<boolean>>;
   userProfile: UserProfile | undefined;
   setUserProfile: React.Dispatch<React.SetStateAction<UserProfile | undefined>>;
   refreshProfile: () => Promise<void>;
@@ -10,6 +12,8 @@ export interface AuthContextModel {
 }
 
 const defaultValue: AuthContextModel = {
+  firstTimeUser: false,
+  setFirstTimeUser: () => {},
   userProfile: undefined,
   setUserProfile: () => {},
   refreshProfile: async () => {},
