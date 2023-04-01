@@ -2,7 +2,7 @@ import { ReactNode, useEffect, useState } from "react";
 import { auth } from "../firebaseConfig";
 import AuthContext from "./AuthContext";
 import UserProfile from "../models/UserProfile";
-import { addNewUser, getUserByUid } from "../services/userService";
+import { getUserByUid } from "../services/userService";
 import Trip from "../models/Trip";
 import { getTripsByTripIdArray } from "../services/tripServices";
 import { today } from "../utils/dateFunctions";
@@ -12,6 +12,7 @@ interface Props {
 }
 
 const AuthContextProvider = ({ children }: Props) => {
+  const [firstTimeUser, setFirstTimeUser] = useState(false);
   const [userProfile, setUserProfile] = useState<UserProfile | undefined>(
     undefined
   );
@@ -43,8 +44,8 @@ const AuthContextProvider = ({ children }: Props) => {
               trips: [],
               notifications: [],
             };
-            addNewUser(newUserProfile);
             setUserProfile(newUserProfile);
+            setFirstTimeUser(true);
           } else {
             setUserProfile(response);
             const userAcceptedTrips: string[] = response.trips
@@ -71,7 +72,7 @@ const AuthContextProvider = ({ children }: Props) => {
   }, []);
 
   useEffect(() => {
-    if (userProfile) {
+    if (!firstTimeUser && userProfile) {
       const interval = setInterval(() => {
         getUserByUid(userProfile.uid).then((response) => {
           const array1: string = response.notifications.toString();
@@ -85,11 +86,13 @@ const AuthContextProvider = ({ children }: Props) => {
 
       return () => clearInterval(interval);
     }
-  }, [userProfile]);
+  }, [firstTimeUser, userProfile]);
 
   return (
     <AuthContext.Provider
       value={{
+        firstTimeUser,
+        setFirstTimeUser,
         userProfile,
         setUserProfile,
         refreshProfile,

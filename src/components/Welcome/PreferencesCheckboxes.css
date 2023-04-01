@@ -1,0 +1,119 @@
+.PreferencesCheckboxes {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.PreferencesCheckboxes p {
+  margin-top: 3rem;
+  text-align: center;
+}
+
+.PreferencesCheckboxes .checkboxes {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.PreferencesCheckboxes .form-check {
+  padding-left: 0;
+  width: 23%;
+  user-select: none;
+  margin: 0.4rem 0.2rem;
+}
+
+.PreferencesCheckboxes input {
+  display: none;
+}
+
+.PreferencesCheckboxes label {
+  background-color: #e6e6e6;
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 0.7em;
+  text-align: center;
+  height: 7em;
+  border-radius: 1em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  cursor: pointer;
+  color: #353839;
+}
+
+.PreferencesCheckboxes input:checked + label {
+  border: 2px solid #f0b202;
+  box-sizing: border-box;
+}
+
+.PreferencesCheckboxes .fa-heart {
+  color: pink;
+}
+
+.PreferencesCheckboxes .fa-bowl-food {
+  color: firebrick;
+}
+.PreferencesCheckboxes .fa-martini-glass-citrus {
+  color: lightseagreen;
+}
+.PreferencesCheckboxes .fa-torii-gate {
+  color: brown;
+}
+.PreferencesCheckboxes .fa-chess-rook {
+  color: darkslategray;
+}
+.PreferencesCheckboxes .fa-building-columns {
+  color: goldenrod;
+}
+.PreferencesCheckboxes .fa-masks-theater {
+  color: black;
+}
+.PreferencesCheckboxes .fa-music {
+  color: black;
+}
+.PreferencesCheckboxes .fa-glasses {
+  color: black;
+}
+.PreferencesCheckboxes .fa-peace {
+  color: purple;
+}
+.PreferencesCheckboxes .fa-gem {
+  color: darkblue;
+}
+.PreferencesCheckboxes .fa-baby {
+  color: palevioletred;
+}
+.PreferencesCheckboxes .fa-rainbow {
+  color: deeppink;
+}
+.PreferencesCheckboxes .fa-people-group {
+  color: purple;
+}
+.PreferencesCheckboxes .fa-umbrella-beach {
+  color: burlywood;
+}
+.PreferencesCheckboxes .fa-graduation-cap {
+  color: darkslategray;
+}
+.PreferencesCheckboxes .fa-person-skiing {
+  color: orange;
+}
+.PreferencesCheckboxes .fa-tree {
+  color: forestgreen;
+}
+.PreferencesCheckboxes .fa-wine-glass {
+  color: darkred;
+}
+.PreferencesCheckboxes .fa-bag-shopping {
+  color: limegreen;
+}
+
+.PreferencesCheckboxes .preference-button-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: auto;
+  width: 100%;
+  padding: 0 1rem;
+}
