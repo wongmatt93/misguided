@@ -45,8 +45,7 @@ const FirstTimeUserView = ({ stage, setStage, setFirstTimeUser }: Props) => {
         <div className="text-block lower animate__animated animate__fadeIn animate__faster">
           <p>
             This is the Explorers page. Here, you'll see all of your friends.
-            These are the folks you'll be able to invite on trips. You'll also
-            be able to search for new explorers to follow.
+            You'll also be able to search for new explorers to follow.
           </p>
           <Button
             variant="warning"
@@ -61,10 +60,9 @@ const FirstTimeUserView = ({ stage, setStage, setFirstTimeUser }: Props) => {
       {stage === "planning" && (
         <div className="text-block lower animate__animated animate__fadeIn animate__faster">
           <p>
-            This is the Planning page. Here, you'll be able to plan a trip.
-            Right off the bat, you can begin planning trips right here in your
-            hometown. However, you can also go and discover new cities for new
-            misadventures!
+            This is the Planning page. Here, you'll be able to plan a trip. You
+            can begin planning trips right here in your hometown. However, you
+            can also go and discover new cities!
           </p>
           <Button
             variant="warning"

@@ -13,6 +13,7 @@
 .InitialVisit svg {
   color: #f0b202;
   font-size: 3em;
+  cursor: pointer;
 }
 
 .InitialVisit button {

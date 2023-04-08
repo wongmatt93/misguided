@@ -17,6 +17,8 @@ const DummyHeader = ({ userProfile, isDesktop, stage }: Props) => {
     } else {
       if (stage === "planning") {
         setHeader("trip planning");
+      } else if (stage === "" || stage === "feed") {
+        setHeader("misguided");
       } else {
         setHeader(stage);
       }

@@ -11,13 +11,19 @@
   height: 100%;
 }
 
+.LandingPage .text-block {
+  position: relative;
+  top: 20%;
+  transform: translateY(-20%);
+  text-align: center;
+}
+
 .LandingPage h2 {
   font-family: "Merriweather", sans-serif;
   font-style: normal;
   font-weight: 700;
   font-size: 3.5em;
   line-height: 1.1em;
-  text-align: center;
   color: #ffffff;
   text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
@@ -63,5 +69,9 @@
     justify-content: center;
     width: calc(100% + 2rem);
     margin: -1rem;
+  }
+
+  .LandingPage .text-block {
+    top: 0;
   }
 }

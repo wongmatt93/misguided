@@ -5,7 +5,7 @@ import "animate.css";
 const LandingPage = () => {
   return (
     <section className="LandingPage">
-      <div className="logo-container">
+      <div className="text-block">
         <h2>
           Plan Your{" "}
           <span
@@ -16,15 +16,13 @@ const LandingPage = () => {
           </span>{" "}
           Vacation
         </h2>
+        <p>We make the plan. You pack your bags.</p>
       </div>
 
-      <div className="button-p-container">
-        <p>We make the plan. You pack your bags.</p>
-        <div className="sign-in-button-container">
-          <button className="sign-in-button" onClick={signInWithGoogle}>
-            Sign in with Google
-          </button>
-        </div>
+      <div className="sign-in-button-container">
+        <button className="sign-in-button" onClick={signInWithGoogle}>
+          Sign in with Google
+        </button>
       </div>
     </section>
   );

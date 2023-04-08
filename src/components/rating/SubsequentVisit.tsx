@@ -13,7 +13,6 @@ const SubsequentVisit = () => {
   const cityId: string | undefined = useParams().cityId;
   const navigate = useNavigate();
   const [rating, setRating] = useState(0);
-  const [hover, setHover] = useState(0);
   const [show, setShow] = useState(false);
 
   useEffect(() => {
@@ -34,11 +33,6 @@ const SubsequentVisit = () => {
   };
   const handleShow = (): void => setShow(true);
 
-  const handleClick = (rating: number) => {
-    setRating(rating);
-    setHover(0);
-  };
-
   const handleSubmit = async (cityId: string): Promise<void> => {
     await updateRating(cityId, userProfile!.uid, rating.toString());
     handleShow();
@@ -54,19 +48,11 @@ const SubsequentVisit = () => {
         {[0, 1, 2, 3, 4].map((star) =>
           star < rating ? (
             <div key={star}>
-              <RiStarFill onClick={() => handleClick(star + 1)} />
+              <RiStarFill onClick={() => setRating(star + 1)} />
             </div>
           ) : (
-            <div
-              key={star}
-              onMouseEnter={() => setHover(star + 1)}
-              onMouseLeave={() => setHover(0)}
-            >
-              {star < hover ? (
-                <RiStarFill onClick={() => handleClick(star + 1)} />
-              ) : (
-                <RiStarLine onClick={() => handleClick(star + 1)} />
-              )}
+            <div key={star}>
+              <RiStarLine onClick={() => setRating(star + 1)} />
             </div>
           )
         )}

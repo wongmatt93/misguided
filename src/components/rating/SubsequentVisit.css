@@ -13,6 +13,7 @@
 .SubsequentVisit svg {
   color: #f0b202;
   font-size: 3rem;
+  cursor: pointer;
 }
 
 .SubsequentVisit button {

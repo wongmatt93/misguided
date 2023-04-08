@@ -13,7 +13,6 @@ const InitialVisit = () => {
   const cityId: string | undefined = useParams().cityId;
   const navigate = useNavigate();
   const [rating, setRating] = useState(0);
-  const [hover, setHover] = useState(0);
   const totalStars = 5;
 
   const [show, setShow] = useState(false);
@@ -23,11 +22,6 @@ const InitialVisit = () => {
     navigate("/home");
   };
   const handleShow = (): void => setShow(true);
-
-  const handleClick = (rating: number) => {
-    setRating(rating);
-    setHover(0);
-  };
 
   const handleSubmit = async (cityId: string): Promise<void> => {
     const newRating: Rating = {
@@ -46,19 +40,11 @@ const InitialVisit = () => {
         {[...new Array(totalStars)].map((star, index) =>
           index < rating ? (
             <div key={index}>
-              <RiStarFill onClick={() => handleClick(index + 1)} />
+              <RiStarFill onClick={() => setRating(index + 1)} />
             </div>
           ) : (
-            <div
-              key={index}
-              onMouseEnter={() => setHover(index + 1)}
-              onMouseLeave={() => setHover(0)}
-            >
-              {index < hover ? (
-                <RiStarFill onClick={() => handleClick(index + 1)} />
-              ) : (
-                <RiStarLine onClick={() => handleClick(index + 1)} />
-              )}
+            <div key={index}>
+              <RiStarLine onClick={() => setRating(index + 1)} />
             </div>
           )
         )}
