@@ -6,7 +6,6 @@
 */
 
 /* resets */
-
 body,
 div,
 span,
@@ -58,6 +57,17 @@ button {
   font-family: "Roboto", sans-serif;
 }
 
+.App .welcome-main {
+  flex: 1;
+  overflow: scroll;
+}
+
+.App .landing-view {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
 .App .signed-in-main {
   display: flex;
   flex-direction: column;
@@ -65,12 +75,6 @@ button {
   background-color: #f5f5f5;
   overflow: auto;
   margin: 3.5rem 0 4rem;
-}
-
-.App .new-user-main {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
 }
 
 .App .main-view {

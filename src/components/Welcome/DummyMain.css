@@ -1,0 +1,161 @@
+.DummyMain {
+  height: 100%;
+  padding: 1rem;
+}
+
+.DummyMain .search-input {
+  margin-bottom: 1rem;
+}
+
+.DummyMain h2 {
+  font-size: 1.2rem;
+  color: #353839;
+}
+
+.DummyMain .ExplorerCard {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  margin-top: 0.5rem;
+  padding: 0.5rem 1rem;
+  box-shadow: 0px 1px 1px 1px rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  user-select: none;
+  color: #353839;
+}
+
+.DummyMain .ExplorerCard .image-name-container {
+  display: flex;
+  align-items: center;
+}
+
+.DummyMain .ExplorerCard img {
+  height: 2.5rem;
+  width: 2.5rem;
+  margin-right: 1rem;
+}
+
+.DummyMain .ExplorerCard .username {
+  font-size: 1.1rem;
+}
+
+.DummyMain .discover-text {
+  font-size: 0.8rem;
+  padding: 1rem;
+  text-align: center;
+}
+
+.DummyMain .discover-button {
+  font-size: 0.8rem;
+  background-color: #f0b202;
+  color: #353839;
+}
+
+.DummyMain .trips,
+.DummyMain .inbox {
+  display: flex;
+  height: 100%;
+}
+
+.DummyMain .trips-nav,
+.DummyMain .inbox-nav {
+  position: fixed;
+  top: 3.5rem;
+  bottom: 4rem;
+  left: 0;
+  width: 3rem;
+  background-color: inherit;
+}
+
+.DummyMain .inbox-nav .badge {
+  position: absolute;
+  bottom: 1em;
+  left: 50%;
+  transform: translateX(-50%) rotate(90deg);
+  padding: 0.5rem 0.3rem;
+  background-color: #f0b202 !important;
+}
+
+.DummyMain .trips-nav ul,
+.DummyMain .inbox-nav ul {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  height: 100%;
+}
+
+.DummyMain .trips-nav li,
+.DummyMain .inbox-nav li {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50%;
+  width: 100%;
+  border-left: 1px solid rgba(0, 0, 0, 0.1);
+  writing-mode: vertical-lr;
+  transform: rotate(180deg);
+}
+
+.DummyMain .trips-nav .active,
+.DummyMain .inbox-nav .active {
+  border-left: 1px solid #f0b202;
+}
+
+.DummyMain .trips-main,
+.DummyMain .inbox-main {
+  margin-left: 3rem;
+  width: 100%;
+}
+
+@media only screen and (min-width: 768px) {
+  .DummyMain {
+    width: 100%;
+    padding: 0 2rem 0 1rem;
+  }
+
+  .DummyMain .trips,
+  .DummyMain .inbox {
+    flex-direction: column;
+  }
+
+  .DummyMain .trips-nav,
+  .DummyMain .inbox-nav {
+    position: static;
+    width: 100%;
+    height: 3rem;
+  }
+
+  .DummyMain .trips-nav ul,
+  .DummyMain .inbox-nav ul {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .DummyMain .trips-nav li,
+  .DummyMain .inbox-nav li {
+    writing-mode: horizontal-tb;
+    transform: rotate(0deg);
+    height: 100%;
+    border-left: 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .DummyMain .trips-nav .active,
+  .DummyMain .inbox-nav .active {
+    border-left: 0;
+    border-bottom: 1px solid #f0b202;
+  }
+
+  .DummyMain .inbox-nav .badge {
+    display: flex;
+    align-items: center;
+    top: 50%;
+    left: 1rem;
+    transform: translateY(-50%);
+    padding: 0 0.5rem;
+    height: 1.3rem;
+    background-color: #f0b202 !important;
+  }
+}
