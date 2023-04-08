@@ -73,7 +73,7 @@ const SettingsOffcanvas = ({
                 <p>Notifications</p>
                 <RiArrowRightSLine />
               </ListGroup.Item>
-              {userProfile.uid === "5VVUY8rg7XOSfVFz5N27Slop2ok1" && (
+              {userProfile.uid === "M19dza3zi4RmsNiDtEtLtKcSewl1" && (
                 <ListGroup.Item onClick={() => setPage("admin")}>
                   <p>Add Cities</p>
                   <RiArrowRightSLine />
