@@ -14,6 +14,7 @@ import useFetchAllCities from "../../hooks/useFetchAllCities";
 import { addNewUser, getUserByUsername } from "../../services/userService";
 import PreferencesCheckboxes from "./PreferencesCheckboxes";
 import { RiPlaneFill } from "react-icons/ri";
+import { useNavigate } from "react-router-dom";
 
 interface Props {
   userProfile: UserProfile;
@@ -26,9 +27,11 @@ const WelcomeView = ({ userProfile, setUserProfile }: Props) => {
   const [username, setUsername] = useState("");
   const [taken, setTaken] = useState(false);
   const [profilePic, setProfilePic] = useState("");
+  const [uploading, setUploading] = useState(false);
   const [hometownId, setHometownId] = useState("");
   const [preferences, setPreferences] = useState<Preferences | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const navigate = useNavigate();
 
   // const width = window.innerWidth;
   // const height = window.innerHeight;
@@ -50,20 +53,18 @@ const WelcomeView = ({ userProfile, setUserProfile }: Props) => {
   };
 
   const uploadPhoto = async (): Promise<void> => {
-    if (profilePic) {
-      setStage("hometown");
-    } else {
-      const files = fileInputRef.current?.files;
+    setUploading(true);
+    const files = fileInputRef.current?.files;
 
-      if (files && files[0]) {
-        const file = files[0];
-        const storageRef = ref(
-          storage,
-          `user-photos/${userProfile.uid}/${file.name}`
-        );
-        const snapshot: UploadResult = await uploadBytes(storageRef, file);
-        setProfilePic(await getDownloadURL(snapshot.ref));
-      }
+    if (files && files[0]) {
+      const file = files[0];
+      const storageRef = ref(
+        storage,
+        `user-photos/${userProfile.uid}/${file.name}`
+      );
+      const snapshot: UploadResult = await uploadBytes(storageRef, file);
+      setProfilePic(await getDownloadURL(snapshot.ref));
+      setUploading(false);
     }
   };
 
@@ -79,6 +80,7 @@ const WelcomeView = ({ userProfile, setUserProfile }: Props) => {
 
       addNewUser(formData);
       setUserProfile(formData);
+      navigate("/welcome-guide");
     }
   };
 
@@ -92,11 +94,11 @@ const WelcomeView = ({ userProfile, setUserProfile }: Props) => {
       {stage === "createAccount" && (
         <>
           <h1 className="create-view animate__animated animate__fadeInDown animate__fast">
-            you're almost ready!
+            you're ready to begin!
           </h1>
-          <p className="welcome-paragraph create-view animate__animated animate__fadeIn animate__delay-1s">
-            Take some time and review everything. Once everything is set, click
-            Continue to begin your misadventures.
+          <p className="welcome-paragraph create-view animate__animated animate__fadeIn">
+            Take some time and review everything if needed. Once everything is
+            set, click Continue to begin your journey.
           </p>
         </>
       )}
@@ -104,7 +106,7 @@ const WelcomeView = ({ userProfile, setUserProfile }: Props) => {
       <Form className="UsernameForm " onSubmit={(e) => handleSubmit(e)}>
         {stage === "username" && (
           <Form.Group
-            className="form-username animate__animated animate__fadeIn animate__delay-1s"
+            className="form-username animate__animated animate__fadeIn"
             controlId="username"
           >
             <Form.Label>Pick a username to begin</Form.Label>
@@ -143,8 +145,10 @@ const WelcomeView = ({ userProfile, setUserProfile }: Props) => {
               type="file"
               onChange={uploadPhoto}
             />
-            <Form.Text style={{ display: profilePic ? "block" : "none" }}>
-              Picture Uploaded!
+            <Form.Text
+              style={{ display: uploading || profilePic ? "block" : "none" }}
+            >
+              {uploading ? "Uploading..." : "Picture Uploaded!"}
             </Form.Text>
             <div className="button-container">
               <Button

@@ -19,12 +19,15 @@
 .DesktopHeader .menu-button {
   display: flex;
   border: 0;
-  padding: 0.3rem 0.4rem;
-  background-color: #f0b202;
   color: #f5f5f5;
   border-radius: 5px;
 }
 
 .DesktopHeader .menu-button:active {
   opacity: 0.8;
+}
+
+.DesktopHeader .menu-button img {
+  height: 2.5rem;
+  width: 2.5rem;
 }

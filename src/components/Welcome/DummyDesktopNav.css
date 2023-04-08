@@ -1,0 +1,25 @@
+.DummyDesktopNav {
+  margin-top: -1rem;
+  padding: 1rem 2rem;
+  background-color: #f5f5f5;
+}
+
+.DummyDesktopNav li {
+  display: flex;
+  align-items: center;
+  color: #353839;
+  padding: 0.5rem;
+  border-radius: 5px;
+  margin-bottom: 0.5rem;
+  position: relative;
+  font-size: 1.1rem;
+  width: 11rem;
+}
+
+.DummyDesktopNav svg {
+  margin-right: 1rem;
+}
+
+.DummyDesktopNav .active {
+  background-color: #f0b202;
+}

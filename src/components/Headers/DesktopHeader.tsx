@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { RiMenuLine } from "react-icons/ri";
 import { useLocation } from "react-router-dom";
 import UserProfile from "../../models/UserProfile";
 import { isWelcome } from "../../utils/welcomeFunctions";
@@ -25,7 +24,11 @@ const DesktopHeader = ({ userProfile, refreshProfile }: Props) => {
     >
       <h1>misguided</h1>
       <button className="menu-button" onClick={handleShow}>
-        <RiMenuLine />
+        <img
+          className="circle-image"
+          src={userProfile.photoURL!}
+          alt={userProfile.photoURL!}
+        />
       </button>
       <SettingsOffcanvas
         userProfile={userProfile}
