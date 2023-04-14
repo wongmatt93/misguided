@@ -1,13 +1,8 @@
 import { Button } from "react-bootstrap";
 import { NavigateFunction, useNavigate } from "react-router-dom";
 import useFollowStatus from "../../../hooks/useFollowStatus";
-import UserProfile, { Notification } from "../../../models/UserProfile";
-import {
-  addFollower,
-  addFollowing,
-  addNotification,
-} from "../../../services/userService";
-import { createFollowNotif } from "../../../utils/notificationsFunctions";
+import UserProfile from "../../../models/UserProfile";
+import { followUser } from "../../../utils/followFunctions";
 import "./SearchResultCard.css";
 
 interface Props {
@@ -27,13 +22,7 @@ const SearchResultCard = ({ userProfile, refreshProfile, user }: Props) => {
   ): Promise<void> => {
     e.stopPropagation();
 
-    const newNotification: Notification = createFollowNotif(userProfile.uid);
-
-    await Promise.allSettled([
-      addFollowing(userProfile.uid, user.uid),
-      addFollower(user.uid, userProfile.uid),
-      addNotification(user.uid, newNotification),
-    ]);
+    await followUser(userProfile, user);
     refreshProfile();
   };
 

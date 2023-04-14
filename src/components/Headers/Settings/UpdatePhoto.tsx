@@ -28,7 +28,7 @@ const UpdatePhoto = ({ userProfile, refreshProfile }: Props) => {
       <UpdatePhotoModal
         show={show}
         handleClose={handleClose}
-        uid={userProfile.uid}
+        userProfile={userProfile}
         refreshProfile={refreshProfile}
       />
     </div>

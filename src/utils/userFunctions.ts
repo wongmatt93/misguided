@@ -17,21 +17,17 @@ import {
 const deleteAccount = async (userProfile: UserProfile): Promise<void> => {
   const { uid, followersUids, followingUids, trips } = userProfile;
 
-  // delete user from followers' followersUid
+  // delete user from followers' followersUids
   if (followersUids.length > 0) {
-    const followers: UserProfile[] = await getAllUsersByUidArray(followersUids);
     await Promise.allSettled(
-      followers.map((follower) => removeFollower(follower.uid, uid))
+      followersUids.map((follower) => removeFollowing(follower, uid))
     );
   }
 
-  // delete user from followings' followingsUid
+  // delete user from followings' followingUids
   if (followingUids.length > 0) {
-    const followings: UserProfile[] = await getAllUsersByUidArray(
-      followingUids
-    );
     await Promise.allSettled(
-      followings.map((following) => removeFollowing(following.uid, uid))
+      followingUids.map((following) => removeFollower(following, uid))
     );
   }
 

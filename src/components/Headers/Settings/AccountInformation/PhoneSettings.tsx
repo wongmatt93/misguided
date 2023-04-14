@@ -1,7 +1,7 @@
 import { FormEvent, useState } from "react";
 import { RiCheckFill, RiCloseCircleFill, RiEditFill } from "react-icons/ri";
 import UserProfile from "../../../../models/UserProfile";
-import { updateUserPhone } from "../../../../services/userService";
+import { updateUserProfile } from "../../../../services/userService";
 import "./PhoneSettings.css";
 
 interface Props {
@@ -20,7 +20,8 @@ const PhoneSettings = ({ userProfile, refreshProfile }: Props) => {
     phoneNumber: string
   ): Promise<void> => {
     e.preventDefault();
-    await updateUserPhone(userProfile.uid, phoneNumber);
+
+    await updateUserProfile({ ...userProfile, phoneNumber });
     await refreshProfile();
     setLocked(true);
   };
@@ -31,9 +32,7 @@ const PhoneSettings = ({ userProfile, refreshProfile }: Props) => {
         <div className="locked-settings">
           <div className="phone-container">
             <div className="label">phone number</div>
-            <div>
-              {userProfile.phoneNumber ? userProfile.phoneNumber : "n/a"}
-            </div>
+            <div>{userProfile.phoneNumber || "n/a"}</div>
           </div>
           <button type="button">
             <RiEditFill onClick={() => setLocked(false)} />

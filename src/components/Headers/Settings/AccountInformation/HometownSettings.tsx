@@ -4,7 +4,7 @@ import useCityFetcher from "../../../../hooks/useCityFetcher";
 import useFetchAllCities from "../../../../hooks/useFetchAllCities";
 import City from "../../../../models/City";
 import UserProfile from "../../../../models/UserProfile";
-import { updateUserHometown } from "../../../../services/userService";
+import { updateUserProfile } from "../../../../services/userService";
 import "./HometownSettings.css";
 
 interface Props {
@@ -24,10 +24,10 @@ const HometownSettings = ({ userProfile, refreshProfile }: Props) => {
 
   const handleSubmit = async (
     e: FormEvent,
-    newHometownId: string
+    hometownId: string
   ): Promise<void> => {
     e.preventDefault();
-    await updateUserHometown(userProfile.uid, newHometownId);
+    await updateUserProfile({ ...userProfile, hometownId });
     await refreshProfile();
     setLocked(true);
   };
