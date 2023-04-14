@@ -4,7 +4,7 @@ import { RiMenuLine } from "react-icons/ri";
 import AuthContext from "../../../context/AuthContext";
 import { Notification } from "../../../models/UserProfile";
 import {
-  deleteAllNotifications,
+  updateUserProfile,
   readNotification,
 } from "../../../services/userService";
 import "./InboxHeader.css";
@@ -39,9 +39,11 @@ const InboxHeader = ({ path }: Props) => {
     refreshProfile();
   };
 
-  const deleteAll = async (uid: string): Promise<void> => {
-    await deleteAllNotifications(uid);
-    refreshProfile();
+  const deleteAll = async (): Promise<void> => {
+    if (userProfile) {
+      await updateUserProfile({ ...userProfile, notifications: [] });
+      refreshProfile();
+    }
   };
 
   return (
@@ -54,9 +56,7 @@ const InboxHeader = ({ path }: Props) => {
           </Dropdown.Toggle>
           <Dropdown.Menu>
             <Dropdown.Item onClick={markAllRead}>Mark All Read</Dropdown.Item>
-            <Dropdown.Item onClick={() => deleteAll(userProfile!.uid)}>
-              Delete All
-            </Dropdown.Item>
+            <Dropdown.Item onClick={deleteAll}>Delete All</Dropdown.Item>
           </Dropdown.Menu>
         </Dropdown>
       )}

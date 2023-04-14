@@ -1,16 +1,8 @@
 import { Button, Dropdown, DropdownButton } from "react-bootstrap";
-import { Notification } from "../../../models/UserProfile";
 import UserProfile from "../../../models/UserProfile";
-import {
-  addFollower,
-  addFollowing,
-  addNotification,
-  removeFollower,
-  removeFollowing,
-} from "../../../services/userService";
-import { createFollowNotif } from "../../../utils/notificationsFunctions";
-import "./FollowButton.css";
 import useFollowStatus from "../../../hooks/useFollowStatus";
+import { followUser, unfollowUser } from "../../../utils/followFunctions";
+import "./FollowButton.css";
 
 interface Props {
   userProfile: UserProfile;
@@ -22,21 +14,12 @@ const FollowButton = ({ userProfile, refreshProfile, otherProfile }: Props) => {
   const followStatus: string = useFollowStatus(userProfile, otherProfile.uid);
 
   const handleFollowUser = async (): Promise<string | void> => {
-    const newNotification: Notification = createFollowNotif(userProfile.uid);
-
-    await Promise.allSettled([
-      addFollowing(userProfile.uid, otherProfile.uid),
-      addFollower(otherProfile.uid, userProfile.uid),
-      addNotification(otherProfile.uid, newNotification),
-    ]);
+    await followUser(userProfile, otherProfile);
     refreshProfile();
   };
 
   const handleUnfollowUser = async (): Promise<void> => {
-    await Promise.allSettled([
-      removeFollowing(userProfile.uid, otherProfile.uid),
-      await removeFollower(otherProfile.uid, userProfile.uid),
-    ]);
+    await unfollowUser(userProfile, otherProfile);
     refreshProfile();
   };
 

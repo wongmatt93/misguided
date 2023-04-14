@@ -2,20 +2,21 @@ import { Modal, Button } from "react-bootstrap";
 import { FormEvent, useRef } from "react";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { storage } from "../../../firebaseConfig";
-import { updateUserPhoto } from "../../../services/userService";
+import { updateUserProfile } from "../../../services/userService";
 import "./UpdatePhotoModal.css";
+import UserProfile from "../../../models/UserProfile";
 
 interface Props {
   show: boolean;
   handleClose: () => void;
-  uid: string;
+  userProfile: UserProfile;
   refreshProfile: () => Promise<void>;
 }
 
 const UpdatePhotoModal = ({
   show,
   handleClose,
-  uid,
+  userProfile,
   refreshProfile,
 }: Props) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -27,11 +28,17 @@ const UpdatePhotoModal = ({
     if (files && files[0]) {
       const file = files[0]; // Here is the file we need
 
-      const storageRef = ref(storage, `user-photos/${uid}/${file.name}`);
+      const storageRef = ref(
+        storage,
+        `user-photos/${userProfile.uid}/${file.name}`
+      );
 
       const snapshot = await uploadBytes(storageRef, file);
-      const url = await getDownloadURL(snapshot.ref);
-      await updateUserPhoto(uid, url);
+      const photoURL = await getDownloadURL(snapshot.ref);
+      await updateUserProfile({
+        ...userProfile,
+        photoURL,
+      });
       await refreshProfile();
 
       handleClose();

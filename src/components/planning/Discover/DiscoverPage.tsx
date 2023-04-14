@@ -3,7 +3,7 @@ import "./DiscoverPage.css";
 import { useNavigate } from "react-router-dom";
 import { RiGlobeFill } from "react-icons/ri";
 import { Button } from "react-bootstrap";
-import { removeAllDislikedCities } from "../../../services/userService";
+import { updateUserProfile } from "../../../services/userService";
 import { getAllCities } from "../../../services/cityService";
 import City from "../../../models/City";
 import ThumbsContainer from "../../common/ThumbsContainer";
@@ -44,8 +44,8 @@ const DiscoverPage = ({ userProfile, refreshProfile }: Props) => {
   const navigateDetails = (cityId: string) =>
     navigate(`/plan-trip/city-details/${cityId}`);
 
-  const handleRefreshTrips = async (uid: string): Promise<void> => {
-    await removeAllDislikedCities(uid);
+  const handleRefreshTrips = async (): Promise<void> => {
+    await updateUserProfile({ ...userProfile, dislikesCityIds: [] });
     refreshProfile();
   };
 
@@ -71,7 +71,7 @@ const DiscoverPage = ({ userProfile, refreshProfile }: Props) => {
           <DiscoverCard currentCity={currentCity} cityRating={cityRating} />
           <ThumbsContainer
             city={currentCity}
-            uid={userProfile.uid}
+            userProfile={userProfile}
             refreshProfile={refreshProfile}
             navigateDetails={navigateDetails}
           />
@@ -84,7 +84,7 @@ const DiscoverPage = ({ userProfile, refreshProfile }: Props) => {
             className="refresh-button"
             variant="warning"
             type="button"
-            onClick={() => handleRefreshTrips(userProfile.uid)}
+            onClick={handleRefreshTrips}
           >
             Refresh Cities
           </Button>

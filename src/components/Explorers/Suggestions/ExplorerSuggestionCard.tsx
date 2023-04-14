@@ -1,13 +1,8 @@
 import { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import { NavigateFunction, useNavigate } from "react-router-dom";
-import UserProfile, { Notification } from "../../../models/UserProfile";
-import {
-  addFollower,
-  addFollowing,
-  addNotification,
-} from "../../../services/userService";
-import { createFollowNotif } from "../../../utils/notificationsFunctions";
+import UserProfile from "../../../models/UserProfile";
+import { followUser } from "../../../utils/followFunctions";
 import "./ExplorerSuggestionCard.css";
 
 interface Props {
@@ -36,13 +31,7 @@ const ExplorerSuggestionCard = ({
   ): Promise<void> => {
     e.stopPropagation();
 
-    const newNotification: Notification = createFollowNotif(userProfile.uid);
-
-    await Promise.allSettled([
-      addFollowing(userProfile.uid, suggested.uid),
-      addFollower(suggested.uid, userProfile.uid),
-      addNotification(suggested.uid, newNotification),
-    ]);
+    await followUser(userProfile, suggested);
     refreshProfile();
   };
 

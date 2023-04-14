@@ -4,7 +4,7 @@ import City from "../../models/City";
 import { getCityById } from "../../services/cityService";
 import "./CityDetailsPage.css";
 import { Button } from "react-bootstrap";
-import { addDislikedCity, removeLikedCity } from "../../services/userService";
+import { updateUserProfile } from "../../services/userService";
 import ThumbsContainer from "../common/ThumbsContainer";
 import CityVisitors from "./CityVisitors";
 import CityCharacteristics from "./CityCharacteristics";
@@ -19,33 +19,32 @@ const CityDetailsPage = ({ userProfile, refreshProfile }: Props) => {
   const [city, setCity] = useState<City | null>(null);
   const [liked, setLiked] = useState(false);
   const navigate = useNavigate();
-  const cityId: string | undefined = useParams().cityId;
+  const { cityId } = useParams();
+
+  const { likesCityIds, dislikesCityIds, hometownId } = userProfile;
 
   useEffect(() => {
     if (cityId) {
       getCityById(cityId).then((response) => setCity(response));
-    }
-  }, [cityId]);
 
-  useEffect(() => {
-    if (userProfile.likesCityIds.some((like) => like === cityId)) {
-      setLiked(true);
-    } else if (userProfile.hometownId === cityId) {
-      setLiked(true);
+      if (likesCityIds.includes(cityId) || hometownId === cityId) {
+        setLiked(true);
+      }
     }
-  }, [userProfile, cityId]);
+  }, [cityId, likesCityIds, hometownId]);
 
   const goBack = (): void => navigate(-1);
 
   const handleItinerary = (): void =>
     navigate(`/plan-trip/get-itinerary/${city!._id}`);
 
-  const unlikeCity = async (uid: string, cityId: string): Promise<void> => {
-    await Promise.allSettled([
-      removeLikedCity(uid, cityId),
-      addDislikedCity(uid, cityId),
-    ]);
-    refreshProfile();
+  const unlikeCity = async (cityId: string): Promise<void> => {
+    const likesIndex: number = likesCityIds.indexOf(cityId);
+    likesCityIds.splice(likesIndex, 1);
+    dislikesCityIds.push(cityId);
+
+    await updateUserProfile(userProfile);
+    await refreshProfile();
     navigate("/plan-trip");
   };
 
@@ -74,7 +73,7 @@ const CityDetailsPage = ({ userProfile, refreshProfile }: Props) => {
           {!liked && (
             <ThumbsContainer
               city={city}
-              uid={userProfile.uid}
+              userProfile={userProfile}
               refreshProfile={refreshProfile}
               goBack={goBack}
             />
@@ -83,7 +82,7 @@ const CityDetailsPage = ({ userProfile, refreshProfile }: Props) => {
             <Button
               className="remove-button"
               variant="link"
-              onClick={() => unlikeCity(userProfile.uid, city._id!)}
+              onClick={() => unlikeCity(city._id!)}
             >
               Remove City
             </Button>

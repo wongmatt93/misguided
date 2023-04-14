@@ -13,7 +13,6 @@ import City from "../../models/City";
 import useFetchAllCities from "../../hooks/useFetchAllCities";
 import { addNewUser, getUserByUsername } from "../../services/userService";
 import PreferencesCheckboxes from "./PreferencesCheckboxes";
-import { RiPlaneFill } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
 
 interface Props {
@@ -26,19 +25,12 @@ const WelcomeView = ({ userProfile, setUserProfile }: Props) => {
   const [stage, setStage] = useState("username");
   const [username, setUsername] = useState("");
   const [taken, setTaken] = useState(false);
-  const [profilePic, setProfilePic] = useState("");
+  const [photoURL, setPhotoURL] = useState("");
   const [uploading, setUploading] = useState(false);
   const [hometownId, setHometownId] = useState("");
   const [preferences, setPreferences] = useState<Preferences | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const navigate = useNavigate();
-
-  // const width = window.innerWidth;
-  // const height = window.innerHeight;
-  // const start = width * 0.2;
-  // const end = width * 0.8;
-  // const length = height * 1.2;
-  // console.log(start, end, length);
 
   const verifyUsername = async (): Promise<void> => {
     if (username) {
@@ -63,7 +55,7 @@ const WelcomeView = ({ userProfile, setUserProfile }: Props) => {
         `user-photos/${userProfile.uid}/${file.name}`
       );
       const snapshot: UploadResult = await uploadBytes(storageRef, file);
-      setProfilePic(await getDownloadURL(snapshot.ref));
+      setPhotoURL(await getDownloadURL(snapshot.ref));
       setUploading(false);
     }
   };
@@ -71,15 +63,17 @@ const WelcomeView = ({ userProfile, setUserProfile }: Props) => {
   const handleSubmit = (e: FormEvent): void => {
     e.preventDefault();
 
-    if (username && profilePic && hometownId && preferences) {
-      const formData = { ...userProfile };
-      formData.username = username;
-      formData.photoURL = profilePic;
-      formData.hometownId = hometownId;
-      formData.preferences = preferences;
+    if (username && photoURL && hometownId && preferences) {
+      const newUser = {
+        ...userProfile,
+        username,
+        photoURL,
+        hometownId,
+        preferences,
+      };
 
-      addNewUser(formData);
-      setUserProfile(formData);
+      addNewUser(newUser);
+      setUserProfile(newUser);
       navigate("/welcome-guide");
     }
   };
@@ -146,7 +140,7 @@ const WelcomeView = ({ userProfile, setUserProfile }: Props) => {
               onChange={uploadPhoto}
             />
             <Form.Text
-              style={{ display: uploading || profilePic ? "block" : "none" }}
+              style={{ display: uploading || photoURL ? "block" : "none" }}
             >
               {uploading ? "Uploading..." : "Picture Uploaded!"}
             </Form.Text>
@@ -161,7 +155,7 @@ const WelcomeView = ({ userProfile, setUserProfile }: Props) => {
               <Button
                 variant="warning"
                 type="button"
-                disabled={profilePic ? false : true}
+                disabled={photoURL ? false : true}
                 onClick={() => setStage("hometown")}
               >
                 Next
@@ -230,8 +224,6 @@ const WelcomeView = ({ userProfile, setUserProfile }: Props) => {
           </div>
         )}
       </Form>
-      {/* <RiPlaneFill className="plane plane-1" /> */}
-      {/* <RiPlaneFill className="plane plane-2" /> */}
     </section>
   );
 };

@@ -1,7 +1,7 @@
 import { FormEvent, useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import UserProfile, { Preferences } from "../../../../models/UserProfile";
-import { updateUserPreferences } from "../../../../services/userService";
+import { updateUserProfile } from "../../../../services/userService";
 import "./PreferencesForm.css";
 
 interface Props {
@@ -32,7 +32,7 @@ const PreferencesForm = ({ setShow, userProfile, refreshProfile }: Props) => {
   const [wineries, setWineries] = useState(false);
   const [shopping, setShopping] = useState(false);
 
-  const handleSubmit = (e: FormEvent): void => {
+  const handleSubmit = async (e: FormEvent): Promise<void> => {
     e.preventDefault();
     const newPreference: Preferences = {
       charming,
@@ -56,10 +56,10 @@ const PreferencesForm = ({ setShow, userProfile, refreshProfile }: Props) => {
       wineries,
       shopping,
     };
-    updateUserPreferences(userProfile.uid, newPreference).then(() => {
-      refreshProfile();
-      setShow && setShow(true);
-    });
+
+    await updateUserProfile({ ...userProfile, preferences: newPreference });
+    await refreshProfile();
+    setShow && setShow(true);
   };
 
   useEffect(() => {
