@@ -1,4 +1,4 @@
-import Trip from "../models/Trip";
+import Trip, { Participant } from "../models/Trip";
 import UserProfile from "../models/UserProfile";
 import {
   deleteTrip,
@@ -9,13 +9,21 @@ import {
 import {
   deleteUser,
   deleteUserTrip,
-  getAllUsersByUidArray,
   removeFollower,
   removeFollowing,
 } from "../services/userService";
 
+const getAcceptedTrips = async (user: UserProfile): Promise<Trip[]> =>
+  getTripsByTripIdArray(user.tripIds).then((response) =>
+    response.filter((trip) =>
+      trip.participants.some(
+        (participant) => participant.uid === user.uid && participant.accepted
+      )
+    )
+  );
+
 const deleteAccount = async (userProfile: UserProfile): Promise<void> => {
-  const { uid, followersUids, followingUids, trips } = userProfile;
+  const { uid, followersUids, followingUids, tripIds } = userProfile;
 
   // delete user from followers' followersUids
   if (followersUids.length > 0) {
@@ -32,27 +40,21 @@ const deleteAccount = async (userProfile: UserProfile): Promise<void> => {
   }
 
   // delete user from trips
-  if (trips.length > 0) {
-    const tripIds: string[] = trips.map((trip) => trip.tripId);
+  if (tripIds.length > 0) {
     const tripObjects: Trip[] = await getTripsByTripIdArray(tripIds);
     await Promise.allSettled(
       tripObjects.map(async (trip) => {
-        const participants: UserProfile[] = await getAllUsersByUidArray(
-          trip.participantsUids
-        );
-
-        const acceptedParticipants: UserProfile[] = participants.filter(
-          (participant) =>
-            participant.trips.filter(
-              (item) => item.accepted && item.tripId === trip._id!
-            )
+        const acceptedParticipants: Participant[] = trip.participants.filter(
+          (participant) => participant.accepted
         );
 
         if (acceptedParticipants.length === 1) {
           // deletes trip if user is the only accepted participant
-          if (participants.length > 1) {
+          if (trip.participants.length > 1) {
             Promise.allSettled(
-              trip.participantsUids.map((uid) => deleteUserTrip(uid, trip._id!))
+              trip.participants.map((participant) =>
+                deleteUserTrip(participant.uid, trip._id!)
+              )
             );
           }
 
@@ -62,7 +64,7 @@ const deleteAccount = async (userProfile: UserProfile): Promise<void> => {
 
           // reassigns creatorUid if user was creator but there are other participants
           if (trip.creatorUid === uid) {
-            const newCreator: UserProfile | undefined =
+            const newCreator: Participant | undefined =
               acceptedParticipants.find(
                 (participant) => participant.uid !== uid
               );
@@ -80,4 +82,4 @@ const deleteAccount = async (userProfile: UserProfile): Promise<void> => {
   await deleteUser(uid);
 };
 
-export { deleteAccount };
+export { getAcceptedTrips, deleteAccount };

@@ -87,7 +87,7 @@ const ReturningUserRoutes = ({
           />
           <Route
             path="/trips/*"
-            element={<TripsView userTrips={userProfile.trips} />}
+            element={<TripsView userProfile={userProfile} />}
           />
           <Route
             path="/plan-trip/*"

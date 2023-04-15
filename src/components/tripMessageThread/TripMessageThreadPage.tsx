@@ -56,7 +56,7 @@ const TripMessageThreadPage = ({ userUid }: Props) => {
             />
           </div>
           {isLargeScreen && (
-            <TripMessageSidebar participantsUids={trip.participantsUids} />
+            <TripMessageSidebar tripParticipants={trip.participants} />
           )}
         </section>
       )}

@@ -24,8 +24,9 @@ const NewMessageForm = ({ tripId, userUid, refreshTrip }: Props) => {
   useEffect(() => {
     getTripById(tripId).then((response) => {
       const userUids: string[] = [];
-      response.participantsUids.forEach(
-        (participant) => participant !== userUid && userUids.push(participant)
+      response.participants.forEach(
+        (participant) =>
+          participant.uid !== userUid && userUids.push(participant.uid)
       );
       getAllUsersByUidArray(userUids).then((response) =>
         setParticipants(response)

@@ -1,28 +1,18 @@
-import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import UserProfile, { UserTrip } from "../../../../models/UserProfile";
+import Trip from "../../../../models/Trip";
+import UserProfile from "../../../../models/UserProfile";
 import "./ParticipantCard.css";
 
 interface Props {
   participant: UserProfile;
-  tripId: string;
+  trip: Trip;
 }
 
-const ParticipantCard = ({ participant, tripId }: Props) => {
+const ParticipantCard = ({ participant, trip }: Props) => {
   const navigate = useNavigate();
-  const [accepted, setAccepted] = useState(false);
-
-  useEffect(() => {
-    const trip: UserTrip | undefined = participant.trips.find(
-      (trip) => trip.tripId === tripId
-    );
-
-    if (trip) {
-      if (trip.accepted) {
-        setAccepted(true);
-      }
-    }
-  }, [participant, tripId]);
+  const accepted: boolean = trip.participants.some(
+    (item) => item.uid === participant.uid && item.accepted
+  );
 
   return (
     <li

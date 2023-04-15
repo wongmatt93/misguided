@@ -3,10 +3,7 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import useFriendsFetcher from "../../../../hooks/useFriendsFetcher";
 import Trip from "../../../../models/Trip";
-import UserProfile, {
-  Notification,
-  UserTrip,
-} from "../../../../models/UserProfile";
+import UserProfile, { Notification } from "../../../../models/UserProfile";
 import { addNewParticipantToTrip } from "../../../../services/tripServices";
 import {
   addNewUserTrip,
@@ -38,18 +35,13 @@ const InviteFriendsModal = ({
   useEffect(() => {
     setFilteredFriends(
       friends.filter(
-        (friend) => !friend.trips.some((item) => item.tripId === trip._id!)
+        (friend) => !friend.tripIds.some((item) => item === trip._id!)
       )
     );
   }, [friends, trip]);
 
   const handleSubmit = async (e: FormEvent): Promise<void> => {
     e.preventDefault();
-
-    const newTrip: UserTrip = {
-      tripId: trip._id!,
-      accepted: false,
-    };
 
     await Promise.all(
       invitedFriends.map((friend) => {
@@ -60,8 +52,8 @@ const InviteFriendsModal = ({
 
         return Promise.allSettled([
           addNotification(friend, newNotification),
-          addNewUserTrip(friend, newTrip),
-          addNewParticipantToTrip(trip._id!, friend),
+          addNewUserTrip(friend, trip._id!),
+          addNewParticipantToTrip(trip._id!, { uid: friend, accepted: false }),
           setInvitedFriends([]),
         ]);
       })

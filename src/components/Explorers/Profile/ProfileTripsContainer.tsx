@@ -27,14 +27,8 @@ const ProfileTripsContainer = ({
   const timesUp: boolean = useTimer(1500);
 
   useEffect(() => {
-    if (profile.trips.length > 0) {
-      const tripIds: string[] = [];
-
-      profile.trips.forEach(
-        (trip) => trip.accepted && tripIds.push(trip.tripId)
-      );
-
-      getTripsByTripIdArray(tripIds).then((response) => {
+    if (profile.tripIds.length > 0) {
+      getTripsByTripIdArray(profile.tripIds).then((response) => {
         const past: Trip[] = [];
 
         response.forEach((item) => {

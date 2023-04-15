@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
 import { Button, Dropdown, DropdownButton } from "react-bootstrap";
 import Trip from "../../../../models/Trip";
-import UserProfile, { UserTrip } from "../../../../models/UserProfile";
-import { removeParticipantFromTrip } from "../../../../services/tripServices";
+import UserProfile from "../../../../models/UserProfile";
 import {
-  acceptUserTrip,
+  getTripById,
+  participantAcceptTrip,
+  removeParticipantFromTrip,
+} from "../../../../services/tripServices";
+import {
   addNotification,
   deleteUserTrip,
 } from "../../../../services/userService";
@@ -39,14 +42,21 @@ const ParticipantsSection = ({
 
   useEffect(() => {
     if (userProfile) {
-      if (userProfile.trips.length > 0) {
-        const found: UserTrip | undefined = userProfile.trips.find(
-          (item) => item.tripId === trip._id!
+      if (userProfile.tripIds.length > 0) {
+        const found: string | undefined = userProfile.tripIds.find(
+          (tripId) => tripId === trip._id!
         );
 
         if (found) {
           setInvited(true);
-          setAccepted(found.accepted);
+          getTripById(found).then((trip) =>
+            setAccepted(
+              trip.participants.some(
+                (participant) =>
+                  participant.uid === userProfile.uid && participant.accepted
+              )
+            )
+          );
         }
       }
     }
@@ -80,7 +90,7 @@ const ParticipantsSection = ({
         );
 
         await Promise.allSettled([
-          acceptUserTrip(userProfile!.uid, trip._id!),
+          participantAcceptTrip(trip._id!, userProfile!.uid),
           addNotification(trip.creatorUid, newNotification),
         ]);
         refreshTrip(trip._id!);
@@ -138,7 +148,7 @@ const ParticipantsSection = ({
           <ParticipantCard
             key={participant.uid}
             participant={participant}
-            tripId={trip._id!}
+            trip={trip}
           />
         ))}
       </ul>
