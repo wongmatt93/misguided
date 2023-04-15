@@ -1,5 +1,5 @@
 import axios from "axios";
-import UserProfile, { Notification, UserTrip } from "../models/UserProfile";
+import UserProfile, { Notification } from "../models/UserProfile";
 
 const baseURL: string = process.env.REACT_APP_API_URL || "";
 
@@ -65,15 +65,9 @@ export const removeFollower = async (
 
 export const addNewUserTrip = async (
   uid: string,
-  newTrip: UserTrip
-): Promise<UserTrip> =>
-  (await axios.put(`${baseURL}/users/${uid}/add-trip`, newTrip)).data;
-
-export const acceptUserTrip = async (
-  uid: string,
-  tripId: string
-): Promise<void> =>
-  (await axios.put(`${baseURL}/users/${uid}/${tripId}/accept-trip`)).data;
+  newTripId: string
+): Promise<string> =>
+  (await axios.put(`${baseURL}/users/${uid}/add-trip`, { newTripId })).data;
 
 export const deleteUserTrip = async (
   uid: string,

@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
-import Trip from "../../models/Trip";
+import Trip, { Participant } from "../../models/Trip";
 import UpcomingTripsContainer from "./UpcomingTrips/UpcomingTripsContainer";
 import PastTripsContainer from "./PastTrips/PastTripsContainer";
-import { UserTrip } from "../../models/UserProfile";
 import {
   sortTripsAscending,
   sortTripsDescending,
@@ -13,40 +12,33 @@ import TripsNav from "./TripsNav";
 import { getTripsByTripIdArray } from "../../services/tripServices";
 import TripDetailsPage from "../common/TripDetails/TripDetailsPage";
 import RatingPage from "../Rating/RatingPage";
+import UserProfile from "../../models/UserProfile";
 
 interface Props {
-  userTrips: UserTrip[];
+  userProfile: UserProfile;
 }
 
-const TripsView = ({ userTrips }: Props) => {
+const TripsView = ({ userProfile }: Props) => {
   const [upcomingTrips, setUpcomingTrips] = useState<Trip[]>([]);
   const [pastTrips, setPastTrips] = useState<Trip[]>([]);
 
   useEffect(() => {
-    if (userTrips.length > 0) {
-      const tripIds: string[] = [];
-
-      userTrips.forEach((trip) => tripIds.push(trip.tripId));
-
-      getTripsByTripIdArray(tripIds).then((response) => {
+    const { uid, tripIds } = userProfile;
+    if (tripIds.length > 0) {
+      getTripsByTripIdArray(tripIds).then((trips) => {
         const upcoming: Trip[] = [];
         const past: Trip[] = [];
 
-        response.forEach((trip) => {
-          let accepted: boolean = true;
-          const userTrip: UserTrip | undefined = userTrips.find(
-            (item) => item.tripId === trip._id!
+        trips.forEach((trip) => {
+          const participant: Participant | undefined = trip.participants.find(
+            (participant) => participant.uid === uid
           );
 
           const endDate: Date = trip.endDate
             ? new Date(Number(trip.endDate))
             : new Date(Number(trip.startDate));
 
-          if (userTrip) {
-            accepted = userTrip.accepted;
-          }
-
-          if (accepted) {
+          if (participant?.accepted) {
             if (today.getTime() - endDate.getTime() < 0) {
               upcoming.push(trip);
             } else {
@@ -59,7 +51,7 @@ const TripsView = ({ userTrips }: Props) => {
         setPastTrips(sortTripsDescending(past));
       });
     }
-  }, [userTrips]);
+  }, [userProfile]);
 
   return (
     <section className="main-view">

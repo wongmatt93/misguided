@@ -1,8 +1,3 @@
-export interface UserTrip {
-  tripId: string;
-  accepted: boolean;
-}
-
 export interface Notification {
   uid: string;
   type: string;
@@ -48,7 +43,7 @@ export default interface UserProfile {
   followingUids: string[];
   favoriteCityIds: string[];
   hiddenCityIds: string[];
-  trips: UserTrip[];
+  tripIds: string[];
   notifications: Notification[];
   likedTripIds: string[];
   commentedTripIds: string[];

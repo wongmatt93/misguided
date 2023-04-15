@@ -10,6 +10,11 @@ export interface Message {
   date: string;
 }
 
+export interface Participant {
+  uid: string;
+  accepted: boolean;
+}
+
 export interface SingleDaySchedule {
   breakfast: string;
   breakfastPhoto: string;
@@ -48,7 +53,7 @@ export default interface Trip {
   hotel: string | null;
   schedule: SingleDaySchedule[];
   photos: string[];
-  participantsUids: string[];
+  participants: Participant[];
   messages: Message[];
   completed: boolean;
   likesUids: string[];

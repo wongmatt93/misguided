@@ -1,7 +1,6 @@
 import { RiEditFill } from "react-icons/ri";
 import { useContext, useEffect, useState } from "react";
-import Trip from "../../../models/Trip";
-import { UserTrip } from "../../../models/UserProfile";
+import Trip, { Participant } from "../../../models/Trip";
 import EditNicknameModal from "./EditNicknameModal";
 import "./TripDetailsHeader.css";
 import { getCityById } from "../../../services/cityService";
@@ -44,8 +43,8 @@ const TripDetailsHeader = ({ path }: Props) => {
 
   useEffect(() => {
     if (userProfile && trip) {
-      const match: UserTrip | undefined = userProfile.trips.find(
-        (userTrip) => userTrip.tripId === trip._id!
+      const match: Participant | undefined = trip.participants.find(
+        (participant) => participant.uid === userProfile.uid
       );
 
       match && setAccepted(match.accepted);

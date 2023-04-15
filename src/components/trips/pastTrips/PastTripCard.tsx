@@ -45,15 +45,15 @@ const PastTripCard = ({ trip }: Props) => {
     const newNotification: Notification = createRatingNotif(uid, trip._id!);
 
     await Promise.allSettled(
-      trip.participantsUids
-        .filter((participant) => participant !== uid)
+      trip.participants
+        .filter((participant) => participant.uid !== uid)
         .map((participant) =>
-          addNotification(participant, newNotification).then(() => {
+          addNotification(participant.uid, newNotification).then(() => {
             const match: string | undefined = city.visitorsUids.find(
-              (visitor) => visitor === participant
+              (visitor) => visitor === participant.uid
             );
 
-            !match && addVisitor(city._id!, participant);
+            !match && addVisitor(city._id!, participant.uid);
           })
         )
     );
@@ -72,7 +72,9 @@ const PastTripCard = ({ trip }: Props) => {
     await Promise.allSettled([
       deleteTrip(trip._id!),
       Promise.allSettled(
-        trip.participantsUids.map((item) => deleteUserTrip(item, trip._id!))
+        trip.participants.map((participant) =>
+          deleteUserTrip(participant.uid, trip._id!)
+        )
       ),
     ]);
 

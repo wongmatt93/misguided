@@ -15,7 +15,7 @@ import { Business } from "../../models/Yelp";
 import Trip from "../../models/Trip";
 import { addTrip, getLatestTrip } from "../../services/tripServices";
 import { addNewUserTrip } from "../../services/userService";
-import UserProfile, { UserTrip } from "../../models/UserProfile";
+import UserProfile from "../../models/UserProfile";
 import PlanningForm from "./PlanningForm";
 import ItineraryModal from "./ItineraryModal";
 import doubleBook from "../../utils/doubleBook";
@@ -88,7 +88,7 @@ const PlanningPage = ({ userProfile, refreshProfile }: Props) => {
           hotel: duration > 1 ? hotels[index].name : null,
           schedule: [],
           photos: [],
-          participantsUids: [userProfile.uid],
+          participants: [{ uid: userProfile.uid, accepted: true }],
           messages: [],
           completed: false,
           likesUids: [],
@@ -142,16 +142,11 @@ const PlanningPage = ({ userProfile, refreshProfile }: Props) => {
 
         setTrip(newTrip);
         addTrip(newTrip).then(() => {
-          getLatestTrip(userProfile.uid).then((response) => {
-            const newUserTrip: UserTrip = {
-              tripId: response[0]._id!,
-              accepted: true,
-            };
-
-            addNewUserTrip(userProfile.uid, newUserTrip).then(() =>
+          getLatestTrip(userProfile.uid).then((response) =>
+            addNewUserTrip(userProfile.uid, response[0]._id!).then(() =>
               refreshProfile()
-            );
-          });
+            )
+          );
         });
 
         handleShow();

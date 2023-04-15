@@ -24,17 +24,13 @@ const InboxMessagesContainer = ({ userProfile, refreshProfile }: Props) => {
   const timesUp: boolean = useTimer(1000);
 
   useEffect(() => {
-    const trips: string[] = [];
-
-    userProfile.trips.forEach(
-      (trip) => trip.accepted && trips.push(trip.tripId)
-    );
-
-    if (trips.length > 0) {
-      getTripsByTripIdArray(trips).then((response) => {
+    const { tripIds } = userProfile;
+    if (tripIds.length > 0) {
+      getTripsByTripIdArray(tripIds).then((response) => {
         const initialArray: Trip[] = response.filter(
-          (trip) => trip.participantsUids.length > 1
+          (trip) => trip.participants.length > 1
         );
+
         const hasMessages: Trip[] = [];
         const noMessages: Trip[] = [];
 

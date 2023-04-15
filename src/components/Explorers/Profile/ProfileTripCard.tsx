@@ -28,7 +28,7 @@ const ProfileTripCard = ({ trip, userProfile }: Props) => {
   const handleClick = (): void => {
     !userProfile
       ? navigate(`/trip-details/${trip._id!}`)
-      : userProfile.trips.some((userTrip) => userTrip.tripId === trip._id!)
+      : userProfile.tripIds.some((tripId) => tripId === trip._id!)
       ? navigate(`/trips/trip-details/${trip._id!}`)
       : navigate(`/explorers/trip-details/${trip._id!}`);
   };

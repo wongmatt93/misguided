@@ -9,7 +9,7 @@ import {
 import { deleteUserTrip, getUserByUid } from "../../../services/userService";
 
 import "./TripDetailsMain.css";
-import UserProfile, { UserTrip } from "../../../models/UserProfile";
+import UserProfile from "../../../models/UserProfile";
 import GallerySection from "./Gallery/GallerySection";
 import ParticipantsSection from "./Participants/ParticipantsSection";
 import ItinerarySection from "./Itinerary/ItinerarySection";
@@ -37,25 +37,20 @@ const TripDetailsMain = ({
   const tripStarted: boolean = Number(today) >= Number(trip.startDate);
 
   useEffect(() => {
-    Promise.all(
-      trip.participantsUids.map(async (uid) => await getUserByUid(uid))
-    ).then((response) => {
-      const accepted: UserProfile[] = [];
-      const notAccepted: UserProfile[] = [];
+    const accepted: UserProfile[] = [];
+    const notAccepted: UserProfile[] = [];
 
-      response.forEach((user) => {
-        const match: UserTrip | undefined = user.trips.find(
-          (userTrip) => userTrip.tripId === trip._id!
-        );
-        if (match) {
-          if (match.accepted) {
-            accepted.push(user);
-          } else {
-            notAccepted.push(user);
-          }
-        }
-      });
-
+    Promise.allSettled(
+      trip.participants.map((participant) =>
+        participant.accepted
+          ? getUserByUid(participant.uid).then((profile) => {
+              accepted.push(profile);
+            })
+          : getUserByUid(participant.uid).then((profile) => {
+              notAccepted.push(profile);
+            })
+      )
+    ).then(() => {
       if (tripStarted) {
         setParticipants(accepted);
         notAccepted.forEach((user) => {
@@ -73,7 +68,9 @@ const TripDetailsMain = ({
     await Promise.allSettled([
       deleteTrip(trip._id!),
       Promise.allSettled(
-        trip!.participantsUids.map((uid) => deleteUserTrip(uid, trip._id!))
+        trip!.participants.map((participant) =>
+          deleteUserTrip(participant.uid, trip._id!)
+        )
       ),
     ]);
     refreshProfile();

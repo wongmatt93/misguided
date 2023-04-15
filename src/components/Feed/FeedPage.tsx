@@ -23,31 +23,33 @@ const FeedPage = ({ userProfile }: Props) => {
 
     getAllUsersByUidArray(
       userProfile.followingUids.concat(userProfile.uid)
-    ).then((response) => {
+    ).then((users) =>
       Promise.allSettled(
-        response.map((user) =>
+        users.map((user) =>
           Promise.allSettled(
-            user.trips.map(
-              (trip) =>
-                trip.accepted &&
-                getTripById(trip.tripId).then(
-                  (response) =>
-                    response.completed &&
-                    today.getTime() -
-                      (response.endDate
-                        ? Number(response.endDate)
-                        : Number(response.startDate)) >=
-                      0 &&
-                    !trips.some((trip) => trip._id === response._id) &&
-                    trips.push(response)
-                )
+            user.tripIds.map((tripId) =>
+              getTripById(tripId).then(
+                (trip) =>
+                  trip.completed &&
+                  trip.participants.some(
+                    (participant) =>
+                      participant.uid === user.uid && participant.accepted
+                  ) &&
+                  today.getTime() -
+                    (trip.endDate
+                      ? Number(trip.endDate)
+                      : Number(trip.startDate)) >=
+                    0 &&
+                  !trips.some((item) => item._id! === trip._id!) &&
+                  trips.push(trip)
+              )
             )
           )
         )
       ).then(() => {
         setFeedTrips(sortTripsDescending(trips).map((item) => item._id!));
-      });
-    });
+      })
+    );
   }, [userProfile]);
 
   return (

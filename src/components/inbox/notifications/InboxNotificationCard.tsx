@@ -1,10 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useProfileFetcher from "../../../hooks/useProfileFetcher";
-import UserProfile, {
-  Notification,
-  UserTrip,
-} from "../../../models/UserProfile";
+import UserProfile, { Notification } from "../../../models/UserProfile";
 import {
   deleteNotification,
   readNotification,
@@ -42,14 +39,22 @@ const InboxNotificationCard = ({
   const [active, setActive] = useState(false);
   const timesUp: boolean = useTimer(1000);
 
-  const tripUrl = (tripId: string): string => {
-    const match: UserTrip | undefined = userProfile.trips.find(
-      (trip) => trip.tripId === tripId
+  const tripUrl = async (tripId: string): Promise<string> => {
+    const match: string | undefined = userProfile.tripIds.find(
+      (item) => item === tripId
     );
 
-    return match && match.accepted
-      ? `/trips/trip-details/${tripId}`
-      : `/inbox/trip-details/${tripId}`;
+    if (match) {
+      const trip: Trip = await getTripById(match);
+      const accepted: boolean = trip.participants.some(
+        (participant) =>
+          participant.uid === userProfile.uid && participant.accepted
+      );
+      if (accepted) {
+        return `/trips/trip-details/${tripId}`;
+      }
+    }
+    return `/inbox/trip-details/${tripId}`;
   };
 
   const handleViewClick = async (notification: Notification): Promise<void> => {
@@ -64,7 +69,7 @@ const InboxNotificationCard = ({
       refreshProfile();
       notification.type === "follow" &&
         navigate(`/explorers/profile/${notification.uid}`);
-      notification.tripId && navigate(tripUrl(notification.tripId));
+      notification.tripId && navigate(await tripUrl(notification.tripId));
       if (notification.type === "cityRating") {
         const trip: Trip | null = await getTripById(notification.tripId!);
 

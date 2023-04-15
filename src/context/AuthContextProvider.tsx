@@ -4,8 +4,8 @@ import AuthContext from "./AuthContext";
 import UserProfile from "../models/UserProfile";
 import { getUserByUid } from "../services/userService";
 import Trip from "../models/Trip";
-import { getTripsByTripIdArray } from "../services/tripServices";
 import { today } from "../utils/dateFunctions";
+import { getAcceptedTrips } from "../utils/userFunctions";
 
 interface Props {
   children: ReactNode;
@@ -41,7 +41,7 @@ const AuthContextProvider = ({ children }: Props) => {
               followingUids: [],
               favoriteCityIds: [],
               hiddenCityIds: [],
-              trips: [],
+              tripIds: [],
               notifications: [],
               likedTripIds: [],
               commentedTripIds: [],
@@ -51,19 +51,17 @@ const AuthContextProvider = ({ children }: Props) => {
             setFirstTimeUser(true);
           } else {
             setUserProfile(response);
-            const userAcceptedTrips: string[] = response.trips
-              .filter((trip) => trip.accepted)
-              .map((acceptedTrip) => acceptedTrip.tripId);
-
-            if (userAcceptedTrips.length > 0) {
-              getTripsByTripIdArray(userAcceptedTrips).then((response) => {
-                for (let i = 0; i < response.length; i++) {
-                  if (
-                    Number(today) >= Number(response[i].startDate) &&
-                    Number(response[i].endDate) >= Number(today)
-                  ) {
-                    setCurrentTrip(response[i]);
-                    break;
+            if (response.tripIds.length > 0) {
+              getAcceptedTrips(response).then((trips) => {
+                if (trips.length > 0) {
+                  for (let i = 0; i < trips.length; i++) {
+                    if (
+                      Number(today) >= Number(trips[i].startDate) &&
+                      Number(trips[i].endDate) >= Number(today)
+                    ) {
+                      setCurrentTrip(trips[i]);
+                      break;
+                    }
                   }
                 }
               });
@@ -74,19 +72,19 @@ const AuthContextProvider = ({ children }: Props) => {
     });
   }, []);
 
-  useEffect(() => {
-    if (!firstTimeUser && userProfile) {
-      const interval = setInterval(() => {
-        getUserByUid(userProfile.uid).then(
-          (response) =>
-            JSON.stringify(response) !== JSON.stringify(userProfile) &&
-            setUserProfile(response)
-        );
-      }, 1000);
+  // useEffect(() => {
+  //   if (!firstTimeUser && userProfile) {
+  //     const interval = setInterval(() => {
+  //       getUserByUid(userProfile.uid).then(
+  //         (response) =>
+  //           JSON.stringify(response) !== JSON.stringify(userProfile) &&
+  //           setUserProfile(response)
+  //       );
+  //     }, 1000);
 
-      return () => clearInterval(interval);
-    }
-  }, [firstTimeUser, userProfile]);
+  //     return () => clearInterval(interval);
+  //   }
+  // }, [firstTimeUser, userProfile]);
 
   return (
     <AuthContext.Provider
