@@ -20,7 +20,7 @@ const ThumbsContainer = ({
   goBack,
 }: Props) => {
   const handleLikeCity = async (): Promise<void> => {
-    userProfile.likesCityIds.push(city._id!);
+    userProfile.favoriteCityIds.push(city._id!);
 
     await updateUserProfile(userProfile);
     await refreshProfile();
@@ -29,7 +29,7 @@ const ThumbsContainer = ({
   };
 
   const handleDislikeCity = async (): Promise<void> => {
-    userProfile.dislikesCityIds.push(city._id!);
+    userProfile.hiddenCityIds.push(city._id!);
 
     await updateUserProfile(userProfile);
     await refreshProfile();

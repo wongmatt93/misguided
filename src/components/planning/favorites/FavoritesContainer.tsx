@@ -11,7 +11,7 @@ const FavoritesContainer = ({ userProfile }: Props) => {
   return (
     <ul className="FavoritesContainer">
       <HometownCard hometownId={userProfile.hometownId!} />
-      {userProfile.likesCityIds.map((cityId) => (
+      {userProfile.favoriteCityIds.map((cityId) => (
         <FavoriteCard key={cityId} cityId={cityId} />
       ))}
     </ul>

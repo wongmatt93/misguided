@@ -22,8 +22,8 @@ const DiscoverPage = ({ userProfile, refreshProfile }: Props) => {
 
   useEffect(() => {
     getAllCities().then((response) => {
-      const votedCities: string[] = userProfile.likesCityIds.concat(
-        userProfile.dislikesCityIds
+      const votedCities: string[] = userProfile.favoriteCityIds.concat(
+        userProfile.hiddenCityIds
       );
       const remainingCities: City[] = response
         .filter((city) => !votedCities.some((cityId) => cityId === city._id))
@@ -45,7 +45,7 @@ const DiscoverPage = ({ userProfile, refreshProfile }: Props) => {
     navigate(`/plan-trip/city-details/${cityId}`);
 
   const handleRefreshTrips = async (): Promise<void> => {
-    await updateUserProfile({ ...userProfile, dislikesCityIds: [] });
+    await updateUserProfile({ ...userProfile, hiddenCityIds: [] });
     refreshProfile();
   };
 

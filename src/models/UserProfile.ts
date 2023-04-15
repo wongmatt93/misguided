@@ -46,8 +46,11 @@ export default interface UserProfile {
   preferences: Preferences | null;
   followersUids: string[];
   followingUids: string[];
-  likesCityIds: string[];
-  dislikesCityIds: string[];
+  favoriteCityIds: string[];
+  hiddenCityIds: string[];
   trips: UserTrip[];
   notifications: Notification[];
+  likedTripIds: string[];
+  commentedTripIds: string[];
+  visitedCityIds: string[];
 }

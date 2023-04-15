@@ -39,10 +39,13 @@ const AuthContextProvider = ({ children }: Props) => {
               preferences: null,
               followersUids: [],
               followingUids: [],
-              likesCityIds: [],
-              dislikesCityIds: [],
+              favoriteCityIds: [],
+              hiddenCityIds: [],
               trips: [],
               notifications: [],
+              likedTripIds: [],
+              commentedTripIds: [],
+              visitedCityIds: [],
             };
             setUserProfile(newUserProfile);
             setFirstTimeUser(true);

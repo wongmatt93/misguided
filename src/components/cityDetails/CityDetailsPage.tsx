@@ -21,17 +21,17 @@ const CityDetailsPage = ({ userProfile, refreshProfile }: Props) => {
   const navigate = useNavigate();
   const { cityId } = useParams();
 
-  const { likesCityIds, dislikesCityIds, hometownId } = userProfile;
+  const { favoriteCityIds, hiddenCityIds, hometownId } = userProfile;
 
   useEffect(() => {
     if (cityId) {
       getCityById(cityId).then((response) => setCity(response));
 
-      if (likesCityIds.includes(cityId) || hometownId === cityId) {
+      if (favoriteCityIds.includes(cityId) || hometownId === cityId) {
         setLiked(true);
       }
     }
-  }, [cityId, likesCityIds, hometownId]);
+  }, [cityId, favoriteCityIds, hometownId]);
 
   const goBack = (): void => navigate(-1);
 
@@ -39,9 +39,9 @@ const CityDetailsPage = ({ userProfile, refreshProfile }: Props) => {
     navigate(`/plan-trip/get-itinerary/${city!._id}`);
 
   const unlikeCity = async (cityId: string): Promise<void> => {
-    const likesIndex: number = likesCityIds.indexOf(cityId);
-    likesCityIds.splice(likesIndex, 1);
-    dislikesCityIds.push(cityId);
+    const likesIndex: number = favoriteCityIds.indexOf(cityId);
+    favoriteCityIds.splice(likesIndex, 1);
+    hiddenCityIds.push(cityId);
 
     await updateUserProfile(userProfile);
     await refreshProfile();
