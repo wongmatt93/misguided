@@ -18,6 +18,7 @@ const ExplorerSuggestionCard = ({
 }: Props) => {
   const navigate: NavigateFunction = useNavigate();
   const [follower, setFollower] = useState(false);
+  const [updating, setUpdating] = useState(false);
 
   useEffect(() => {
     setFollower(userProfile.followersUids.includes(suggested.uid));
@@ -30,9 +31,10 @@ const ExplorerSuggestionCard = ({
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ): Promise<void> => {
     e.stopPropagation();
-
+    setUpdating(true);
     await followUser(userProfile, suggested);
-    refreshProfile();
+    await refreshProfile();
+    setUpdating(false);
   };
 
   return (
@@ -45,7 +47,11 @@ const ExplorerSuggestionCard = ({
         />
         <p className="username">{suggested.username}</p>
       </div>
-      <Button variant="warning" onClick={(e) => handleFollow(e)}>
+      <Button
+        disabled={updating}
+        variant="warning"
+        onClick={(e) => handleFollow(e)}
+      >
         {follower ? "Follow Back" : "Follow"}
       </Button>
     </li>
