@@ -7,6 +7,7 @@ interface Props {
   userProfile: UserProfile | undefined;
   refreshProfile: () => Promise<void>;
   pastTripsCount: number;
+  refreshProfilePage: (uid: string) => Promise<void>;
 }
 
 const ProfileInfo = ({
@@ -14,6 +15,7 @@ const ProfileInfo = ({
   userProfile,
   refreshProfile,
   pastTripsCount,
+  refreshProfilePage,
 }: Props) => {
   return (
     <section className="ProfileInfo">
@@ -42,6 +44,7 @@ const ProfileInfo = ({
           userProfile={userProfile}
           refreshProfile={refreshProfile}
           otherProfile={profile}
+          refreshProfilePage={refreshProfilePage}
         />
       )}
     </section>

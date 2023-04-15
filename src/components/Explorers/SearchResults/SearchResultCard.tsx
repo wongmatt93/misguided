@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Button } from "react-bootstrap";
 import { NavigateFunction, useNavigate } from "react-router-dom";
 import useFollowStatus from "../../../hooks/useFollowStatus";
@@ -14,6 +15,7 @@ interface Props {
 const SearchResultCard = ({ userProfile, refreshProfile, user }: Props) => {
   const followStatus: string = useFollowStatus(userProfile, user.uid);
   const navigate: NavigateFunction = useNavigate();
+  const [updating, setUpdating] = useState(false);
 
   const handleClick = (): void => navigate(`/explorers/profile/${user.uid}`);
 
@@ -21,9 +23,10 @@ const SearchResultCard = ({ userProfile, refreshProfile, user }: Props) => {
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ): Promise<void> => {
     e.stopPropagation();
-
+    setUpdating(true);
     await followUser(userProfile, user);
-    refreshProfile();
+    await refreshProfile();
+    setUpdating(false);
   };
 
   return (
@@ -37,13 +40,13 @@ const SearchResultCard = ({ userProfile, refreshProfile, user }: Props) => {
         <p className="username">{user.username}</p>
       </div>
       {followStatus === "none" ? (
-        <Button variant="warning" onClick={handleFollow}>
+        <Button disabled={updating} variant="warning" onClick={handleFollow}>
           Follow
         </Button>
       ) : followStatus === "friend" ? (
         <p className="status">Friends</p>
       ) : followStatus === "follower" ? (
-        <Button variant="warning" onClick={handleFollow}>
+        <Button disabled={updating} variant="warning" onClick={handleFollow}>
           Follow Back
         </Button>
       ) : (

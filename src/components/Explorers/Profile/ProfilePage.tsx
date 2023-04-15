@@ -15,12 +15,15 @@ const ProfilePage = () => {
   const [profile, setProfile] = useState<UserProfile | null>(null);
   const [pastTripsCount, setPastTripsCount] = useState(0);
 
+  const refreshProfilePage = async (uid: string): Promise<void> =>
+    setProfile(await getUserByUid(uid));
+
   useEffect(() => {
     !userProfile && navigate(`/profile/${uid}`);
   }, [userProfile, navigate, uid]);
 
   useEffect(() => {
-    uid && getUserByUid(uid).then((response) => setProfile(response));
+    uid && refreshProfilePage(uid);
   }, [uid]);
 
   return (
@@ -32,6 +35,7 @@ const ProfilePage = () => {
             userProfile={userProfile}
             refreshProfile={refreshProfile}
             pastTripsCount={pastTripsCount}
+            refreshProfilePage={refreshProfilePage}
           />
           <ProfileTripsContainer
             profile={profile}
