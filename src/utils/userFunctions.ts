@@ -1,6 +1,11 @@
 import Trip, { Comment, Participant } from "../models/Trip";
 import UserProfile from "../models/UserProfile";
 import {
+  getCityById,
+  removeRating,
+  removeVisitor,
+} from "../services/cityService";
+import {
   deleteTrip,
   getTripsByTripIdArray,
   removeCommentFromTrip,
@@ -32,24 +37,19 @@ const deleteAccount = async (userProfile: UserProfile): Promise<void> => {
     tripIds,
     likedTripIds,
     commentedTripIds,
+    visitedCityIds,
   } = userProfile;
 
   // delete user from followers' followersUids
-  if (followersUids.length) {
-    followersUids.forEach((follower) => removeFollowing(follower, uid));
-  }
+  followersUids.forEach((follower) => removeFollowing(follower, uid));
 
   // delete user from followings' followingUids
-  if (followingUids.length) {
-    followingUids.forEach((following) => removeFollower(following, uid));
-  }
+  followingUids.forEach((following) => removeFollower(following, uid));
 
-  // delete user likes
-  if (likedTripIds.length) {
-    likedTripIds.forEach((tripId) => removeLikesUid(tripId, uid));
-  }
+  // delete user from liked trips
+  likedTripIds.forEach((tripId) => removeLikesUid(tripId, uid));
 
-  // delete user comments
+  // delete user from commented trips
   if (commentedTripIds.length) {
     const tripObjects: Trip[] = await getTripsByTripIdArray(commentedTripIds);
 
@@ -98,6 +98,14 @@ const deleteAccount = async (userProfile: UserProfile): Promise<void> => {
       }
     });
   }
+
+  // delete user from visited cities
+  visitedCityIds.forEach(async (cityId) => {
+    removeVisitor(cityId, uid);
+    const city = await getCityById(cityId);
+    city.ratings.some((rating) => rating.uid === uid) &&
+      removeRating(cityId, uid);
+  });
 
   // delete user from users documents
   deleteUser(uid);

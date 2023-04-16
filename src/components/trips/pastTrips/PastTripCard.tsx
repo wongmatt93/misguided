@@ -10,7 +10,11 @@ import Trip from "../../../models/Trip";
 import { Notification } from "../../../models/UserProfile";
 import { addVisitor } from "../../../services/cityService";
 import { completeTrip, deleteTrip } from "../../../services/tripServices";
-import { addNotification, deleteUserTrip } from "../../../services/userService";
+import {
+  addNotification,
+  addVisitedCity,
+  deleteUserTrip,
+} from "../../../services/userService";
 import { createRatingNotif } from "../../../utils/notificationsFunctions";
 import "./PastTripCard.css";
 
@@ -32,7 +36,7 @@ const PastTripCard = ({ trip }: Props) => {
     city: City,
     uid: string
   ): Promise<void> => {
-    await completeTrip(trip._id!);
+    completeTrip(trip._id!);
 
     const match: string | undefined = city.visitorsUids.find(
       (visitor) => visitor === uid
@@ -40,6 +44,7 @@ const PastTripCard = ({ trip }: Props) => {
 
     if (!match) {
       addVisitor(city._id!, uid);
+      addVisitedCity(uid, city._id!);
     }
 
     const newNotification: Notification = createRatingNotif(uid, trip._id!);
@@ -53,19 +58,19 @@ const PastTripCard = ({ trip }: Props) => {
               (visitor) => visitor === participant.uid
             );
 
-            !match && addVisitor(city._id!, participant.uid);
+            if (!match) {
+              addVisitor(city._id!, participant.uid);
+              addVisitedCity(participant.uid, city._id!);
+            }
           })
         )
     );
 
-    const firstVisit: boolean = !city.ratings.some((user) => user.uid === uid);
-    if (firstVisit) {
-      navigate(`/trips/rating/${trip.cityId}`);
-    } else {
-      navigate(`/trips/rating/${trip.cityId}/subsequent`);
-    }
-
     refreshProfile();
+
+    !city.ratings.some((user) => user.uid === uid)
+      ? navigate(`/trips/rating/${trip.cityId}`)
+      : navigate(`/trips/rating/${trip.cityId}/subsequent`);
   };
 
   const handleUnconfirmTrip = async (trip: Trip): Promise<void> => {

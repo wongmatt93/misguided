@@ -138,3 +138,9 @@ export const removeCommentedTrip = async (
   tripId: string
 ): Promise<string> =>
   (await axios.put(`${baseURL}/users/${uid}/uncomment-trip`, { tripId })).data;
+
+export const addVisitedCity = async (
+  uid: string,
+  cityId: string
+): Promise<string> =>
+  (await axios.put(`${baseURL}/users/${uid}/visit-city`, { cityId })).data;
