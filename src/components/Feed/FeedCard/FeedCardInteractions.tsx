@@ -1,11 +1,11 @@
 import { AiOutlineHeart, AiFillHeart, AiOutlineMessage } from "react-icons/ai";
 import { useEffect, useState } from "react";
 import Trip from "../../../models/Trip";
-import { likeTrip, unlikeTrip } from "../../../services/tripServices";
 import "./FeedCardInteractions.css";
 import UserProfile from "../../../models/UserProfile";
 import TripCommentsOffcanvas from "../../TripCommentsSection/TripCommentsOffcanvas";
 import City from "../../../models/City";
+import { likeTrip, unlikeTrip } from "../../../utils/tripFunctions";
 
 interface Props {
   trip: Trip;
