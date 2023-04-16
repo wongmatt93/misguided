@@ -2,30 +2,34 @@ import { FormEvent, useContext, useState } from "react";
 import { Form, Button } from "react-bootstrap/";
 import AuthContext from "../../context/AuthContext";
 import Trip, { Comment } from "../../models/Trip";
-import { commentOnTrip } from "../../services/tripServices";
+import { commentOnTrip } from "../../utils/tripFunctions";
 import "./AddCommentForm.css";
 
 interface Props {
   trip: Trip;
-  refreshTrip: (tripId: string) => Promise<void>;
+  refreshTrip: () => Promise<void>;
 }
 
 const AddCommentForm = ({ trip, refreshTrip }: Props) => {
-  const { userProfile } = useContext(AuthContext);
+  const { userProfile, refreshProfile } = useContext(AuthContext);
   const [comment, setComment] = useState("");
 
-  const handleSubmitComment = (e: FormEvent): void => {
+  const handleSubmitComment = async (e: FormEvent): Promise<void> => {
     e.preventDefault();
 
-    const newComment: Comment = {
-      uid: userProfile!.uid,
-      comment,
-      date: Date.now().toString(),
-    };
+    if (userProfile) {
+      const newComment: Comment = {
+        uid: userProfile.uid,
+        comment,
+        date: Date.now().toString(),
+      };
 
-    commentOnTrip(trip._id!, newComment).then(() => refreshTrip(trip._id!));
+      await commentOnTrip(trip._id!, newComment, userProfile);
+      await refreshTrip();
+      await refreshProfile();
 
-    setComment("");
+      setComment("");
+    }
   };
 
   return (

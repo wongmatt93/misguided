@@ -37,7 +37,7 @@ const TripCommentsOffcanvas = ({
             </h2>
           </Offcanvas.Header>
           <Offcanvas.Body>
-            <TripCommentsContainer comments={trip.comments} />
+            <TripCommentsContainer trip={trip} refreshTrip={refreshTrip} />
             <AddCommentForm trip={trip} refreshTrip={refreshTrip} />
           </Offcanvas.Body>
         </Offcanvas>

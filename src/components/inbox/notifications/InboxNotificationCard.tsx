@@ -1,27 +1,26 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import useProfileFetcher from "../../../hooks/useProfileFetcher";
-import UserProfile, { Notification } from "../../../models/UserProfile";
-import {
-  deleteNotification,
-  readNotification,
-  unreadNotification,
-} from "../../../services/userService";
-import ListGroup from "react-bootstrap/ListGroup";
-import "./InboxNotificationCard.css";
-import { timeStamp } from "../../../utils/dateFunctions";
-import { getTripById } from "../../../services/tripServices";
-import Trip from "../../../models/Trip";
-import { getCityById } from "../../../services/cityService";
-import City from "../../../models/City";
 import {
   RiDeleteBin5Fill,
   RiEyeFill,
   RiEyeOffFill,
   RiMore2Line,
 } from "react-icons/ri";
+import { Button, ListGroup } from "react-bootstrap";
+import useProfileFetcher from "../../../hooks/useProfileFetcher";
 import useTimer from "../../../hooks/useTimer";
-import { Button } from "react-bootstrap";
+import { timeStamp } from "../../../utils/dateFunctions";
+import { getTripById } from "../../../services/tripServices";
+import { getCityById } from "../../../services/cityService";
+import {
+  deleteNotification,
+  readNotification,
+  unreadNotification,
+} from "../../../services/userService";
+import City from "../../../models/City";
+import Trip from "../../../models/Trip";
+import UserProfile, { Notification } from "../../../models/UserProfile";
+import "./InboxNotificationCard.css";
 
 interface Props {
   userProfile: UserProfile;

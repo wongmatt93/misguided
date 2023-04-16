@@ -74,15 +74,29 @@ export const addPhotosToTrip = async (
 ): Promise<string> =>
   (await axios.put(`${baseURL}/trips/${tripId}/photos`, { photo })).data;
 
-export const likeTrip = async (tripId: string, like: string): Promise<string> =>
+export const addLikesUid = async (
+  tripId: string,
+  like: string
+): Promise<string> =>
   (await axios.put(`${baseURL}/trips/${tripId}/like-trip`, { like })).data;
 
-export const unlikeTrip = async (tripId: string, uid: string): Promise<void> =>
+export const removeLikesUid = async (
+  tripId: string,
+  uid: string
+): Promise<void> =>
   (await axios.put(`${baseURL}/trips/${tripId}/${uid}/unlike-trip`)).data;
 
-export const commentOnTrip = async (
+export const addCommentToTrip = async (
   tripId: string,
   comment: Comment
 ): Promise<Comment> =>
   (await axios.put(`${baseURL}/trips/${tripId}/comment-trip`, { comment }))
     .data;
+
+export const removeCommentFromTrip = async (
+  tripId: string,
+  comment: Comment
+): Promise<string> =>
+  await axios.put(`${baseURL}/trips/${tripId}/remove-comment-trip`, {
+    comment,
+  });

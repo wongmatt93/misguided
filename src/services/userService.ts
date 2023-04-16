@@ -114,3 +114,27 @@ export const deleteNotification = async (
       `${baseURL}/users/${uid}/${notifUid}/${date}/delete-notification`
     )
   ).data;
+
+export const addLikedTrip = async (
+  uid: string,
+  tripId: string
+): Promise<string> =>
+  (await axios.put(`${baseURL}/users/${uid}/like-trip`, { tripId })).data;
+
+export const removeLikedTrip = async (
+  uid: string,
+  tripId: string
+): Promise<string> =>
+  (await axios.put(`${baseURL}/users/${uid}/unlike-trip`, { tripId })).data;
+
+export const addCommentedTrip = async (
+  uid: string,
+  tripId: string
+): Promise<string> =>
+  (await axios.put(`${baseURL}/users/${uid}/comment-trip`, { tripId })).data;
+
+export const removeCommentedTrip = async (
+  uid: string,
+  tripId: string
+): Promise<string> =>
+  (await axios.put(`${baseURL}/users/${uid}/uncomment-trip`, { tripId })).data;
