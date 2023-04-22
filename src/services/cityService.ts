@@ -16,8 +16,7 @@ export const addRating = async (
   cityId: string,
   newRating: Rating
 ): Promise<Rating> =>
-  (await axios.put(`${baseURL}/cities/${cityId}/new-rating`, { newRating }))
-    .data;
+  (await axios.put(`${baseURL}/cities/${cityId}/new-rating`, newRating)).data;
 
 export const updateRating = async (
   cityId: string,
@@ -34,17 +33,17 @@ export const removeRating = async (
   cityId: string,
   uid: string
 ): Promise<string> =>
-  (await axios.put(`${baseURL}/cities/${cityId}/remove-rating`, { uid })).data;
+  (await axios.put(`${baseURL}/cities/${cityId}/remove-rating/${uid}`)).data;
 
 export const addVisitor = async (
   cityId: string,
   newVisitor: string
 ): Promise<string> =>
-  (await axios.put(`${baseURL}/cities/${cityId}/add-visitor`, { newVisitor }))
+  (await axios.put(`${baseURL}/cities/${cityId}/add-visitor/${newVisitor}`))
     .data;
 
 export const removeVisitor = async (
   cityId: string,
   uid: string
 ): Promise<string> =>
-  (await axios.put(`${baseURL}/cities/${cityId}/remove-visitor`, { uid })).data;
+  (await axios.put(`${baseURL}/cities/${cityId}/remove-visitor/${uid}`)).data;

@@ -25,24 +25,24 @@ export const updateNickname = async (
   tripId: string,
   nickname: string
 ): Promise<string> =>
-  (await axios.put(`${baseURL}/trips/${tripId}/update-nickname`, { nickname }))
+  (await axios.put(`${baseURL}/trips/${tripId}/update-nickname/${nickname}`))
     .data;
 
 export const updateCreator = async (
   tripId: string,
   newUid: string
 ): Promise<string> =>
-  (await axios.put(`${baseURL}/trips/${tripId}/update-creator`, { newUid }))
-    .data;
+  (await axios.put(`${baseURL}/trips/${tripId}/update-creator/${newUid}`)).data;
 
 export const addNewParticipantToTrip = async (
   tripId: string,
   newParticipant: Participant
 ): Promise<string> =>
   (
-    await axios.put(`${baseURL}/trips/${tripId}/new-participant`, {
-      newParticipant,
-    })
+    await axios.put(
+      `${baseURL}/trips/${tripId}/new-participant`,
+      newParticipant
+    )
   ).data;
 
 export const participantAcceptTrip = async (
@@ -62,8 +62,7 @@ export const addMessageToTrip = async (
   tripId: string,
   newMessage: Message
 ): Promise<Message> =>
-  (await axios.put(`${baseURL}/trips/${tripId}/new-message`, { newMessage }))
-    .data;
+  (await axios.put(`${baseURL}/trips/${tripId}/new-message`, newMessage)).data;
 
 export const completeTrip = async (tripId: string): Promise<void> =>
   (await axios.put(`${baseURL}/trips/${tripId}/complete-trip`)).data;
@@ -76,27 +75,24 @@ export const addPhotosToTrip = async (
 
 export const addLikesUid = async (
   tripId: string,
-  like: string
+  uid: string
 ): Promise<string> =>
-  (await axios.put(`${baseURL}/trips/${tripId}/like-trip`, { like })).data;
+  (await axios.put(`${baseURL}/trips/${tripId}/like-trip/${uid}`)).data;
 
 export const removeLikesUid = async (
   tripId: string,
   uid: string
 ): Promise<void> =>
-  (await axios.put(`${baseURL}/trips/${tripId}/${uid}/unlike-trip`)).data;
+  (await axios.put(`${baseURL}/trips/${tripId}/unlike-trip/${uid}`)).data;
 
 export const addCommentToTrip = async (
   tripId: string,
   comment: Comment
 ): Promise<Comment> =>
-  (await axios.put(`${baseURL}/trips/${tripId}/comment-trip`, { comment }))
-    .data;
+  (await axios.put(`${baseURL}/trips/${tripId}/comment-trip`, comment)).data;
 
 export const removeCommentFromTrip = async (
   tripId: string,
   comment: Comment
 ): Promise<string> =>
-  await axios.put(`${baseURL}/trips/${tripId}/remove-comment-trip`, {
-    comment,
-  });
+  await axios.put(`${baseURL}/trips/${tripId}/remove-comment-trip`, comment);

@@ -34,8 +34,7 @@ export const deleteUser = async (uid: string): Promise<void> =>
 export const updateUserProfile = async (
   userProfile: UserProfile
 ): Promise<UserProfile> =>
-  (await axios.put(`${baseURL}/users/${userProfile.uid}`, { userProfile }))
-    .data;
+  (await axios.put(`${baseURL}/users/${userProfile.uid}`, userProfile)).data;
 
 export const addFollowing = async (
   uid: string,
@@ -67,7 +66,7 @@ export const addNewUserTrip = async (
   uid: string,
   newTripId: string
 ): Promise<string> =>
-  (await axios.put(`${baseURL}/users/${uid}/add-trip`, { newTripId })).data;
+  (await axios.put(`${baseURL}/users/${uid}/add-trip/${newTripId}`)).data;
 
 export const deleteUserTrip = async (
   uid: string,
@@ -119,28 +118,28 @@ export const addLikedTrip = async (
   uid: string,
   tripId: string
 ): Promise<string> =>
-  (await axios.put(`${baseURL}/users/${uid}/like-trip`, { tripId })).data;
+  (await axios.put(`${baseURL}/users/${uid}/like-trip/${tripId}`)).data;
 
 export const removeLikedTrip = async (
   uid: string,
   tripId: string
 ): Promise<string> =>
-  (await axios.put(`${baseURL}/users/${uid}/unlike-trip`, { tripId })).data;
+  (await axios.put(`${baseURL}/users/${uid}/unlike-trip/${tripId}`)).data;
 
 export const addCommentedTrip = async (
   uid: string,
   tripId: string
 ): Promise<string> =>
-  (await axios.put(`${baseURL}/users/${uid}/comment-trip`, { tripId })).data;
+  (await axios.put(`${baseURL}/users/${uid}/comment-trip/${tripId}`)).data;
 
 export const removeCommentedTrip = async (
   uid: string,
   tripId: string
 ): Promise<string> =>
-  (await axios.put(`${baseURL}/users/${uid}/uncomment-trip`, { tripId })).data;
+  (await axios.put(`${baseURL}/users/${uid}/uncomment-trip/${tripId}`)).data;
 
 export const addVisitedCity = async (
   uid: string,
   cityId: string
 ): Promise<string> =>
-  (await axios.put(`${baseURL}/users/${uid}/visit-city`, { cityId })).data;
+  (await axios.put(`${baseURL}/users/${uid}/visit-city/${cityId}`)).data;
