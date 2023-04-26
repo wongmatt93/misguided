@@ -2,7 +2,7 @@ import { FormEvent, useContext, useState } from "react";
 import { Form, Button } from "react-bootstrap/";
 import AuthContext from "../../context/AuthContext";
 import Trip, { Comment } from "../../models/Trip";
-import { commentOnTrip } from "../../utils/tripFunctions";
+import { addCommentToTrip } from "../../services/tripServices";
 import "./AddCommentForm.css";
 
 interface Props {
@@ -24,7 +24,7 @@ const AddCommentForm = ({ trip, refreshTrip }: Props) => {
         date: Date.now().toString(),
       };
 
-      await commentOnTrip(trip._id!, newComment, userProfile);
+      await addCommentToTrip(trip._id!, newComment);
       await refreshTrip();
       await refreshProfile();
 

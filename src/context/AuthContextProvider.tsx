@@ -2,10 +2,10 @@ import { ReactNode, useEffect, useState } from "react";
 import { auth } from "../firebaseConfig";
 import AuthContext from "./AuthContext";
 import UserProfile from "../models/UserProfile";
-import { getUserByUid } from "../services/userService";
+import { getUserByUid, getUserFollowers } from "../services/userService";
 import Trip from "../models/Trip";
 import { today } from "../utils/dateFunctions";
-import { getAcceptedTrips } from "../utils/userFunctions";
+import { getPastTrips, getUpcomingTrips } from "../services/tripServices";
 
 interface Props {
   children: ReactNode;
@@ -17,6 +17,9 @@ const AuthContextProvider = ({ children }: Props) => {
     undefined
   );
   const [currentTrip, setCurrentTrip] = useState<Trip | null>(null);
+  const [upcomingTrips, setUpcomingTrips] = useState<Trip[]>([]);
+  const [pastTrips, setPastTrips] = useState<Trip[]>([]);
+  const [followers, setFollowers] = useState<UserProfile[]>([]);
 
   const refreshProfile = async (): Promise<void> =>
     setUserProfile(await getUserByUid(userProfile!.uid));
@@ -37,35 +40,45 @@ const AuthContextProvider = ({ children }: Props) => {
               photoURL: null,
               hometownId: null,
               preferences: null,
-              followersUids: [],
               followingUids: [],
               favoriteCityIds: [],
               hiddenCityIds: [],
-              tripIds: [],
               notifications: [],
-              likedTripIds: [],
-              commentedTripIds: [],
               visitedCityIds: [],
             };
             setUserProfile(newUserProfile);
             setFirstTimeUser(true);
           } else {
             setUserProfile(response);
-            if (response.tripIds.length > 0) {
-              getAcceptedTrips(response).then((trips) => {
-                if (trips.length > 0) {
-                  for (let i = 0; i < trips.length; i++) {
-                    if (
-                      Number(today) >= Number(trips[i].startDate) &&
-                      Number(trips[i].endDate) >= Number(today)
-                    ) {
-                      setCurrentTrip(trips[i]);
-                      break;
-                    }
+            const { uid } = response;
+
+            getPastTrips(uid, today.getTime().toString()).then((trips) =>
+              setPastTrips(trips)
+            );
+
+            getUpcomingTrips(uid, today.getTime().toString()).then((trips) => {
+              const acceptedTrips: Trip[] = trips.filter((trip) =>
+                trip.participants.some(
+                  (participant) =>
+                    participant.uid === uid && participant.accepted
+                )
+              );
+
+              setUpcomingTrips(acceptedTrips);
+              if (trips.length > 0) {
+                for (let i = 0; i < trips.length; i++) {
+                  if (
+                    Number(today) >= Number(trips[i].startDate) &&
+                    Number(trips[i].endDate) >= Number(today)
+                  ) {
+                    setCurrentTrip(trips[i]);
+                    break;
                   }
                 }
-              });
-            }
+              }
+            });
+
+            getUserFollowers(uid).then((followers) => setFollowers(followers));
           }
         });
       }
@@ -95,6 +108,10 @@ const AuthContextProvider = ({ children }: Props) => {
         setUserProfile,
         refreshProfile,
         currentTrip,
+        upcomingTrips,
+        setUpcomingTrips,
+        pastTrips,
+        followers,
       }}
     >
       {children}

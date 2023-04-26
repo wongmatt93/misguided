@@ -1,16 +1,13 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Button, Dropdown, DropdownButton } from "react-bootstrap";
-import Trip from "../../../../models/Trip";
+import AuthContext from "../../../../context/AuthContext";
+import Trip, { Participant } from "../../../../models/Trip";
 import UserProfile from "../../../../models/UserProfile";
 import {
-  getTripById,
   participantAcceptTrip,
   removeParticipantFromTrip,
 } from "../../../../services/tripServices";
-import {
-  addNotification,
-  deleteUserTrip,
-} from "../../../../services/userService";
+import { addNotification } from "../../../../services/userService";
 import { today } from "../../../../utils/dateFunctions";
 import doubleBook from "../../../../utils/doubleBook";
 import {
@@ -35,6 +32,7 @@ const ParticipantsSection = ({
   participants,
   refreshTrip,
 }: Props) => {
+  const { upcomingTrips } = useContext(AuthContext);
   const [invited, setInvited] = useState(false);
   const [accepted, setAccepted] = useState(false);
   const [show, setShow] = useState(false);
@@ -42,22 +40,13 @@ const ParticipantsSection = ({
 
   useEffect(() => {
     if (userProfile) {
-      if (userProfile.tripIds.length > 0) {
-        const found: string | undefined = userProfile.tripIds.find(
-          (tripId) => tripId === trip._id!
-        );
+      const match: Participant | undefined = trip.participants.find(
+        (participant) => participant.uid === userProfile.uid
+      );
 
-        if (found) {
-          setInvited(true);
-          getTripById(found).then((trip) =>
-            setAccepted(
-              trip.participants.some(
-                (participant) =>
-                  participant.uid === userProfile.uid && participant.accepted
-              )
-            )
-          );
-        }
+      if (match) {
+        setInvited(true);
+        setAccepted(match.accepted);
       }
     }
   }, [userProfile, trip]);
@@ -78,7 +67,7 @@ const ParticipantsSection = ({
   const handleAcceptTrip = async (): Promise<void> => {
     if (userProfile) {
       const isDoubleBooked: boolean = await doubleBook(
-        userProfile,
+        upcomingTrips,
         trip.startDate,
         trip.endDate
       );
@@ -104,7 +93,6 @@ const ParticipantsSection = ({
     const newNotification = createTripDeclineNotif(userProfile!.uid, trip._id!);
 
     await Promise.allSettled([
-      deleteUserTrip(userProfile!.uid, trip._id!),
       removeParticipantFromTrip(trip._id!, userProfile!.uid),
       addNotification(trip.creatorUid, newNotification),
     ]);

@@ -10,11 +10,7 @@ import Trip from "../../../models/Trip";
 import { Notification } from "../../../models/UserProfile";
 import { addVisitor } from "../../../services/cityService";
 import { completeTrip, deleteTrip } from "../../../services/tripServices";
-import {
-  addNotification,
-  addVisitedCity,
-  deleteUserTrip,
-} from "../../../services/userService";
+import { addNotification, addVisitedCity } from "../../../services/userService";
 import { createRatingNotif } from "../../../utils/notificationsFunctions";
 import "./PastTripCard.css";
 
@@ -74,15 +70,7 @@ const PastTripCard = ({ trip }: Props) => {
   };
 
   const handleUnconfirmTrip = async (trip: Trip): Promise<void> => {
-    await Promise.allSettled([
-      deleteTrip(trip._id!),
-      Promise.allSettled(
-        trip.participants.map((participant) =>
-          deleteUserTrip(participant.uid, trip._id!)
-        )
-      ),
-    ]);
-
+    await deleteTrip(trip._id!);
     refreshProfile();
   };
 

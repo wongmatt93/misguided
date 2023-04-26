@@ -1,11 +1,8 @@
 import { useEffect, useState } from "react";
 import { RiCameraOffFill } from "react-icons/ri";
 import useTimer from "../../hooks/useTimer";
-import Trip from "../../models/Trip";
 import UserProfile from "../../models/UserProfile";
-import { getTripById } from "../../services/tripServices";
-import { getAllUsersByUidArray } from "../../services/userService";
-import { sortTripsDescending, today } from "../../utils/dateFunctions";
+import { getFollowingsTrips } from "../../services/tripServices";
 import LoadingCamera from "../common/LoadingCamera";
 import FeedCardContainer from "./FeedCardContainer";
 import "./FeedPage.css";
@@ -19,37 +16,10 @@ const FeedPage = ({ userProfile }: Props) => {
   const timesUp = useTimer(2000);
 
   useEffect(() => {
-    const trips: Trip[] = [];
-
-    getAllUsersByUidArray(
-      userProfile.followingUids.concat(userProfile.uid)
-    ).then((users) =>
-      Promise.allSettled(
-        users.map((user) =>
-          Promise.allSettled(
-            user.tripIds.map((tripId) =>
-              getTripById(tripId).then(
-                (trip) =>
-                  trip.completed &&
-                  trip.participants.some(
-                    (participant) =>
-                      participant.uid === user.uid && participant.accepted
-                  ) &&
-                  today.getTime() -
-                    (trip.endDate
-                      ? Number(trip.endDate)
-                      : Number(trip.startDate)) >=
-                    0 &&
-                  !trips.some((item) => item._id! === trip._id!) &&
-                  trips.push(trip)
-              )
-            )
-          )
-        )
-      ).then(() => {
-        setFeedTrips(sortTripsDescending(trips).map((item) => item._id!));
-      })
-    );
+    getFollowingsTrips(userProfile).then((response) => {
+      const tripIds: string[] = response.map((trip) => trip._id!);
+      setFeedTrips(tripIds);
+    });
   }, [userProfile]);
 
   return (

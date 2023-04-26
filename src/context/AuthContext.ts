@@ -9,6 +9,10 @@ export interface AuthContextModel {
   setUserProfile: React.Dispatch<React.SetStateAction<UserProfile | undefined>>;
   refreshProfile: () => Promise<void>;
   currentTrip: Trip | null;
+  upcomingTrips: Trip[];
+  setUpcomingTrips: React.Dispatch<React.SetStateAction<Trip[]>>;
+  pastTrips: Trip[];
+  followers: UserProfile[];
 }
 
 const defaultValue: AuthContextModel = {
@@ -18,6 +22,10 @@ const defaultValue: AuthContextModel = {
   setUserProfile: () => {},
   refreshProfile: async () => {},
   currentTrip: null,
+  upcomingTrips: [],
+  setUpcomingTrips: () => {},
+  pastTrips: [],
+  followers: [],
 };
 
 const AuthContext = createContext(defaultValue);

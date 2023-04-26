@@ -39,19 +39,13 @@ const InboxNotificationCard = ({
   const timesUp: boolean = useTimer(1000);
 
   const tripUrl = async (tripId: string): Promise<string> => {
-    const match: string | undefined = userProfile.tripIds.find(
-      (item) => item === tripId
+    const trip: Trip = await getTripById(tripId);
+    const accepted: boolean = trip.participants.some(
+      (participant) =>
+        participant.uid === userProfile.uid && participant.accepted
     );
-
-    if (match) {
-      const trip: Trip = await getTripById(match);
-      const accepted: boolean = trip.participants.some(
-        (participant) =>
-          participant.uid === userProfile.uid && participant.accepted
-      );
-      if (accepted) {
-        return `/trips/trip-details/${tripId}`;
-      }
+    if (accepted) {
+      return `/trips/trip-details/${tripId}`;
     }
     return `/inbox/trip-details/${tripId}`;
   };

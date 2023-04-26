@@ -5,7 +5,7 @@ import "./FeedCardInteractions.css";
 import UserProfile from "../../../models/UserProfile";
 import TripCommentsOffcanvas from "../../TripCommentsSection/TripCommentsOffcanvas";
 import City from "../../../models/City";
-import { likeTrip, unlikeTrip } from "../../../utils/tripFunctions";
+import { addLikesUid, removeLikesUid } from "../../../services/tripServices";
 
 interface Props {
   trip: Trip;
@@ -30,10 +30,10 @@ const FeedCardInteractions = ({
   }, [trip, userProfile]);
 
   const handleLikeTrip = (): Promise<string | void> =>
-    likeTrip(trip._id!, userProfile.uid).then(() => refreshTrip());
+    addLikesUid(trip._id!, userProfile.uid).then(() => refreshTrip());
 
   const handleUnlikeTrip = (): Promise<void> =>
-    unlikeTrip(trip._id!, userProfile.uid).then(() => refreshTrip());
+    removeLikesUid(trip._id!, userProfile.uid).then(() => refreshTrip());
 
   const handleClose = (): void => setShow(false);
   const handleShow = (): void => setShow(true);

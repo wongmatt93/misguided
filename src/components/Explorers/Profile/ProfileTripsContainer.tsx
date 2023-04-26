@@ -4,7 +4,7 @@ import usePaginate from "../../../hooks/usePaginate";
 import useTimer from "../../../hooks/useTimer";
 import Trip from "../../../models/Trip";
 import UserProfile from "../../../models/UserProfile";
-import { getTripsByTripIdArray } from "../../../services/tripServices";
+import { getPastTrips } from "../../../services/tripServices";
 import { today } from "../../../utils/dateFunctions";
 import ProfileTripsCluster from "./ProfileTripsCluster";
 import "./ProfileTripsContainer.css";
@@ -27,24 +27,11 @@ const ProfileTripsContainer = ({
   const timesUp: boolean = useTimer(1500);
 
   useEffect(() => {
-    if (profile.tripIds.length > 0) {
-      getTripsByTripIdArray(profile.tripIds).then((response) => {
-        const past: Trip[] = [];
-
-        response.forEach((item) => {
-          if (item.completed) {
-            const endDate: Date = item.endDate
-              ? new Date(Number(item.endDate))
-              : new Date(Number(item.startDate));
-
-            today.getTime() - endDate.getTime() >= 0 && past.push(item);
-          }
-        });
-
-        setPastTrips(past);
-        setPastTripsCount(past.length);
-      });
-    }
+    getPastTrips(profile.uid, today.getTime().toString()).then((response) => {
+      const completedTrips: Trip[] = response.filter((trip) => trip.completed);
+      setPastTrips(completedTrips);
+      setPastTripsCount(completedTrips.length);
+    });
   }, [profile, setPastTripsCount]);
 
   useEffect(() => {

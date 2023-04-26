@@ -3,9 +3,6 @@ import UserProfile, { Notification } from "../models/UserProfile";
 
 const baseURL: string = process.env.REACT_APP_API_URL || "";
 
-export const getAllUsers = async (): Promise<UserProfile[]> =>
-  (await axios.get(`${baseURL}/users`)).data;
-
 export const getAllUsersByUidArray = async (
   uids: string[]
 ): Promise<UserProfile[]> =>
@@ -13,6 +10,20 @@ export const getAllUsersByUidArray = async (
 
 export const getUserByUid = async (uid: string): Promise<UserProfile> =>
   (await axios.get(`${baseURL}/users/${uid}/uid`)).data;
+
+export const getUserFollowers = async (uid: string): Promise<UserProfile[]> =>
+  (await axios.get(`${baseURL}/users/${uid}/followers`)).data;
+
+export const getUserSuggestions = async (
+  userProfile: UserProfile
+): Promise<UserProfile[]> => {
+  const { uid, followingUids } = userProfile;
+  const excludedUids: string[] = [uid, ...followingUids];
+
+  return (
+    await axios.get(`${baseURL}/users/suggestions/${excludedUids.toString()}`)
+  ).data;
+};
 
 export const getUserByUsername = async (
   username: string
@@ -42,37 +53,15 @@ export const addFollowing = async (
 ): Promise<string> =>
   (await axios.put(`${baseURL}/users/${uid}/${otherUid}/add-following`)).data;
 
-export const addFollower = async (
-  uid: string,
-  otherUid: string
-): Promise<string> =>
-  (await axios.put(`${baseURL}/users/${uid}/${otherUid}/add-follower`)).data;
-
 export const removeFollowing = async (
-  userUid: string,
+  uid: string,
   otherUid: string
 ): Promise<void> =>
-  (await axios.put(`${baseURL}/users/${userUid}/${otherUid}/remove-following`))
+  (await axios.put(`${baseURL}/users/${uid}/${otherUid}/remove-following`))
     .data;
 
-export const removeFollower = async (
-  userUid: string,
-  otherUid: string
-): Promise<void> =>
-  (await axios.put(`${baseURL}/users/${userUid}/${otherUid}/remove-follower`))
-    .data;
-
-export const addNewUserTrip = async (
-  uid: string,
-  newTripId: string
-): Promise<string> =>
-  (await axios.put(`${baseURL}/users/${uid}/add-trip/${newTripId}`)).data;
-
-export const deleteUserTrip = async (
-  uid: string,
-  tripId: string
-): Promise<string> =>
-  (await axios.put(`${baseURL}/users/${uid}/${tripId}/delete-trip`)).data;
+export const removeAllUserFollowings = async (uid: string): Promise<String> =>
+  (await axios.put(`${baseURL}/users/${uid}/remove-all-user-followings`)).data;
 
 export const addNotification = async (
   uid: string,
@@ -113,30 +102,6 @@ export const deleteNotification = async (
       `${baseURL}/users/${uid}/${notifUid}/${date}/delete-notification`
     )
   ).data;
-
-export const addLikedTrip = async (
-  uid: string,
-  tripId: string
-): Promise<string> =>
-  (await axios.put(`${baseURL}/users/${uid}/like-trip/${tripId}`)).data;
-
-export const removeLikedTrip = async (
-  uid: string,
-  tripId: string
-): Promise<string> =>
-  (await axios.put(`${baseURL}/users/${uid}/unlike-trip/${tripId}`)).data;
-
-export const addCommentedTrip = async (
-  uid: string,
-  tripId: string
-): Promise<string> =>
-  (await axios.put(`${baseURL}/users/${uid}/comment-trip/${tripId}`)).data;
-
-export const removeCommentedTrip = async (
-  uid: string,
-  tripId: string
-): Promise<string> =>
-  (await axios.put(`${baseURL}/users/${uid}/uncomment-trip/${tripId}`)).data;
 
 export const addVisitedCity = async (
   uid: string,

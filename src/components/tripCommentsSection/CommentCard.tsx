@@ -7,8 +7,8 @@ import useProfileFetcher from "../../hooks/useProfileFetcher";
 import useTimer from "../../hooks/useTimer";
 import Trip, { Comment } from "../../models/Trip";
 import UserProfile from "../../models/UserProfile";
-import { deleteCommentFromTrip } from "../../utils/tripFunctions";
 import "./CommentCard.css";
+import { removeCommentFromTrip } from "../../services/tripServices";
 
 interface Props {
   trip: Trip;
@@ -28,7 +28,7 @@ const CommentCard = ({ trip, comment, refreshTrip }: Props) => {
   };
 
   const handleDelete = async () => {
-    await deleteCommentFromTrip(trip, comment);
+    await removeCommentFromTrip(trip._id!, comment);
     await refreshTrip();
     await refreshProfile();
   };
