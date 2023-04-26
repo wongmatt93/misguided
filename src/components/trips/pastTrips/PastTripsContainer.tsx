@@ -1,18 +1,15 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import { RiFlightLandFill } from "react-icons/ri";
+import AuthContext from "../../../context/AuthContext";
 import usePaginate from "../../../hooks/usePaginate";
 import useTimer from "../../../hooks/useTimer";
-import Trip from "../../../models/Trip";
 import LoadingSpinner from "../../common/LoadingSpinner";
 import PastTripsCluster from "./PastTripsCluster";
 import "./PastTripsContainer.css";
 
-interface Props {
-  pastTrips: Trip[];
-}
-
-const PastTripsContainer = ({ pastTrips }: Props) => {
+const PastTripsContainer = () => {
+  const { pastTrips } = useContext(AuthContext);
   const [page, setPage] = useState(0);
   const [buttonLoading, setButtonLoading] = useState(false);
   const paginatedTrips = usePaginate(pastTrips, 10);

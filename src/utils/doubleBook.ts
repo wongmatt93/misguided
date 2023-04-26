@@ -1,32 +1,26 @@
 import Trip from "../models/Trip";
-import UserProfile from "../models/UserProfile";
-import { getAcceptedTrips } from "./userFunctions";
 
 const doubleBook = async (
-  user: UserProfile,
+  upcomingTrips: Trip[],
   startDate: string,
   endDate: string
 ): Promise<boolean> => {
   let doubleBooked: boolean = false;
 
-  if (user.tripIds.length > 0) {
-    const acceptedTrips: Trip[] = await getAcceptedTrips(user);
+  if (upcomingTrips.length > 0) {
+    upcomingTrips.forEach((trip) => {
+      const startDateConflict: boolean =
+        Number(trip.startDate) <= Number(startDate) &&
+        Number(startDate) <= Number(trip.endDate);
+      const endDateConflict: boolean =
+        Number(trip.startDate) <= Number(endDate) &&
+        Number(endDate) <= Number(trip.endDate);
 
-    if (acceptedTrips.length > 0) {
-      acceptedTrips.forEach((trip) => {
-        const startDateConflict: boolean =
-          Number(trip.startDate) <= Number(startDate) &&
-          Number(startDate) <= Number(trip.endDate);
-        const endDateConflict: boolean =
-          Number(trip.startDate) <= Number(endDate) &&
-          Number(endDate) <= Number(trip.endDate);
-
-        if (startDateConflict || endDateConflict) {
-          doubleBooked = true;
-          return false;
-        }
-      });
-    }
+      if (startDateConflict || endDateConflict) {
+        doubleBooked = true;
+        return false;
+      }
+    });
   }
   return doubleBooked;
 };

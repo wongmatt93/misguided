@@ -1,7 +1,6 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Trip, { Message } from "../../../models/Trip";
 import UserProfile from "../../../models/UserProfile";
-import { getTripsByTripIdArray } from "../../../services/tripServices";
 import "./InboxMessagesContainer.css";
 import ListGroup from "react-bootstrap/ListGroup";
 import { RiChatDeleteFill } from "react-icons/ri";
@@ -10,6 +9,7 @@ import useTimer from "../../../hooks/useTimer";
 import LoadingSpinner from "../../common/LoadingSpinner";
 import { Button } from "react-bootstrap";
 import InboxMessagesCluster from "./InboxMessagesCluster";
+import AuthContext from "../../../context/AuthContext";
 
 interface Props {
   userProfile: UserProfile;
@@ -17,6 +17,7 @@ interface Props {
 }
 
 const InboxMessagesContainer = ({ userProfile, refreshProfile }: Props) => {
+  const { upcomingTrips, pastTrips } = useContext(AuthContext);
   const [trips, setTrips] = useState<Trip[]>([]);
   const [page, setPage] = useState(0);
   const [buttonLoading, setButtonLoading] = useState(false);
@@ -24,39 +25,34 @@ const InboxMessagesContainer = ({ userProfile, refreshProfile }: Props) => {
   const timesUp: boolean = useTimer(1000);
 
   useEffect(() => {
-    const { tripIds } = userProfile;
-    if (tripIds.length > 0) {
-      getTripsByTripIdArray(tripIds).then((response) => {
-        const initialArray: Trip[] = response.filter(
-          (trip) => trip.participants.length > 1
-        );
+    const allTrips: Trip[] = upcomingTrips.concat(pastTrips);
 
-        const hasMessages: Trip[] = [];
-        const noMessages: Trip[] = [];
+    const initialArray: Trip[] = allTrips.filter(
+      (trip) => trip.participants.length > 1
+    );
 
-        initialArray.forEach((trip) =>
-          trip.messages.length > 0
-            ? hasMessages.push(trip)
-            : noMessages.push(trip)
-        );
+    const hasMessages: Trip[] = [];
+    const noMessages: Trip[] = [];
 
-        hasMessages.sort(function (a, b) {
-          const aLatestMessage: Message | undefined =
-            a.messages[a.messages.length - 1];
-          const bLatestMessage: Message | undefined =
-            b.messages[b.messages.length - 1];
+    initialArray.forEach((trip) =>
+      trip.messages.length > 0 ? hasMessages.push(trip) : noMessages.push(trip)
+    );
 
-          if (aLatestMessage!.date > bLatestMessage!.date) {
-            return -1;
-          } else {
-            return 1;
-          }
-        });
+    hasMessages.sort(function (a, b) {
+      const aLatestMessage: Message | undefined =
+        a.messages[a.messages.length - 1];
+      const bLatestMessage: Message | undefined =
+        b.messages[b.messages.length - 1];
 
-        setTrips([...hasMessages, ...noMessages]);
-      });
-    }
-  }, [userProfile]);
+      if (aLatestMessage!.date > bLatestMessage!.date) {
+        return -1;
+      } else {
+        return 1;
+      }
+    });
+
+    setTrips([...hasMessages, ...noMessages]);
+  }, [userProfile, upcomingTrips, pastTrips]);
 
   useEffect(() => {
     let interval: NodeJS.Timer;

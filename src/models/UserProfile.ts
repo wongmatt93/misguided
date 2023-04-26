@@ -39,13 +39,9 @@ export default interface UserProfile {
   photoURL: string | null;
   hometownId: string | null;
   preferences: Preferences | null;
-  followersUids: string[];
   followingUids: string[];
   favoriteCityIds: string[];
   hiddenCityIds: string[];
-  tripIds: string[];
   notifications: Notification[];
-  likedTripIds: string[];
-  commentedTripIds: string[];
   visitedCityIds: string[];
 }

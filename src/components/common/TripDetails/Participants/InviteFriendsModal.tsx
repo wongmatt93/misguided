@@ -1,14 +1,12 @@
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useContext, useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
+import AuthContext from "../../../../context/AuthContext";
 import useFriendsFetcher from "../../../../hooks/useFriendsFetcher";
 import Trip from "../../../../models/Trip";
 import UserProfile, { Notification } from "../../../../models/UserProfile";
 import { addNewParticipantToTrip } from "../../../../services/tripServices";
-import {
-  addNewUserTrip,
-  addNotification,
-} from "../../../../services/userService";
+import { addNotification } from "../../../../services/userService";
 import { createTripRequestNotif } from "../../../../utils/notificationsFunctions";
 import InviteFriendCheckbox from "./InviteFriendCheckbox";
 import "./InviteFriendsModal.css";
@@ -28,14 +26,18 @@ const InviteFriendsModal = ({
   refreshTrip,
   handleClose,
 }: Props) => {
-  const friends: UserProfile[] = useFriendsFetcher(userProfile);
+  const { followers } = useContext(AuthContext);
+  const friends: UserProfile[] = useFriendsFetcher(userProfile, followers);
   const [filteredFriends, setFilteredFriends] = useState<UserProfile[]>([]);
   const [invitedFriends, setInvitedFriends] = useState<string[]>([]);
 
   useEffect(() => {
     setFilteredFriends(
       friends.filter(
-        (friend) => !friend.tripIds.some((item) => item === trip._id!)
+        (friend) =>
+          !trip.participants.some(
+            (participant) => participant.uid === friend.uid
+          )
       )
     );
   }, [friends, trip]);
@@ -52,7 +54,6 @@ const InviteFriendsModal = ({
 
         return Promise.allSettled([
           addNotification(friend, newNotification),
-          addNewUserTrip(friend, trip._id!),
           addNewParticipantToTrip(trip._id!, { uid: friend, accepted: false }),
           setInvitedFriends([]),
         ]);

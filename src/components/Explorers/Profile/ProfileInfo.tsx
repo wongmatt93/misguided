@@ -1,4 +1,6 @@
+import { useEffect, useState } from "react";
 import UserProfile from "../../../models/UserProfile";
+import { getUserFollowers } from "../../../services/userService";
 import FollowButton from "./FollowButton";
 import "./ProfileInfo.css";
 
@@ -17,6 +19,12 @@ const ProfileInfo = ({
   pastTripsCount,
   refreshProfilePage,
 }: Props) => {
+  const [followers, setFollowers] = useState<UserProfile[]>([]);
+
+  useEffect(() => {
+    getUserFollowers(profile.uid).then((response) => setFollowers(response));
+  }, [profile]);
+
   return (
     <section className="ProfileInfo">
       <img
@@ -31,7 +39,7 @@ const ProfileInfo = ({
           <p>following</p>
         </div>
         <div className="followers-count">
-          <p>{profile.followersUids.length}</p>
+          <p>{followers.length}</p>
           <p>followers</p>
         </div>
         <div className="trip-count">

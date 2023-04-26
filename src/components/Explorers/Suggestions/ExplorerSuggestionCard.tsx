@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Button } from "react-bootstrap";
 import { NavigateFunction, useNavigate } from "react-router-dom";
+import useFollowStatus from "../../../hooks/useFollowStatus";
 import UserProfile from "../../../models/UserProfile";
 import { followUser } from "../../../utils/followFunctions";
 import "./ExplorerSuggestionCard.css";
@@ -17,12 +18,8 @@ const ExplorerSuggestionCard = ({
   refreshProfile,
 }: Props) => {
   const navigate: NavigateFunction = useNavigate();
-  const [follower, setFollower] = useState(false);
+  const followStatus: string = useFollowStatus(userProfile, suggested.uid);
   const [updating, setUpdating] = useState(false);
-
-  useEffect(() => {
-    setFollower(userProfile.followersUids.includes(suggested.uid));
-  }, [suggested, userProfile]);
 
   const handleClick = (): void =>
     navigate(`/explorers/profile/${suggested.uid}`);
@@ -52,7 +49,7 @@ const ExplorerSuggestionCard = ({
         variant="warning"
         onClick={(e) => handleFollow(e)}
       >
-        {follower ? "Follow Back" : "Follow"}
+        {followStatus === "follower" ? "Follow Back" : "Follow"}
       </Button>
     </li>
   );

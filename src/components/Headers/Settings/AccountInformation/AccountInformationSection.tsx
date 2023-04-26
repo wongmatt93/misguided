@@ -6,6 +6,8 @@ import UserProfile from "../../../../models/UserProfile";
 import { deleteAccount } from "../../../../utils/userFunctions";
 import { signOut } from "../../../../firebaseConfig";
 import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import AuthContext from "../../../../context/AuthContext";
 
 interface Props {
   userProfile: UserProfile;
@@ -20,6 +22,7 @@ const AccountInformationSection = ({
   setUserProfile,
   handleClose,
 }: Props) => {
+  const { upcomingTrips, pastTrips } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleDeleteAccount = async (): Promise<void> => {
@@ -27,7 +30,7 @@ const AccountInformationSection = ({
     handleClose();
     setUserProfile(undefined);
     signOut();
-    await deleteAccount(userProfile);
+    await deleteAccount(userProfile, upcomingTrips, pastTrips);
   };
 
   return (

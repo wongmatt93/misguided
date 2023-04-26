@@ -7,9 +7,8 @@ import {
   RiFlightTakeoffFill,
   RiSearchLine,
 } from "react-icons/ri";
-import useFriendsFetcher from "../../hooks/useFriendsFetcher";
 import UserProfile from "../../models/UserProfile";
-import { getAllUsers } from "../../services/userService";
+import { getUserSuggestions } from "../../services/userService";
 import ExplorerFriendsSection from "../Explorers/Friends/ExplorerFriendsSection";
 import ExplorerSuggestionsSection from "../Explorers/Suggestions/ExplorerSuggestionsSection";
 import FavoritesContainer from "../Planning/Favorites/FavoritesContainer";
@@ -22,19 +21,12 @@ interface Props {
 }
 
 const DummyMain = ({ stage, userProfile, refreshProfile }: Props) => {
-  const friends: UserProfile[] = useFriendsFetcher(userProfile);
   const [suggestions, setSuggestions] = useState<UserProfile[]>([]);
 
   useEffect(() => {
-    getAllUsers().then((response) => {
-      const options: UserProfile[] = response.filter(
-        (user) =>
-          !userProfile.followingUids.concat(userProfile.uid).includes(user.uid)
-      );
-
-      const shuffledOptions = options.sort(() => 0.5 - Math.random());
-      setSuggestions(shuffledOptions.slice(0, 3));
-    });
+    getUserSuggestions(userProfile).then((response) =>
+      setSuggestions(response)
+    );
   }, [userProfile]);
 
   return (
@@ -65,7 +57,7 @@ const DummyMain = ({ stage, userProfile, refreshProfile }: Props) => {
             userProfile={userProfile}
             refreshProfile={refreshProfile}
           />
-          <ExplorerFriendsSection friends={friends} />
+          <ExplorerFriendsSection friends={[]} />
         </div>
       )}
 

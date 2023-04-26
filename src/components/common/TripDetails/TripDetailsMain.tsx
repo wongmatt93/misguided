@@ -6,7 +6,7 @@ import {
   deleteTrip,
   removeParticipantFromTrip,
 } from "../../../services/tripServices";
-import { deleteUserTrip, getUserByUid } from "../../../services/userService";
+import { getUserByUid } from "../../../services/userService";
 
 import "./TripDetailsMain.css";
 import UserProfile from "../../../models/UserProfile";
@@ -54,7 +54,6 @@ const TripDetailsMain = ({
       if (tripStarted) {
         setParticipants(accepted);
         notAccepted.forEach((user) => {
-          deleteUserTrip(user.uid, trip._id!);
           removeParticipantFromTrip(trip._id!, user.uid);
           refreshTrip(trip._id!);
         });
@@ -65,14 +64,7 @@ const TripDetailsMain = ({
   }, [trip, tripStarted, refreshTrip]);
 
   const handleDeleteTrip = async (): Promise<void> => {
-    await Promise.allSettled([
-      deleteTrip(trip._id!),
-      Promise.allSettled(
-        trip!.participants.map((participant) =>
-          deleteUserTrip(participant.uid, trip._id!)
-        )
-      ),
-    ]);
+    await deleteTrip(trip._id!);
     refreshProfile();
     navigate("/trips");
   };

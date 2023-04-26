@@ -1,16 +1,11 @@
 import axios from "axios";
 import Trip, { Comment, Message, Participant } from "../models/Trip";
+import UserProfile from "../models/UserProfile";
 
 const baseURL: string = process.env.REACT_APP_API_URL || "";
 
 export const getTripById = async (tripId: string): Promise<Trip> =>
   (await axios.get(`${baseURL}/trips/${tripId}`)).data;
-
-export const getTripsByTripIdArray = async (
-  tripIds: string[]
-): Promise<Trip[]> =>
-  (await axios.get(`${baseURL}/trips/trips-by-tripIds/${tripIds.toString()}`))
-    .data;
 
 export const addTrip = async (trip: Trip): Promise<Trip> =>
   (await axios.post(`${baseURL}/trips`, trip)).data;
@@ -18,8 +13,30 @@ export const addTrip = async (trip: Trip): Promise<Trip> =>
 export const deleteTrip = async (tripId: string): Promise<void> =>
   (await axios.delete(`${baseURL}/trips/${tripId}`)).data;
 
-export const getLatestTrip = async (uid: string): Promise<Trip[]> =>
-  (await axios.get(`${baseURL}/trips/${uid}/latest`)).data;
+export const getFollowingsTrips = async (
+  userProfile: UserProfile
+): Promise<Trip[]> => {
+  const { uid, followingUids } = userProfile;
+  const includedUids: string[] = [uid, ...followingUids];
+
+  return (
+    await axios.get(
+      `${baseURL}/trips/followings-trips/${includedUids.toString()}`
+    )
+  ).data;
+};
+
+export const getUpcomingTrips = async (
+  uid: string,
+  date: string
+): Promise<Trip[]> =>
+  (await axios.get(`${baseURL}/trips/${uid}/${date}/upcoming-trips`)).data;
+
+export const getPastTrips = async (
+  uid: string,
+  date: string
+): Promise<Trip[]> =>
+  (await axios.get(`${baseURL}/trips/${uid}/${date}/past-trips`)).data;
 
 export const updateNickname = async (
   tripId: string,
@@ -85,6 +102,9 @@ export const removeLikesUid = async (
 ): Promise<void> =>
   (await axios.put(`${baseURL}/trips/${tripId}/unlike-trip/${uid}`)).data;
 
+export const removeAllUserLikes = async (uid: string): Promise<string> =>
+  (await axios.put(`${baseURL}/trips/remove-all-user-likes/${uid}`)).data;
+
 export const addCommentToTrip = async (
   tripId: string,
   comment: Comment
@@ -96,3 +116,6 @@ export const removeCommentFromTrip = async (
   comment: Comment
 ): Promise<string> =>
   await axios.put(`${baseURL}/trips/${tripId}/remove-comment-trip`, comment);
+
+export const removeAllUserComments = async (uid: string) =>
+  (await axios.put(`${baseURL}/trips/remove-all-user-comments/${uid}`)).data;

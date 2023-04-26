@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import City from "../../models/City";
 import { Hotel } from "../../models/amadeus/HotelResponse";
@@ -13,19 +13,20 @@ import {
 } from "../../services/yelpService";
 import { Business } from "../../models/Yelp";
 import Trip from "../../models/Trip";
-import { addTrip, getLatestTrip } from "../../services/tripServices";
-import { addNewUserTrip } from "../../services/userService";
+import { addTrip, getUpcomingTrips } from "../../services/tripServices";
 import UserProfile from "../../models/UserProfile";
 import PlanningForm from "./PlanningForm";
 import ItineraryModal from "./ItineraryModal";
 import doubleBook from "../../utils/doubleBook";
+import AuthContext from "../../context/AuthContext";
+import { today } from "../../utils/dateFunctions";
 
 interface Props {
   userProfile: UserProfile;
-  refreshProfile: () => Promise<void>;
 }
 
-const PlanningPage = ({ userProfile, refreshProfile }: Props) => {
+const PlanningPage = ({ userProfile }: Props) => {
+  const { upcomingTrips, setUpcomingTrips } = useContext(AuthContext);
   const cityId: string | undefined = useParams().cityId;
   const [city, setCity] = useState<City | null>(null);
   const [startDate, setStartDate] = useState<string | undefined>(undefined);
@@ -64,7 +65,7 @@ const PlanningPage = ({ userProfile, refreshProfile }: Props) => {
   const handleSubmit = async (): Promise<void> => {
     if (city && startDate && endDate) {
       const isDoubleBooked: boolean = await doubleBook(
-        userProfile,
+        upcomingTrips,
         startDate,
         endDate
       );
@@ -141,13 +142,10 @@ const PlanningPage = ({ userProfile, refreshProfile }: Props) => {
         }
 
         setTrip(newTrip);
-        addTrip(newTrip).then(() => {
-          getLatestTrip(userProfile.uid).then((response) =>
-            addNewUserTrip(userProfile.uid, response[0]._id!).then(() =>
-              refreshProfile()
-            )
-          );
-        });
+        await addTrip(newTrip);
+        setUpcomingTrips(
+          await getUpcomingTrips(userProfile.uid, today.getTime().toString())
+        );
 
         handleShow();
       } else {

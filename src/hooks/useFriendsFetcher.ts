@@ -2,19 +2,25 @@ import { useEffect, useState } from "react";
 import UserProfile from "../models/UserProfile";
 import { getAllUsersByUidArray } from "../services/userService";
 
-const useFriendsFetcher = (userProfile: UserProfile): UserProfile[] => {
+const useFriendsFetcher = (
+  userProfile: UserProfile,
+  followers: UserProfile[]
+): UserProfile[] => {
   const [friends, setFriends] = useState<UserProfile[]>([]);
+  const userFollowers: string[] = followers.map((followers) => followers.uid);
 
   useEffect(() => {
+    const { followingUids } = userProfile;
+
     let higherQuantity: string[];
     let lowerQuantity: string[];
 
-    if (userProfile.followingUids.length > userProfile.followersUids.length) {
-      higherQuantity = userProfile.followingUids;
-      lowerQuantity = userProfile.followersUids;
+    if (followingUids.length > userFollowers.length) {
+      higherQuantity = followingUids;
+      lowerQuantity = userFollowers;
     } else {
-      higherQuantity = userProfile.followersUids;
-      lowerQuantity = userProfile.followingUids;
+      higherQuantity = userFollowers;
+      lowerQuantity = followingUids;
     }
 
     const friendsUids: string[] = lowerQuantity.filter((lowerItem) =>
@@ -25,7 +31,7 @@ const useFriendsFetcher = (userProfile: UserProfile): UserProfile[] => {
       getAllUsersByUidArray(friendsUids).then((response) =>
         setFriends(response)
       );
-  }, [userProfile]);
+  }, [userProfile, userFollowers]);
 
   return friends;
 };
