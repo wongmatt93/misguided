@@ -5,13 +5,15 @@ import MobileHeader from "../components/Headers/MobileHeaders/MobileHeader";
 import MobileNavigation from "../components/MobileNavigation/MobileNavigation";
 import WelcomeDummyPage from "../components/Welcome/WelcomeDummyPage";
 import WelcomeView from "../components/Welcome/WelcomeView";
-import UserProfile from "../models/UserProfile";
+import ActiveUserProfile from "../models/UserProfile";
 
 interface Props {
   isDesktop: boolean;
-  userProfile: UserProfile;
+  userProfile: ActiveUserProfile;
   refreshProfile: () => Promise<void>;
-  setUserProfile: React.Dispatch<React.SetStateAction<UserProfile | undefined>>;
+  setUserProfile: React.Dispatch<
+    React.SetStateAction<ActiveUserProfile | undefined>
+  >;
   setFirstTimeUser: React.Dispatch<React.SetStateAction<boolean>>;
 }
 

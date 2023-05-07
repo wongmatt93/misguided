@@ -13,11 +13,11 @@ import MobileNavigation from "../components/MobileNavigation/MobileNavigation";
 import PlanningView from "../components/Planning/PlanningView";
 import TripsView from "../components/Trips/TripsView";
 import Trip from "../models/Trip";
-import UserProfile from "../models/UserProfile";
+import ActiveUserProfile from "../models/UserProfile";
 
 interface Props {
   isDesktop: boolean;
-  userProfile: UserProfile;
+  userProfile: ActiveUserProfile;
   refreshProfile: () => Promise<void>;
   currentTrip: Trip | null;
   firstTimeUser: boolean;
@@ -85,7 +85,10 @@ const ReturningUserRoutes = ({
               />
             }
           />
-          <Route path="/trips/*" element={<TripsView />} />
+          <Route
+            path="/trips/*"
+            element={<TripsView userProfile={userProfile} />}
+          />
           <Route
             path="/plan-trip/*"
             element={

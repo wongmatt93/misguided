@@ -1,5 +1,8 @@
 import axios from "axios";
-import UserProfile, { Notification } from "../models/UserProfile";
+import ActiveUserProfile, {
+  UserProfile,
+  Notification,
+} from "../models/UserProfile";
 
 const baseURL: string = process.env.REACT_APP_API_URL || "";
 
@@ -8,16 +11,22 @@ export const getAllUsersByUidArray = async (
 ): Promise<UserProfile[]> =>
   (await axios.get(`${baseURL}/users/users-by-uid/${uids.toString()}`)).data;
 
-export const getUserByUid = async (uid: string): Promise<UserProfile> =>
+export const getUserByUid = async (uid: string) =>
   (await axios.get(`${baseURL}/users/${uid}/uid`)).data;
 
-export const getUserFollowers = async (uid: string): Promise<UserProfile[]> =>
-  (await axios.get(`${baseURL}/users/${uid}/followers`)).data;
+export const getUserProfile = async (
+  uid: string,
+  date: string
+): Promise<ActiveUserProfile> =>
+  (await axios.get(`${baseURL}/users/${uid}/${date}/active-profile`)).data;
 
 export const getUserSuggestions = async (
-  userProfile: UserProfile
+  userProfile: ActiveUserProfile
 ): Promise<UserProfile[]> => {
-  const { uid, followingUids } = userProfile;
+  const { uid, followingUserProfiles } = userProfile;
+  const followingUids: string[] = followingUserProfiles.map(
+    (profile) => profile.uid
+  );
   const excludedUids: string[] = [uid, ...followingUids];
 
   return (

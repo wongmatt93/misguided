@@ -2,17 +2,17 @@ import { Button, ListGroup } from "react-bootstrap";
 import "./AccountInformationSection.css";
 import PhoneSettings from "./PhoneSettings";
 import HometownSettings from "./HometownSettings";
-import UserProfile from "../../../../models/UserProfile";
 import { deleteAccount } from "../../../../utils/userFunctions";
 import { signOut } from "../../../../firebaseConfig";
 import { useNavigate } from "react-router-dom";
-import { useContext } from "react";
-import AuthContext from "../../../../context/AuthContext";
+import ActiveUserProfile from "../../../../models/UserProfile";
 
 interface Props {
-  userProfile: UserProfile;
+  userProfile: ActiveUserProfile;
   refreshProfile: () => Promise<void>;
-  setUserProfile: React.Dispatch<React.SetStateAction<UserProfile | undefined>>;
+  setUserProfile: React.Dispatch<
+    React.SetStateAction<ActiveUserProfile | undefined>
+  >;
   handleClose: () => void;
 }
 
@@ -22,7 +22,6 @@ const AccountInformationSection = ({
   setUserProfile,
   handleClose,
 }: Props) => {
-  const { upcomingTrips, pastTrips } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleDeleteAccount = async (): Promise<void> => {
@@ -30,7 +29,7 @@ const AccountInformationSection = ({
     handleClose();
     setUserProfile(undefined);
     signOut();
-    await deleteAccount(userProfile, upcomingTrips, pastTrips);
+    await deleteAccount(userProfile);
   };
 
   return (

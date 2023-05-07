@@ -1,3 +1,5 @@
+import Trip from "./Trip";
+
 export interface Notification {
   uid: string;
   type: string;
@@ -29,7 +31,7 @@ export interface Preferences {
   shopping: boolean;
 }
 
-export default interface UserProfile {
+export interface UserProfile {
   _id?: string;
   uid: string;
   username: string | null;
@@ -40,6 +42,26 @@ export default interface UserProfile {
   hometownId: string | null;
   preferences: Preferences | null;
   followingUids: string[];
+  favoriteCityIds: string[];
+  hiddenCityIds: string[];
+  notifications: Notification[];
+  visitedCityIds: string[];
+}
+
+export default interface ActiveUserProfile {
+  _id?: string;
+  uid: string;
+  username: string | null;
+  displayName: string | null;
+  email: string | null;
+  phoneNumber: string | null;
+  photoURL: string | null;
+  hometownId: string | null;
+  preferences: Preferences | null;
+  followingUserProfiles: UserProfile[];
+  followerUserProfiles: UserProfile[];
+  upcomingTrips: Trip[];
+  pastTrips: Trip[];
   favoriteCityIds: string[];
   hiddenCityIds: string[];
   notifications: Notification[];

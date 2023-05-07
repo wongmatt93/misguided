@@ -7,14 +7,14 @@ import FriendCardPhotoCarousel from "./FriendCardPhotoCarousel";
 import FeedCardInteractions from "./FeedCardInteractions";
 import FeedCardLocation from "./FeedCardLocation";
 import City from "../../../models/City";
-import UserProfile from "../../../models/UserProfile";
+import ActiveUserProfile from "../../../models/UserProfile";
 import { getTripById } from "../../../services/tripServices";
 import { getCityById } from "../../../services/cityService";
 import useTimer from "../../../hooks/useTimer";
 
 interface Props {
   tripId: string;
-  userProfile: UserProfile;
+  userProfile: ActiveUserProfile;
 }
 
 const FeedCard = ({ tripId, userProfile }: Props) => {
@@ -22,6 +22,7 @@ const FeedCard = ({ tripId, userProfile }: Props) => {
   const [trip, setTrip] = useState<Trip | null>(null);
   const [city, setCity] = useState<City | null>(null);
   const [photos, setPhotos] = useState<string[]>([]);
+  const { pastTrips } = userProfile;
   const timesUp: boolean = useTimer(1000);
 
   const refreshTrip = (tripId: string): Promise<void> =>
@@ -54,7 +55,7 @@ const FeedCard = ({ tripId, userProfile }: Props) => {
     <>
       {city && trip && timesUp && (
         <li className="FeedCard">
-          <FeedCardHeader trip={trip} />
+          <FeedCardHeader trip={trip} pastTrips={pastTrips} />
           <FeedCardLocation trip={trip} city={city} />
           <FriendCardPhotoCarousel
             photos={photos}

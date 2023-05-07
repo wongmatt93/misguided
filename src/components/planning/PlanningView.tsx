@@ -26,7 +26,12 @@ const PlanningView = ({ userProfile, refreshProfile }: Props) => {
         />
         <Route
           path="/get-itinerary/:cityId"
-          element={<PlanningPage userProfile={userProfile} />}
+          element={
+            <PlanningPage
+              userProfile={userProfile}
+              refreshProfile={refreshProfile}
+            />
+          }
         />
         <Route
           path="/discover"

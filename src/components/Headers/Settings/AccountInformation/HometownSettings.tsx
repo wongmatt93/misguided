@@ -3,12 +3,13 @@ import { RiEditFill, RiCheckFill, RiCloseCircleFill } from "react-icons/ri";
 import useCityFetcher from "../../../../hooks/useCityFetcher";
 import useFetchAllCities from "../../../../hooks/useFetchAllCities";
 import City from "../../../../models/City";
-import UserProfile from "../../../../models/UserProfile";
+import ActiveUserProfile, { UserProfile } from "../../../../models/UserProfile";
 import { updateUserProfile } from "../../../../services/userService";
+import { formatUserProfileToSave } from "../../../../utils/userFunctions";
 import "./HometownSettings.css";
 
 interface Props {
-  userProfile: UserProfile;
+  userProfile: ActiveUserProfile;
   refreshProfile: () => Promise<void>;
 }
 
@@ -27,7 +28,9 @@ const HometownSettings = ({ userProfile, refreshProfile }: Props) => {
     hometownId: string
   ): Promise<void> => {
     e.preventDefault();
-    await updateUserProfile({ ...userProfile, hometownId });
+
+    const formattedProfile: UserProfile = formatUserProfileToSave(userProfile);
+    await updateUserProfile({ ...formattedProfile, hometownId });
     await refreshProfile();
     setLocked(true);
   };

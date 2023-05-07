@@ -1,11 +1,12 @@
 import { FormEvent, useState } from "react";
 import { RiCheckFill, RiCloseCircleFill, RiEditFill } from "react-icons/ri";
-import UserProfile from "../../../../models/UserProfile";
+import ActiveUserProfile, { UserProfile } from "../../../../models/UserProfile";
 import { updateUserProfile } from "../../../../services/userService";
+import { formatUserProfileToSave } from "../../../../utils/userFunctions";
 import "./PhoneSettings.css";
 
 interface Props {
-  userProfile: UserProfile;
+  userProfile: ActiveUserProfile;
   refreshProfile: () => Promise<void>;
 }
 
@@ -21,7 +22,8 @@ const PhoneSettings = ({ userProfile, refreshProfile }: Props) => {
   ): Promise<void> => {
     e.preventDefault();
 
-    await updateUserProfile({ ...userProfile, phoneNumber });
+    const formattedProfile: UserProfile = formatUserProfileToSave(userProfile);
+    await updateUserProfile({ ...formattedProfile, phoneNumber });
     await refreshProfile();
     setLocked(true);
   };

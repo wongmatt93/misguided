@@ -1,9 +1,9 @@
-import UserProfile from "../../models/UserProfile";
+import ActiveUserProfile from "../../models/UserProfile";
 import FeedCard from "./FeedCard/FeedCard";
 
 interface Props {
   tripIds: string[];
-  userProfile: UserProfile;
+  userProfile: ActiveUserProfile;
 }
 
 const FeedCluster = ({ tripIds, userProfile }: Props) => {

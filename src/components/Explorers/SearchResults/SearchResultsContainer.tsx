@@ -1,9 +1,9 @@
-import UserProfile from "../../../models/UserProfile";
+import ActiveUserProfile, { UserProfile } from "../../../models/UserProfile";
 import SearchResultCard from "./SearchResultCard";
 import "./SearchResultsContainer.css";
 
 interface Props {
-  userProfile: UserProfile;
+  userProfile: ActiveUserProfile;
   refreshProfile: () => Promise<void>;
   searchResults: UserProfile[];
 }

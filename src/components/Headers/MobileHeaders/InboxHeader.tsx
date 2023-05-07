@@ -2,11 +2,12 @@ import { useContext, useEffect, useState } from "react";
 import { Dropdown } from "react-bootstrap";
 import { RiMenuLine } from "react-icons/ri";
 import AuthContext from "../../../context/AuthContext";
-import { Notification } from "../../../models/UserProfile";
+import { UserProfile, Notification } from "../../../models/UserProfile";
 import {
   updateUserProfile,
   readNotification,
 } from "../../../services/userService";
+import { formatUserProfileToSave } from "../../../utils/userFunctions";
 import "./InboxHeader.css";
 
 interface Props {
@@ -41,7 +42,9 @@ const InboxHeader = ({ path }: Props) => {
 
   const deleteAll = async (): Promise<void> => {
     if (userProfile) {
-      await updateUserProfile({ ...userProfile, notifications: [] });
+      const formattedProfile: UserProfile =
+        formatUserProfileToSave(userProfile);
+      await updateUserProfile({ ...formattedProfile, notifications: [] });
       refreshProfile();
     }
   };

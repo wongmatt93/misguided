@@ -16,7 +16,10 @@ export const deleteTrip = async (tripId: string): Promise<void> =>
 export const getFollowingsTrips = async (
   userProfile: UserProfile
 ): Promise<Trip[]> => {
-  const { uid, followingUids } = userProfile;
+  const { uid, followingUserProfiles } = userProfile;
+  const followingUids: string[] = followingUserProfiles.map(
+    (profile) => profile.uid
+  );
   const includedUids: string[] = [uid, ...followingUids];
 
   return (
@@ -25,18 +28,6 @@ export const getFollowingsTrips = async (
     )
   ).data;
 };
-
-export const getUpcomingTrips = async (
-  uid: string,
-  date: string
-): Promise<Trip[]> =>
-  (await axios.get(`${baseURL}/trips/${uid}/${date}/upcoming-trips`)).data;
-
-export const getPastTrips = async (
-  uid: string,
-  date: string
-): Promise<Trip[]> =>
-  (await axios.get(`${baseURL}/trips/${uid}/${date}/past-trips`)).data;
 
 export const updateNickname = async (
   tripId: string,

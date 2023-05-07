@@ -2,7 +2,7 @@ import { AiOutlineHeart, AiFillHeart, AiOutlineMessage } from "react-icons/ai";
 import { useEffect, useState } from "react";
 import Trip from "../../../models/Trip";
 import "./FeedCardInteractions.css";
-import UserProfile from "../../../models/UserProfile";
+import ActiveUserProfile from "../../../models/UserProfile";
 import TripCommentsOffcanvas from "../../TripCommentsSection/TripCommentsOffcanvas";
 import City from "../../../models/City";
 import { addLikesUid, removeLikesUid } from "../../../services/tripServices";
@@ -10,7 +10,7 @@ import { addLikesUid, removeLikesUid } from "../../../services/tripServices";
 interface Props {
   trip: Trip;
   city: City;
-  userProfile: UserProfile;
+  userProfile: ActiveUserProfile;
   refreshTrip: () => Promise<void>;
 }
 

@@ -1,15 +1,15 @@
 import { Button, Dropdown, DropdownButton } from "react-bootstrap";
-import UserProfile from "../../../models/UserProfile";
-import useFollowStatus from "../../../hooks/useFollowStatus";
-import { followUser } from "../../../utils/followFunctions";
+import ActiveUserProfile from "../../../models/UserProfile";
+import { followUser, getFollowStatus } from "../../../utils/followFunctions";
 import "./FollowButton.css";
 import { useState } from "react";
 import { removeFollowing } from "../../../services/userService";
+import { formatUserProfileToSave } from "../../../utils/userFunctions";
 
 interface Props {
-  userProfile: UserProfile;
+  userProfile: ActiveUserProfile;
   refreshProfile: () => Promise<void>;
-  otherProfile: UserProfile;
+  otherProfile: ActiveUserProfile;
   refreshProfilePage: (uid: string) => Promise<void>;
 }
 
@@ -20,12 +20,12 @@ const FollowButton = ({
   refreshProfilePage,
 }: Props) => {
   const { uid: otherUid } = otherProfile;
-  const followStatus: string = useFollowStatus(userProfile, otherUid);
+  const followStatus: string = getFollowStatus(userProfile, otherUid);
   const [updating, setUpdating] = useState(false);
 
   const handleFollowUser = async (): Promise<string | void> => {
     setUpdating(true);
-    await followUser(userProfile, otherProfile);
+    await followUser(userProfile, formatUserProfileToSave(otherProfile));
     await Promise.allSettled([refreshProfile(), refreshProfilePage(otherUid)]);
     setUpdating(false);
   };

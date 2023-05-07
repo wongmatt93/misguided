@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Button } from "react-bootstrap";
 import usePaginate from "../../../hooks/usePaginate";
 import useTimer from "../../../hooks/useTimer";
-import UserProfile from "../../../models/UserProfile";
+import { UserProfile } from "../../../models/UserProfile";
 import ExplorerFriendsCluster from "./ExplorerFriendsCluster";
 import "./ExplorerFriendsSection.css";
 

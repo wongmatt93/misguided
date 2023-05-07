@@ -3,15 +3,13 @@ import { Button } from "react-bootstrap";
 import usePaginate from "../../../hooks/usePaginate";
 import useTimer from "../../../hooks/useTimer";
 import Trip from "../../../models/Trip";
-import UserProfile from "../../../models/UserProfile";
-import { getPastTrips } from "../../../services/tripServices";
-import { today } from "../../../utils/dateFunctions";
+import ActiveUserProfile from "../../../models/UserProfile";
 import ProfileTripsCluster from "./ProfileTripsCluster";
 import "./ProfileTripsContainer.css";
 
 interface Props {
-  profile: UserProfile;
-  userProfile: UserProfile | undefined;
+  profile: ActiveUserProfile;
+  userProfile: ActiveUserProfile | undefined;
   setPastTripsCount: React.Dispatch<React.SetStateAction<number>>;
 }
 
@@ -27,11 +25,10 @@ const ProfileTripsContainer = ({
   const timesUp: boolean = useTimer(1500);
 
   useEffect(() => {
-    getPastTrips(profile.uid, today.getTime().toString()).then((response) => {
-      const completedTrips: Trip[] = response.filter((trip) => trip.completed);
-      setPastTrips(completedTrips);
-      setPastTripsCount(completedTrips.length);
-    });
+    const { pastTrips } = profile;
+    const completedTrips: Trip[] = pastTrips.filter((trip) => trip.completed);
+    setPastTrips(completedTrips);
+    setPastTripsCount(completedTrips.length);
   }, [profile, setPastTripsCount]);
 
   useEffect(() => {

@@ -1,14 +1,13 @@
 import { useState } from "react";
 import { Button } from "react-bootstrap";
 import { NavigateFunction, useNavigate } from "react-router-dom";
-import useFollowStatus from "../../../hooks/useFollowStatus";
-import UserProfile from "../../../models/UserProfile";
+import ActiveUserProfile, { UserProfile } from "../../../models/UserProfile";
 import { followUser } from "../../../utils/followFunctions";
 import "./ExplorerSuggestionCard.css";
 
 interface Props {
   suggested: UserProfile;
-  userProfile: UserProfile;
+  userProfile: ActiveUserProfile;
   refreshProfile: () => Promise<void>;
 }
 
@@ -18,8 +17,12 @@ const ExplorerSuggestionCard = ({
   refreshProfile,
 }: Props) => {
   const navigate: NavigateFunction = useNavigate();
-  const followStatus: string = useFollowStatus(userProfile, suggested.uid);
   const [updating, setUpdating] = useState(false);
+  const followStatus: string = userProfile.followerUserProfiles.some(
+    (follower) => follower.uid === suggested.uid
+  )
+    ? "follower"
+    : "none";
 
   const handleClick = (): void =>
     navigate(`/explorers/profile/${suggested.uid}`);

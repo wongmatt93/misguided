@@ -1,16 +1,20 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import { RiFlightTakeoffFill } from "react-icons/ri";
 import { Link } from "react-router-dom";
-import AuthContext from "../../../context/AuthContext";
 import usePaginate from "../../../hooks/usePaginate";
 import useTimer from "../../../hooks/useTimer";
+import ActiveUserProfile from "../../../models/UserProfile";
 import LoadingSpinner from "../../common/LoadingSpinner";
 import TripsCluster from "./TripsCluster";
 import "./UpcomingTripsContainer.css";
 
-const UpcomingTripsContainer = () => {
-  const { upcomingTrips } = useContext(AuthContext);
+interface Props {
+  userProfile: ActiveUserProfile;
+}
+
+const UpcomingTripsContainer = ({ userProfile }: Props) => {
+  const { upcomingTrips } = userProfile;
   const [page, setPage] = useState(0);
   const [buttonLoading, setButtonLoading] = useState(false);
   const paginatedTrips = usePaginate(upcomingTrips, 10);

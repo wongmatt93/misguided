@@ -1,17 +1,15 @@
-import { useContext } from "react";
 import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import AuthContext from "../../../context/AuthContext";
 import Trip from "../../../models/Trip";
 import "./FeedCardHeader.css";
 import FeedCardParticipantsSection from "./FeedCardParticipantsSection";
 
 interface Props {
   trip: Trip;
+  pastTrips: Trip[];
 }
 
-const FeedCardHeader = ({ trip }: Props) => {
-  const { pastTrips } = useContext(AuthContext);
+const FeedCardHeader = ({ trip, pastTrips }: Props) => {
   const navigate = useNavigate();
 
   const handleViewTrip = (): void =>

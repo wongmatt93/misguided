@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import usePaginate from "../../hooks/usePaginate";
-import UserProfile from "../../models/UserProfile";
+import ActiveUserProfile from "../../models/UserProfile";
 import "./FeedCardContainer.css";
 import FeedCluster from "./FeedCluster";
 
 interface Props {
   tripIds: string[];
-  userProfile: UserProfile;
+  userProfile: ActiveUserProfile;
   timesUp: boolean;
 }
 

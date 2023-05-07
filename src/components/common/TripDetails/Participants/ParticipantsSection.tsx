@@ -1,8 +1,7 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Dropdown, DropdownButton } from "react-bootstrap";
-import AuthContext from "../../../../context/AuthContext";
 import Trip, { Participant } from "../../../../models/Trip";
-import UserProfile from "../../../../models/UserProfile";
+import ActiveUserProfile, { UserProfile } from "../../../../models/UserProfile";
 import {
   participantAcceptTrip,
   removeParticipantFromTrip,
@@ -21,7 +20,7 @@ import "./ParticipantsSection.css";
 
 interface Props {
   trip: Trip;
-  userProfile: UserProfile | undefined;
+  userProfile: ActiveUserProfile | undefined;
   participants: UserProfile[];
   refreshTrip: (tripId: string) => Promise<void>;
 }
@@ -32,7 +31,6 @@ const ParticipantsSection = ({
   participants,
   refreshTrip,
 }: Props) => {
-  const { upcomingTrips } = useContext(AuthContext);
   const [invited, setInvited] = useState(false);
   const [accepted, setAccepted] = useState(false);
   const [show, setShow] = useState(false);
@@ -66,8 +64,14 @@ const ParticipantsSection = ({
 
   const handleAcceptTrip = async (): Promise<void> => {
     if (userProfile) {
+      const acceptedTrips: Trip[] = userProfile.upcomingTrips.filter((trip) =>
+        trip.participants.find(
+          (participant) =>
+            participant.uid === userProfile.uid && participant.accepted
+        )
+      );
       const isDoubleBooked: boolean = await doubleBook(
-        upcomingTrips,
+        acceptedTrips,
         trip.startDate,
         trip.endDate
       );
