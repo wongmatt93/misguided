@@ -14,11 +14,11 @@ export const getAllUsersByUidArray = async (
 export const getUserByUid = async (uid: string) =>
   (await axios.get(`${baseURL}/users/${uid}/uid`)).data;
 
-export const getUserProfile = async (
+export const getFullUserProfile = async (
   uid: string,
   date: string
 ): Promise<ActiveUserProfile> =>
-  (await axios.get(`${baseURL}/users/${uid}/${date}/active-profile`)).data;
+  (await axios.get(`${baseURL}/users/${uid}/${date}/full-profile`)).data;
 
 export const getUserSuggestions = async (
   userProfile: ActiveUserProfile

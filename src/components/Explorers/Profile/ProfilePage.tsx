@@ -3,7 +3,7 @@ import { useParams, useNavigate, NavigateFunction } from "react-router-dom";
 import AuthContext from "../../../context/AuthContext";
 import ActiveUserProfile from "../../../models/UserProfile";
 import "./ProfilePage.css";
-import { getUserProfile } from "../../../services/userService";
+import { getFullUserProfile } from "../../../services/userService";
 import LoadingSpinner from "../../common/LoadingSpinner";
 import ProfileInfo from "./ProfileInfo";
 import ProfileTripsContainer from "./ProfileTripsContainer";
@@ -17,7 +17,7 @@ const ProfilePage = () => {
   const [pastTripsCount, setPastTripsCount] = useState(0);
 
   const refreshProfilePage = async (uid: string): Promise<void> =>
-    setProfile(await getUserProfile(uid, today.getTime().toString()));
+    setProfile(await getFullUserProfile(uid, today.getTime().toString()));
 
   useEffect(() => {
     !userProfile && navigate(`/profile/${uid}`);

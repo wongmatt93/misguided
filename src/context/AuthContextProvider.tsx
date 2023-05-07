@@ -2,7 +2,7 @@ import { ReactNode, useEffect, useState } from "react";
 import { auth } from "../firebaseConfig";
 import AuthContext from "./AuthContext";
 import ActiveUserProfile from "../models/UserProfile";
-import { getUserProfile } from "../services/userService";
+import { getFullUserProfile } from "../services/userService";
 import Trip from "../models/Trip";
 import { today } from "../utils/dateFunctions";
 
@@ -19,14 +19,16 @@ const AuthContextProvider = ({ children }: Props) => {
   const currentDateString = today.getTime().toString();
 
   const refreshProfile = async (): Promise<void> =>
-    setUserProfile(await getUserProfile(userProfile!.uid, currentDateString));
+    setUserProfile(
+      await getFullUserProfile(userProfile!.uid, currentDateString)
+    );
 
   useEffect(() => {
     // useEffect to only register once at start
     return auth.onAuthStateChanged((newUser) => {
       //setUserProfile(users.find((user) => user.email === newUser!.email));
       if (newUser) {
-        getUserProfile(newUser.uid, currentDateString).then(
+        getFullUserProfile(newUser.uid, currentDateString).then(
           (activeUserProfile) => {
             if (!activeUserProfile) {
               const newUserProfile: ActiveUserProfile = {
