@@ -1,10 +1,10 @@
-import UserProfile from "../../../models/UserProfile";
+import ActiveUserProfile, { UserProfile } from "../../../models/UserProfile";
 import ExplorerSuggestionCard from "./ExplorerSuggestionCard";
 import "./ExplorerSuggestionsSection.css";
 
 interface Props {
   suggestions: UserProfile[];
-  userProfile: UserProfile;
+  userProfile: ActiveUserProfile;
   refreshProfile: () => Promise<void>;
 }
 

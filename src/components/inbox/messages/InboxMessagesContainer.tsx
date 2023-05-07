@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Trip, { Message } from "../../../models/Trip";
 import UserProfile from "../../../models/UserProfile";
 import "./InboxMessagesContainer.css";
@@ -9,7 +9,6 @@ import useTimer from "../../../hooks/useTimer";
 import LoadingSpinner from "../../common/LoadingSpinner";
 import { Button } from "react-bootstrap";
 import InboxMessagesCluster from "./InboxMessagesCluster";
-import AuthContext from "../../../context/AuthContext";
 
 interface Props {
   userProfile: UserProfile;
@@ -17,7 +16,7 @@ interface Props {
 }
 
 const InboxMessagesContainer = ({ userProfile, refreshProfile }: Props) => {
-  const { upcomingTrips, pastTrips } = useContext(AuthContext);
+  const { upcomingTrips, pastTrips } = userProfile;
   const [trips, setTrips] = useState<Trip[]>([]);
   const [page, setPage] = useState(0);
   const [buttonLoading, setButtonLoading] = useState(false);

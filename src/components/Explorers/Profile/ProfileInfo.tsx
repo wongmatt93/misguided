@@ -1,12 +1,10 @@
-import { useEffect, useState } from "react";
-import UserProfile from "../../../models/UserProfile";
-import { getUserFollowers } from "../../../services/userService";
+import ActiveUserProfile from "../../../models/UserProfile";
 import FollowButton from "./FollowButton";
 import "./ProfileInfo.css";
 
 interface Props {
-  profile: UserProfile;
-  userProfile: UserProfile | undefined;
+  profile: ActiveUserProfile;
+  userProfile: ActiveUserProfile | undefined;
   refreshProfile: () => Promise<void>;
   pastTripsCount: number;
   refreshProfilePage: (uid: string) => Promise<void>;
@@ -19,11 +17,7 @@ const ProfileInfo = ({
   pastTripsCount,
   refreshProfilePage,
 }: Props) => {
-  const [followers, setFollowers] = useState<UserProfile[]>([]);
-
-  useEffect(() => {
-    getUserFollowers(profile.uid).then((response) => setFollowers(response));
-  }, [profile]);
+  const { followingUserProfiles, followerUserProfiles } = profile;
 
   return (
     <section className="ProfileInfo">
@@ -35,11 +29,11 @@ const ProfileInfo = ({
       <h2>{profile.displayName}</h2>
       <div className="counts">
         <div className="following-count">
-          <p>{profile.followingUids.length}</p>
+          <p>{followingUserProfiles.length}</p>
           <p>following</p>
         </div>
         <div className="followers-count">
-          <p>{followers.length}</p>
+          <p>{followerUserProfiles.length}</p>
           <p>followers</p>
         </div>
         <div className="trip-count">

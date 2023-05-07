@@ -1,12 +1,16 @@
 import { FormEvent, useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
-import UserProfile, { Preferences } from "../../../../models/UserProfile";
+import ActiveUserProfile, {
+  UserProfile,
+  Preferences,
+} from "../../../../models/UserProfile";
 import { updateUserProfile } from "../../../../services/userService";
+import { formatUserProfileToSave } from "../../../../utils/userFunctions";
 import "./PreferencesForm.css";
 
 interface Props {
   setShow?: React.Dispatch<React.SetStateAction<boolean>>;
-  userProfile: UserProfile;
+  userProfile: ActiveUserProfile;
   refreshProfile: () => Promise<void>;
 }
 
@@ -57,7 +61,11 @@ const PreferencesForm = ({ setShow, userProfile, refreshProfile }: Props) => {
       shopping,
     };
 
-    await updateUserProfile({ ...userProfile, preferences: newPreference });
+    const formattedProfile: UserProfile = formatUserProfileToSave(userProfile);
+    await updateUserProfile({
+      ...formattedProfile,
+      preferences: newPreference,
+    });
     await refreshProfile();
     setShow && setShow(true);
   };

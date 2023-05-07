@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Participant } from "../../models/Trip";
-import UserProfile from "../../models/UserProfile";
+import { UserProfile } from "../../models/UserProfile";
 import { getAllUsersByUidArray } from "../../services/userService";
 import "./TripMessageSidebar.css";
 

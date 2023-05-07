@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
 import { RiCameraOffFill } from "react-icons/ri";
 import useTimer from "../../hooks/useTimer";
-import UserProfile from "../../models/UserProfile";
+import ActiveUserProfile from "../../models/UserProfile";
 import { getFollowingsTrips } from "../../services/tripServices";
 import LoadingCamera from "../common/LoadingCamera";
 import FeedCardContainer from "./FeedCardContainer";
 import "./FeedPage.css";
 
 interface Props {
-  userProfile: UserProfile;
+  userProfile: ActiveUserProfile;
 }
 
 const FeedPage = ({ userProfile }: Props) => {

@@ -8,10 +8,11 @@ import { updateUserProfile } from "../../services/userService";
 import ThumbsContainer from "../common/ThumbsContainer";
 import CityVisitors from "./CityVisitors";
 import CityCharacteristics from "./CityCharacteristics";
-import UserProfile from "../../models/UserProfile";
+import ActiveUserProfile, { UserProfile } from "../../models/UserProfile";
+import { formatUserProfileToSave } from "../../utils/userFunctions";
 
 interface Props {
-  userProfile: UserProfile;
+  userProfile: ActiveUserProfile;
   refreshProfile: () => Promise<void>;
 }
 
@@ -43,7 +44,8 @@ const CityDetailsPage = ({ userProfile, refreshProfile }: Props) => {
     favoriteCityIds.splice(likesIndex, 1);
     hiddenCityIds.push(cityId);
 
-    await updateUserProfile(userProfile);
+    const formattedProfile: UserProfile = formatUserProfileToSave(userProfile);
+    await updateUserProfile(formattedProfile);
     await refreshProfile();
     navigate("/plan-trip");
   };
@@ -64,7 +66,10 @@ const CityDetailsPage = ({ userProfile, refreshProfile }: Props) => {
               </Button>
             )}
           </div>
-          <CityVisitors city={city} followingUids={userProfile.followingUids} />
+          <CityVisitors
+            city={city}
+            followingUserProfiles={userProfile.followingUserProfiles}
+          />
           <p className="description">{city.cityDescription}</p>
           <CityCharacteristics
             city={city}

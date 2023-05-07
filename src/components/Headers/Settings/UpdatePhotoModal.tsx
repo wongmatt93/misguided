@@ -4,12 +4,13 @@ import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { storage } from "../../../firebaseConfig";
 import { updateUserProfile } from "../../../services/userService";
 import "./UpdatePhotoModal.css";
-import UserProfile from "../../../models/UserProfile";
+import ActiveUserProfile, { UserProfile } from "../../../models/UserProfile";
+import { formatUserProfileToSave } from "../../../utils/userFunctions";
 
 interface Props {
   show: boolean;
   handleClose: () => void;
-  userProfile: UserProfile;
+  userProfile: ActiveUserProfile;
   refreshProfile: () => Promise<void>;
 }
 
@@ -35,8 +36,10 @@ const UpdatePhotoModal = ({
 
       const snapshot = await uploadBytes(storageRef, file);
       const photoURL = await getDownloadURL(snapshot.ref);
+      const formattedProfile: UserProfile =
+        formatUserProfileToSave(userProfile);
       await updateUserProfile({
-        ...userProfile,
+        ...formattedProfile,
         photoURL,
       });
       await refreshProfile();

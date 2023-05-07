@@ -1,5 +1,8 @@
 import "./WelcomeView.css";
-import UserProfile, { Preferences } from "../../models/UserProfile";
+import ActiveUserProfile, {
+  UserProfile,
+  Preferences,
+} from "../../models/UserProfile";
 import { FormEvent, useRef, useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import {
@@ -16,8 +19,10 @@ import PreferencesCheckboxes from "./PreferencesCheckboxes";
 import { useNavigate } from "react-router-dom";
 
 interface Props {
-  userProfile: UserProfile;
-  setUserProfile: React.Dispatch<React.SetStateAction<UserProfile | undefined>>;
+  userProfile: ActiveUserProfile;
+  setUserProfile: React.Dispatch<
+    React.SetStateAction<ActiveUserProfile | undefined>
+  >;
 }
 
 const WelcomeView = ({ userProfile, setUserProfile }: Props) => {
@@ -64,7 +69,7 @@ const WelcomeView = ({ userProfile, setUserProfile }: Props) => {
     e.preventDefault();
 
     if (username && photoURL && hometownId && preferences) {
-      const newUser = {
+      const newUser: ActiveUserProfile = {
         ...userProfile,
         username,
         photoURL,
@@ -72,8 +77,25 @@ const WelcomeView = ({ userProfile, setUserProfile }: Props) => {
         preferences,
       };
 
-      addNewUser(newUser);
       setUserProfile(newUser);
+
+      const newUserProfile: UserProfile = {
+        uid: userProfile.uid,
+        username,
+        displayName: userProfile.displayName,
+        email: userProfile.email,
+        phoneNumber: userProfile.phoneNumber,
+        photoURL,
+        hometownId,
+        preferences,
+        followingUids: [],
+        favoriteCityIds: [],
+        hiddenCityIds: [],
+        notifications: [],
+        visitedCityIds: [],
+      };
+
+      addNewUser(newUserProfile);
       navigate("/welcome-guide");
     }
   };

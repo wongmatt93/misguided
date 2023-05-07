@@ -1,26 +1,24 @@
-import { FormEvent, useContext, useEffect, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { Button, Form, InputGroup } from "react-bootstrap";
 import { RiCloseCircleLine, RiSearchLine } from "react-icons/ri";
-import AuthContext from "../../context/AuthContext";
-import useFriendsFetcher from "../../hooks/useFriendsFetcher";
-import UserProfile from "../../models/UserProfile";
+import ActiveUserProfile, { UserProfile } from "../../models/UserProfile";
 import {
   getUserBySearch,
   getUserSuggestions,
 } from "../../services/userService";
+import { getFriends } from "../../utils/followFunctions";
 import "./ExplorersPage.css";
 import ExplorerFriendsSection from "./Friends/ExplorerFriendsSection";
 import ExplorersSearchSection from "./SearchResults/ExplorersSearchSection";
 import ExplorerSuggestionsSection from "./Suggestions/ExplorerSuggestionsSection";
 
 interface Props {
-  userProfile: UserProfile;
+  userProfile: ActiveUserProfile;
   refreshProfile: () => Promise<void>;
 }
 
 const ExplorersPage = ({ userProfile, refreshProfile }: Props) => {
-  const { followers } = useContext(AuthContext);
-  const friends: UserProfile[] = useFriendsFetcher(userProfile, followers);
+  const friends: UserProfile[] = getFriends(userProfile);
   const [suggestions, setSuggestions] = useState<UserProfile[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState<UserProfile[]>([]);

@@ -9,7 +9,7 @@ import {
 import { getUserByUid } from "../../../services/userService";
 
 import "./TripDetailsMain.css";
-import UserProfile from "../../../models/UserProfile";
+import ActiveUserProfile, { UserProfile } from "../../../models/UserProfile";
 import GallerySection from "./Gallery/GallerySection";
 import ParticipantsSection from "./Participants/ParticipantsSection";
 import ItinerarySection from "./Itinerary/ItinerarySection";
@@ -18,7 +18,7 @@ import { today } from "../../../utils/dateFunctions";
 interface Props {
   trip: Trip;
   cityName: string;
-  userProfile: UserProfile;
+  userProfile: ActiveUserProfile;
   refreshProfile: () => Promise<void>;
   refreshTrip: (tripId: string) => Promise<void>;
   timesUp: boolean;

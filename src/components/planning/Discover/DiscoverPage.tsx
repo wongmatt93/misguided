@@ -8,10 +8,11 @@ import { getAllCities } from "../../../services/cityService";
 import City from "../../../models/City";
 import ThumbsContainer from "../../common/ThumbsContainer";
 import DiscoverCard from "./DiscoverCard";
-import UserProfile from "../../../models/UserProfile";
+import ActiveUserProfile, { UserProfile } from "../../../models/UserProfile";
+import { formatUserProfileToSave } from "../../../utils/userFunctions";
 
 interface Props {
-  userProfile: UserProfile;
+  userProfile: ActiveUserProfile;
   refreshProfile: () => Promise<void>;
 }
 
@@ -45,7 +46,8 @@ const DiscoverPage = ({ userProfile, refreshProfile }: Props) => {
     navigate(`/plan-trip/city-details/${cityId}`);
 
   const handleRefreshTrips = async (): Promise<void> => {
-    await updateUserProfile({ ...userProfile, hiddenCityIds: [] });
+    const formattedProfile: UserProfile = formatUserProfileToSave(userProfile);
+    await updateUserProfile({ ...formattedProfile, hiddenCityIds: [] });
     refreshProfile();
   };
 

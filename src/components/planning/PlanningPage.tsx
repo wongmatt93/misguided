@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import City from "../../models/City";
 import { Hotel } from "../../models/amadeus/HotelResponse";
@@ -13,20 +13,19 @@ import {
 } from "../../services/yelpService";
 import { Business } from "../../models/Yelp";
 import Trip from "../../models/Trip";
-import { addTrip, getUpcomingTrips } from "../../services/tripServices";
-import UserProfile from "../../models/UserProfile";
+import { addTrip } from "../../services/tripServices";
+import ActiveUserProfile from "../../models/UserProfile";
 import PlanningForm from "./PlanningForm";
 import ItineraryModal from "./ItineraryModal";
 import doubleBook from "../../utils/doubleBook";
-import AuthContext from "../../context/AuthContext";
-import { today } from "../../utils/dateFunctions";
 
 interface Props {
-  userProfile: UserProfile;
+  userProfile: ActiveUserProfile;
+  refreshProfile: () => Promise<void>;
 }
 
-const PlanningPage = ({ userProfile }: Props) => {
-  const { upcomingTrips, setUpcomingTrips } = useContext(AuthContext);
+const PlanningPage = ({ userProfile, refreshProfile }: Props) => {
+  const { upcomingTrips } = userProfile;
   const cityId: string | undefined = useParams().cityId;
   const [city, setCity] = useState<City | null>(null);
   const [startDate, setStartDate] = useState<string | undefined>(undefined);
@@ -143,9 +142,7 @@ const PlanningPage = ({ userProfile }: Props) => {
 
         setTrip(newTrip);
         await addTrip(newTrip);
-        setUpcomingTrips(
-          await getUpcomingTrips(userProfile.uid, today.getTime().toString())
-        );
+        refreshProfile();
 
         handleShow();
       } else {

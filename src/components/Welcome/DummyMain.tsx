@@ -7,7 +7,7 @@ import {
   RiFlightTakeoffFill,
   RiSearchLine,
 } from "react-icons/ri";
-import UserProfile from "../../models/UserProfile";
+import ActiveUserProfile, { UserProfile } from "../../models/UserProfile";
 import { getUserSuggestions } from "../../services/userService";
 import ExplorerFriendsSection from "../Explorers/Friends/ExplorerFriendsSection";
 import ExplorerSuggestionsSection from "../Explorers/Suggestions/ExplorerSuggestionsSection";
@@ -16,7 +16,7 @@ import "./DummyMain.css";
 
 interface Props {
   stage: string;
-  userProfile: UserProfile;
+  userProfile: ActiveUserProfile;
   refreshProfile: () => Promise<void>;
 }
 

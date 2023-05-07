@@ -1,10 +1,10 @@
 import { RiSkullFill } from "react-icons/ri";
-import UserProfile from "../../../models/UserProfile";
+import ActiveUserProfile, { UserProfile } from "../../../models/UserProfile";
 import "./ExplorersSearchSection.css";
 import SearchResultsContainer from "./SearchResultsContainer";
 
 interface Props {
-  userProfile: UserProfile;
+  userProfile: ActiveUserProfile;
   refreshProfile: () => Promise<void>;
   searchResults: UserProfile[];
 }

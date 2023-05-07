@@ -1,19 +1,18 @@
 import { useState } from "react";
 import { Button } from "react-bootstrap";
 import { NavigateFunction, useNavigate } from "react-router-dom";
-import useFollowStatus from "../../../hooks/useFollowStatus";
-import UserProfile from "../../../models/UserProfile";
-import { followUser } from "../../../utils/followFunctions";
+import ActiveUserProfile, { UserProfile } from "../../../models/UserProfile";
+import { followUser, getFollowStatus } from "../../../utils/followFunctions";
 import "./SearchResultCard.css";
 
 interface Props {
-  userProfile: UserProfile;
+  userProfile: ActiveUserProfile;
   refreshProfile: () => Promise<void>;
   user: UserProfile;
 }
 
 const SearchResultCard = ({ userProfile, refreshProfile, user }: Props) => {
-  const followStatus: string = useFollowStatus(userProfile, user.uid);
+  const followStatus: string = getFollowStatus(userProfile, user.uid);
   const navigate: NavigateFunction = useNavigate();
   const [updating, setUpdating] = useState(false);
 

@@ -1,7 +1,7 @@
 import { FormEvent, useEffect, useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import { Message } from "../../models/Trip";
-import UserProfile, { Notification } from "../../models/UserProfile";
+import { UserProfile, Notification } from "../../models/UserProfile";
 import { addMessageToTrip, getTripById } from "../../services/tripServices";
 import {
   addNotification,

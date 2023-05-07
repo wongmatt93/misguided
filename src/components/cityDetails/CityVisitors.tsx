@@ -1,23 +1,24 @@
 import { useEffect, useState } from "react";
 import City from "../../models/City";
+import { UserProfile } from "../../models/UserProfile";
 import "./CityVisitors.css";
 import VisitorCard from "./VisitorCard";
 
 interface Props {
   city: City;
-  followingUids: string[];
+  followingUserProfiles: UserProfile[];
 }
 
-const CityVisitors = ({ city, followingUids }: Props) => {
-  const [visitors, setVisitors] = useState<string[]>([]);
+const CityVisitors = ({ city, followingUserProfiles }: Props) => {
+  const [visitors, setVisitors] = useState<UserProfile[]>([]);
 
   useEffect(() => {
     setVisitors(
-      followingUids.filter((uid) =>
-        city.visitorsUids.find((visitor) => visitor === uid)
+      followingUserProfiles.filter((profile) =>
+        city.visitorsUids.find((visitor) => visitor === profile.uid)
       )
     );
-  }, [followingUids, city]);
+  }, [followingUserProfiles, city]);
 
   return (
     <>
@@ -26,7 +27,7 @@ const CityVisitors = ({ city, followingUids }: Props) => {
           <p className="visitors">Visitors:</p>
           <ul>
             {visitors.map((visitor) => (
-              <VisitorCard key={visitor} uid={visitor} />
+              <VisitorCard key={visitor.uid} visitor={visitor} />
             ))}
           </ul>
         </div>
