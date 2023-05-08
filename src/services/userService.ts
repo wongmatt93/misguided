@@ -6,11 +6,6 @@ import ActiveUserProfile, {
 
 const baseURL: string = process.env.REACT_APP_API_URL || "";
 
-export const getAllUsersByUidArray = async (
-  uids: string[]
-): Promise<UserProfile[]> =>
-  (await axios.get(`${baseURL}/users/users-by-uid/${uids.toString()}`)).data;
-
 export const getUserByUid = async (uid: string) =>
   (await axios.get(`${baseURL}/users/${uid}/uid`)).data;
 

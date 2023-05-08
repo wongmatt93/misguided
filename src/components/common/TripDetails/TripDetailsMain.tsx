@@ -1,7 +1,7 @@
 import { Button } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Trip from "../../../models/Trip";
+import FullTrip from "../../../models/Trip";
 import {
   deleteTrip,
   removeParticipantFromTrip,
@@ -9,16 +9,15 @@ import {
 import { getUserByUid } from "../../../services/userService";
 
 import "./TripDetailsMain.css";
-import ActiveUserProfile, { UserProfile } from "../../../models/UserProfile";
+import FullUserProfile, { UserProfile } from "../../../models/UserProfile";
 import GallerySection from "./Gallery/GallerySection";
 import ParticipantsSection from "./Participants/ParticipantsSection";
 import ItinerarySection from "./Itinerary/ItinerarySection";
 import { today } from "../../../utils/dateFunctions";
 
 interface Props {
-  trip: Trip;
-  cityName: string;
-  userProfile: ActiveUserProfile;
+  trip: FullTrip;
+  userProfile: FullUserProfile;
   refreshProfile: () => Promise<void>;
   refreshTrip: (tripId: string) => Promise<void>;
   timesUp: boolean;
@@ -26,7 +25,6 @@ interface Props {
 
 const TripDetailsMain = ({
   trip,
-  cityName,
   userProfile,
   refreshProfile,
   refreshTrip,
@@ -88,7 +86,7 @@ const TripDetailsMain = ({
           participants={participants}
         />
       )}
-      <ItinerarySection trip={trip} cityName={cityName} />
+      <ItinerarySection trip={trip} />
       {userProfile && trip.creatorUid === userProfile.uid && (
         <Button
           className="delete-button"

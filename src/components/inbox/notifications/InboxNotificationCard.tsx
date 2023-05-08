@@ -10,15 +10,13 @@ import { Button, ListGroup } from "react-bootstrap";
 import useProfileFetcher from "../../../hooks/useProfileFetcher";
 import useTimer from "../../../hooks/useTimer";
 import { timeStamp } from "../../../utils/dateFunctions";
-import { getTripById } from "../../../services/tripServices";
-import { getCityById } from "../../../services/cityService";
+import { getFullTripById } from "../../../services/tripServices";
 import {
   deleteNotification,
   readNotification,
   unreadNotification,
 } from "../../../services/userService";
-import City from "../../../models/City";
-import Trip from "../../../models/Trip";
+import FullTrip from "../../../models/Trip";
 import UserProfile, { Notification } from "../../../models/UserProfile";
 import "./InboxNotificationCard.css";
 
@@ -39,7 +37,7 @@ const InboxNotificationCard = ({
   const timesUp: boolean = useTimer(1000);
 
   const tripUrl = async (tripId: string): Promise<string> => {
-    const trip: Trip = await getTripById(tripId);
+    const trip: FullTrip = await getFullTripById(tripId);
     const accepted: boolean = trip.participants.some(
       (participant) =>
         participant.uid === userProfile.uid && participant.accepted
@@ -64,23 +62,21 @@ const InboxNotificationCard = ({
         navigate(`/explorers/profile/${notification.uid}`);
       notification.tripId && navigate(await tripUrl(notification.tripId));
       if (notification.type === "cityRating") {
-        const trip: Trip | null = await getTripById(notification.tripId!);
+        const trip: FullTrip | null = await getFullTripById(
+          notification.tripId!
+        );
 
         if (trip) {
-          const city: City | null = await getCityById(trip.cityId);
-
-          if (city) {
-            if (notification.read) {
-              navigate(`/trip/${notification.tripId}`);
+          if (notification.read) {
+            navigate(`/trip/${notification.tripId}`);
+          } else {
+            const firstVisit: boolean = !trip.city.ratings.some(
+              (user) => user.uid === userProfile.uid
+            );
+            if (firstVisit) {
+              navigate(`/trips/rating/${trip.city._id}`);
             } else {
-              const firstVisit: boolean = !city.ratings.some(
-                (user) => user.uid === userProfile.uid
-              );
-              if (firstVisit) {
-                navigate(`/trips/rating/${trip.cityId}`);
-              } else {
-                navigate(`/trips/rating/${trip.cityId}/subsequent`);
-              }
+              navigate(`/trips/rating/${trip.city._id}/subsequent`);
             }
           }
         }

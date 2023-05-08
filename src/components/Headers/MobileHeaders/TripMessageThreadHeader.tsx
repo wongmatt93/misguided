@@ -1,9 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import City from "../../../models/City";
-import Trip from "../../../models/Trip";
-import { getCityById } from "../../../services/cityService";
-import { getTripById } from "../../../services/tripServices";
+import FullTrip from "../../../models/Trip";
+import { getFullTripById } from "../../../services/tripServices";
 import "./TripMessageThreadHeader.css";
 
 interface Props {
@@ -12,14 +10,12 @@ interface Props {
 
 const TripMessageThreadHeader = ({ path }: Props) => {
   const navigate = useNavigate();
-  const [trip, setTrip] = useState<Trip | null>(null);
-  const [city, setCity] = useState<City | null>(null);
+  const [trip, setTrip] = useState<FullTrip | null>(null);
 
   useEffect(() => {
     if (path.includes("thread")) {
-      getTripById(path.split("thread/")[1]).then((response) => {
+      getFullTripById(path.split("thread/")[1]).then((response) => {
         setTrip(response);
-        getCityById(response.cityId).then((response) => setCity(response));
       });
     }
   }, [path]);
@@ -28,12 +24,12 @@ const TripMessageThreadHeader = ({ path }: Props) => {
 
   return (
     <>
-      {city && trip && (
+      {trip && (
         <div className="TripMessageThreadHeader MobileHeaderDiv">
           <h1 onClick={handleClick}>
             {trip.nickname
               ? trip.nickname.toLowerCase()
-              : city.cityName.toLowerCase()}
+              : trip.city.cityName.toLowerCase()}
           </h1>
         </div>
       )}

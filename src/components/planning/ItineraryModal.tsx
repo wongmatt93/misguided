@@ -1,7 +1,7 @@
 import Modal from "react-bootstrap/Modal";
 import { RiThumbUpFill } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
-import Trip from "../../models/Trip";
+import { Trip } from "../../models/Trip";
 import "./ItineraryModal.css";
 import SingleDayItinerary from "./SingleDayItinerary";
 

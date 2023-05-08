@@ -1,20 +1,19 @@
 import Accordion from "react-bootstrap/Accordion";
-import Trip from "../../../../models/Trip";
+import FullTrip from "../../../../models/Trip";
 import "./TripAccordion.css";
 import TripSingleDayDetails from "./TripSingleDayDetails";
 
 interface Props {
-  trip: Trip;
-  cityName: string;
+  trip: FullTrip;
 }
 
-const TripAccordion = ({ trip, cityName }: Props) => {
+const TripAccordion = ({ trip }: Props) => {
   return (
     <Accordion className="TripAccordion" alwaysOpen>
       <Accordion.Item eventKey="travel-info">
         <Accordion.Header>Travel Info</Accordion.Header>
         <Accordion.Body>
-          <h4 className="city-name">{cityName}</h4>
+          <h4 className="city-name">{trip.city.cityName}</h4>
           <p>
             {new Date(Number(trip.startDate)).toLocaleDateString()}
             {trip.startDate !== trip.endDate &&

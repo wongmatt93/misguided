@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
-import Trip from "../../models/Trip";
-import { getTripById } from "../../services/tripServices";
+import FullTrip from "../../models/Trip";
+import { getFullTripById } from "../../services/tripServices";
 import NewMessageForm from "./NewMessageForm";
 import TripMessagesContainer from "./TripMessagesContainer";
 import TripMessageSidebar from "./TripMessageSidebar";
@@ -15,12 +15,12 @@ interface Props {
 
 const TripMessageThreadPage = ({ userUid }: Props) => {
   const tripId: string | undefined = useParams().tripId;
-  const [trip, setTrip] = useState<Trip | null>(null);
+  const [trip, setTrip] = useState<FullTrip | null>(null);
   const isDesktop = useMediaQuery({ minWidth: 768 });
   const isLargeScreen = useMediaQuery({ minWidth: 1024 });
 
   const refreshTrip = async (tripId: string): Promise<void> =>
-    setTrip(await getTripById(tripId));
+    setTrip(await getFullTripById(tripId));
 
   useEffect(() => {
     tripId && refreshTrip(tripId);
@@ -29,7 +29,7 @@ const TripMessageThreadPage = ({ userUid }: Props) => {
   useEffect(() => {
     if (trip) {
       const interval = setInterval(() => {
-        getTripById(trip._id!).then((response) => {
+        getFullTripById(trip._id!).then((response) => {
           const item1: string = response.messages.toString();
           const item2: string = trip.messages.toString();
 
@@ -56,7 +56,7 @@ const TripMessageThreadPage = ({ userUid }: Props) => {
             />
           </div>
           {isLargeScreen && (
-            <TripMessageSidebar tripParticipants={trip.participants} />
+            <TripMessageSidebar tripParticipants={trip.participantProfiles} />
           )}
         </section>
       )}

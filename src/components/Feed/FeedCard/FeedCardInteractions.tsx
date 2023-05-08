@@ -4,22 +4,15 @@ import Trip from "../../../models/Trip";
 import "./FeedCardInteractions.css";
 import ActiveUserProfile from "../../../models/UserProfile";
 import TripCommentsOffcanvas from "../../TripCommentsSection/TripCommentsOffcanvas";
-import City from "../../../models/City";
 import { addLikesUid, removeLikesUid } from "../../../services/tripServices";
 
 interface Props {
   trip: Trip;
-  city: City;
   userProfile: ActiveUserProfile;
   refreshTrip: () => Promise<void>;
 }
 
-const FeedCardInteractions = ({
-  trip,
-  city,
-  userProfile,
-  refreshTrip,
-}: Props) => {
+const FeedCardInteractions = ({ trip, userProfile, refreshTrip }: Props) => {
   const [liked, setLiked] = useState(false);
   const [show, setShow] = useState(false);
 
@@ -54,7 +47,6 @@ const FeedCardInteractions = ({
       </div>
       <TripCommentsOffcanvas
         trip={trip}
-        city={city}
         refreshTrip={refreshTrip}
         show={show}
         handleClose={handleClose}

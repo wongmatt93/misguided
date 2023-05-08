@@ -1,5 +1,5 @@
 import { createContext } from "react";
-import Trip from "../models/Trip";
+import { Trip } from "../models/Trip";
 import UserProfile from "../models/UserProfile";
 
 export interface AuthContextModel {

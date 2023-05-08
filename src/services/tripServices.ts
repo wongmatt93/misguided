@@ -1,11 +1,11 @@
 import axios from "axios";
-import Trip, { Comment, Message, Participant } from "../models/Trip";
+import FullTrip, { Trip, Comment, Message, Participant } from "../models/Trip";
 import UserProfile from "../models/UserProfile";
 
 const baseURL: string = process.env.REACT_APP_API_URL || "";
 
-export const getTripById = async (tripId: string): Promise<Trip> =>
-  (await axios.get(`${baseURL}/trips/${tripId}`)).data;
+export const getFullTripById = async (tripId: string): Promise<FullTrip> =>
+  (await axios.get(`${baseURL}/trips/${tripId}/full-trip`)).data;
 
 export const addTrip = async (trip: Trip): Promise<Trip> =>
   (await axios.post(`${baseURL}/trips`, trip)).data;

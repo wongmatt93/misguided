@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
-import Trip from "../../../../models/Trip";
+import FullTrip from "../../../../models/Trip";
 import ActiveUserProfile, { UserProfile } from "../../../../models/UserProfile";
 import "./GallerySection.css";
 import PhotoContainer from "./PhotoContainer";
@@ -9,7 +9,7 @@ import UploadPhotosModal from "./UploadPhotosModal";
 interface Props {
   userProfile: ActiveUserProfile | undefined;
   refreshProfile: () => Promise<void>;
-  trip: Trip;
+  trip: FullTrip;
   participants: UserProfile[];
 }
 

@@ -1,4 +1,4 @@
-import Trip, { Participant } from "../models/Trip";
+import { Trip, Participant } from "../models/Trip";
 import ActiveUserProfile, { UserProfile } from "../models/UserProfile";
 import {
   getCityById,

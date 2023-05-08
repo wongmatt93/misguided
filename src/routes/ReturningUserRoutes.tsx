@@ -12,7 +12,7 @@ import InboxView from "../components/Inbox/InboxView";
 import MobileNavigation from "../components/MobileNavigation/MobileNavigation";
 import PlanningView from "../components/Planning/PlanningView";
 import TripsView from "../components/Trips/TripsView";
-import Trip from "../models/Trip";
+import { Trip } from "../models/Trip";
 import ActiveUserProfile from "../models/UserProfile";
 
 interface Props {

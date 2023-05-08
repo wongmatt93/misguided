@@ -3,7 +3,7 @@ import { auth } from "../firebaseConfig";
 import AuthContext from "./AuthContext";
 import ActiveUserProfile from "../models/UserProfile";
 import { getFullUserProfile } from "../services/userService";
-import Trip from "../models/Trip";
+import { Trip } from "../models/Trip";
 import { today } from "../utils/dateFunctions";
 
 interface Props {

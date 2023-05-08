@@ -1,11 +1,11 @@
 import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import Trip from "../../../models/Trip";
+import FullTrip, { Trip } from "../../../models/Trip";
 import "./FeedCardHeader.css";
 import FeedCardParticipantsSection from "./FeedCardParticipantsSection";
 
 interface Props {
-  trip: Trip;
+  trip: FullTrip;
   pastTrips: Trip[];
 }
 
@@ -19,7 +19,7 @@ const FeedCardHeader = ({ trip, pastTrips }: Props) => {
 
   return (
     <div className="FeedCardHeader">
-      <FeedCardParticipantsSection participants={trip.participants} />
+      <FeedCardParticipantsSection participants={trip.participantProfiles} />
       <Button variant="warning" onClick={handleViewTrip}>
         View Trip
       </Button>

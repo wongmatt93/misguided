@@ -12,7 +12,7 @@ import {
   searchYelpRestaurants,
 } from "../../services/yelpService";
 import { Business } from "../../models/Yelp";
-import Trip from "../../models/Trip";
+import { Trip } from "../../models/Trip";
 import { addTrip } from "../../services/tripServices";
 import ActiveUserProfile from "../../models/UserProfile";
 import PlanningForm from "./PlanningForm";

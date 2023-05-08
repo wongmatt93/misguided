@@ -1,10 +1,9 @@
 import { RiEditFill } from "react-icons/ri";
 import { useContext, useEffect, useState } from "react";
-import Trip, { Participant } from "../../../models/Trip";
+import FullTrip, { Participant } from "../../../models/Trip";
 import EditNicknameModal from "./EditNicknameModal";
 import "./TripDetailsHeader.css";
-import { getCityById } from "../../../services/cityService";
-import { getTripById } from "../../../services/tripServices";
+import { getFullTripById } from "../../../services/tripServices";
 import AuthContext from "../../../context/AuthContext";
 
 interface Props {
@@ -13,33 +12,25 @@ interface Props {
 
 const TripDetailsHeader = ({ path }: Props) => {
   const { userProfile, refreshProfile } = useContext(AuthContext);
-  const [trip, setTrip] = useState<Trip | null>(null);
-  const [cityName, setCityName] = useState("");
+  const [trip, setTrip] = useState<FullTrip | null>(null);
   const [showModal, setShowModal] = useState(false);
   const [accepted, setAccepted] = useState(false);
   const [showEdit, setShowEdit] = useState(false);
 
   const refreshTrip = async (tripId: string): Promise<void> => {
     await Promise.allSettled([
-      setTrip(await getTripById(tripId)),
+      setTrip(await getFullTripById(tripId)),
       refreshProfile(),
     ]);
   };
 
   useEffect(() => {
     if (path.includes("trip-details/")) {
-      getTripById(path.split("trip-details/")[1]).then((response) =>
+      getFullTripById(path.split("trip-details/")[1]).then((response) =>
         setTrip(response)
       );
     }
   }, [path]);
-
-  useEffect(() => {
-    trip &&
-      getCityById(trip.cityId).then((response) =>
-        setCityName(response.cityName)
-      );
-  }, [trip]);
 
   useEffect(() => {
     if (userProfile && trip) {
@@ -66,7 +57,7 @@ const TripDetailsHeader = ({ path }: Props) => {
             <h1>
               {trip.nickname
                 ? trip.nickname.toLowerCase()
-                : cityName.toLowerCase()}
+                : trip.city.cityName.toLowerCase()}
             </h1>
             {accepted && (
               <RiEditFill

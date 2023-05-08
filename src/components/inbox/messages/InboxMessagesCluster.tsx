@@ -1,4 +1,4 @@
-import Trip from "../../../models/Trip";
+import { Trip } from "../../../models/Trip";
 import UserProfile from "../../../models/UserProfile";
 import InboxMessagesCard from "./InboxMessagesCard";
 import "./InboxMessagesCluster.css";

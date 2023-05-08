@@ -1,32 +1,19 @@
-import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Participant } from "../../models/Trip";
 import { UserProfile } from "../../models/UserProfile";
-import { getAllUsersByUidArray } from "../../services/userService";
 import "./TripMessageSidebar.css";
 
 interface Props {
-  tripParticipants: Participant[];
+  tripParticipants: UserProfile[];
 }
 
 const TripMessageSidebar = ({ tripParticipants }: Props) => {
-  const [participantsProfiles, setParticipantsProfiles] = useState<
-    UserProfile[]
-  >([]);
   const navigate = useNavigate();
-
-  useEffect(() => {
-    const participantsUids: string[] = tripParticipants.map((item) => item.uid);
-    getAllUsersByUidArray(participantsUids).then((response) =>
-      setParticipantsProfiles(response)
-    );
-  }, [tripParticipants]);
 
   return (
     <div className="TripMessageSidebar">
       <h3>Participants</h3>
       <ul>
-        {participantsProfiles.map((participant) => (
+        {tripParticipants.map((participant) => (
           <li
             key={participant.uid}
             className="participant"

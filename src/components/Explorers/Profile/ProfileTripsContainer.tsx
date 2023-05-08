@@ -2,14 +2,14 @@ import { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import usePaginate from "../../../hooks/usePaginate";
 import useTimer from "../../../hooks/useTimer";
-import Trip from "../../../models/Trip";
-import ActiveUserProfile from "../../../models/UserProfile";
+import { Trip } from "../../../models/Trip";
+import FullUserProfile from "../../../models/UserProfile";
 import ProfileTripsCluster from "./ProfileTripsCluster";
 import "./ProfileTripsContainer.css";
 
 interface Props {
-  profile: ActiveUserProfile;
-  userProfile: ActiveUserProfile | undefined;
+  profile: FullUserProfile;
+  userProfile: FullUserProfile | undefined;
   setPastTripsCount: React.Dispatch<React.SetStateAction<number>>;
 }
 

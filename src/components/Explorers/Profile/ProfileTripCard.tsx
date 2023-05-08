@@ -1,9 +1,8 @@
-import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useCityFetcher from "../../../hooks/useCityFetcher";
 import useTimer from "../../../hooks/useTimer";
 import City from "../../../models/City";
-import Trip from "../../../models/Trip";
+import { Trip } from "../../../models/Trip";
 import UserProfile from "../../../models/UserProfile";
 import "./ProfileTripCard.css";
 
@@ -13,17 +12,9 @@ interface Props {
 }
 
 const ProfileTripCard = ({ trip, userProfile }: Props) => {
-  const navigate = useNavigate();
   const city: City | null = useCityFetcher(trip.cityId);
-  const [cardImage, setCardImage] = useState("");
+  const navigate = useNavigate();
   const timesUp: boolean = useTimer(1000);
-
-  useEffect(() => {
-    city &&
-      (trip.photos.length > 0
-        ? setCardImage(trip.photos[0])
-        : setCardImage(city.photoURL));
-  }, [city, trip]);
 
   const handleClick = (): void => {
     !userProfile
@@ -39,7 +30,10 @@ const ProfileTripCard = ({ trip, userProfile }: Props) => {
     <>
       {city && timesUp && (
         <li className="ProfileTripCard" onClick={handleClick}>
-          <img src={cardImage} alt={cardImage} />
+          <img
+            src={trip.photos.length > 0 ? trip.photos[0] : city.photoURL}
+            alt="trip"
+          />
           <div className="info-container">
             <h4>{trip.nickname ? trip.nickname : city.cityName}</h4>
           </div>

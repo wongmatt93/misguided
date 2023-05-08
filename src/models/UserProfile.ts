@@ -1,4 +1,4 @@
-import Trip from "./Trip";
+import { Trip } from "./Trip";
 
 export interface Notification {
   uid: string;
@@ -48,7 +48,7 @@ export interface UserProfile {
   visitedCityIds: string[];
 }
 
-export default interface ActiveUserProfile {
+export default interface FullUserProfile {
   _id?: string;
   uid: string;
   username: string | null;

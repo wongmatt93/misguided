@@ -3,11 +3,11 @@ import InboxMessagesContainer from "./Messages/InboxMessagesContainer";
 import { Navigate, Route, Routes } from "react-router-dom";
 import TripMessageThreadPage from "../TripMessageThread/TripMessageThreadPage";
 import InboxNav from "./InboxNav";
-import UserProfile from "../../models/UserProfile";
+import FullUserProfile from "../../models/UserProfile";
 import TripDetailsPage from "../common/TripDetails/TripDetailsPage";
 
 interface Props {
-  userProfile: UserProfile;
+  userProfile: FullUserProfile;
   refreshProfile: () => Promise<void>;
 }
 

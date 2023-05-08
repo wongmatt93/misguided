@@ -1,12 +1,12 @@
 import { RiQuestionAnswerFill } from "react-icons/ri";
 import { useEffect, useRef, useState } from "react";
-import Trip from "../../models/Trip";
+import FullTrip from "../../models/Trip";
 import TripMessage from "./TripMessage";
 import "./TripMessagesContainer.css";
 import LoadingSpinner from "../common/LoadingSpinner";
 
 interface Props {
-  trip: Trip;
+  trip: FullTrip;
   userUid: string;
 }
 

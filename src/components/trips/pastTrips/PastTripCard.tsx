@@ -3,7 +3,6 @@ import { Button } from "react-bootstrap";
 import { RiArrowRightSLine } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
 import AuthContext from "../../../context/AuthContext";
-import useCityFetcher from "../../../hooks/useCityFetcher";
 import useTimer from "../../../hooks/useTimer";
 import City from "../../../models/City";
 import Trip from "../../../models/Trip";
@@ -21,7 +20,6 @@ interface Props {
 const PastTripCard = ({ trip }: Props) => {
   const { userProfile, refreshProfile } = useContext(AuthContext);
   const navigate = useNavigate();
-  const city: City | null = useCityFetcher(trip.cityId);
   const timesUp = useTimer(600);
 
   const handleViewTrip = (): void =>
@@ -65,8 +63,8 @@ const PastTripCard = ({ trip }: Props) => {
     refreshProfile();
 
     !city.ratings.some((user) => user.uid === uid)
-      ? navigate(`/trips/rating/${trip.cityId}`)
-      : navigate(`/trips/rating/${trip.cityId}/subsequent`);
+      ? navigate(`/trips/rating/${trip.city._id}`)
+      : navigate(`/trips/rating/${trip.city._id}/subsequent`);
   };
 
   const handleUnconfirmTrip = async (trip: Trip): Promise<void> => {
@@ -76,16 +74,16 @@ const PastTripCard = ({ trip }: Props) => {
 
   return (
     <>
-      {city && userProfile && timesUp && (
+      {userProfile && timesUp && (
         <li className="PastTripCard">
           <div className="info-container" onClick={handleViewTrip}>
             <img
-              src={city.photoURL}
-              alt={city.photoURL}
+              src={trip.city.photoURL}
+              alt={trip.city.photoURL}
               className="circle-image"
             />
             <div className="name-date-container">
-              <h3>{trip.nickname ? trip.nickname : city.cityName}</h3>
+              <h3>{trip.nickname ? trip.nickname : trip.city.cityName}</h3>
               <h4>
                 {new Date(Number(trip.startDate)).toLocaleDateString()}
                 {trip.startDate !== trip.endDate &&
@@ -101,7 +99,7 @@ const PastTripCard = ({ trip }: Props) => {
                 <Button
                   variant="warning"
                   onClick={() =>
-                    handleCompleteTrip(trip, city, userProfile.uid)
+                    handleCompleteTrip(trip, trip.city, userProfile.uid)
                   }
                 >
                   Yes

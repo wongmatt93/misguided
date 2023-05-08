@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Trip, { Message } from "../../../models/Trip";
+import { Trip, Message } from "../../../models/Trip";
 import { getUserByUid, readNotification } from "../../../services/userService";
 import ListGroup from "react-bootstrap/ListGroup";
 import "./InboxMessagesCard.css";

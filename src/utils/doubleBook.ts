@@ -1,4 +1,4 @@
-import Trip from "../models/Trip";
+import { Trip } from "../models/Trip";
 
 const doubleBook = async (
   upcomingTrips: Trip[],

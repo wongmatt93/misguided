@@ -1,13 +1,11 @@
 import Offcanvas from "react-bootstrap/Offcanvas";
 import Trip from "../../models/Trip";
 import "./TripCommentsOffcanvas.css";
-import City from "../../models/City";
 import TripCommentsContainer from "./TripCommentsContainer";
 import AddCommentForm from "./AddCommentForm";
 
 interface Props {
   trip: Trip;
-  city: City;
   refreshTrip: () => Promise<void>;
   show: boolean;
   handleClose: () => void;
@@ -15,7 +13,6 @@ interface Props {
 
 const TripCommentsOffcanvas = ({
   trip,
-  city,
   refreshTrip,
   show,
   handleClose,
@@ -33,7 +30,7 @@ const TripCommentsOffcanvas = ({
             <h2>
               {trip.nickname
                 ? trip.nickname.toLowerCase()
-                : city.cityName.toLowerCase()}
+                : trip.city.cityName.toLowerCase()}
             </h2>
           </Offcanvas.Header>
           <Offcanvas.Body>

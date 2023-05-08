@@ -1,19 +1,18 @@
 import TripAccordion from "./TripAccordion";
 import "./ItinerarySection.css";
-import Trip from "../../../../models/Trip";
+import FullTrip from "../../../../models/Trip";
 
 interface Props {
-  trip: Trip;
-  cityName: string;
+  trip: FullTrip;
 }
 
-const ItinerarySection = ({ trip, cityName }: Props) => {
+const ItinerarySection = ({ trip }: Props) => {
   return (
     <section className="ItinerarySection">
       <div className="itinerary-label-row">
         <h4>Itinerary</h4>
       </div>
-      <TripAccordion trip={trip} cityName={cityName} />
+      <TripAccordion trip={trip} />
     </section>
   );
 };

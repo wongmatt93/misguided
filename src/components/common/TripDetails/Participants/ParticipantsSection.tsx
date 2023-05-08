@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Button, Dropdown, DropdownButton } from "react-bootstrap";
-import Trip, { Participant } from "../../../../models/Trip";
+import FullTrip, { Participant, Trip } from "../../../../models/Trip";
 import ActiveUserProfile, { UserProfile } from "../../../../models/UserProfile";
 import {
   participantAcceptTrip,
@@ -19,7 +19,7 @@ import ParticipantCard from "./ParticipantCard";
 import "./ParticipantsSection.css";
 
 interface Props {
-  trip: Trip;
+  trip: FullTrip;
   userProfile: ActiveUserProfile | undefined;
   participants: UserProfile[];
   refreshTrip: (tripId: string) => Promise<void>;

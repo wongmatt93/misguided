@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Trip, { Message } from "../../../models/Trip";
+import { Trip, Message } from "../../../models/Trip";
 import UserProfile from "../../../models/UserProfile";
 import "./InboxMessagesContainer.css";
 import ListGroup from "react-bootstrap/ListGroup";
