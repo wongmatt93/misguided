@@ -19,7 +19,7 @@ const FeedCardHeader = ({ trip, pastTrips }: Props) => {
 
   return (
     <div className="FeedCardHeader">
-      <FeedCardParticipantsSection participants={trip.participantProfiles} />
+      <FeedCardParticipantsSection participants={trip.participants} />
       <Button variant="warning" onClick={handleViewTrip}>
         View Trip
       </Button>

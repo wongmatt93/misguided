@@ -1,5 +1,5 @@
 import { Trip, Participant } from "../models/Trip";
-import ActiveUserProfile, { UserProfile } from "../models/UserProfile";
+import FullUserProfile, { UserProfile } from "../models/UserProfile";
 import {
   getCityById,
   removeRating,
@@ -14,9 +14,7 @@ import {
 } from "../services/tripServices";
 import { deleteUser, removeAllUserFollowings } from "../services/userService";
 
-const formatUserProfileToSave = (
-  userProfile: ActiveUserProfile
-): UserProfile => {
+const formatUserProfileToSave = (userProfile: FullUserProfile): UserProfile => {
   const {
     uid,
     username,
@@ -54,7 +52,7 @@ const formatUserProfileToSave = (
   };
 };
 
-const deleteAccount = async (userProfile: ActiveUserProfile): Promise<void> => {
+const deleteAccount = async (userProfile: FullUserProfile): Promise<void> => {
   const { uid, upcomingTrips, pastTrips, visitedCityIds } = userProfile;
 
   // delete user from followers' followingsUids

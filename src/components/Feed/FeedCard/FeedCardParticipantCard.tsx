@@ -1,9 +1,9 @@
 import { useNavigate } from "react-router-dom";
-import { UserProfile } from "../../../models/UserProfile";
+import { Participant } from "../../../models/Trip";
 import "./FeedCardParticipantCard.css";
 
 interface Props {
-  participant: UserProfile;
+  participant: Participant;
 }
 
 const FeedCardParticipantCard = ({ participant }: Props) => {
@@ -16,11 +16,11 @@ const FeedCardParticipantCard = ({ participant }: Props) => {
     <li className="FeedCardParticipantCard">
       <img
         className="participant-image circle-image"
-        src={participant.photoURL!}
-        alt={participant.photoURL!}
+        src={participant.profile!.photoURL!}
+        alt={participant.profile!.photoURL!}
         onClick={handleClick}
       />
-      <p className="username">{participant.username}</p>
+      <p className="username">{participant.profile!.username}</p>
     </li>
   );
 };

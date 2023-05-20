@@ -1,10 +1,9 @@
 import { useNavigate } from "react-router-dom";
-import Trip from "../../../../models/Trip";
-import { UserProfile } from "../../../../models/UserProfile";
+import Trip, { TripUserProfile } from "../../../../models/Trip";
 import "./ParticipantCard.css";
 
 interface Props {
-  participant: UserProfile;
+  participant: TripUserProfile;
   trip: Trip;
 }
 

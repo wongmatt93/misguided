@@ -1,9 +1,9 @@
-import { UserProfile } from "../../../models/UserProfile";
+import { Participant } from "../../../models/Trip";
 import FeedCardParticipantCard from "./FeedCardParticipantCard";
 import "./FeedCardParticipantsSection.css";
 
 interface Props {
-  participants: UserProfile[];
+  participants: Participant[];
 }
 
 const FeedCardParticipantsSection = ({ participants }: Props) => {

@@ -1,9 +1,9 @@
 import { useNavigate } from "react-router-dom";
-import { UserProfile } from "../../models/UserProfile";
+import { Participant } from "../../models/Trip";
 import "./TripMessageSidebar.css";
 
 interface Props {
-  tripParticipants: UserProfile[];
+  tripParticipants: Participant[];
 }
 
 const TripMessageSidebar = ({ tripParticipants }: Props) => {
@@ -21,10 +21,10 @@ const TripMessageSidebar = ({ tripParticipants }: Props) => {
           >
             <img
               className="circle-image"
-              src={participant.photoURL!}
-              alt={participant.photoURL!}
+              src={participant.profile!.photoURL!}
+              alt={participant.profile!.photoURL!}
             />
-            <p>{participant.username}</p>
+            <p>{participant.profile!.username}</p>
           </li>
         ))}
       </ul>

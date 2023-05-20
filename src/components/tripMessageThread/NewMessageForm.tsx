@@ -1,7 +1,7 @@
 import { FormEvent, useEffect, useState } from "react";
 import { Form, Button } from "react-bootstrap";
-import { Message } from "../../models/Trip";
-import { UserProfile, Notification } from "../../models/UserProfile";
+import { Message, Participant } from "../../models/Trip";
+import { Notification } from "../../models/UserProfile";
 import { addMessageToTrip, getFullTripById } from "../../services/tripServices";
 import { addNotification } from "../../services/userService";
 import { createTripMessageNotif } from "../../utils/notificationsFunctions";
@@ -14,13 +14,13 @@ interface Props {
 }
 
 const NewMessageForm = ({ tripId, userUid, refreshTrip }: Props) => {
-  const [participants, setParticipants] = useState<UserProfile[]>([]);
+  const [participants, setParticipants] = useState<Participant[]>([]);
   const [text, setText] = useState("");
   const [sending, setSending] = useState(false);
 
   useEffect(() => {
     getFullTripById(tripId).then((response) => {
-      setParticipants(response.participantProfiles);
+      setParticipants(response.participants);
     });
   }, [userUid, tripId]);
 
