@@ -1,32 +1,28 @@
 import { AiOutlineHeart, AiFillHeart, AiOutlineMessage } from "react-icons/ai";
-import { useEffect, useState } from "react";
-import Trip from "../../../models/Trip";
+import { useState } from "react";
+import FullTrip from "../../../models/Trip";
 import "./FeedCardInteractions.css";
-import ActiveUserProfile from "../../../models/UserProfile";
 import TripCommentsOffcanvas from "../../TripCommentsSection/TripCommentsOffcanvas";
 import { addLikesUid, removeLikesUid } from "../../../services/tripServices";
 
 interface Props {
-  trip: Trip;
-  userProfile: ActiveUserProfile;
+  trip: FullTrip;
+  uid: string;
   refreshTrip: () => Promise<void>;
 }
 
-const FeedCardInteractions = ({ trip, userProfile, refreshTrip }: Props) => {
-  const [liked, setLiked] = useState(false);
+const FeedCardInteractions = ({ trip, uid, refreshTrip }: Props) => {
   const [show, setShow] = useState(false);
 
-  useEffect(() => {
-    trip.likesUids.some((uid) => uid === userProfile.uid)
-      ? setLiked(true)
-      : setLiked(false);
-  }, [trip, userProfile]);
+  const { _id, likesUids, comments } = trip;
+
+  const liked: boolean = likesUids.some((likesUid) => likesUid === uid);
 
   const handleLikeTrip = (): Promise<string | void> =>
-    addLikesUid(trip._id!, userProfile.uid).then(() => refreshTrip());
+    addLikesUid(_id!, uid).then(() => refreshTrip());
 
   const handleUnlikeTrip = (): Promise<void> =>
-    removeLikesUid(trip._id!, userProfile.uid).then(() => refreshTrip());
+    removeLikesUid(_id!, uid).then(() => refreshTrip());
 
   const handleClose = (): void => setShow(false);
   const handleShow = (): void => setShow(true);
@@ -39,11 +35,11 @@ const FeedCardInteractions = ({ trip, userProfile, refreshTrip }: Props) => {
         ) : (
           <AiOutlineHeart onClick={handleLikeTrip} />
         )}
-        <p>{trip.likesUids.length}</p>
+        <p>{likesUids.length}</p>
       </div>
       <div className="comments">
         <AiOutlineMessage onClick={handleShow} />
-        <p>{trip.comments.length}</p>
+        <p>{comments.length}</p>
       </div>
       <TripCommentsOffcanvas
         trip={trip}

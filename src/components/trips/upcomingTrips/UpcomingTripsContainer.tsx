@@ -4,17 +4,16 @@ import { RiFlightTakeoffFill } from "react-icons/ri";
 import { Link } from "react-router-dom";
 import usePaginate from "../../../hooks/usePaginate";
 import useTimer from "../../../hooks/useTimer";
-import ActiveUserProfile from "../../../models/UserProfile";
+import { Trip } from "../../../models/Trip";
 import LoadingSpinner from "../../common/LoadingSpinner";
 import TripsCluster from "./TripsCluster";
 import "./UpcomingTripsContainer.css";
 
 interface Props {
-  userProfile: ActiveUserProfile;
+  upcomingTrips: Trip[];
 }
 
-const UpcomingTripsContainer = ({ userProfile }: Props) => {
-  const { upcomingTrips } = userProfile;
+const UpcomingTripsContainer = ({ upcomingTrips }: Props) => {
   const [page, setPage] = useState(0);
   const [buttonLoading, setButtonLoading] = useState(false);
   const paginatedTrips = usePaginate(upcomingTrips, 10);

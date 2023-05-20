@@ -21,11 +21,13 @@ const TripsView = ({ userProfile }: Props) => {
         />
         <Route
           path="/upcoming-trips"
-          element={<UpcomingTripsContainer userProfile={userProfile} />}
+          element={
+            <UpcomingTripsContainer upcomingTrips={userProfile.upcomingTrips} />
+          }
         />
         <Route
           path="/past-trips"
-          element={<PastTripsContainer userProfile={userProfile} />}
+          element={<PastTripsContainer pastTrips={userProfile.pastTrips} />}
         />
         <Route path="/trip-details/:tripId/*" element={<TripDetailsPage />} />
         <Route path="/rating/:cityId/*" element={<RatingPage />} />

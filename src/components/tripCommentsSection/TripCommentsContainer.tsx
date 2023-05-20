@@ -3,24 +3,22 @@ import { Button } from "react-bootstrap";
 import { RiMessage2Fill } from "react-icons/ri";
 import usePaginate from "../../hooks/usePaginate";
 import useTimer from "../../hooks/useTimer";
-import Trip from "../../models/Trip";
+import { Comment } from "../../models/Trip";
 import { sortCommentsDescending } from "../../utils/dateFunctions";
 import LoadingSpinner from "../common/LoadingSpinner";
 import TripCommentsCluster from "./TripCommentsCluster";
 import "./TripCommentsContainer.css";
 
 interface Props {
-  trip: Trip;
+  tripId: string;
+  comments: Comment[];
   refreshTrip: () => Promise<void>;
 }
 
-const TripCommentsContainer = ({ trip, refreshTrip }: Props) => {
+const TripCommentsContainer = ({ tripId, comments, refreshTrip }: Props) => {
   const [page, setPage] = useState(0);
   const [buttonLoading, setButtonLoading] = useState(false);
-  const paginatedComments = usePaginate(
-    sortCommentsDescending(trip.comments),
-    15
-  );
+  const paginatedComments = usePaginate(sortCommentsDescending(comments), 15);
   const timesUp: boolean = useTimer(800);
 
   useEffect(() => {
@@ -40,7 +38,7 @@ const TripCommentsContainer = ({ trip, refreshTrip }: Props) => {
 
   return (
     <div className="TripCommentsContainer">
-      {trip.comments.length > 0 ? (
+      {comments.length > 0 ? (
         <>
           {!timesUp && <LoadingSpinner />}
           <ul style={{ display: timesUp ? "block" : "none" }}>
@@ -49,7 +47,7 @@ const TripCommentsContainer = ({ trip, refreshTrip }: Props) => {
                 Number(key) <= page && (
                   <TripCommentsCluster
                     key={index}
-                    trip={trip}
+                    tripId={tripId}
                     comments={paginatedComments[key]}
                     refreshTrip={refreshTrip}
                   />

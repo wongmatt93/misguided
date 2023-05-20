@@ -19,7 +19,7 @@ const FeedCard = ({ tripId, userProfile }: Props) => {
   const navigate = useNavigate();
   const [trip, setTrip] = useState<FullTrip | null>(null);
   const [photos, setPhotos] = useState<string[]>([]);
-  const { pastTrips } = userProfile;
+  const { uid, pastTrips } = userProfile;
   const timesUp: boolean = useTimer(1000);
 
   const refreshTrip = (tripId: string): Promise<void> =>
@@ -45,14 +45,24 @@ const FeedCard = ({ tripId, userProfile }: Props) => {
     }
   }, [trip]);
 
-  const handleViewTrip = (): void => navigate(`/trip-details/${tripId}`);
+  const handleViewTrip = (): void =>
+    pastTrips.some((pastTrip) => pastTrip._id! === tripId)
+      ? navigate(`/trips/trip-details/${tripId}`)
+      : navigate(`/feed/trip-details/${tripId}`);
 
   return (
     <>
       {trip && timesUp && (
         <li className="FeedCard">
-          <FeedCardHeader trip={trip} pastTrips={pastTrips} />
-          <FeedCardLocation trip={trip} />
+          <FeedCardHeader
+            participants={trip.participants}
+            handleViewTrip={handleViewTrip}
+          />
+          <FeedCardLocation
+            city={trip.city}
+            startDate={trip.startDate}
+            endDate={trip.endDate}
+          />
           <FriendCardPhotoCarousel
             photos={photos}
             handleViewTrip={handleViewTrip}
@@ -60,7 +70,7 @@ const FeedCard = ({ tripId, userProfile }: Props) => {
           <FeedCardInteractions
             trip={trip}
             refreshTrip={() => refreshTrip(tripId)}
-            userProfile={userProfile}
+            uid={uid}
           />
         </li>
       )}
