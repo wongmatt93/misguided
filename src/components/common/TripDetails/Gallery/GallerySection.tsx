@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
-import FullTrip from "../../../../models/Trip";
-import ActiveUserProfile, { UserProfile } from "../../../../models/UserProfile";
+import FullTrip, { Participant } from "../../../../models/Trip";
+import ActiveUserProfile from "../../../../models/UserProfile";
 import "./GallerySection.css";
 import PhotoContainer from "./PhotoContainer";
 import UploadPhotosModal from "./UploadPhotosModal";
@@ -10,7 +10,7 @@ interface Props {
   userProfile: ActiveUserProfile | undefined;
   refreshProfile: () => Promise<void>;
   trip: FullTrip;
-  participants: UserProfile[];
+  participants: Participant[];
 }
 
 const GallerySection = ({
@@ -27,7 +27,7 @@ const GallerySection = ({
 
   useEffect(() => {
     if (userProfile) {
-      const match: UserProfile | undefined = participants.find(
+      const match: Participant | undefined = participants.find(
         (participant) => participant.uid === userProfile!.uid
       );
 

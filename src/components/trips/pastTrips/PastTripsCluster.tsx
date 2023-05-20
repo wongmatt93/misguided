@@ -1,4 +1,4 @@
-import Trip from "../../../models/Trip";
+import { Trip } from "../../../models/Trip";
 import PastTripCard from "./PastTripCard";
 import "./PastTripsCluster.css";
 

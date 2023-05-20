@@ -1,15 +1,14 @@
 import { Button } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import FullTrip from "../../../models/Trip";
+import FullTrip, { Participant } from "../../../models/Trip";
 import {
   deleteTrip,
   removeParticipantFromTrip,
 } from "../../../services/tripServices";
-import { getUserByUid } from "../../../services/userService";
 
 import "./TripDetailsMain.css";
-import FullUserProfile, { UserProfile } from "../../../models/UserProfile";
+import FullUserProfile from "../../../models/UserProfile";
 import GallerySection from "./Gallery/GallerySection";
 import ParticipantsSection from "./Participants/ParticipantsSection";
 import ItinerarySection from "./Itinerary/ItinerarySection";
@@ -31,34 +30,26 @@ const TripDetailsMain = ({
   timesUp,
 }: Props) => {
   const navigate = useNavigate();
-  const [participants, setParticipants] = useState<UserProfile[]>([]);
+  const [participants, setParticipants] = useState<Participant[]>([]);
   const tripStarted: boolean = Number(today) >= Number(trip.startDate);
 
   useEffect(() => {
-    const accepted: UserProfile[] = [];
-    const notAccepted: UserProfile[] = [];
+    const accepted: Participant[] = trip.participants.filter(
+      (participant) => participant.accepted
+    );
+    const notAccepted: Participant[] = trip.participants.filter(
+      (participant) => !participant.accepted
+    );
 
-    Promise.allSettled(
-      trip.participants.map((participant) =>
-        participant.accepted
-          ? getUserByUid(participant.uid).then((profile) => {
-              accepted.push(profile);
-            })
-          : getUserByUid(participant.uid).then((profile) => {
-              notAccepted.push(profile);
-            })
-      )
-    ).then(() => {
-      if (tripStarted) {
-        setParticipants(accepted);
-        notAccepted.forEach((user) => {
-          removeParticipantFromTrip(trip._id!, user.uid);
-          refreshTrip(trip._id!);
-        });
-      } else {
-        setParticipants(accepted.concat(notAccepted));
-      }
-    });
+    if (tripStarted) {
+      setParticipants(accepted);
+      notAccepted.forEach((user) => {
+        removeParticipantFromTrip(trip._id!, user.uid);
+        refreshTrip(trip._id!);
+      });
+    } else {
+      setParticipants(accepted.concat(notAccepted));
+    }
   }, [trip, tripStarted, refreshTrip]);
 
   const handleDeleteTrip = async (): Promise<void> => {

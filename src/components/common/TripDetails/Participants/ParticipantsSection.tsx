@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Button, Dropdown, DropdownButton } from "react-bootstrap";
 import FullTrip, { Participant, Trip } from "../../../../models/Trip";
-import ActiveUserProfile, { UserProfile } from "../../../../models/UserProfile";
+import ActiveUserProfile from "../../../../models/UserProfile";
 import {
   participantAcceptTrip,
   removeParticipantFromTrip,
@@ -21,7 +21,7 @@ import "./ParticipantsSection.css";
 interface Props {
   trip: FullTrip;
   userProfile: ActiveUserProfile | undefined;
-  participants: UserProfile[];
+  participants: Participant[];
   refreshTrip: (tripId: string) => Promise<void>;
 }
 
@@ -139,7 +139,7 @@ const ParticipantsSection = ({
         {participants.map((participant) => (
           <ParticipantCard
             key={participant.uid}
-            participant={participant}
+            participant={participant.profile!}
             trip={trip}
           />
         ))}

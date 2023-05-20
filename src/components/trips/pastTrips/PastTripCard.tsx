@@ -3,9 +3,10 @@ import { Button } from "react-bootstrap";
 import { RiArrowRightSLine } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
 import AuthContext from "../../../context/AuthContext";
+import useCityFetcher from "../../../hooks/useCityFetcher";
 import useTimer from "../../../hooks/useTimer";
 import City from "../../../models/City";
-import Trip from "../../../models/Trip";
+import { Trip } from "../../../models/Trip";
 import { Notification } from "../../../models/UserProfile";
 import { addVisitor } from "../../../services/cityService";
 import { completeTrip, deleteTrip } from "../../../services/tripServices";
@@ -19,6 +20,7 @@ interface Props {
 
 const PastTripCard = ({ trip }: Props) => {
   const { userProfile, refreshProfile } = useContext(AuthContext);
+  const city: City | null = useCityFetcher(trip.cityId);
   const navigate = useNavigate();
   const timesUp = useTimer(600);
 
@@ -63,8 +65,8 @@ const PastTripCard = ({ trip }: Props) => {
     refreshProfile();
 
     !city.ratings.some((user) => user.uid === uid)
-      ? navigate(`/trips/rating/${trip.city._id}`)
-      : navigate(`/trips/rating/${trip.city._id}/subsequent`);
+      ? navigate(`/trips/rating/${city._id}`)
+      : navigate(`/trips/rating/${city._id}/subsequent`);
   };
 
   const handleUnconfirmTrip = async (trip: Trip): Promise<void> => {
@@ -74,16 +76,16 @@ const PastTripCard = ({ trip }: Props) => {
 
   return (
     <>
-      {userProfile && timesUp && (
+      {city && userProfile && timesUp && (
         <li className="PastTripCard">
           <div className="info-container" onClick={handleViewTrip}>
             <img
-              src={trip.city.photoURL}
-              alt={trip.city.photoURL}
+              src={city.photoURL}
+              alt={city.photoURL}
               className="circle-image"
             />
             <div className="name-date-container">
-              <h3>{trip.nickname ? trip.nickname : trip.city.cityName}</h3>
+              <h3>{trip.nickname ? trip.nickname : city.cityName}</h3>
               <h4>
                 {new Date(Number(trip.startDate)).toLocaleDateString()}
                 {trip.startDate !== trip.endDate &&
@@ -99,7 +101,7 @@ const PastTripCard = ({ trip }: Props) => {
                 <Button
                   variant="warning"
                   onClick={() =>
-                    handleCompleteTrip(trip, trip.city, userProfile.uid)
+                    handleCompleteTrip(trip, city, userProfile.uid)
                   }
                 >
                   Yes
