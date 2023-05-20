@@ -1,18 +1,20 @@
-import Trip from "../../../models/Trip";
+import City from "../../../models/City";
 import "./FeedCardLocation.css";
 
 interface Props {
-  trip: Trip;
+  city: City;
+  startDate: string;
+  endDate: string;
 }
 
-const FeedCardLocation = ({ trip }: Props) => {
+const FeedCardLocation = ({ city, startDate, endDate }: Props) => {
   return (
     <div className="FeedCardLocation">
-      <p className="location">{trip.city.cityName}</p>
+      <p className="location">{city.cityName}</p>
       <p className="date">
-        {new Date(Number(trip.startDate)).toLocaleDateString()}
-        {trip.startDate !== trip.endDate &&
-          ` - ${new Date(Number(trip.endDate)).toLocaleDateString()}`}
+        {new Date(Number(startDate)).toLocaleDateString()}
+        {startDate !== endDate &&
+          ` - ${new Date(Number(endDate)).toLocaleDateString()}`}
       </p>
     </div>
   );

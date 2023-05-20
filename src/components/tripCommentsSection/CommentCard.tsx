@@ -5,18 +5,18 @@ import { RiMore2Line, RiDeleteBin5Fill } from "react-icons/ri";
 import AuthContext from "../../context/AuthContext";
 import useProfileFetcher from "../../hooks/useProfileFetcher";
 import useTimer from "../../hooks/useTimer";
-import Trip, { Comment } from "../../models/Trip";
+import { Comment } from "../../models/Trip";
 import UserProfile from "../../models/UserProfile";
 import "./CommentCard.css";
 import { removeCommentFromTrip } from "../../services/tripServices";
 
 interface Props {
-  trip: Trip;
+  tripId: string;
   comment: Comment;
   refreshTrip: () => Promise<void>;
 }
 
-const CommentCard = ({ trip, comment, refreshTrip }: Props) => {
+const CommentCard = ({ tripId, comment, refreshTrip }: Props) => {
   const { userProfile, refreshProfile } = useContext(AuthContext);
   const commentor: UserProfile | null = useProfileFetcher(comment.uid);
   const [active, setActive] = useState(false);
@@ -28,7 +28,7 @@ const CommentCard = ({ trip, comment, refreshTrip }: Props) => {
   };
 
   const handleDelete = async () => {
-    await removeCommentFromTrip(trip._id!, comment);
+    await removeCommentFromTrip(tripId, comment);
     await refreshTrip();
     await refreshProfile();
   };

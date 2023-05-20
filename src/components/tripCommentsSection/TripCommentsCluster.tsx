@@ -1,20 +1,20 @@
-import Trip, { Comment } from "../../models/Trip";
+import { Comment } from "../../models/Trip";
 import CommentCard from "./CommentCard";
 import "./TripCommentsCluster.css";
 
 interface Props {
-  trip: Trip;
+  tripId: string;
   comments: Comment[];
   refreshTrip: () => Promise<void>;
 }
 
-const TripCommentsCluster = ({ trip, comments, refreshTrip }: Props) => {
+const TripCommentsCluster = ({ tripId, comments, refreshTrip }: Props) => {
   return (
     <>
       {comments.map((comment) => (
         <CommentCard
           key={comment.uid + comment.date}
-          trip={trip}
+          tripId={tripId}
           comment={comment}
           refreshTrip={refreshTrip}
         />

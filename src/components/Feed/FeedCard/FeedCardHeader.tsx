@@ -1,25 +1,17 @@
 import { Button } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
-import FullTrip, { Trip } from "../../../models/Trip";
+import { Participant } from "../../../models/Trip";
 import "./FeedCardHeader.css";
 import FeedCardParticipantsSection from "./FeedCardParticipantsSection";
 
 interface Props {
-  trip: FullTrip;
-  pastTrips: Trip[];
+  participants: Participant[];
+  handleViewTrip: () => void;
 }
 
-const FeedCardHeader = ({ trip, pastTrips }: Props) => {
-  const navigate = useNavigate();
-
-  const handleViewTrip = (): void =>
-    pastTrips.some((pastTrip) => pastTrip._id! === trip._id!)
-      ? navigate(`/trips/trip-details/${trip._id!}`)
-      : navigate(`/feed/trip-details/${trip._id!}`);
-
+const FeedCardHeader = ({ participants, handleViewTrip }: Props) => {
   return (
     <div className="FeedCardHeader">
-      <FeedCardParticipantsSection participants={trip.participants} />
+      <FeedCardParticipantsSection participants={participants} />
       <Button variant="warning" onClick={handleViewTrip}>
         View Trip
       </Button>

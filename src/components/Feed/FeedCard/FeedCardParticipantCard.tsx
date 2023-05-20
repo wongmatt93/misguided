@@ -1,26 +1,24 @@
 import { useNavigate } from "react-router-dom";
-import { Participant } from "../../../models/Trip";
+import { TripUserProfile } from "../../../models/Trip";
 import "./FeedCardParticipantCard.css";
 
 interface Props {
-  participant: Participant;
+  participant: TripUserProfile;
 }
 
 const FeedCardParticipantCard = ({ participant }: Props) => {
   const navigate = useNavigate();
-
-  const handleClick = (): void =>
-    navigate(`/explorers/profile/${participant.uid}`);
+  const { uid, username, photoURL } = participant;
 
   return (
     <li className="FeedCardParticipantCard">
       <img
         className="participant-image circle-image"
-        src={participant.profile!.photoURL!}
-        alt={participant.profile!.photoURL!}
-        onClick={handleClick}
+        src={photoURL!}
+        alt={photoURL!}
+        onClick={() => navigate(`/explorers/profile/${uid}`)}
       />
-      <p className="username">{participant.profile!.username}</p>
+      <p className="username">{username}</p>
     </li>
   );
 };

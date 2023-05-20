@@ -1,11 +1,11 @@
 import Offcanvas from "react-bootstrap/Offcanvas";
-import Trip from "../../models/Trip";
+import FullTrip from "../../models/Trip";
 import "./TripCommentsOffcanvas.css";
 import TripCommentsContainer from "./TripCommentsContainer";
 import AddCommentForm from "./AddCommentForm";
 
 interface Props {
-  trip: Trip;
+  trip: FullTrip;
   refreshTrip: () => Promise<void>;
   show: boolean;
   handleClose: () => void;
@@ -17,29 +17,27 @@ const TripCommentsOffcanvas = ({
   show,
   handleClose,
 }: Props) => {
+  const { _id: tripId, nickname, comments, city } = trip;
+
   return (
-    <>
-      {trip && (
-        <Offcanvas
-          className="TripCommentsOffcanvas"
-          placement="end"
-          show={show}
-          onHide={handleClose}
-        >
-          <Offcanvas.Header closeButton>
-            <h2>
-              {trip.nickname
-                ? trip.nickname.toLowerCase()
-                : trip.city.cityName.toLowerCase()}
-            </h2>
-          </Offcanvas.Header>
-          <Offcanvas.Body>
-            <TripCommentsContainer trip={trip} refreshTrip={refreshTrip} />
-            <AddCommentForm trip={trip} refreshTrip={refreshTrip} />
-          </Offcanvas.Body>
-        </Offcanvas>
-      )}
-    </>
+    <Offcanvas
+      className="TripCommentsOffcanvas"
+      placement="end"
+      show={show}
+      onHide={handleClose}
+    >
+      <Offcanvas.Header closeButton>
+        <h2>{nickname?.toLowerCase() || city.cityName.toLowerCase()}</h2>
+      </Offcanvas.Header>
+      <Offcanvas.Body>
+        <TripCommentsContainer
+          tripId={tripId!}
+          comments={comments}
+          refreshTrip={refreshTrip}
+        />
+        <AddCommentForm tripId={tripId!} refreshTrip={refreshTrip} />
+      </Offcanvas.Body>
+    </Offcanvas>
   );
 };
 

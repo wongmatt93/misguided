@@ -3,17 +3,16 @@ import { Button } from "react-bootstrap";
 import { RiFlightLandFill } from "react-icons/ri";
 import usePaginate from "../../../hooks/usePaginate";
 import useTimer from "../../../hooks/useTimer";
-import ActiveUserProfile from "../../../models/UserProfile";
+import { Trip } from "../../../models/Trip";
 import LoadingSpinner from "../../common/LoadingSpinner";
 import PastTripsCluster from "./PastTripsCluster";
 import "./PastTripsContainer.css";
 
 interface Props {
-  userProfile: ActiveUserProfile;
+  pastTrips: Trip[];
 }
 
-const PastTripsContainer = ({ userProfile }: Props) => {
-  const { pastTrips } = userProfile;
+const PastTripsContainer = ({ pastTrips }: Props) => {
   const [page, setPage] = useState(0);
   const [buttonLoading, setButtonLoading] = useState(false);
   const paginatedTrips = usePaginate(pastTrips, 10);
