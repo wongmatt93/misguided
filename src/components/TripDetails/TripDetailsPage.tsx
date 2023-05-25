@@ -1,11 +1,11 @@
 import { useContext, useEffect, useState } from "react";
 import { NavigateFunction, useNavigate, useParams } from "react-router-dom";
-import FullTrip from "../../../models/Trip";
-import { getFullTripById } from "../../../services/tripServices";
+import FullTrip from "../../models/Trip";
+import { getFullTripById } from "../../services/tripServices";
 import "./TripDetailsPage.css";
-import AuthContext from "../../../context/AuthContext";
-import useTimer from "../../../hooks/useTimer";
-import LoadingTravel from "../LoadingTravel";
+import AuthContext from "../../context/AuthContext";
+import useTimer from "../../hooks/useTimer";
+import LoadingTravel from "../common/LoadingTravel";
 import TripDetailsMain from "./TripDetailsMain";
 
 const TripDetailsPage = () => {

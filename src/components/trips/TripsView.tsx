@@ -2,7 +2,7 @@ import UpcomingTripsContainer from "./UpcomingTrips/UpcomingTripsContainer";
 import PastTripsContainer from "./PastTrips/PastTripsContainer";
 import { Navigate, Route, Routes } from "react-router-dom";
 import TripsNav from "./TripsNav";
-import TripDetailsPage from "../common/TripDetails/TripDetailsPage";
+import TripDetailsPage from "../TripDetails/TripDetailsPage";
 import RatingPage from "../Rating/RatingPage";
 import ActiveUserProfile from "../../models/UserProfile";
 

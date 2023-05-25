@@ -1,18 +1,18 @@
 import { useEffect, useState } from "react";
 import { Button, Dropdown, DropdownButton } from "react-bootstrap";
-import FullTrip, { Participant, Trip } from "../../../../models/Trip";
-import ActiveUserProfile from "../../../../models/UserProfile";
+import FullTrip, { Participant, Trip } from "../../../models/Trip";
+import ActiveUserProfile from "../../../models/UserProfile";
 import {
   participantAcceptTrip,
   removeParticipantFromTrip,
-} from "../../../../services/tripServices";
-import { addNotification } from "../../../../services/userService";
-import { today } from "../../../../utils/dateFunctions";
-import doubleBook from "../../../../utils/doubleBook";
+} from "../../../services/tripServices";
+import { addNotification } from "../../../services/userService";
+import { today } from "../../../utils/dateFunctions";
+import doubleBook from "../../../utils/doubleBook";
 import {
   createTripAcceptNotif,
   createTripDeclineNotif,
-} from "../../../../utils/notificationsFunctions";
+} from "../../../utils/notificationsFunctions";
 import InviteFriendsModal from "./InviteFriendsModal";
 import ParticipantCard from "./ParticipantCard";
 
@@ -139,7 +139,7 @@ const ParticipantsSection = ({
         {participants.map((participant) => (
           <ParticipantCard
             key={participant.uid}
-            participant={participant.profile!}
+            participant={participant}
             trip={trip}
           />
         ))}

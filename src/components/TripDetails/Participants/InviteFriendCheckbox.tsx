@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { BsCheckLg } from "react-icons/bs";
-import { UserProfile } from "../../../../models/UserProfile";
+import { UserProfile } from "../../../models/UserProfile";
 import "./InviteFriendCheckbox.css";
 
 interface Props {

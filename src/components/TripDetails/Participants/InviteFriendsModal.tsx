@@ -1,15 +1,15 @@
 import { FormEvent, useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import Trip from "../../../../models/Trip";
+import Trip from "../../../models/Trip";
 import ActiveUserProfile, {
   UserProfile,
   Notification,
-} from "../../../../models/UserProfile";
-import { addNewParticipantToTrip } from "../../../../services/tripServices";
-import { addNotification } from "../../../../services/userService";
-import { getFriends } from "../../../../utils/followFunctions";
-import { createTripRequestNotif } from "../../../../utils/notificationsFunctions";
+} from "../../../models/UserProfile";
+import { addNewParticipantToTrip } from "../../../services/tripServices";
+import { addNotification } from "../../../services/userService";
+import { getFriends } from "../../../utils/followFunctions";
+import { createTripRequestNotif } from "../../../utils/notificationsFunctions";
 import InviteFriendCheckbox from "./InviteFriendCheckbox";
 import "./InviteFriendsModal.css";
 

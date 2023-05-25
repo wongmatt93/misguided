@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
-import FullTrip, { Participant } from "../../../../models/Trip";
-import ActiveUserProfile from "../../../../models/UserProfile";
+import FullTrip, { Participant } from "../../../models/Trip";
+import ActiveUserProfile from "../../../models/UserProfile";
 import "./GallerySection.css";
 import PhotoContainer from "./PhotoContainer";
 import UploadPhotosModal from "./UploadPhotosModal";
