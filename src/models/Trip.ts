@@ -41,11 +41,8 @@ export interface SingleDaySchedule {
 }
 
 export interface TripUserProfile {
-  _id?: string;
-  uid: string;
-  username: string | null;
-  photoURL: string | null;
-  accepted: boolean;
+  username: string;
+  photoURL: string;
 }
 
 export interface Participant {

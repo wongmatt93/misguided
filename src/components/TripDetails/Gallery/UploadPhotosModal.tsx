@@ -2,10 +2,10 @@ import { FormEvent, useRef } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
-import { storage } from "../../../../firebaseConfig";
+import { storage } from "../../../firebaseConfig";
 import "./UploadPhotosModal.css";
-import Trip from "../../../../models/Trip";
-import { addPhotosToTrip } from "../../../../services/tripServices";
+import Trip from "../../../models/Trip";
+import { addPhotosToTrip } from "../../../services/tripServices";
 
 interface Props {
   trip: Trip;

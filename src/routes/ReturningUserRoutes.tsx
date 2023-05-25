@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Toast, ToastContainer } from "react-bootstrap";
 import { Link, Navigate, Route, Routes } from "react-router-dom";
-import TripDetailsPage from "../components/common/TripDetails/TripDetailsPage";
+import TripDetailsPage from "../components/TripDetails/TripDetailsPage";
 import DesktopNavigation from "../components/DesktopNavigation/DesktopNavigation";
 import ExplorersView from "../components/Explorers/ExplorersView";
 import FeedView from "../components/Feed/FeedView";

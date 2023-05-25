@@ -1,5 +1,5 @@
 import Accordion from "react-bootstrap/Accordion";
-import FullTrip from "../../../../models/Trip";
+import FullTrip from "../../../models/Trip";
 import "./TripAccordion.css";
 import TripSingleDayDetails from "./TripSingleDayDetails";
 

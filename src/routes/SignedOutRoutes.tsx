@@ -1,5 +1,5 @@
 import { Navigate, Route, Routes } from "react-router-dom";
-import TripDetailsPage from "../components/common/TripDetails/TripDetailsPage";
+import TripDetailsPage from "../components/TripDetails/TripDetailsPage";
 import ProfilePage from "../components/Explorers/Profile/ProfilePage";
 import GoodbyePage from "../components/Goodbye/GoodbyePage";
 import LandingHeader from "../components/LandingPage/LandingHeader";

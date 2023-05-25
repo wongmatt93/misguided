@@ -1,18 +1,18 @@
 import { Button } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import FullTrip, { Participant } from "../../../models/Trip";
+import FullTrip, { Participant } from "../../models/Trip";
 import {
   deleteTrip,
   removeParticipantFromTrip,
-} from "../../../services/tripServices";
+} from "../../services/tripServices";
 
 import "./TripDetailsMain.css";
-import FullUserProfile from "../../../models/UserProfile";
+import FullUserProfile from "../../models/UserProfile";
 import GallerySection from "./Gallery/GallerySection";
 import ParticipantsSection from "./Participants/ParticipantsSection";
 import ItinerarySection from "./Itinerary/ItinerarySection";
-import { today } from "../../../utils/dateFunctions";
+import { today } from "../../utils/dateFunctions";
 
 interface Props {
   trip: FullTrip;

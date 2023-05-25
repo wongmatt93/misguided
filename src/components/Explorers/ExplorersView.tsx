@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import UserProfile from "../../models/UserProfile";
 import ProfilePage from "./Profile/ProfilePage";
-import TripDetailsPage from "../common/TripDetails/TripDetailsPage";
+import TripDetailsPage from "../TripDetails/TripDetailsPage";
 import ExplorersPage from "./ExplorersPage";
 
 interface Props {

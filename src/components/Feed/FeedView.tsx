@@ -1,6 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import UserProfile from "../../models/UserProfile";
-import TripDetailsPage from "../common/TripDetails/TripDetailsPage";
+import TripDetailsPage from "../TripDetails/TripDetailsPage";
 import FeedPage from "./FeedPage";
 
 interface Props {
