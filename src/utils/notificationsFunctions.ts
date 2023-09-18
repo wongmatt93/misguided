@@ -1,6 +1,6 @@
-import { Notification } from "../models/UserProfile";
+import { NewNotification } from "../models/UserProfile";
 
-export const createFollowNotif = (uid: string): Notification => {
+export const createFollowNotif = (uid: string): NewNotification => {
   return {
     uid,
     type: "follow",
@@ -9,23 +9,10 @@ export const createFollowNotif = (uid: string): Notification => {
   };
 };
 
-export const createTripRequestNotif = (
-  uid: string,
-  tripId: string
-): Notification => {
-  return {
-    uid,
-    type: "tripRequest",
-    date: Date.now().toString(),
-    read: false,
-    tripId,
-  };
-};
-
 export const createTripAcceptNotif = (
   uid: string,
   tripId: string
-): Notification => {
+): NewNotification => {
   return {
     uid,
     type: "tripAccept",
@@ -38,7 +25,7 @@ export const createTripAcceptNotif = (
 export const createTripDeclineNotif = (
   uid: string,
   tripId: string
-): Notification => {
+): NewNotification => {
   return {
     uid,
     type: "tripDecline",
@@ -48,26 +35,26 @@ export const createTripDeclineNotif = (
   };
 };
 
-export const createTripMessageNotif = (
+export const createTripRequestNotif = (
   uid: string,
   tripId: string
-): Notification => {
+): NewNotification => {
   return {
     uid,
-    type: "tripMessage",
+    type: "tripRequest",
     date: Date.now().toString(),
     read: false,
     tripId,
   };
 };
 
-export const createRatingNotif = (
+export const createTripMessageNotif = (
   uid: string,
   tripId: string
-): Notification => {
+): NewNotification => {
   return {
     uid,
-    type: "cityRating",
+    type: "tripMessage",
     date: Date.now().toString(),
     read: false,
     tripId,

@@ -1,0 +1,15 @@
+.Explorers {
+  flex: 1;
+}
+
+.Explorers h2 {
+  font-size: 1.2rem;
+  color: #353839;
+}
+
+@media only screen and (min-width: 768px) {
+  .Explorers {
+    padding: 0 1rem;
+    margin-right: 1rem;
+  }
+}

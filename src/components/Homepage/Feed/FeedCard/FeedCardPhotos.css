@@ -1,0 +1,14 @@
+.FeedCardPhotos .carousel-image {
+  height: 28em;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 1em;
+}
+
+.FeedCardPhotos .decoy {
+  height: 20em;
+}
+
+.FeedCardPhotos .decoy:hover {
+  cursor: pointer;
+}

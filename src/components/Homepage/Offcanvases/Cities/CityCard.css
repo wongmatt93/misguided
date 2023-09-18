@@ -1,0 +1,32 @@
+.CityCard {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 1rem;
+  border-bottom: solid #353839 0.5px;
+  cursor: pointer;
+}
+
+.CityCard .photo-name-container {
+  display: flex;
+  align-items: center;
+}
+
+.CityCard img {
+  height: 3rem;
+  width: 3rem;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 1rem;
+}
+
+.CityCard p {
+  font-size: 1.2rem;
+  color: #353839;
+}
+
+.CityCard svg {
+  color: #f0b202;
+  font-size: 2rem;
+  margin: -0.4rem;
+}

@@ -1,0 +1,15 @@
+.CitiesOffcanvas .offcanvas-header {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.CitiesOffcanvas h1 {
+  display: flex;
+  align-items: center;
+  color: #f0b202;
+}
+
+.CitiesOffcanvas .back-arrow {
+  margin-right: 0.5rem;
+  color: #353839;
+  cursor: pointer;
+}

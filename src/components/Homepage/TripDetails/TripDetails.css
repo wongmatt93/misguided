@@ -1,0 +1,22 @@
+.TripDetails {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex: 1;
+}
+
+.TripDetails .full-details-section {
+  margin-bottom: 1rem;
+}
+
+.TripDetails .delete-button {
+  color: red;
+  text-decoration: none;
+  margin-bottom: 1rem;
+}
+
+@media only screen and (min-width: 768px) {
+  .TripDetails {
+    padding: 0 0 1rem;
+  }
+}

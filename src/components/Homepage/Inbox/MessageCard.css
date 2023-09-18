@@ -1,0 +1,51 @@
+.MessageCard {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f5f5f5;
+  padding: 0.5em;
+  position: relative;
+  color: #353839;
+  cursor: pointer;
+}
+
+.MessageCard .image-message-container {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  width: 75%;
+}
+
+.MessageCard img {
+  height: 2.5em;
+  width: 2.5em;
+  margin-right: 0.5em;
+}
+
+.MessageCard .trip-message-container {
+  width: calc(100% - 2.5rem);
+}
+
+.MessageCard p {
+  font-size: 0.8em;
+}
+
+.MessageCard .trip-name {
+  font-weight: 700;
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.MessageCard .latest-message {
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.MessageCard .latest-message-time {
+  width: 25%;
+  text-align: right;
+}

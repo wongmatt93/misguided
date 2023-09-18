@@ -1,0 +1,11 @@
+.ExplorerProfilePage {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+@media only screen and (min-width: 768px) {
+  .ExplorerProfilePage {
+    padding-top: 0;
+  }
+}

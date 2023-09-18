@@ -1,0 +1,26 @@
+.FavoriteCityCard .card {
+  cursor: pointer;
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
+  margin-bottom: 1rem;
+  background-color: #f0b202;
+  border: none;
+}
+
+.FavoriteCityCard:hover {
+  transform: scale(1.01);
+  transition: 0.5s ease;
+}
+
+.FavoriteCityCard img {
+  height: 8rem;
+  object-fit: cover;
+}
+
+.FavoriteCityCard .card-body {
+  display: flex;
+  justify-content: center;
+  padding: 0.4rem;
+  font-family: "Oswald", sans-serif;
+  font-style: normal;
+  color: #353839;
+}

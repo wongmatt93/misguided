@@ -1,0 +1,21 @@
+.Trips {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.Trips .nav-link {
+  color: #353839;
+}
+
+.Trips .nav-link.active {
+  background-color: #f0b202;
+  color: #353839;
+}
+
+@media only screen and (min-width: 768px) {
+  .Trips {
+    padding: 0 1rem;
+    margin-right: 1rem;
+  }
+}

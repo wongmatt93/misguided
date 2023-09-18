@@ -1,6 +1,22 @@
+import { UserSummary } from "./UserProfile";
+
 export interface Rating {
   uid: string;
   rating: number;
+}
+
+export interface NewCity {
+  _id?: string;
+  cityName: string;
+  cityDescription: string;
+  cityCode: string;
+  latitude: string;
+  longitude: string;
+  country: string;
+  knownFor: string[];
+  photoURL: string;
+  ratings: Rating[];
+  visitorsUids: string[];
 }
 
 export default interface City {
@@ -14,5 +30,5 @@ export default interface City {
   knownFor: string[];
   photoURL: string;
   ratings: Rating[];
-  visitorsUids: string[];
+  visitors: UserSummary[];
 }

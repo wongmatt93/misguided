@@ -1,0 +1,19 @@
+.Inbox {
+  flex: 1;
+}
+
+.Inbox .nav-link {
+  color: #353839;
+}
+
+.Inbox .nav-link.active {
+  background-color: #f0b202;
+  color: #353839;
+}
+
+@media only screen and (min-width: 768px) {
+  .Inbox {
+    padding: 0 1rem;
+    margin-right: 1rem;
+  }
+}

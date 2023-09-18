@@ -1,0 +1,27 @@
+.ExplorerProfileTripCard {
+  width: 33.33%;
+  position: relative;
+}
+
+.ExplorerProfileTripCard:hover {
+  cursor: pointer;
+}
+
+.ExplorerProfileTripCard img {
+  width: 100%;
+  height: 10rem;
+  object-fit: cover;
+}
+
+.ExplorerProfileTripCard .info-container {
+  position: absolute;
+  text-align: center;
+  width: 100%;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: snow;
+}
+
+.ExplorerProfileTripCard h3 {
+  font-size: 1rem;
+}

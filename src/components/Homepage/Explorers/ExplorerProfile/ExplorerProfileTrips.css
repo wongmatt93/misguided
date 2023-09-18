@@ -1,0 +1,11 @@
+.ExplorerProfileTrips {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0.5rem -1rem 0;
+}
+
+@media only screen and (min-width: 768px) {
+  .ExplorerProfileTrips {
+    margin: 0;
+  }
+}

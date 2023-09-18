@@ -1,10 +1,6 @@
-import { Trip, Participant } from "../models/Trip";
-import FullUserProfile, { UserProfile } from "../models/UserProfile";
-import {
-  getCityById,
-  removeRating,
-  removeVisitor,
-} from "../services/cityService";
+import City from "../models/City";
+import { Participant, Trip } from "../models/Trip";
+import { removeRating, removeVisitor } from "../services/cityServices";
 import {
   deleteTrip,
   removeAllUserComments,
@@ -12,49 +8,18 @@ import {
   removeParticipantFromTrip,
   updateCreator,
 } from "../services/tripServices";
-import { deleteUser, removeAllUserFollowings } from "../services/userService";
+import {
+  deleteUser,
+  removeAllUserFollowings,
+} from "../services/userProfileServices";
 
-const formatUserProfileToSave = (userProfile: FullUserProfile): UserProfile => {
-  const {
-    uid,
-    username,
-    displayName,
-    email,
-    phoneNumber,
-    photoURL,
-    hometownId,
-    preferences,
-    favoriteCityIds,
-    hiddenCityIds,
-    notifications,
-    visitedCityIds,
-  } = userProfile;
-
-  const followingUids: string[] = userProfile.followingUserProfiles.map(
-    (profile) => profile.uid
-  );
-
-  return {
-    _id: userProfile._id!,
-    uid,
-    username,
-    displayName,
-    email,
-    phoneNumber,
-    photoURL,
-    hometownId,
-    preferences,
-    followingUids,
-    favoriteCityIds,
-    hiddenCityIds,
-    notifications,
-    visitedCityIds,
-  };
-};
-
-const deleteAccount = async (userProfile: FullUserProfile): Promise<void> => {
-  const { uid, upcomingTrips, pastTrips, visitedCityIds } = userProfile;
-
+export const deleteAccount = async (
+  uid: string,
+  upcomingTrips: Trip[],
+  pastTrips: Trip[],
+  visitedCityIds: string[],
+  cities: City[]
+): Promise<void> => {
   // delete user from followers' followingsUids
   removeAllUserFollowings(uid);
 
@@ -79,13 +44,13 @@ const deleteAccount = async (userProfile: FullUserProfile): Promise<void> => {
       removeParticipantFromTrip(trip._id!, uid);
 
       // reassigns creatorUid if user was creator but there are other participants
-      if (trip.creatorUid === uid) {
+      if (trip.creator.uid === uid) {
         const newCreator: Participant | undefined = acceptedParticipants.find(
-          (participant) => participant.uid !== uid
+          (participant) => participant.user.uid !== uid
         );
 
         if (newCreator) {
-          updateCreator(trip._id!, newCreator.uid);
+          updateCreator(trip._id!, newCreator.user.uid);
         }
       }
     }
@@ -94,7 +59,7 @@ const deleteAccount = async (userProfile: FullUserProfile): Promise<void> => {
   // delete user from visited cities
   visitedCityIds.forEach(async (cityId) => {
     removeVisitor(cityId, uid);
-    const city = await getCityById(cityId);
+    const city = cities.find((city) => city._id === cityId)!;
     city.ratings.some((rating) => rating.uid === uid) &&
       removeRating(cityId, uid);
   });
@@ -102,5 +67,3 @@ const deleteAccount = async (userProfile: FullUserProfile): Promise<void> => {
   // delete user from users documents
   deleteUser(uid);
 };
-
-export { formatUserProfileToSave, deleteAccount };

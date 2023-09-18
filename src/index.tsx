@@ -2,19 +2,22 @@ import "react-date-range/dist/styles.css"; // main style file
 import "react-date-range/dist/theme/default.css"; // theme css file
 import React from "react";
 import ReactDOM from "react-dom/client";
-import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import AuthContextProvider from "./context/AuthContextProvider";
+import "./index.css";
+import CityContextProvider from "./context/CityContextProvider";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <AuthContextProvider>
-      <App />
-    </AuthContextProvider>
+    <CityContextProvider>
+      <AuthContextProvider>
+        <App />
+      </AuthContextProvider>
+    </CityContextProvider>
   </React.StrictMode>
 );
 

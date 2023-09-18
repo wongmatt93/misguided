@@ -1,9 +1,0 @@
-.FeedCardParticipantsSection {
-  display: flex;
-  overflow: scroll;
-  width: 70%;
-}
-
-.FeedCardParticipantsSection li:last-child {
-  margin-right: 0;
-}

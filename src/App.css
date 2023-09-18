@@ -5,132 +5,13 @@
   red: #ff4000
 */
 
-/* resets */
-body,
-div,
-span,
-ul,
-li,
-h1,
-h2,
-h3,
-h4,
-h5,
-p,
-a,
-form,
-button {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  list-style: none;
-  text-decoration: none;
-  vertical-align: baseline;
-}
-
 .App {
   display: flex;
   flex-direction: column;
-  background-color: #f5f5f5;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-}
-
-.App header {
-  display: flex;
-  align-items: center;
-  width: 100%;
-  height: 3.5rem;
-  position: fixed;
-  background-color: #f5f5f5;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-  z-index: 100;
-  padding: 1rem;
-}
-
-.App header h1 {
-  color: #f0b202;
-  user-select: none;
-  font-family: "Roboto", sans-serif;
-}
-
-.App .welcome-main {
-  flex: 1;
-  overflow: scroll;
-}
-
-.App .landing-view {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-}
-
-.App .signed-in-main {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  background-color: #f5f5f5;
-  overflow: auto;
-  margin: 3.5rem 0 4rem;
-}
-
-.App .main-view {
-  display: flex;
-  height: 100%;
-  flex: 1;
-}
-
-.App .current-trip-toast {
-  height: 100px;
-  width: 100px;
-}
-
-.App .empty {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  height: 100%;
-  color: #353839;
-}
-
-.App .empty svg {
-  font-size: 5rem;
+  height: 100vh;
 }
 
 .App .circle-image {
   border-radius: 50%;
   object-fit: cover;
-}
-
-.App .centered-bottom {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: #353839;
-  text-decoration: none;
-  font-size: 0.8rem;
-  width: 100%;
-  height: 4rem;
-}
-
-@media only screen and (min-width: 768px) {
-  .App header {
-    padding: 1rem 3rem;
-  }
-
-  .App .signed-in-main {
-    flex-direction: row;
-    margin: 3.5rem 0 0;
-    padding: 1rem 1rem 0;
-  }
-
-  .App .main-view {
-    flex-direction: column;
-    padding: 0 2rem;
-  }
 }

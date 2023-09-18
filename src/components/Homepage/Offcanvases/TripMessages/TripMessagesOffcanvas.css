@@ -1,0 +1,25 @@
+.TripMessagesOffcanvas h1 {
+  color: #f0b202;
+}
+
+.TripMessagesOffcanvas .offcanvas-body {
+  padding: 0;
+}
+
+.TripMessagesOffcanvas .offcanvas-body ul {
+  padding: 1rem 1rem 5rem;
+}
+
+.TripMessagesOffcanvas .empty {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  height: 100%;
+  color: #353839;
+}
+
+.TripMessagesOffcanvas .empty svg {
+  font-size: 5rem;
+}

@@ -1,0 +1,12 @@
+.FeedMain .empty {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: #353839;
+}
+
+.FeedMain .empty svg {
+  font-size: 5rem;
+}

@@ -1,8 +1,0 @@
-.FeedPage {
-  flex: 1;
-  height: 100%;
-}
-
-.FeedPage li:last-child {
-  margin: 0;
-}

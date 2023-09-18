@@ -1,0 +1,24 @@
+.Planning {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.Planning .discover-text {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.Planning .discover-button {
+  margin-top: 0.5rem;
+  font-size: 0.8rem;
+  background-color: #f0b202;
+  color: #353839;
+}
+
+@media only screen and (min-width: 768px) {
+  .Planning {
+    padding: 0 1rem;
+    margin-right: 1rem;
+  }
+}

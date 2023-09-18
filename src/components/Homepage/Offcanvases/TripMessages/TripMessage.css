@@ -1,0 +1,56 @@
+.TripMessage {
+  display: flex;
+  align-items: flex-end;
+  margin-bottom: 0.3rem;
+  color: #353839;
+}
+
+.user-profile {
+  flex-direction: row-reverse;
+}
+
+.TripMessage img {
+  height: 2rem;
+  width: 2rem;
+  margin-right: 0.3rem;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.TripMessage img:hover {
+  cursor: pointer;
+}
+
+.user-profile img {
+  margin-right: 0;
+  margin-left: 0.3rem;
+}
+
+.TripMessage .content {
+  display: inline-block;
+  background-color: lightgray;
+  max-width: 70%;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+}
+
+.user-profile .content {
+  background-color: #f0b202;
+}
+
+.TripMessage .author {
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.TripMessage .author:hover {
+  cursor: pointer;
+}
+
+.TripMessage p {
+  font-size: 0.9rem;
+}
+
+.TripMessage .date {
+  font-size: 0.7rem;
+}

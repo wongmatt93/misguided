@@ -1,19 +1,10 @@
-import Trip, { Comment } from "../models/Trip";
+import { Trip } from "../models/Trip";
 import { Notification } from "../models/UserProfile";
 
-export let today: Date = new Date();
+export const getCurrentDateString: string = new Date().getTime().toString();
 
-const dd = String(today.getDate()).padStart(2, "0");
-const mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
-const yyyy = today.getFullYear();
-today = new Date(yyyy + "-" + mm + "-" + dd);
-
-export const sortNotifications = (
-  notificationArray: Notification[]
-): Notification[] =>
-  notificationArray.sort(function (a, b) {
-    return Number(b.date) - Number(a.date);
-  });
+export const convertDateStringToText = (dateString: string): string =>
+  new Date(Number(dateString)).toLocaleDateString();
 
 export const sortTripsAscending = (tripArray: Trip[]): Trip[] =>
   tripArray.sort(function (a, b) {
@@ -29,13 +20,11 @@ export const sortTripsDescending = (tripArray: Trip[]): Trip[] =>
     }
   });
 
-export const sortCommentsDescending = (comments: Comment[]): Comment[] =>
-  comments.sort(function (a, b) {
-    if (b.date + b.uid < a.date + a.uid) {
-      return -1;
-    } else {
-      return 1;
-    }
+export const sortNotifications = (
+  notificationArray: Notification[]
+): Notification[] =>
+  notificationArray.sort(function (a, b) {
+    return Number(b.date) - Number(a.date);
   });
 
 export const getHhMm = (date: string): string => {

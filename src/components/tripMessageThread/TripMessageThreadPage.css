@@ -1,9 +1,0 @@
-.TripMessageThreadPage {
-  display: flex;
-  flex: 1;
-}
-
-.TripMessageThread {
-  flex: 1;
-  height: 100%;
-}

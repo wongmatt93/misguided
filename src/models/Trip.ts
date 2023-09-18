@@ -1,7 +1,13 @@
-import City from "./City";
+import { CitySummary, UserSummary } from "./UserProfile";
+
+export interface newComment {
+  uid: string;
+  comment: string;
+  date: string;
+}
 
 export interface Comment {
-  uid: string;
+  user: UserSummary;
   comment: string;
   date: string;
 }
@@ -10,6 +16,16 @@ export interface Message {
   uid: string;
   text: string;
   date: string;
+}
+
+export interface NewParticipant {
+  uid: string;
+  accepted: boolean;
+}
+
+export interface Participant {
+  user: UserSummary;
+  accepted: boolean;
 }
 
 export interface SingleDaySchedule {
@@ -40,21 +56,10 @@ export interface SingleDaySchedule {
   event2Url: string;
 }
 
-export interface TripUserProfile {
-  username: string;
-  photoURL: string;
-}
-
-export interface Participant {
-  uid: string;
-  accepted: boolean;
-  profile?: TripUserProfile;
-}
-
 export interface Trip {
   _id?: string;
-  cityId: string;
-  creatorUid: string;
+  creator: UserSummary;
+  city: CitySummary;
   nickname: string;
   startDate: string;
   endDate: string;
@@ -64,23 +69,6 @@ export interface Trip {
   participants: Participant[];
   messages: Message[];
   completed: boolean;
-  likesUids: string[];
-  comments: Comment[];
-}
-
-export default interface FullTrip {
-  _id?: string;
-  city: City;
-  creatorUid: string;
-  nickname: string;
-  startDate: string;
-  endDate: string;
-  hotel: string | null;
-  schedule: SingleDaySchedule[];
-  photos: string[];
-  participants: Participant[];
-  messages: Message[];
-  completed: boolean;
-  likesUids: string[];
+  likes: UserSummary[];
   comments: Comment[];
 }
