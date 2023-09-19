@@ -1,4 +1,4 @@
-import { Preferences } from "../../../../models/UserProfile";
+import { Preferences } from "../../../../../models/UserProfile";
 import "./CityCharacteristics.css";
 
 interface Props {
