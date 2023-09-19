@@ -1,6 +1,6 @@
 import { RiArrowRightSLine } from "react-icons/ri";
 
-import City from "../../../../models/City";
+import City from "../../../../../models/City";
 import "./CityCard.css";
 
 interface Props {

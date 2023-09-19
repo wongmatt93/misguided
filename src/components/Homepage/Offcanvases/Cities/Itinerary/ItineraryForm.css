@@ -1,0 +1,27 @@
+.ItineraryForm .modal-content {
+  padding: 1rem;
+}
+
+.ItineraryForm .rdrDateDisplayWrapper {
+  border-radius: 0.5rem;
+}
+
+.ItineraryForm .rdrMonthsVertical {
+  display: flex;
+  align-items: center;
+}
+
+.ItineraryForm .generating-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 15rem;
+}
+
+.ItineraryForm .generating-block .spinner-border {
+  height: 5rem;
+  width: 5rem;
+  color: #f0b202;
+  margin-bottom: 1rem;
+}

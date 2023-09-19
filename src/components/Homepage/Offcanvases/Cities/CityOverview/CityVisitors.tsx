@@ -1,4 +1,4 @@
-import { UserSummary } from "../../../../models/UserProfile";
+import { UserSummary } from "../../../../../models/UserProfile";
 import "./CityVisitors.css";
 import VisitorCard from "./VisitorCard";
 

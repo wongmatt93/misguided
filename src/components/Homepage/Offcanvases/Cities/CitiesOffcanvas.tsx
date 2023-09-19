@@ -1,12 +1,12 @@
 import { useContext, useEffect, useState } from "react";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import { RiArrowLeftLine } from "react-icons/ri";
+
 import CityContext from "../../../../context/CityContext";
 import City from "../../../../models/City";
-import CitiesList from "./CitiesList";
-
+import CitiesList from "./CitiesList/CitiesList";
+import CityOverview from "./CityOverview/CityOverview";
 import "./CitiesOffcanvas.css";
-import CityOverview from "./CityOverview";
 
 interface Props {
   show: boolean;

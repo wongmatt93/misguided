@@ -56,6 +56,23 @@ export interface SingleDaySchedule {
   event2Url: string;
 }
 
+export interface NewTrip {
+  _id?: string;
+  cityId: string;
+  creatorUid: string;
+  nickname: string;
+  startDate: string;
+  endDate: string;
+  hotel: string | null;
+  schedule: SingleDaySchedule[];
+  photos: string[];
+  participants: NewParticipant[];
+  messages: Message[];
+  completed: boolean;
+  likesUids: string[];
+  comments: Comment[];
+}
+
 export interface Trip {
   _id?: string;
   creator: UserSummary;

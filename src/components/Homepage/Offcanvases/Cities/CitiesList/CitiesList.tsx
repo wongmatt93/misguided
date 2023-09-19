@@ -1,4 +1,4 @@
-import City from "../../../../models/City";
+import City from "../../../../../models/City";
 import "./CitiesList.css";
 import CityCard from "./CityCard";
 

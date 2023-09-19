@@ -1,7 +1,7 @@
 import { Tooltip, OverlayTrigger } from "react-bootstrap/";
 import { useNavigate } from "react-router-dom";
 
-import { UserSummary } from "../../../../models/UserProfile";
+import { UserSummary } from "../../../../../models/UserProfile";
 import "./VisitorCard.css";
 
 interface Props {
