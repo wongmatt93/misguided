@@ -29,7 +29,11 @@ const Trips = ({
         <Route
           index
           element={
-            <TripsMain upcomingTrips={upcomingTrips} pastTrips={pastTrips} />
+            <TripsMain
+              upcomingTrips={upcomingTrips}
+              pastTrips={pastTrips}
+              refreshProfile={refreshProfile}
+            />
           }
         />
         <Route
