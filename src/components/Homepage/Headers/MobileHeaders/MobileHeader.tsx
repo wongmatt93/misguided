@@ -48,9 +48,9 @@ const MobileHeader = ({
   return (
     <header className="MobileHeader">
       {page === "profile" ? (
-        <ExplorerProfileHeader uid={uid} path={path} />
+        <ExplorerProfileHeader uid={uid} />
       ) : page === "tripDetails" ? (
-        <TripDetailsHeader uid={uid} path={path} />
+        <TripDetailsHeader uid={uid} />
       ) : (
         <>
           <h1>{page}</h1>

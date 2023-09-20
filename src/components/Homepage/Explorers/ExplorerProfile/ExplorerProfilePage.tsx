@@ -1,12 +1,9 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
+import { Spinner } from "react-bootstrap";
 import { useParams } from "react-router-dom";
+import ExplorerContext from "../../../../context/ExplorerContext";
 import { Trip } from "../../../../models/Trip";
-import { UserProfile } from "../../../../models/UserProfile";
-import { getUserProfileByUid } from "../../../../services/userProfileServices";
-import {
-  getCurrentDateString,
-  sortTripsDescending,
-} from "../../../../utils/dateFunctions";
+import { sortTripsDescending } from "../../../../utils/dateFunctions";
 import ExplorerProfileInfo from "./ExplorerProfileInfo";
 import "./ExplorerProfilePage.css";
 import ExplorerProfileTrips from "./ExplorerProfileTrips";
@@ -18,39 +15,44 @@ interface Props {
 
 const ExplorerProfilePage = ({ uid, refreshProfile }: Props) => {
   // variables
+  const { explorer, loading, setLoading, refreshExplorerProfile } =
+    useContext(ExplorerContext);
   const profileUid: string | undefined = useParams().uid;
-  const [profile, setProfile] = useState<UserProfile | null>(null);
   let completedTrips: Trip[] =
-    profile?.pastTrips.filter((trip) => trip.completed) || [];
+    explorer?.pastTrips.filter((trip) => trip.completed) || [];
 
   // functions
-  const refreshProfilePage = async (uid: string): Promise<void> => {
-    setProfile(await getUserProfileByUid(uid, getCurrentDateString));
-  };
-
   useEffect(() => {
+    setLoading(true);
     profileUid &&
-      getUserProfileByUid(profileUid, getCurrentDateString).then((response) =>
-        setProfile(response)
-      );
+      refreshExplorerProfile(profileUid).then(() => setLoading(false));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [profileUid]);
 
   return (
     <div className="ExplorerProfilePage">
-      {profileUid && profile && (
-        <>
-          <ExplorerProfileInfo
-            uid={uid}
-            profile={profile}
-            completedTripsCount={completedTrips.length}
-            refreshProfile={refreshProfile}
-            refreshProfilePage={() => refreshProfilePage(profileUid)}
-          />
-          <ExplorerProfileTrips
-            uid={uid}
-            completedTrips={sortTripsDescending(completedTrips)}
-          />
-        </>
+      {!loading ? (
+        profileUid &&
+        explorer && (
+          <>
+            <ExplorerProfileInfo
+              uid={uid}
+              explorer={explorer}
+              completedTripsCount={completedTrips.length}
+              refreshProfile={refreshProfile}
+              refreshExplorerProfile={() => refreshExplorerProfile(profileUid)}
+            />
+            <ExplorerProfileTrips
+              uid={uid}
+              completedTrips={sortTripsDescending(completedTrips)}
+            />
+          </>
+        )
+      ) : (
+        <div className="generating-block">
+          <Spinner />
+          <p>Loading Profile...</p>
+        </div>
       )}
     </div>
   );

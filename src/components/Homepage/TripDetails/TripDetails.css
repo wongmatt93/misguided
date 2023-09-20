@@ -15,6 +15,21 @@
   margin-bottom: 1rem;
 }
 
+.TripDetails .generating-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.TripDetails .generating-block .spinner-border {
+  height: 5rem;
+  width: 5rem;
+  color: #f0b202;
+  margin-bottom: 1rem;
+}
+
 @media only screen and (min-width: 768px) {
   .TripDetails {
     padding: 0 0 1rem;

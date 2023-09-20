@@ -7,17 +7,23 @@ import reportWebVitals from "./reportWebVitals";
 import AuthContextProvider from "./context/AuthContextProvider";
 import "./index.css";
 import CityContextProvider from "./context/CityContextProvider";
+import TripContextProvider from "./context/TripContextProvider";
+import ExplorerContextProvider from "./context/ExplorerContextProvider";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <CityContextProvider>
-      <AuthContextProvider>
-        <App />
-      </AuthContextProvider>
-    </CityContextProvider>
+    <AuthContextProvider>
+      <CityContextProvider>
+        <ExplorerContextProvider>
+          <TripContextProvider>
+            <App />
+          </TripContextProvider>
+        </ExplorerContextProvider>
+      </CityContextProvider>
+    </AuthContextProvider>
   </React.StrictMode>
 );
 

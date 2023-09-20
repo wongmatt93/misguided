@@ -4,21 +4,21 @@ import FollowButton from "./FollowButton";
 
 interface Props {
   uid: string;
-  profile: UserProfile;
+  explorer: UserProfile;
   completedTripsCount: number;
   refreshProfile: () => Promise<void>;
-  refreshProfilePage: () => Promise<void>;
+  refreshExplorerProfile: () => Promise<void>;
 }
 
 const ExplorerProfileInfo = ({
   uid,
-  profile,
+  explorer,
   completedTripsCount,
   refreshProfile,
-  refreshProfilePage,
+  refreshExplorerProfile,
 }: Props) => {
   // variables
-  const { photoURL, displayName, followings, followers } = profile;
+  const { photoURL, displayName, followings, followers } = explorer;
 
   return (
     <div className="ExplorerProfileInfo">
@@ -42,12 +42,12 @@ const ExplorerProfileInfo = ({
           <p>trips</p>
         </div>
       </div>
-      {uid !== profile.uid && (
+      {uid !== explorer.uid && (
         <FollowButton
           uid={uid}
-          profile={profile}
+          explorer={explorer}
           refreshProfile={refreshProfile}
-          refreshProfilePage={refreshProfilePage}
+          refreshExplorerProfile={refreshExplorerProfile}
         />
       )}
     </div>
