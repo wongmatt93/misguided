@@ -7,20 +7,20 @@ import "./FollowButton.css";
 
 interface Props {
   uid: string;
-  profile: UserProfile;
+  explorer: UserProfile;
   refreshProfile: () => Promise<void>;
-  refreshProfilePage: () => Promise<void>;
+  refreshExplorerProfile: () => Promise<void>;
 }
 
 const FollowButton = ({
   uid,
-  profile,
+  explorer,
   refreshProfile,
-  refreshProfilePage,
+  refreshExplorerProfile,
 }: Props) => {
   // variables
   const [updating, setUpdating] = useState(false);
-  const { followings, followers } = profile;
+  const { followings, followers } = explorer;
   const following: boolean = followers.some((follower) => follower.uid === uid);
   const follower: boolean = followings.some(
     (following) => following.uid === uid
@@ -37,15 +37,15 @@ const FollowButton = ({
   // functions
   const handleFollowUser = async (): Promise<string | void> => {
     setUpdating(true);
-    await followUser(uid, profile.uid);
-    await Promise.allSettled([refreshProfile(), refreshProfilePage()]);
+    await followUser(uid, explorer.uid);
+    await Promise.allSettled([refreshProfile(), refreshExplorerProfile()]);
     setUpdating(false);
   };
 
   const handleUnfollowUser = async (): Promise<void> => {
     setUpdating(true);
-    await removeFollowing(uid, profile.uid);
-    await Promise.allSettled([refreshProfile(), refreshProfilePage()]);
+    await removeFollowing(uid, explorer.uid);
+    await Promise.allSettled([refreshProfile(), refreshExplorerProfile()]);
     setUpdating(false);
   };
 

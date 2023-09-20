@@ -1,54 +1,48 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { RiMenuLine } from "react-icons/ri";
-import { Participant, Trip } from "../../../../models/Trip";
-import { getFullTripById } from "../../../../services/tripServices";
+import TripContext from "../../../../context/TripContext";
+import { Participant } from "../../../../models/Trip";
 import "./TripDetailsHeader.css";
 
 interface Props {
   uid: string;
-  path: string;
 }
 
-const TripDetailsHeader = ({ uid, path }: Props) => {
+const TripDetailsHeader = ({ uid }: Props) => {
   // variables
-  const [trip, setTrip] = useState<Trip | null>(null);
+  const { trip, loading } = useContext(TripContext);
   const [accepted, setAccepted] = useState(false);
 
   // functions
   useEffect(() => {
-    if (path.includes("trip-details/")) {
-      getFullTripById(path.split("trip-details/")[1]).then((response) => {
-        setTrip(response);
+    if (trip) {
+      const match: Participant | undefined = trip.participants.find(
+        (participant) => participant.user.uid === uid
+      );
 
-        if (response) {
-          const match: Participant | undefined = response.participants.find(
-            (participant) => participant.user.uid === uid
-          );
-
-          match && setAccepted(match.accepted);
-        }
-      });
+      match && setAccepted(match.accepted);
     }
-  }, [uid, path]);
+  }, [uid, trip]);
 
   return (
     <>
-      {trip ? (
-        <div className="TripDetailsHeader">
-          <h1>
-            {trip.nickname
-              ? trip.nickname.toLowerCase()
-              : trip.city.cityName.toLowerCase()}
-          </h1>
-          {accepted && (
-            <button className="menu-button">
-              <RiMenuLine />
-            </button>
-          )}
-        </div>
-      ) : (
-        <h1>misguided</h1>
-      )}
+      {!loading &&
+        (trip ? (
+          <div className="TripDetailsHeader">
+            <h1>
+              {trip.nickname
+                ? trip.nickname.toLowerCase()
+                : trip.city.cityName.toLowerCase()}
+            </h1>
+            {accepted && (
+              <button className="menu-button">
+                <RiMenuLine />
+              </button>
+            )}
+          </div>
+        ) : (
+          <h1>misguided</h1>
+        ))}
     </>
   );
 };
