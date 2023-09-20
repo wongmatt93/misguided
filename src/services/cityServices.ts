@@ -6,6 +6,13 @@ const baseURL: string = process.env.REACT_APP_API_URL || "";
 export const getAllCities = async (): Promise<City[]> =>
   (await axios.get(`${baseURL}/cities`)).data;
 
+export const addVisitor = async (
+  cityId: string,
+  newVisitor: string
+): Promise<string> =>
+  (await axios.put(`${baseURL}/cities/add-visitor/${cityId}/${newVisitor}`))
+    .data;
+
 export const removeVisitor = async (
   cityId: string,
   uid: string

@@ -10,6 +10,7 @@ import GallerySection from "./Gallery/GallerySection";
 import ItinerarySection from "./Itinerary/ItinerarySection";
 import ParticipantsSection from "./Participants/ParticipantsSection";
 import "./TripDetails.css";
+import TripNotFound from "./TripNotFound";
 
 interface Props {
   uid: string;
@@ -38,14 +39,17 @@ const TripDetails = ({
   const refreshTrip = async (tripId: string): Promise<void> => {
     const updatedTrip = await getFullTripById(tripId);
     setTrip(updatedTrip);
-    const accepted: Participant[] = updatedTrip.participants.filter(
-      (participant) => participant.accepted
-    );
-    const notAccepted: Participant[] = updatedTrip.participants.filter(
-      (participant) => !participant.accepted
-    );
 
-    setParticipants(accepted.concat(notAccepted));
+    if (updatedTrip) {
+      const accepted: Participant[] = updatedTrip.participants.filter(
+        (participant) => participant.accepted
+      );
+      const notAccepted: Participant[] = updatedTrip.participants.filter(
+        (participant) => !participant.accepted
+      );
+
+      setParticipants(accepted.concat(notAccepted));
+    }
   };
 
   const handleDeleteTrip = async (tripId: string): Promise<void> => {
@@ -62,7 +66,7 @@ const TripDetails = ({
 
   return (
     <section className="TripDetails">
-      {tripId && trip && (
+      {tripId && trip ? (
         <>
           <div className="full-details-section">
             <ParticipantsSection
@@ -104,6 +108,8 @@ const TripDetails = ({
             </Button>
           )}
         </>
+      ) : (
+        <TripNotFound />
       )}
     </section>
   );

@@ -14,7 +14,7 @@ export const addTrip = async (trip: NewTrip): Promise<NewTrip> =>
   (await axios.post(`${baseURL}/trips`, trip)).data;
 
 export const getFullTripById = async (tripId: string): Promise<Trip> =>
-  (await axios.get(`${baseURL}/trips/${tripId}/full-trip`)).data;
+  (await axios.get(`${baseURL}/trips/full-trip/${tripId}`)).data;
 
 export const getFollowingsTrips = async (
   uid: string,
@@ -34,25 +34,25 @@ export const addLikesUid = async (
   tripId: string,
   uid: string
 ): Promise<string> =>
-  (await axios.put(`${baseURL}/trips/${tripId}/like-trip/${uid}`)).data;
+  (await axios.put(`${baseURL}/trips/like-trip/${tripId}/${uid}`)).data;
 
 export const removeLikesUid = async (
   tripId: string,
   uid: string
 ): Promise<void> =>
-  (await axios.put(`${baseURL}/trips/${tripId}/unlike-trip/${uid}`)).data;
+  (await axios.put(`${baseURL}/trips/unlike-trip/${tripId}/${uid}`)).data;
 
 export const addCommentToTrip = async (
   tripId: string,
   comment: newComment
 ): Promise<newComment> =>
-  (await axios.put(`${baseURL}/trips/${tripId}/comment-trip`, comment)).data;
+  (await axios.put(`${baseURL}/trips/comment-trip/${tripId}`, comment)).data;
 
 export const removeCommentFromTrip = async (
   tripId: string,
   comment: newComment
 ): Promise<string> =>
-  await axios.put(`${baseURL}/trips/${tripId}/remove-comment-trip`, comment);
+  await axios.put(`${baseURL}/trips/remove-comment-trip/${tripId}`, comment);
 
 export const addNewParticipantToTrip = async (
   tripId: string,
@@ -60,7 +60,7 @@ export const addNewParticipantToTrip = async (
 ): Promise<string> =>
   (
     await axios.put(
-      `${baseURL}/trips/${tripId}/new-participant`,
+      `${baseURL}/trips/new-participant/${tripId}`,
       newParticipant
     )
   ).data;
@@ -69,14 +69,14 @@ export const removeParticipantFromTrip = async (
   tripId: string,
   uid: string
 ): Promise<void> =>
-  (await axios.put(`${baseURL}/trips/${tripId}/${uid}/remove-participant`))
+  (await axios.put(`${baseURL}/trips/remove-participant/${tripId}/${uid}`))
     .data;
 
 export const participantAcceptTrip = async (
   tripId: string,
   uid: string
 ): Promise<void> =>
-  (await axios.put(`${baseURL}/trips/${tripId}/${uid}/accept-trip`)).data;
+  (await axios.put(`${baseURL}/trips/accept-trip/${tripId}/${uid}`)).data;
 
 export const addMessageToTrip = async (
   tripId: string,
@@ -91,16 +91,19 @@ export const addPhotosToTrip = async (
   tripId: string,
   photo: string
 ): Promise<string> =>
-  (await axios.put(`${baseURL}/trips/${tripId}/photos`, { photo })).data;
+  (await axios.put(`${baseURL}/trips/photos/${tripId}`, { photo })).data;
 
 export const updateCreator = async (
   tripId: string,
   newUid: string
 ): Promise<string> =>
-  (await axios.put(`${baseURL}/trips/${tripId}/update-creator/${newUid}`)).data;
+  (await axios.put(`${baseURL}/trips/update-creator/${tripId}/${newUid}`)).data;
 
 export const removeAllUserLikes = async (uid: string): Promise<string> =>
   (await axios.put(`${baseURL}/trips/remove-all-user-likes/${uid}`)).data;
 
 export const removeAllUserComments = async (uid: string) =>
   (await axios.put(`${baseURL}/trips/remove-all-user-comments/${uid}`)).data;
+
+export const completeTrip = async (tripId: string): Promise<void> =>
+  (await axios.put(`${baseURL}/trips/complete-trip/${tripId}`)).data;

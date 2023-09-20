@@ -20,18 +20,20 @@ const TripDetailsHeader = ({ uid, path }: Props) => {
       getFullTripById(path.split("trip-details/")[1]).then((response) => {
         setTrip(response);
 
-        const match: Participant | undefined = response.participants.find(
-          (participant) => participant.user.uid === uid
-        );
+        if (response) {
+          const match: Participant | undefined = response.participants.find(
+            (participant) => participant.user.uid === uid
+          );
 
-        match && setAccepted(match.accepted);
+          match && setAccepted(match.accepted);
+        }
       });
     }
   }, [uid, path]);
 
   return (
     <>
-      {trip && (
+      {trip ? (
         <div className="TripDetailsHeader">
           <h1>
             {trip.nickname
@@ -44,6 +46,8 @@ const TripDetailsHeader = ({ uid, path }: Props) => {
             </button>
           )}
         </div>
+      ) : (
+        <h1>misguided</h1>
       )}
     </>
   );

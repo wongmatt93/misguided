@@ -67,6 +67,7 @@ export interface CitySummary {
   _id: string;
   cityName: string;
   photoURL: string;
+  visitors: UserSummary[];
 }
 
 export interface UserProfile {
