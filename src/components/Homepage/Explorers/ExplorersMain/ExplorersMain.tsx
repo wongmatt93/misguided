@@ -66,7 +66,7 @@ const ExplorersMain = ({
             aria-label="Clear Search"
             variant="warning"
             type="button"
-            disabled={searchTerm ? false : true}
+            disabled={searchTerm || searched ? false : true}
             onClick={clearSearch}
           >
             <RiCloseCircleLine />

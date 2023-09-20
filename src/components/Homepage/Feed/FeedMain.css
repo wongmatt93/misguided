@@ -1,3 +1,7 @@
+.FeedMain {
+  flex: 1;
+}
+
 .FeedMain .empty {
   display: flex;
   flex-direction: column;
@@ -5,8 +9,24 @@
   align-items: center;
   text-align: center;
   color: #353839;
+  height: 100%;
 }
 
 .FeedMain .empty svg {
   font-size: 5rem;
+}
+
+.FeedMain .generating-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.FeedMain .generating-block .spinner-border {
+  height: 5rem;
+  width: 5rem;
+  color: #f0b202;
+  margin-bottom: 1rem;
 }

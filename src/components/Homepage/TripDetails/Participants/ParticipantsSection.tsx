@@ -22,6 +22,7 @@ interface Props {
   upcomingTrips: Trip[];
   followers: UserSummary[];
   followings: UserSummary[];
+  refreshProfile: () => Promise<void>;
   tripId: string;
   creator: UserSummary;
   participants: Participant[];
@@ -35,6 +36,7 @@ const ParticipantsSection = ({
   upcomingTrips,
   followers,
   followings,
+  refreshProfile,
   tripId,
   creator,
   participants,
@@ -93,6 +95,7 @@ const ParticipantsSection = ({
         addNotification(creator.uid, newNotification),
       ]);
       await refreshTrip();
+      await refreshProfile();
     } else {
       alert("You are double booking a trip!");
     }
@@ -106,6 +109,7 @@ const ParticipantsSection = ({
       addNotification(creator.uid, newNotification),
     ]);
     await refreshTrip();
+    await refreshProfile();
     setInvited(false);
   };
 

@@ -59,6 +59,7 @@ const TripDetails = ({
                 upcomingTrips={upcomingTrips}
                 followers={followers}
                 followings={followings}
+                refreshProfile={refreshProfile}
                 tripId={tripId}
                 creator={trip.creator}
                 participants={participants}
