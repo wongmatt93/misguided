@@ -44,7 +44,11 @@ const Homepage = ({ userProfile, setUserProfile, refreshProfile }: Props) => {
           refreshProfile={refreshProfile}
         />
       ) : (
-        <Header />
+        <Header
+          userProfile={userProfile}
+          setUserProfile={setUserProfile}
+          refreshProfile={refreshProfile}
+        />
       )}
       <main>
         <Sidebar notifications={notifications} />
