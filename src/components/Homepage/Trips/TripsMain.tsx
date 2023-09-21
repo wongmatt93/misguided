@@ -7,6 +7,8 @@ import {
 } from "../../../utils/dateFunctions";
 import "./TripsMain.css";
 import TripsContainer from "./TripsContainer";
+import { RiFlightLandFill, RiFlightTakeoffFill } from "react-icons/ri";
+import { Link } from "react-router-dom";
 
 interface Props {
   upcomingTrips: Trip[];
@@ -19,18 +21,33 @@ const TripsMain = ({ upcomingTrips, pastTrips, refreshProfile }: Props) => {
     <div className="TripsMain">
       <Tabs justify variant="pills">
         <Tab eventKey="upcomingTrips" title="Upcoming Trips">
-          <TripsContainer
-            refreshProfile={refreshProfile}
-            trips={sortTripsAscending(upcomingTrips)}
-            pastTrip={false}
-          />
+          {upcomingTrips.length > 0 ? (
+            <TripsContainer
+              refreshProfile={refreshProfile}
+              trips={sortTripsAscending(upcomingTrips)}
+              pastTrip={false}
+            />
+          ) : (
+            <div className="empty">
+              <RiFlightTakeoffFill />
+              <p>You don't have any upcoming trips</p>
+              <Link to="/planning">Click here to start planning one!</Link>
+            </div>
+          )}
         </Tab>
         <Tab eventKey="pastTrips" title="Past Trips">
-          <TripsContainer
-            refreshProfile={refreshProfile}
-            trips={sortTripsDescending(pastTrips)}
-            pastTrip={true}
-          />
+          {pastTrips.length > 0 ? (
+            <TripsContainer
+              refreshProfile={refreshProfile}
+              trips={sortTripsDescending(pastTrips)}
+              pastTrip={true}
+            />
+          ) : (
+            <div className="empty">
+              <RiFlightLandFill />
+              <p>Your completed trips will to populate here</p>
+            </div>
+          )}
         </Tab>
       </Tabs>
     </div>

@@ -1,5 +1,6 @@
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
+import { RiChatDeleteFill, RiMailCloseFill } from "react-icons/ri";
 import { Trip } from "../../../models/Trip";
 import { Notification, UserProfile } from "../../../models/UserProfile";
 import { sortNotifications } from "../../../utils/dateFunctions";
@@ -30,19 +31,33 @@ const InboxMain = ({ userProfile, refreshProfile }: Props) => {
     <div className="InboxMain">
       <Tabs justify variant="pills">
         <Tab eventKey="notifications" title="Notifications">
-          <NotificationsContainer
-            uid={uid}
-            notifications={sortNotifications(notifs)}
-            refreshProfile={refreshProfile}
-          />
+          {notifs.length > 0 ? (
+            <NotificationsContainer
+              uid={uid}
+              notifications={sortNotifications(notifs)}
+              refreshProfile={refreshProfile}
+            />
+          ) : (
+            <div className="empty">
+              <RiMailCloseFill />
+              <p>No Notifications</p>
+            </div>
+          )}
         </Tab>
         <Tab eventKey="messages" title="Messages">
-          <MessagesContainer
-            uid={uid}
-            trips={trips}
-            notifications={messages}
-            refreshProfile={refreshProfile}
-          />
+          {messages.length > 0 ? (
+            <MessagesContainer
+              uid={uid}
+              trips={trips}
+              notifications={messages}
+              refreshProfile={refreshProfile}
+            />
+          ) : (
+            <div className="empty">
+              <RiChatDeleteFill />
+              <p>No Messages</p>
+            </div>
+          )}
         </Tab>
       </Tabs>
     </div>
