@@ -6,9 +6,18 @@ import {
   RiTeamFill,
 } from "react-icons/ri";
 import { NavLink } from "react-router-dom";
+import { Notification } from "../../../models/UserProfile";
+import { getUnreadNotifsCount } from "../../../utils/userFunctions";
 import "./Sidebar.css";
 
-const Sidebar = () => {
+interface Props {
+  notifications: Notification[];
+}
+
+const Sidebar = ({ notifications }: Props) => {
+  // variables
+  const unreadNotificationsCount: number = getUnreadNotifsCount(notifications);
+
   return (
     <nav className="Sidebar">
       <ul>
@@ -39,6 +48,11 @@ const Sidebar = () => {
         <li>
           <NavLink to="/inbox">
             <div className="inbox-container">
+              {unreadNotificationsCount > 0 && (
+                <div className="notification-count">
+                  <p className="number">{unreadNotificationsCount}</p>
+                </div>
+              )}
               <RiDiscussFill />
               <span>Inbox</span>
             </div>
