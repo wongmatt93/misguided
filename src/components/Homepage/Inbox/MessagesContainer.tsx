@@ -6,22 +6,18 @@ import "./MessagesContainer.css";
 
 interface Props {
   uid: string;
-  trips: Trip[];
+  tripsWithParties: Trip[];
   notifications: Notification[];
   refreshProfile: () => Promise<void>;
 }
 
 const MessagesContainer = ({
   uid,
-  trips,
+  tripsWithParties,
   notifications,
   refreshProfile,
 }: Props) => {
   // variables
-  const tripsWithParties: Trip[] = trips.filter(
-    (trip) =>
-      trip.participants.filter((participant) => participant.accepted).length > 1
-  );
   const hasMessages: Trip[] = [];
   const noMessages: Trip[] = [];
 

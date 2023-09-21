@@ -16,7 +16,13 @@ interface Props {
 const InboxMain = ({ userProfile, refreshProfile }: Props) => {
   // variables
   const { uid, upcomingTrips, pastTrips } = userProfile;
-  const trips: Trip[] = upcomingTrips.concat(pastTrips);
+  const tripsWithParties: Trip[] = upcomingTrips
+    .concat(pastTrips)
+    .filter(
+      (trip) =>
+        trip.participants.filter((participant) => participant.accepted).length >
+        1
+    );
   const notifs: Notification[] = [];
   const messages: Notification[] = [];
 
@@ -45,10 +51,10 @@ const InboxMain = ({ userProfile, refreshProfile }: Props) => {
           )}
         </Tab>
         <Tab eventKey="messages" title="Messages">
-          {messages.length > 0 ? (
+          {tripsWithParties.length > 0 ? (
             <MessagesContainer
               uid={uid}
-              trips={trips}
+              tripsWithParties={tripsWithParties}
               notifications={messages}
               refreshProfile={refreshProfile}
             />

@@ -1,5 +1,6 @@
 import { Offcanvas } from "react-bootstrap";
 import { RiQuestionAnswerFill } from "react-icons/ri";
+import { useNavigate } from "react-router-dom";
 import { Message, Participant } from "../../../../models/Trip";
 import NewTripMessageForm from "./NewTripMessageForm";
 import TripMessage from "./TripMessage";
@@ -26,6 +27,9 @@ const TripMessagesOffcanvas = ({
   show,
   handleClose,
 }: Props) => {
+  // variables
+  const navigate = useNavigate();
+
   return (
     <Offcanvas
       className="TripMessagesOffcanvas"
@@ -34,7 +38,9 @@ const TripMessagesOffcanvas = ({
       placement="end"
     >
       <Offcanvas.Header closeButton>
-        <h1>{tripName}</h1>
+        <h1 onClick={() => navigate(`/trips/trip-details/${tripId}`)}>
+          {tripName}
+        </h1>
       </Offcanvas.Header>
       <Offcanvas.Body>
         {messages.length > 0 ? (

@@ -1,6 +1,7 @@
 .TripMessagesOffcanvas h1 {
   color: #f0b202;
   font-size: 1.5rem;
+  cursor: pointer;
 }
 
 .TripMessagesOffcanvas .offcanvas-body {
