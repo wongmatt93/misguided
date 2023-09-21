@@ -39,7 +39,7 @@ export interface Preferences {
   shopping: boolean;
 }
 
-export interface UserTemplate {
+export interface NewUserTemplate {
   _id?: string;
   uid: string;
   username: string | null;
@@ -47,13 +47,12 @@ export interface UserTemplate {
   email: string | null;
   phoneNumber: string | null;
   photoURL: string | null;
-  hometownUid: string | null;
+  hometownId: string | null;
   preferences: Preferences | null;
   followingUids: string[];
   favoriteCityIds: string[];
   hiddenCityIds: string[];
   notifications: Notification[];
-  visitedCityIds: string[];
 }
 
 export interface UserSummary {
@@ -87,5 +86,5 @@ export interface UserProfile {
   favoriteCityIds: string[];
   hiddenCityIds: string[];
   notifications: Notification[];
-  visitedCityIds: string[];
+  visitedCities: CitySummary[];
 }

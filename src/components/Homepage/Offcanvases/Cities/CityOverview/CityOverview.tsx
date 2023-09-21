@@ -43,12 +43,12 @@ const CityOverview = ({ city }: Props) => {
 
   const likeCity = async (): Promise<void> => {
     await addFavoriteCity(uid, _id!);
-    await refreshProfile();
+    await refreshProfile(uid);
   };
 
   const unlikeCity = async (): Promise<void> => {
     await removeFavoriteCity(uid, _id!);
-    await refreshProfile();
+    await refreshProfile(uid);
   };
 
   const showItineraryModal = (): void => setShow(true);
@@ -89,7 +89,7 @@ const CityOverview = ({ city }: Props) => {
       <ItineraryForm
         uid={uid}
         upcomingTrips={upcomingTrips}
-        refreshProfile={refreshProfile}
+        refreshProfile={() => refreshProfile(uid)}
         cityId={_id!}
         cityName={cityName}
         cityCode={cityCode}

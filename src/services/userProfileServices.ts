@@ -1,12 +1,18 @@
 import axios from "axios";
 import {
   NewNotification,
+  NewUserTemplate,
   Preferences,
   UserProfile,
   UserSummary,
 } from "../models/UserProfile";
 
 const baseURL: string | undefined = process.env.REACT_APP_API_URL;
+
+export const addNewUser = async (
+  user: NewUserTemplate
+): Promise<NewUserTemplate> =>
+  (await axios.post(`${baseURL}/users`, user)).data;
 
 export const getUserProfileByUid = async (
   uid: string,
@@ -31,6 +37,11 @@ export const getUserBySearch = async (
   search: string
 ): Promise<UserSummary[]> =>
   (await axios.get(`${baseURL}/users/${username}/${search}/search`)).data;
+
+export const getUserByUsername = async (
+  username: string
+): Promise<UserProfile> =>
+  (await axios.get(`${baseURL}/users/user-by-username/${username}`)).data;
 
 export const addFollowing = async (
   uid: string,
@@ -84,6 +95,10 @@ export const deleteNotification = async (
       `${baseURL}/users/delete-notification/${uid}/${notifUid}/${date}`
     )
   ).data;
+
+export const removeAllUserNotifications = async (uid: string) =>
+  (await axios.put(`${baseURL}/users/remove-all-user-notifications/${uid}`))
+    .data;
 
 export const updateProfilePhoto = async (
   uid: string,

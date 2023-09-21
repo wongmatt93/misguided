@@ -1,6 +1,6 @@
 import City from "../models/City";
 import { Participant, Trip } from "../models/Trip";
-import { Notification } from "../models/UserProfile";
+import { CitySummary, Notification } from "../models/UserProfile";
 import { removeRating, removeVisitor } from "../services/cityServices";
 import {
   deleteTrip,
@@ -12,6 +12,7 @@ import {
 import {
   deleteUser,
   removeAllUserFollowings,
+  removeAllUserNotifications,
 } from "../services/userProfileServices";
 
 export const getUnreadNotifsCount = (notifications: Notification[]): number =>
@@ -21,7 +22,7 @@ export const deleteAccount = async (
   uid: string,
   upcomingTrips: Trip[],
   pastTrips: Trip[],
-  visitedCityIds: string[],
+  visitedCities: CitySummary[],
   cities: City[]
 ): Promise<void> => {
   // delete user from followers' followingsUids
@@ -32,6 +33,9 @@ export const deleteAccount = async (
 
   // delete user from commented trips
   removeAllUserComments(uid);
+
+  // delete user's notificaitons from other profiles
+  removeAllUserNotifications(uid);
 
   // delete user from trips
   const allTrips: Trip[] = upcomingTrips.concat(pastTrips);
@@ -61,11 +65,11 @@ export const deleteAccount = async (
   });
 
   // delete user from visited cities
-  visitedCityIds.forEach(async (cityId) => {
-    removeVisitor(cityId, uid);
-    const city = cities.find((city) => city._id === cityId)!;
+  visitedCities.forEach(async (visitedCity) => {
+    removeVisitor(visitedCity._id, uid);
+    const city: City = cities.find((city) => city._id === visitedCity._id)!;
     city.ratings.some((rating) => rating.uid === uid) &&
-      removeRating(cityId, uid);
+      removeRating(visitedCity._id, uid);
   });
 
   // delete user from users documents
