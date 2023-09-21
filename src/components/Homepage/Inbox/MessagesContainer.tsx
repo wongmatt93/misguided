@@ -48,9 +48,10 @@ const MessagesContainer = ({
   const sortedTrips: Trip[] = hasMessages.concat(noMessages);
 
   // gets rid of any notifications for trips that no longer have parties
-  excessNotifs.forEach((excessNotif) =>
-    deleteNotification(uid, excessNotif.user.uid, excessNotif.date)
-  );
+  excessNotifs.length &&
+    excessNotifs.forEach((excessNotif) =>
+      deleteNotification(uid, excessNotif.user.uid, excessNotif.date)
+    );
 
   return (
     <ul className="MessagesContainer">
