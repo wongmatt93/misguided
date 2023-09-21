@@ -7,7 +7,6 @@ import {
   removeParticipantFromTrip,
 } from "../../../../services/tripServices";
 import { addNotification } from "../../../../services/userProfileServices";
-import { getCurrentDateString } from "../../../../utils/dateFunctions";
 import {
   createTripAcceptNotif,
   createTripDeclineNotif,
@@ -63,14 +62,8 @@ const ParticipantsSection = ({
   }, [uid, participants]);
 
   useEffect(() => {
-    const end: Date = endDate
-      ? new Date(Number(endDate))
-      : new Date(Number(startDate));
-
-    if (new Date(getCurrentDateString).getTime() - end.getTime() >= 0) {
-      setPastTrip(true);
-    }
-  }, [endDate, startDate]);
+    !upcomingTrips.some((trip) => trip._id === tripId) && setPastTrip(true);
+  }, [tripId, upcomingTrips]);
 
   const handleClose = (): void => setShow(false);
   const handleShow = (): void => setShow(true);
