@@ -31,6 +31,7 @@ const Homepage = ({ userProfile, setUserProfile, refreshProfile }: Props) => {
     hiddenCityIds,
     upcomingTrips,
     pastTrips,
+    notifications,
   } = userProfile;
   const isMobile: boolean = useMediaQuery({ maxWidth: 768 });
 
@@ -46,7 +47,7 @@ const Homepage = ({ userProfile, setUserProfile, refreshProfile }: Props) => {
         <Header />
       )}
       <main>
-        <Sidebar />
+        <Sidebar notifications={notifications} />
         <Routes>
           <Route
             path="/feed/*"
@@ -102,7 +103,7 @@ const Homepage = ({ userProfile, setUserProfile, refreshProfile }: Props) => {
           <Route path="*" element={<Navigate to="/feed" />} />
         </Routes>
       </main>
-      <Footer />
+      <Footer notifications={notifications} />
     </div>
   );
 };

@@ -1,5 +1,6 @@
 import City from "../models/City";
 import { Participant, Trip } from "../models/Trip";
+import { Notification } from "../models/UserProfile";
 import { removeRating, removeVisitor } from "../services/cityServices";
 import {
   deleteTrip,
@@ -12,6 +13,9 @@ import {
   deleteUser,
   removeAllUserFollowings,
 } from "../services/userProfileServices";
+
+export const getUnreadNotifsCount = (notifications: Notification[]): number =>
+  notifications.filter((notif) => !notif.read).length;
 
 export const deleteAccount = async (
   uid: string,

@@ -41,9 +41,11 @@ const NewTripMessageForm = ({
 
     setSending(true);
     const sendNotifs = await Promise.allSettled(
-      participants.map((participant) =>
-        addNotification(participant.user.uid, newNotification)
-      )
+      participants
+        .filter((participant) => participant.user.uid !== uid)
+        .map((participant) =>
+          addNotification(participant.user.uid, newNotification)
+        )
     );
     await Promise.allSettled([
       addMessageToTrip(tripId, newMessage),
