@@ -17,7 +17,7 @@
 .DesktopHeader .menu-button {
   display: flex;
   border: 0;
-  color: #f5f5f5;
+  background-color: #f5f5f5;
   border-radius: 50%;
 }
 

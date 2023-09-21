@@ -18,3 +18,9 @@
 .AccountInformationSection svg {
   font-size: 1rem;
 }
+
+.AccountInformationSection button {
+  margin-top: auto;
+  color: #ff4000;
+  text-decoration: none;
+}

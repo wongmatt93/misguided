@@ -1,0 +1,10 @@
+.WelcomeDummyPage {
+  height: 100%;
+}
+
+@media only screen and (min-width: 768px) {
+  .WelcomeDummyPage {
+    display: flex;
+    width: 100%;
+  }
+}
