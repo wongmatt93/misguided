@@ -1,0 +1,14 @@
+.TripSettingsForm {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  text-align: center;
+}
+
+.TripSettingsForm input {
+  text-align: center;
+}
+
+.TripSettingsForm button {
+  margin-top: auto;
+}

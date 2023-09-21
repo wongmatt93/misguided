@@ -21,7 +21,7 @@ interface Props {
 const TripCard = ({ refreshProfile, trip, pastTrip }: Props) => {
   // variables
   const navigate = useNavigate();
-  const { _id: tripId, city, startDate, endDate } = trip;
+  const { _id: tripId, nickname, city, startDate, endDate } = trip;
   const { cityName, photoURL } = city;
   const imagePath: string =
     process.env.PUBLIC_URL + `/assets/cities/${photoURL}`;
@@ -73,7 +73,7 @@ const TripCard = ({ refreshProfile, trip, pastTrip }: Props) => {
           alt={cityName}
         />
         <div>
-          <h2>{cityName}</h2>
+          <h2>{nickname ? nickname : cityName}</h2>
           <h3>
             {convertDateStringToText(startDate)}
             {startDate !== endDate && `- ${convertDateStringToText(endDate)}`}

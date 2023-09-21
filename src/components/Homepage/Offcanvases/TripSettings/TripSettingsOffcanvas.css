@@ -1,0 +1,8 @@
+.TripSettingsOffcanvas h1 {
+  color: #f0b202;
+}
+
+.TripSettingsOffcanvas .offcanvas-body {
+  display: flex;
+  flex-direction: column;
+}
