@@ -33,7 +33,7 @@ const AccountInformationSection = ({
     phoneNumber,
     upcomingTrips,
     pastTrips,
-    visitedCityIds,
+    visitedCities,
   } = userProfile;
 
   // functions
@@ -42,7 +42,7 @@ const AccountInformationSection = ({
     handleClose();
     setUserProfile(null);
     signOut();
-    await deleteAccount(uid, upcomingTrips, pastTrips, visitedCityIds, cities);
+    await deleteAccount(uid, upcomingTrips, pastTrips, visitedCities, cities);
   };
 
   return (

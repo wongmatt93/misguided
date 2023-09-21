@@ -1,14 +1,16 @@
 import { createContext } from "react";
-import { UserProfile } from "../models/UserProfile";
+import { NewUserTemplate, UserProfile } from "../models/UserProfile";
 
 interface AuthContextModel {
   userProfile: UserProfile | null;
+  firstTimeUser: NewUserTemplate | null;
   setUserProfile: React.Dispatch<React.SetStateAction<UserProfile | null>>;
-  refreshProfile: () => Promise<void>;
+  refreshProfile: (uid: string) => Promise<void>;
 }
 
 const defaultValues: AuthContextModel = {
   userProfile: null,
+  firstTimeUser: null,
   setUserProfile: () => {},
   refreshProfile: async () => {},
 };

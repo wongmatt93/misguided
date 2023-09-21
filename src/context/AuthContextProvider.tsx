@@ -1,5 +1,5 @@
 import { ReactNode, useEffect, useState } from "react";
-import { UserProfile } from "../models/UserProfile";
+import { NewUserTemplate, UserProfile } from "../models/UserProfile";
 import { auth } from "../firebaseConfig";
 import AuthContext from "./AuthContext";
 import { getUserProfileByUid } from "../services/userProfileServices";
@@ -12,20 +12,37 @@ interface Props {
 const AuthContextProvider = ({ children }: Props) => {
   // variables
   const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
+  const [firstTimeUser, setFirstTimeUser] = useState<NewUserTemplate | null>(
+    null
+  );
 
   // functions
-  const refreshProfile = async (): Promise<void> =>
-    setUserProfile(
-      await getUserProfileByUid(userProfile!.uid, getCurrentDateString)
-    );
+  const refreshProfile = async (uid: string): Promise<void> =>
+    setUserProfile(await getUserProfileByUid(uid, getCurrentDateString));
 
   useEffect(() => {
-    return auth.onAuthStateChanged((newUser) => {
-      if (newUser) {
-        getUserProfileByUid(newUser.uid, getCurrentDateString).then(
-          (response) => {
-            if (response) {
-              setUserProfile(response);
+    return auth.onAuthStateChanged((user) => {
+      if (user) {
+        getUserProfileByUid(user.uid, getCurrentDateString).then(
+          (userProfile) => {
+            if (userProfile) {
+              setUserProfile(userProfile);
+            } else {
+              const newUserProfile: NewUserTemplate = {
+                uid: user.uid,
+                username: null,
+                displayName: user.displayName,
+                email: user.email,
+                phoneNumber: user.phoneNumber,
+                photoURL: null,
+                hometownId: null,
+                preferences: null,
+                followingUids: [],
+                favoriteCityIds: [],
+                hiddenCityIds: [],
+                notifications: [],
+              };
+              setFirstTimeUser(newUserProfile);
             }
           }
         );
@@ -35,7 +52,7 @@ const AuthContextProvider = ({ children }: Props) => {
 
   return (
     <AuthContext.Provider
-      value={{ userProfile, setUserProfile, refreshProfile }}
+      value={{ userProfile, firstTimeUser, setUserProfile, refreshProfile }}
     >
       {children}
     </AuthContext.Provider>

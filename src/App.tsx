@@ -7,22 +7,30 @@ import LandingPage from "./components/LandingPage/LandingPage";
 import Homepage from "./components/Homepage/Homepage";
 
 import "./App.css";
+import Welcome from "./components/FirstTimeUserPage/Welcome";
 
 function App() {
   // hooks
-  const { userProfile, setUserProfile, refreshProfile } =
+  const { userProfile, firstTimeUser, setUserProfile, refreshProfile } =
     useContext(AuthContext);
 
   return (
     <div className="App">
       <Router>
-        {!userProfile && <LandingPage />}
+        {!userProfile && !firstTimeUser && <LandingPage />}
+
+        {!userProfile && firstTimeUser && (
+          <Welcome
+            firstTimeUser={firstTimeUser}
+            refreshProfile={() => refreshProfile(firstTimeUser.uid)}
+          />
+        )}
 
         {userProfile && (
           <Homepage
             userProfile={userProfile}
             setUserProfile={setUserProfile}
-            refreshProfile={refreshProfile}
+            refreshProfile={() => refreshProfile(userProfile.uid)}
           />
         )}
       </Router>
