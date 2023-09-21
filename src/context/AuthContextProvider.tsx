@@ -52,7 +52,13 @@ const AuthContextProvider = ({ children }: Props) => {
 
   return (
     <AuthContext.Provider
-      value={{ userProfile, firstTimeUser, setUserProfile, refreshProfile }}
+      value={{
+        userProfile,
+        firstTimeUser,
+        setUserProfile,
+        setFirstTimeUser,
+        refreshProfile,
+      }}
     >
       {children}
     </AuthContext.Provider>

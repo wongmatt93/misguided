@@ -5,6 +5,9 @@ interface AuthContextModel {
   userProfile: UserProfile | null;
   firstTimeUser: NewUserTemplate | null;
   setUserProfile: React.Dispatch<React.SetStateAction<UserProfile | null>>;
+  setFirstTimeUser: React.Dispatch<
+    React.SetStateAction<NewUserTemplate | null>
+  >;
   refreshProfile: (uid: string) => Promise<void>;
 }
 
@@ -12,6 +15,7 @@ const defaultValues: AuthContextModel = {
   userProfile: null,
   firstTimeUser: null,
   setUserProfile: () => {},
+  setFirstTimeUser: () => {},
   refreshProfile: async () => {},
 };
 

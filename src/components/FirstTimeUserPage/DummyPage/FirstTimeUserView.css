@@ -1,0 +1,46 @@
+.FirstTimeUserView {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1000;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.FirstTimeUserView .text-block {
+  margin-bottom: 100%;
+  text-align: center;
+  width: 70%;
+}
+
+.FirstTimeUserView .lower {
+  margin-bottom: -50%;
+}
+
+.FirstTimeUserView h2 {
+  color: #f0b202;
+}
+
+.FirstTimeUserView .text-block p {
+  color: #f5f5f5;
+  margin-bottom: 1rem;
+}
+
+.FirstTimeUserView .text-block button {
+  background-color: #f0b202;
+}
+
+@media only screen and (min-width: 768px) {
+  .FirstTimeUserView .text-block {
+    margin-bottom: 25%;
+    width: 50%;
+  }
+
+  .FirstTimeUserView .lower {
+    margin-bottom: -10%;
+  }
+}

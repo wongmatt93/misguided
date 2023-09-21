@@ -1,0 +1,75 @@
+.DummyMain {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 4.5rem 1rem 0;
+}
+
+.DummyMain .search-input {
+  margin-bottom: 1rem;
+}
+
+.DummyMain h2 {
+  font-size: 1.2rem;
+  color: #353839;
+}
+
+.DummyMain .empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.DummyMain .empty svg {
+  font-size: 5rem;
+}
+
+.DummyMain .explorers {
+  width: 100%;
+  margin-bottom: auto;
+}
+
+.DummyMain section {
+  width: 100%;
+}
+
+.DummyMain .trips,
+.DummyMain .inbox {
+  width: 100%;
+  height: 100%;
+}
+
+.DummyMain .trips .nav-link,
+.DummyMain .inbox .nav-link {
+  color: #353839;
+}
+
+.DummyMain .trips .nav-link.active,
+.DummyMain .inbox .nav-link.active {
+  background-color: #f0b202;
+  color: #353839;
+}
+
+.DummyMain .trips .tab-content,
+.DummyMain .inbox .tab-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: calc(100% - 4rem);
+}
+
+.DummyMain .discover-button {
+  font-size: 0.8rem;
+  background-color: #f0b202;
+  color: #353839;
+}
+
+@media only screen and (min-width: 768px) {
+  .DummyMain {
+    width: 100%;
+    padding: 4.5rem 2rem 0 1rem;
+  }
+}
