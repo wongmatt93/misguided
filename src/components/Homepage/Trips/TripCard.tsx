@@ -1,6 +1,8 @@
+import { useContext } from "react";
 import { Button } from "react-bootstrap";
 import { RiArrowRightSLine } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
+import CityContext from "../../../context/CityContext";
 import { Participant, Trip } from "../../../models/Trip";
 import { UserSummary } from "../../../models/UserProfile";
 import { addVisitor } from "../../../services/cityServices";
@@ -20,6 +22,7 @@ interface Props {
 
 const TripCard = ({ refreshProfile, trip, pastTrip }: Props) => {
   // variables
+  const { refreshCities } = useContext(CityContext);
   const navigate = useNavigate();
   const { _id: tripId, nickname, city, startDate, endDate } = trip;
   const { cityName, photoURL } = city;
@@ -57,6 +60,7 @@ const TripCard = ({ refreshProfile, trip, pastTrip }: Props) => {
     });
 
     await refreshProfile();
+    await refreshCities();
   };
 
   const handleUnconfirmTrip = async (trip: Trip): Promise<void> => {
