@@ -15,8 +15,13 @@ const CityContextProvider = ({ children }: Props) => {
     getAllCities().then((response) => setCities(response));
   }, []);
 
+  // functions
+  const refreshCities = async () => setCities(await getAllCities());
+
   return (
-    <CityContext.Provider value={{ cities }}>{children}</CityContext.Provider>
+    <CityContext.Provider value={{ cities, refreshCities }}>
+      {children}
+    </CityContext.Provider>
   );
 };
 
