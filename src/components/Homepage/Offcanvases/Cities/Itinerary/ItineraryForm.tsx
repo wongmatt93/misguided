@@ -5,15 +5,10 @@ import { DateRange, Range } from "react-date-range";
 import { useNavigate } from "react-router-dom";
 
 import { Hotel } from "../../../../../models/AmadeusModels/HotelResponse";
-import { NewTrip, Trip } from "../../../../../models/Trip";
-import { Business } from "../../../../../models/Yelp";
+import { NewTrip, SingleDaySchedule, Trip } from "../../../../../models/Trip";
 import { getHotelsByCity } from "../../../../../services/amadeusService";
 import { addTrip } from "../../../../../services/tripServices";
-import {
-  searchYelpArts,
-  searchYelpBreakfast,
-  searchYelpRestaurants,
-} from "../../../../../services/yelpServices";
+import { getYelpItinerary } from "../../../../../services/yelpServices";
 import { doubleBook } from "../../../../../utils/tripFunctions";
 import "./ItineraryForm.css";
 
@@ -67,14 +62,6 @@ const ItineraryForm = ({
         // shows generating view instead of the form
         setGenerating(true);
 
-        const breakfastSpots: Business[] = (await searchYelpBreakfast(cityName))
-          .businesses;
-        const lunchAndDinnerSpots: Business[] = (
-          await searchYelpRestaurants(cityName)
-        ).businesses;
-        const activities: Business[] = (await searchYelpArts(cityName))
-          .businesses;
-
         const duration: number =
           endDate !== startDate
             ? (Number(endDate) - Number(startDate)) / (1000 * 3600 * 24) + 1
@@ -88,6 +75,11 @@ const ItineraryForm = ({
           hotel = hotels[hotelIndex].name;
         }
 
+        const schedule: SingleDaySchedule[] = await getYelpItinerary(
+          cityName,
+          duration
+        );
+
         const newTrip: NewTrip = {
           creatorUid: uid,
           cityId,
@@ -95,7 +87,7 @@ const ItineraryForm = ({
           startDate,
           endDate,
           hotel,
-          schedule: [],
+          schedule,
           photos: [],
           participants: [{ uid, accepted: true }],
           messages: [],
@@ -103,65 +95,6 @@ const ItineraryForm = ({
           likesUids: [],
           comments: [],
         };
-
-        for (let i = 0; i < duration; i++) {
-          const breakfastIndex: number = Math.floor(
-            Math.random() * breakfastSpots.length
-          );
-          let lunchAndDinnerIndex: number = Math.floor(
-            Math.random() * lunchAndDinnerSpots.length
-          );
-          let activitiesIndex: number = Math.floor(
-            Math.random() * activities.length
-          );
-
-          const breakfast: Business = breakfastSpots[breakfastIndex];
-          breakfastSpots.splice(breakfastIndex, 1);
-
-          const lunch: Business = lunchAndDinnerSpots[lunchAndDinnerIndex];
-          lunchAndDinnerSpots.splice(lunchAndDinnerIndex, 1);
-          lunchAndDinnerIndex = Math.floor(
-            Math.random() * lunchAndDinnerSpots.length
-          );
-
-          const dinner: Business = lunchAndDinnerSpots[lunchAndDinnerIndex];
-          lunchAndDinnerSpots.splice(lunchAndDinnerIndex, 1);
-
-          const firstActivity: Business = activities[activitiesIndex];
-          activities.splice(activitiesIndex, 1);
-          activitiesIndex = Math.floor(Math.random() * activities.length);
-
-          const secondActivity: Business = activities[activitiesIndex];
-          activities.splice(activitiesIndex, 1);
-
-          newTrip.schedule.push({
-            breakfast: breakfast.name,
-            breakfastPhoto: breakfast.image_url,
-            breakfastAddress: breakfast.location.display_address,
-            breakfastPhone: breakfast.display_phone,
-            breakfastUrl: breakfast.url,
-            lunch: lunch.name,
-            lunchPhoto: lunch.image_url,
-            lunchAddress: lunch.location.display_address,
-            lunchPhone: lunch.display_phone,
-            lunchURL: lunch.url,
-            dinner: dinner.name,
-            dinnerPhoto: dinner.image_url,
-            dinnerAddress: dinner.location.display_address,
-            dinnerPhone: dinner.display_phone,
-            dinnerUrl: dinner.url,
-            event1: firstActivity.name,
-            event1Photo: firstActivity.image_url,
-            event1Address: firstActivity.location.display_address,
-            event1Phone: firstActivity.display_phone,
-            event1Url: firstActivity.url,
-            event2: secondActivity.name,
-            event2Photo: secondActivity.image_url,
-            event2Address: secondActivity.location.display_address,
-            event2Phone: secondActivity.display_phone,
-            event2Url: secondActivity.url,
-          });
-        }
 
         const addedTrip: NewTrip = await addTrip(newTrip);
         await refreshProfile();

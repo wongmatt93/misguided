@@ -33,7 +33,3 @@ export interface Business {
   display_phone: string;
   distance: number;
 }
-
-export default interface MultipleYelpResponse {
-  businesses: Business[];
-}
