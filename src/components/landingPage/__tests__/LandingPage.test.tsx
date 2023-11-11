@@ -14,13 +14,13 @@ describe("LandingPage component", () => {
     expect(screen.getByText("misguided")).toBeInTheDocument();
   });
 
-  it('renders "Plan Your Dream Vacation"', () => {
-    expect(screen.getByText("Plan Your Dream Vacation")).toBeInTheDocument();
+  it('renders "Dream"', () => {
+    expect(screen.getByText("Dream")).toBeInTheDocument();
   });
 
-  it('renders "We make the plans. You pack your bags."', () => {
+  it('renders "We make the plan. You pack your bags."', () => {
     expect(
-      screen.getByText("We make the plans. You pack your bags.")
+      screen.getByText("We make the plan. You pack your bags.")
     ).toBeInTheDocument();
   });
 
