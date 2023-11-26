@@ -3,7 +3,6 @@ import { Spinner } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import ExplorerContext from "../../../../context/ExplorerContext";
 import { Trip } from "../../../../models/Trip";
-import { sortTripsDescending } from "../../../../utils/dateFunctions";
 import ExplorerProfileInfo from "./ExplorerProfileInfo";
 import "./ExplorerProfilePage.css";
 import ExplorerProfileTrips from "./ExplorerProfileTrips";
@@ -42,10 +41,7 @@ const ExplorerProfilePage = ({ uid, refreshProfile }: Props) => {
               refreshProfile={refreshProfile}
               refreshExplorerProfile={() => refreshExplorerProfile(profileUid)}
             />
-            <ExplorerProfileTrips
-              uid={uid}
-              completedTrips={sortTripsDescending(completedTrips)}
-            />
+            <ExplorerProfileTrips uid={uid} completedTrips={completedTrips} />
           </>
         )
       ) : (

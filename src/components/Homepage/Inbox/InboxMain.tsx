@@ -3,7 +3,6 @@ import Tabs from "react-bootstrap/Tabs";
 import { RiChatDeleteFill, RiMailCloseFill } from "react-icons/ri";
 import { Trip } from "../../../models/Trip";
 import { Notification, UserProfile } from "../../../models/UserProfile";
-import { sortNotifications } from "../../../utils/dateFunctions";
 import "./InboxMain.css";
 import MessagesContainer from "./MessagesContainer";
 import NotificationsContainer from "./NotificationsContainer";
@@ -40,7 +39,7 @@ const InboxMain = ({ userProfile, refreshProfile }: Props) => {
           {notifs.length > 0 ? (
             <NotificationsContainer
               uid={uid}
-              notifications={sortNotifications(notifs)}
+              notifications={notifs}
               refreshProfile={refreshProfile}
             />
           ) : (

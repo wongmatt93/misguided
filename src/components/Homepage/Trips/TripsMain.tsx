@@ -1,10 +1,6 @@
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
 import { Trip } from "../../../models/Trip";
-import {
-  sortTripsAscending,
-  sortTripsDescending,
-} from "../../../utils/dateFunctions";
 import "./TripsMain.css";
 import TripsContainer from "./TripsContainer";
 import { RiFlightLandFill, RiFlightTakeoffFill } from "react-icons/ri";
@@ -24,7 +20,7 @@ const TripsMain = ({ upcomingTrips, pastTrips, refreshProfile }: Props) => {
           {upcomingTrips.length > 0 ? (
             <TripsContainer
               refreshProfile={refreshProfile}
-              trips={sortTripsAscending(upcomingTrips)}
+              trips={upcomingTrips}
               pastTrip={false}
             />
           ) : (
@@ -39,7 +35,7 @@ const TripsMain = ({ upcomingTrips, pastTrips, refreshProfile }: Props) => {
           {pastTrips.length > 0 ? (
             <TripsContainer
               refreshProfile={refreshProfile}
-              trips={sortTripsDescending(pastTrips)}
+              trips={pastTrips}
               pastTrip={true}
             />
           ) : (
