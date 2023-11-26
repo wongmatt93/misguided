@@ -1,5 +1,7 @@
 import axios from "axios";
+import { Trip } from "../models/Trip";
 import {
+  CitySummary,
   NewNotification,
   NewUserTemplate,
   Preferences,
@@ -96,10 +98,6 @@ export const deleteNotification = async (
     )
   ).data;
 
-export const removeAllUserNotifications = async (uid: string) =>
-  (await axios.put(`${baseURL}/users/remove-all-user-notifications/${uid}`))
-    .data;
-
 export const updateProfilePhoto = async (
   uid: string,
   photoURL: string
@@ -128,9 +126,6 @@ export const updateUserPreferences = async (
     })
   ).data;
 
-export const removeAllUserFollowings = async (uid: string): Promise<String> =>
-  (await axios.put(`${baseURL}/users/remove-all-followings/${uid}`)).data;
-
 export const addFavoriteCity = async (
   uid: string,
   cityId: string
@@ -144,5 +139,13 @@ export const removeFavoriteCity = async (
   (await axios.put(`${baseURL}/users/remove-favorite-city/${uid}/${cityId}`))
     .data;
 
-export const deleteUser = async (uid: string): Promise<void> =>
-  (await axios.delete(`${baseURL}/users/${uid}`)).data;
+export const deleteUser = async (
+  uid: string,
+  trips: Trip[],
+  visitedCities: CitySummary[]
+): Promise<void> =>
+  (
+    await axios.delete(`${baseURL}/users/${uid}`, {
+      data: { trips, visitedCities },
+    })
+  ).data;

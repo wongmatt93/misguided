@@ -100,17 +100,5 @@ export const updateNickname = async (
   (await axios.put(`${baseURL}/trips/update-nickname/${tripId}/${nickname}`))
     .data;
 
-export const updateCreator = async (
-  tripId: string,
-  newUid: string
-): Promise<string> =>
-  (await axios.put(`${baseURL}/trips/update-creator/${tripId}/${newUid}`)).data;
-
-export const removeAllUserLikes = async (uid: string): Promise<string> =>
-  (await axios.put(`${baseURL}/trips/remove-all-user-likes/${uid}`)).data;
-
-export const removeAllUserComments = async (uid: string) =>
-  (await axios.put(`${baseURL}/trips/remove-all-user-comments/${uid}`)).data;
-
 export const completeTrip = async (tripId: string): Promise<void> =>
   (await axios.put(`${baseURL}/trips/complete-trip/${tripId}`)).data;

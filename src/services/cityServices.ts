@@ -13,23 +13,11 @@ export const addVisitor = async (
   (await axios.put(`${baseURL}/cities/add-visitor/${cityId}/${newVisitor}`))
     .data;
 
-export const removeVisitor = async (
-  cityId: string,
-  uid: string
-): Promise<string> =>
-  (await axios.put(`${baseURL}/cities/remove-visitor/${cityId}/${uid}`)).data;
-
 export const addRating = async (
   cityId: string,
   newRating: Rating
 ): Promise<Rating> =>
   (await axios.put(`${baseURL}/cities/add-rating/${cityId}`, newRating)).data;
-
-export const removeRating = async (
-  cityId: string,
-  uid: string
-): Promise<string> =>
-  (await axios.put(`${baseURL}/cities/remove-rating/${cityId}/${uid}`)).data;
 
 export const updateRating = async (
   cityId: string,
