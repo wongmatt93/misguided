@@ -5,8 +5,9 @@ import HometownSettings from "./HometownSettings";
 import PhoneSettings from "./PhoneSettings";
 import { UserProfile } from "../../../../../models/UserProfile";
 import { signOut } from "../../../../../firebaseConfig";
-import { deleteAccount } from "../../../../../utils/userFunctions";
 import City from "../../../../../models/City";
+import { Trip } from "../../../../../models/Trip";
+import { deleteUser } from "../../../../../services/userProfileServices";
 
 interface Props {
   userProfile: UserProfile;
@@ -42,7 +43,9 @@ const AccountInformationSection = ({
     handleClose();
     setUserProfile(null);
     signOut();
-    await deleteAccount(uid, upcomingTrips, pastTrips, visitedCities, cities);
+
+    const allTrips: Trip[] = upcomingTrips.concat(pastTrips);
+    await deleteUser(uid, allTrips, visitedCities);
   };
 
   return (
