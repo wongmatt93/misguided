@@ -4,11 +4,8 @@ import Button from "react-bootstrap/Button";
 import { DateRange, Range } from "react-date-range";
 import { useNavigate } from "react-router-dom";
 
-import { Hotel } from "../../../../../models/AmadeusModels/HotelResponse";
-import { NewTrip, SingleDaySchedule, Trip } from "../../../../../models/Trip";
-import { getHotelsByCity } from "../../../../../services/amadeusService";
+import { NewTrip, Trip } from "../../../../../models/Trip";
 import { addTrip } from "../../../../../services/tripServices";
-import { getYelpItinerary } from "../../../../../services/yelpServices";
 import { doubleBook } from "../../../../../utils/tripFunctions";
 import "./ItineraryForm.css";
 
@@ -62,41 +59,14 @@ const ItineraryForm = ({
         // shows generating view instead of the form
         setGenerating(true);
 
-        const duration: number =
-          endDate !== startDate
-            ? (Number(endDate) - Number(startDate)) / (1000 * 3600 * 24) + 1
-            : 1;
-
-        // only calls Amadeus API if a hotel is necessary
-        let hotel: string | null = null;
-        if (duration > 1) {
-          const hotels: Hotel[] = (await getHotelsByCity(cityCode)).data;
-          const hotelIndex: number = Math.floor(Math.random() * hotels.length);
-          hotel = hotels[hotelIndex].name;
-        }
-
-        const schedule: SingleDaySchedule[] = await getYelpItinerary(
-          cityName,
-          duration
-        );
-
-        const newTrip: NewTrip = {
-          creatorUid: uid,
+        const addedTrip: NewTrip = await addTrip(
+          uid,
           cityId,
-          nickname: "",
+          cityName,
+          cityCode,
           startDate,
-          endDate,
-          hotel,
-          schedule,
-          photos: [],
-          participants: [{ uid, accepted: true }],
-          messages: [],
-          completed: false,
-          likesUids: [],
-          comments: [],
-        };
-
-        const addedTrip: NewTrip = await addTrip(newTrip);
+          endDate
+        );
         await refreshProfile();
         addedTrip._id && navigate(`/trips/trip-details/${addedTrip._id}`);
       } else {
