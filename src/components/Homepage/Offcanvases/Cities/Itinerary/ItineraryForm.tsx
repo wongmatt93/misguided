@@ -4,7 +4,7 @@ import Button from "react-bootstrap/Button";
 import { DateRange, Range } from "react-date-range";
 import { useNavigate } from "react-router-dom";
 
-import { NewTrip, Trip } from "../../../../../models/Trip";
+import { Trip } from "../../../../../models/Trip";
 import { addTrip } from "../../../../../services/tripServices";
 import { doubleBook } from "../../../../../utils/tripFunctions";
 import "./ItineraryForm.css";
@@ -59,7 +59,7 @@ const ItineraryForm = ({
         // shows generating view instead of the form
         setGenerating(true);
 
-        const addedTrip: NewTrip = await addTrip(
+        const addedTripId: string = await addTrip(
           uid,
           cityId,
           cityName,
@@ -68,7 +68,7 @@ const ItineraryForm = ({
           endDate
         );
         await refreshProfile();
-        addedTrip._id && navigate(`/trips/trip-details/${addedTrip._id}`);
+        addedTripId && navigate(`/trips/trip-details/${addedTripId}`);
       } else {
         alert("You have double booked your trip! Please select other dates");
       }

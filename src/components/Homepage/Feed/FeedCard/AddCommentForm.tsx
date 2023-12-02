@@ -1,7 +1,6 @@
 import { FormEvent, useState } from "react";
 import { Form, Button } from "react-bootstrap/";
 import { addCommentToTrip } from "../../../../services/tripServices";
-import { newComment } from "../../../../models/Trip";
 import "./AddCommentForm.css";
 
 interface Props {
@@ -18,13 +17,7 @@ const AddCommentForm = ({ uid, tripId, refreshFeedTrips }: Props) => {
   const handleSubmitComment = async (e: FormEvent): Promise<void> => {
     e.preventDefault();
 
-    const newComment: newComment = {
-      uid,
-      comment,
-      date: Date.now().toString(),
-    };
-
-    await addCommentToTrip(tripId, newComment);
+    await addCommentToTrip(tripId, uid, Date.now().toString(), comment);
     await refreshFeedTrips();
 
     setComment("");

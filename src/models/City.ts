@@ -5,6 +5,13 @@ export interface Rating {
   rating: number;
 }
 
+export interface CitySummary {
+  _id: string;
+  cityName: string;
+  photoURL: string;
+  visitors: UserSummary[];
+}
+
 export interface NewCity {
   _id?: string;
   cityName: string;
