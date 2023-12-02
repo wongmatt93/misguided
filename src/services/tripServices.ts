@@ -10,8 +10,19 @@ import { UserSummary } from "../models/UserProfile";
 
 const baseURL: string = process.env.REACT_APP_API_URL || "";
 
-export const addTrip = async (trip: NewTrip): Promise<NewTrip> =>
-  (await axios.post(`${baseURL}/trips`, trip)).data;
+export const addTrip = async (
+  uid: string,
+  cityId: string,
+  cityName: string,
+  cityCode: string,
+  startDate: string,
+  endDate: string
+): Promise<NewTrip> =>
+  (
+    await axios.post(
+      `${baseURL}/trips/${uid}/${cityId}/${cityName}/${cityCode}/${startDate}/${endDate}`
+    )
+  ).data;
 
 export const getFullTripById = async (tripId: string): Promise<Trip> =>
   (await axios.get(`${baseURL}/trips/full-trip/${tripId}`)).data;
