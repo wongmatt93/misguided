@@ -17,7 +17,7 @@ interface Props {
 const TripCommentCard = ({ uid, tripId, comment, refreshFeedTrips }: Props) => {
   // variables
   const [active, setActive] = useState(false);
-  const { user } = comment;
+  const { user, comment: tripComment, date } = comment;
   const navigate = useNavigate();
 
   // functions
@@ -26,11 +26,7 @@ const TripCommentCard = ({ uid, tripId, comment, refreshFeedTrips }: Props) => {
   };
 
   const handleDelete = async () => {
-    await removeCommentFromTrip(tripId, {
-      uid: user.uid,
-      comment: comment.comment,
-      date: comment.date,
-    });
+    await removeCommentFromTrip(tripId, user.uid, date, tripComment);
     await refreshFeedTrips();
   };
 

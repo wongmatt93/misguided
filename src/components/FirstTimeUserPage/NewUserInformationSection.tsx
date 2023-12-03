@@ -9,11 +9,7 @@ import { Button, Form } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import CityContext from "../../context/CityContext";
 import { storage } from "../../firebaseConfig";
-import {
-  NewUserTemplate,
-  Preferences,
-  UserProfile,
-} from "../../models/UserProfile";
+import { NewUser, Preferences, UserProfile } from "../../models/UserProfile";
 import {
   addNewUser,
   getUserByUsername,
@@ -22,7 +18,7 @@ import "./NewUserInformationSection.css";
 import PreferencesCheckboxes from "./PreferencesCheckboxes";
 
 interface Props {
-  firstTimeUser: NewUserTemplate;
+  firstTimeUser: NewUser;
   refreshProfile: () => Promise<void>;
 }
 
@@ -75,7 +71,7 @@ const NewUserInformationSection = ({
     e.preventDefault();
 
     if (username && photoURL && hometownId && preferences) {
-      const newUser: NewUserTemplate = {
+      const newUser = {
         ...firstTimeUser,
         username,
         photoURL,

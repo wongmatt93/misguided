@@ -1,5 +1,5 @@
 import { ReactNode, useEffect, useState } from "react";
-import { NewUserTemplate, UserProfile } from "../models/UserProfile";
+import { NewUser, UserProfile } from "../models/UserProfile";
 import { auth } from "../firebaseConfig";
 import AuthContext from "./AuthContext";
 import { getUserProfileByUid } from "../services/userProfileServices";
@@ -12,9 +12,7 @@ interface Props {
 const AuthContextProvider = ({ children }: Props) => {
   // variables
   const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
-  const [firstTimeUser, setFirstTimeUser] = useState<NewUserTemplate | null>(
-    null
-  );
+  const [firstTimeUser, setFirstTimeUser] = useState<NewUser | null>(null);
 
   // functions
   const refreshProfile = async (uid: string): Promise<void> =>
@@ -28,21 +26,22 @@ const AuthContextProvider = ({ children }: Props) => {
             if (userProfile) {
               setUserProfile(userProfile);
             } else {
-              const newUserProfile: NewUserTemplate = {
-                uid: user.uid,
-                username: null,
-                displayName: user.displayName,
-                email: user.email,
-                phoneNumber: user.phoneNumber,
-                photoURL: null,
-                hometownId: null,
+              const { uid, displayName, email, phoneNumber } = user;
+              const newUser: NewUser = {
+                uid,
+                username: "",
+                displayName,
+                email,
+                phoneNumber,
+                photoURL: "",
+                hometownId: "",
                 preferences: null,
                 followingUids: [],
                 favoriteCityIds: [],
                 hiddenCityIds: [],
                 notifications: [],
               };
-              setFirstTimeUser(newUserProfile);
+              setFirstTimeUser(newUser);
             }
           }
         );

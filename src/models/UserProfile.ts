@@ -1,19 +1,12 @@
+import { CitySummary } from "./City";
 import { Trip } from "./Trip";
-
-export interface NewNotification {
-  uid: string;
-  type: string;
-  date: string;
-  read: boolean;
-  tripId?: string;
-}
 
 export interface Notification {
   user: UserSummary;
   type: string;
   date: string;
   read: boolean;
-  tripId: string;
+  tripId?: string;
 }
 
 export interface Preferences {
@@ -39,22 +32,6 @@ export interface Preferences {
   shopping: boolean;
 }
 
-export interface NewUserTemplate {
-  _id?: string;
-  uid: string;
-  username: string | null;
-  displayName: string | null;
-  email: string | null;
-  phoneNumber: string | null;
-  photoURL: string | null;
-  hometownId: string | null;
-  preferences: Preferences | null;
-  followingUids: string[];
-  favoriteCityIds: string[];
-  hiddenCityIds: string[];
-  notifications: Notification[];
-}
-
 export interface UserSummary {
   uid: string;
   username: string;
@@ -62,23 +39,31 @@ export interface UserSummary {
   photoURL: string;
 }
 
-export interface CitySummary {
-  _id: string;
-  cityName: string;
-  photoURL: string;
-  visitors: UserSummary[];
-}
-
-export interface UserProfile {
-  _id?: string;
+export interface NewUser {
   uid: string;
-  username: string | null;
+  username: string;
   displayName: string | null;
   email: string | null;
   phoneNumber: string | null;
-  photoURL: string | null;
-  hometownId: string | null;
+  photoURL: string;
+  hometownId: string;
   preferences: Preferences | null;
+  followingUids: string[];
+  favoriteCityIds: string[];
+  hiddenCityIds: string[];
+  notifications: [];
+}
+
+export interface UserProfile {
+  _id: string;
+  uid: string;
+  username: string;
+  displayName: string | null;
+  email: string | null;
+  phoneNumber: string | null;
+  photoURL: string;
+  hometownId: string;
+  preferences: Preferences;
   followings: UserSummary[];
   followers: UserSummary[];
   upcomingTrips: Trip[];

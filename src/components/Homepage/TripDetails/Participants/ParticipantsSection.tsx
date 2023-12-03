@@ -7,10 +7,6 @@ import {
   removeParticipantFromTrip,
 } from "../../../../services/tripServices";
 import { addNotification } from "../../../../services/userProfileServices";
-import {
-  createTripAcceptNotif,
-  createTripDeclineNotif,
-} from "../../../../utils/notificationsFunctions";
 import { doubleBook } from "../../../../utils/tripFunctions";
 import InviteFriendsModal from "./InviteFriendsModal";
 import ParticipantCard from "./ParticipantCard";
@@ -81,11 +77,15 @@ const ParticipantsSection = ({
     );
 
     if (!isDoubleBooked) {
-      const newNotification = createTripAcceptNotif(uid, tripId);
-
       await Promise.allSettled([
         participantAcceptTrip(tripId, uid),
-        addNotification(creator.uid, newNotification),
+        addNotification(
+          creator.uid,
+          uid,
+          "tripAccept",
+          Date.now().toString(),
+          tripId
+        ),
       ]);
       await refreshTrip();
       await refreshProfile();
@@ -95,11 +95,15 @@ const ParticipantsSection = ({
   };
 
   const handleDeleteTrip = async (): Promise<void> => {
-    const newNotification = createTripDeclineNotif(uid, tripId);
-
     await Promise.allSettled([
       removeParticipantFromTrip(tripId, uid),
-      addNotification(creator.uid, newNotification),
+      addNotification(
+        creator.uid,
+        uid,
+        "tripDecline",
+        Date.now().toString(),
+        tripId
+      ),
     ]);
     await refreshTrip();
     await refreshProfile();

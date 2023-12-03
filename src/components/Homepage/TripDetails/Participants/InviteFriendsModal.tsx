@@ -1,11 +1,10 @@
 import { FormEvent, useEffect, useState } from "react";
 import { Button, Modal } from "react-bootstrap/";
 import { Participant } from "../../../../models/Trip";
-import { NewNotification, UserSummary } from "../../../../models/UserProfile";
+import { UserSummary } from "../../../../models/UserProfile";
 import { addNewParticipantToTrip } from "../../../../services/tripServices";
 import { addNotification } from "../../../../services/userProfileServices";
 import { getFriends } from "../../../../utils/explorerFunctions";
-import { createTripRequestNotif } from "../../../../utils/notificationsFunctions";
 import InviteFriendCheckbox from "./InviteFriendCheckbox";
 
 import "./InviteFriendsModal.css";
@@ -54,14 +53,15 @@ const InviteFriendsModal = ({
 
     await Promise.all(
       invitedFriends.map((friend) => {
-        const newNotification: NewNotification = createTripRequestNotif(
-          uid,
-          tripId
-        );
-
         return Promise.allSettled([
-          addNotification(friend, newNotification),
-          addNewParticipantToTrip(tripId, { uid: friend, accepted: false }),
+          addNotification(
+            friend,
+            uid,
+            "tripRequest",
+            Date.now().toString(),
+            tripId
+          ),
+          addNewParticipantToTrip(tripId, friend),
           setInvitedFriends([]),
         ]);
       })

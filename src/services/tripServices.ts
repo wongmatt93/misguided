@@ -1,11 +1,5 @@
 import axios from "axios";
-import {
-  Message,
-  newComment,
-  NewParticipant,
-  NewTrip,
-  Trip,
-} from "../models/Trip";
+import { Message, Trip } from "../models/Trip";
 import { UserSummary } from "../models/UserProfile";
 
 const baseURL: string = process.env.REACT_APP_API_URL || "";
@@ -17,7 +11,7 @@ export const addTrip = async (
   cityCode: string,
   startDate: string,
   endDate: string
-): Promise<NewTrip> =>
+): Promise<string> =>
   (
     await axios.post(
       `${baseURL}/trips/${uid}/${cityId}/${cityName}/${cityCode}/${startDate}/${endDate}`
@@ -55,26 +49,34 @@ export const removeLikesUid = async (
 
 export const addCommentToTrip = async (
   tripId: string,
-  comment: newComment
-): Promise<newComment> =>
-  (await axios.put(`${baseURL}/trips/comment-trip/${tripId}`, comment)).data;
+  uid: string,
+  date: string,
+  comment: string
+): Promise<string> =>
+  (
+    await axios.put(`${baseURL}/trips/comment-trip/${tripId}/${uid}/${date}`, {
+      comment,
+    })
+  ).data;
 
 export const removeCommentFromTrip = async (
   tripId: string,
-  comment: newComment
-): Promise<string> =>
-  await axios.put(`${baseURL}/trips/remove-comment-trip/${tripId}`, comment);
-
-export const addNewParticipantToTrip = async (
-  tripId: string,
-  newParticipant: NewParticipant
+  uid: string,
+  date: string,
+  comment: string
 ): Promise<string> =>
   (
     await axios.put(
-      `${baseURL}/trips/new-participant/${tripId}`,
-      newParticipant
+      `${baseURL}/trips/remove-comment-trip/${tripId}/${uid}/${date}`,
+      { comment }
     )
   ).data;
+
+export const addNewParticipantToTrip = async (
+  tripId: string,
+  uid: string
+): Promise<string> =>
+  (await axios.put(`${baseURL}/trips/new-participant/${tripId}/${uid}`)).data;
 
 export const removeParticipantFromTrip = async (
   tripId: string,

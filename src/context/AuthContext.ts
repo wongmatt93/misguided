@@ -1,13 +1,11 @@
 import { createContext } from "react";
-import { NewUserTemplate, UserProfile } from "../models/UserProfile";
+import { NewUser, UserProfile } from "../models/UserProfile";
 
 interface AuthContextModel {
   userProfile: UserProfile | null;
-  firstTimeUser: NewUserTemplate | null;
+  firstTimeUser: NewUser | null;
   setUserProfile: React.Dispatch<React.SetStateAction<UserProfile | null>>;
-  setFirstTimeUser: React.Dispatch<
-    React.SetStateAction<NewUserTemplate | null>
-  >;
+  setFirstTimeUser: React.Dispatch<React.SetStateAction<NewUser | null>>;
   refreshProfile: (uid: string) => Promise<void>;
 }
 
