@@ -1,5 +1,5 @@
 import { ReactNode, useEffect, useState } from "react";
-import { UserProfile } from "../models/UserProfile";
+import { NewUser, UserProfile } from "../models/UserProfile";
 import { auth } from "../firebaseConfig";
 import AuthContext from "./AuthContext";
 import { getUserProfileByUid } from "../services/userProfileServices";
@@ -12,15 +12,7 @@ interface Props {
 const AuthContextProvider = ({ children }: Props) => {
   // variables
   const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
-  const [firstTimeUid, setFirstTimeUid] = useState<string | null>(null);
-  const [firstTimeDisplayName, setFirstTimeDisplayName] = useState<
-    string | null
-  >(null);
-  const [firstTimeEmail, setFirstTimeEmail] = useState<string | null>(null);
-  const [firstTimePhoneNumber, setFirstTimePhoneNumber] = useState<
-    string | null
-  >(null);
-  const [firstTimeUser, setFirstTimeUser] = useState<boolean>(false);
+  const [firstTimeUser, setFirstTimeUser] = useState<NewUser | null>(null);
 
   // functions
   const refreshProfile = async (uid: string): Promise<void> =>
@@ -34,11 +26,22 @@ const AuthContextProvider = ({ children }: Props) => {
             if (userProfile) {
               setUserProfile(userProfile);
             } else {
-              setFirstTimeUid(user.uid);
-              setFirstTimeDisplayName(user.displayName);
-              setFirstTimeEmail(user.email);
-              setFirstTimePhoneNumber(user.phoneNumber);
-              setFirstTimeUser(true);
+              const { uid, displayName, email, phoneNumber } = user;
+              const newUser: NewUser = {
+                uid,
+                username: "",
+                displayName,
+                email,
+                phoneNumber,
+                photoURL: "",
+                hometownId: "",
+                preferences: null,
+                followingUids: [],
+                favoriteCityIds: [],
+                hiddenCityIds: [],
+                notifications: [],
+              };
+              setFirstTimeUser(newUser);
             }
           }
         );
@@ -51,10 +54,6 @@ const AuthContextProvider = ({ children }: Props) => {
       value={{
         userProfile,
         firstTimeUser,
-        firstTimeUid,
-        firstTimeDisplayName,
-        firstTimeEmail,
-        firstTimePhoneNumber,
         setUserProfile,
         setFirstTimeUser,
         refreshProfile,

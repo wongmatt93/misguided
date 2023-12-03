@@ -1,26 +1,17 @@
 import axios from "axios";
 import { CitySummary } from "../models/City";
 import { Trip } from "../models/Trip";
-import { Preferences, UserProfile, UserSummary } from "../models/UserProfile";
+import {
+  NewUser,
+  Preferences,
+  UserProfile,
+  UserSummary,
+} from "../models/UserProfile";
 
 const baseURL: string | undefined = process.env.REACT_APP_API_URL;
 
-export const addNewUser = async (
-  uid: string,
-  username: string,
-  displayName: string,
-  email: string,
-  phoneNumber: string,
-  photoURL: string,
-  hometownId: string,
-  preferences: Preferences
-): Promise<string> =>
-  (
-    await axios.post(
-      `${baseURL}/users/${uid}/${username}/${displayName}/${email}/${phoneNumber}/${photoURL}/${hometownId}`,
-      preferences
-    )
-  ).data;
+export const addNewUser = async (newUser: NewUser): Promise<string> =>
+  (await axios.post(`${baseURL}/users/`, { newUser })).data;
 
 export const getUserProfileByUid = async (
   uid: string,
@@ -74,7 +65,7 @@ export const addNotification = async (
   (
     await axios.put(
       `${baseURL}/users/add-notification/${uid}/${notifUserUid}/${type}/${date}`,
-      tripId
+      { tripId }
     )
   ).data;
 

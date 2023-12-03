@@ -14,10 +14,6 @@ function App() {
   const {
     userProfile,
     firstTimeUser,
-    firstTimeUid,
-    firstTimeDisplayName,
-    firstTimeEmail,
-    firstTimePhoneNumber,
     setUserProfile,
     setFirstTimeUser,
     refreshProfile,
@@ -29,27 +25,19 @@ function App() {
       <Router>
         {!userProfile && !firstTimeUser && <LandingPage />}
 
-        {!userProfile &&
-          firstTimeUser &&
-          firstTimeUid &&
-          firstTimeDisplayName &&
-          firstTimeEmail &&
-          firstTimePhoneNumber && (
-            <NewUserInformationSection
-              uid={firstTimeUid}
-              displayName={firstTimeDisplayName}
-              email={firstTimeEmail}
-              phoneNumber={firstTimePhoneNumber}
-              refreshProfile={() => refreshProfile(firstTimeUid)}
-            />
-          )}
+        {!userProfile && firstTimeUser && (
+          <NewUserInformationSection
+            firstTimeUser={firstTimeUser}
+            refreshProfile={() => refreshProfile(firstTimeUser.uid)}
+          />
+        )}
 
         {userProfile && firstTimeUser && (
           <WelcomeDummyPage
             isDesktop={isDesktop}
             userProfile={userProfile}
             refreshProfile={() => refreshProfile(userProfile.uid)}
-            setFirstTimeUser={() => setFirstTimeUser(false)}
+            setFirstTimeUser={() => setFirstTimeUser(null)}
           />
         )}
 

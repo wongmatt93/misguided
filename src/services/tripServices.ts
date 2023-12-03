@@ -54,10 +54,9 @@ export const addCommentToTrip = async (
   comment: string
 ): Promise<string> =>
   (
-    await axios.put(
-      `${baseURL}/trips/comment-trip/${tripId}/${uid}/${date}`,
-      comment
-    )
+    await axios.put(`${baseURL}/trips/comment-trip/${tripId}/${uid}/${date}`, {
+      comment,
+    })
   ).data;
 
 export const removeCommentFromTrip = async (
@@ -69,7 +68,7 @@ export const removeCommentFromTrip = async (
   (
     await axios.put(
       `${baseURL}/trips/remove-comment-trip/${tripId}/${uid}/${date}`,
-      comment
+      { comment }
     )
   ).data;
 

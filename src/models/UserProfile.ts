@@ -39,16 +39,31 @@ export interface UserSummary {
   photoURL: string;
 }
 
-export interface UserProfile {
-  _id: string;
+export interface NewUser {
   uid: string;
-  username: string | null;
+  username: string;
   displayName: string | null;
   email: string | null;
   phoneNumber: string | null;
-  photoURL: string | null;
-  hometownId: string | null;
+  photoURL: string;
+  hometownId: string;
   preferences: Preferences | null;
+  followingUids: string[];
+  favoriteCityIds: string[];
+  hiddenCityIds: string[];
+  notifications: [];
+}
+
+export interface UserProfile {
+  _id: string;
+  uid: string;
+  username: string;
+  displayName: string | null;
+  email: string | null;
+  phoneNumber: string | null;
+  photoURL: string;
+  hometownId: string;
+  preferences: Preferences;
   followings: UserSummary[];
   followers: UserSummary[];
   upcomingTrips: Trip[];

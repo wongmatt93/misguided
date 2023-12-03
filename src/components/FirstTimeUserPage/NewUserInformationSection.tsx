@@ -9,7 +9,7 @@ import { Button, Form } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import CityContext from "../../context/CityContext";
 import { storage } from "../../firebaseConfig";
-import { Preferences, UserProfile } from "../../models/UserProfile";
+import { NewUser, Preferences, UserProfile } from "../../models/UserProfile";
 import {
   addNewUser,
   getUserByUsername,
@@ -18,18 +18,12 @@ import "./NewUserInformationSection.css";
 import PreferencesCheckboxes from "./PreferencesCheckboxes";
 
 interface Props {
-  uid: string;
-  displayName: string;
-  email: string;
-  phoneNumber: string;
+  firstTimeUser: NewUser;
   refreshProfile: () => Promise<void>;
 }
 
 const NewUserInformationSection = ({
-  uid,
-  displayName,
-  email,
-  phoneNumber,
+  firstTimeUser,
   refreshProfile,
 }: Props) => {
   // variables
@@ -63,7 +57,10 @@ const NewUserInformationSection = ({
 
     if (files && files[0]) {
       const file = files[0];
-      const storageRef = ref(storage, `user-photos/${uid}/${file.name}`);
+      const storageRef = ref(
+        storage,
+        `user-photos/${firstTimeUser.uid}/${file.name}`
+      );
       const snapshot: UploadResult = await uploadBytes(storageRef, file);
       setPhotoURL(await getDownloadURL(snapshot.ref));
       setUploading(false);
@@ -74,16 +71,15 @@ const NewUserInformationSection = ({
     e.preventDefault();
 
     if (username && photoURL && hometownId && preferences) {
-      await addNewUser(
-        uid,
+      const newUser = {
+        ...firstTimeUser,
         username,
-        displayName,
-        email,
-        phoneNumber,
         photoURL,
         hometownId,
-        preferences
-      );
+        preferences,
+      };
+
+      await addNewUser(newUser);
       await refreshProfile();
       navigate("/welcome-guide");
     }
