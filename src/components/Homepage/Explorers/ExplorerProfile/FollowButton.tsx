@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { Button, Dropdown, DropdownButton } from "react-bootstrap";
 import { UserProfile } from "../../../../models/UserProfile";
-import { removeFollowing } from "../../../../services/userProfileServices";
-import { followUser } from "../../../../utils/followFunctions";
+import {
+  addFollowing,
+  removeFollowing,
+} from "../../../../services/userProfileServices";
 import "./FollowButton.css";
 
 interface Props {
@@ -37,7 +39,7 @@ const FollowButton = ({
   // functions
   const handleFollowUser = async (): Promise<string | void> => {
     setUpdating(true);
-    await followUser(uid, explorer.uid);
+    await addFollowing(uid, explorer.uid);
     await Promise.allSettled([refreshProfile(), refreshExplorerProfile()]);
     setUpdating(false);
   };

@@ -74,28 +74,41 @@ export const removeCommentFromTrip = async (
 
 export const addNewParticipantToTrip = async (
   tripId: string,
+  friend: string,
   uid: string
 ): Promise<string> =>
-  (await axios.put(`${baseURL}/trips/new-participant/${tripId}/${uid}`)).data;
+  (
+    await axios.put(
+      `${baseURL}/trips/new-participant/${tripId}/${friend}/${uid}`
+    )
+  ).data;
 
 export const removeParticipantFromTrip = async (
   tripId: string,
-  uid: string
+  uid: string,
+  otherUid: string
 ): Promise<void> =>
-  (await axios.put(`${baseURL}/trips/remove-participant/${tripId}/${uid}`))
-    .data;
+  (
+    await axios.put(
+      `${baseURL}/trips/remove-participant/${tripId}/${uid}/${otherUid}`
+    )
+  ).data;
 
 export const participantAcceptTrip = async (
   tripId: string,
-  uid: string
+  uid: string,
+  otherUid: string
 ): Promise<void> =>
-  (await axios.put(`${baseURL}/trips/accept-trip/${tripId}/${uid}`)).data;
+  (await axios.put(`${baseURL}/trips/accept-trip/${tripId}/${uid}/${otherUid}`))
+    .data;
 
 export const addMessageToTrip = async (
   tripId: string,
-  newMessage: Message
+  newMessage: Message,
+  uid: string
 ): Promise<Message> =>
-  (await axios.put(`${baseURL}/trips/new-message/${tripId}`, newMessage)).data;
+  (await axios.put(`${baseURL}/trips/new-message/${tripId}/${uid}`, newMessage))
+    .data;
 
 export const deleteTrip = async (tripId: string): Promise<void> =>
   (await axios.delete(`${baseURL}/trips/${tripId}`)).data;

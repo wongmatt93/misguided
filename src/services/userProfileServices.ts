@@ -55,20 +55,6 @@ export const removeFollowing = async (
   (await axios.put(`${baseURL}/users/remove-following/${uid}/${otherUid}`))
     .data;
 
-export const addNotification = async (
-  uid: string,
-  notifUserUid: string,
-  type: string,
-  date: string,
-  tripId?: string
-): Promise<Notification> =>
-  (
-    await axios.put(
-      `${baseURL}/users/add-notification/${uid}/${notifUserUid}/${type}/${date}`,
-      { tripId }
-    )
-  ).data;
-
 export const readNotification = async (
   uid: string,
   notifUid: string,

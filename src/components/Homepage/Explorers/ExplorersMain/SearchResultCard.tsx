@@ -3,7 +3,7 @@ import { Button } from "react-bootstrap";
 import { NavigateFunction, useNavigate } from "react-router-dom";
 
 import { UserSummary } from "../../../../models/UserProfile";
-import { followUser } from "../../../../utils/followFunctions";
+import { addFollowing } from "../../../../services/userProfileServices";
 import "./SearchResultCard.css";
 
 interface Props {
@@ -29,7 +29,7 @@ const SearchResultCard = ({
   // functions
   const handleFollow = async (): Promise<void> => {
     setUpdating(true);
-    await followUser(uid, searchResult.uid);
+    await addFollowing(uid, searchResult.uid);
     await refreshProfile();
     setUpdating(false);
   };

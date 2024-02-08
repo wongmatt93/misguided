@@ -2,7 +2,6 @@ import { FormEvent, useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { Message, Participant } from "../../../../models/Trip";
 import { addMessageToTrip } from "../../../../services/tripServices";
-import { addNotification } from "../../../../services/userProfileServices";
 import "./NewTripMessageForm.css";
 
 interface Props {
@@ -33,23 +32,8 @@ const NewTripMessageForm = ({
     };
 
     setSending(true);
-    const sendNotifs = await Promise.allSettled(
-      participants
-        .filter((participant) => participant.user.uid !== uid)
-        .map((participant) =>
-          addNotification(
-            participant.user.uid,
-            uid,
-            "tripMessage",
-            Date.now().toString(),
-            tripId
-          )
-        )
-    );
-    await Promise.allSettled([
-      addMessageToTrip(tripId, newMessage),
-      sendNotifs,
-    ]);
+
+    await addMessageToTrip(tripId, newMessage, uid);
     await refreshProfile();
     setSending(false);
     setText("");
