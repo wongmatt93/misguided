@@ -3,7 +3,6 @@ import { Button, Modal } from "react-bootstrap/";
 import { Participant } from "../../../../models/Trip";
 import { UserSummary } from "../../../../models/UserProfile";
 import { addNewParticipantToTrip } from "../../../../services/tripServices";
-import { addNotification } from "../../../../services/userProfileServices";
 import { getFriends } from "../../../../utils/explorerFunctions";
 import InviteFriendCheckbox from "./InviteFriendCheckbox";
 
@@ -54,14 +53,7 @@ const InviteFriendsModal = ({
     await Promise.all(
       invitedFriends.map((friend) => {
         return Promise.allSettled([
-          addNotification(
-            friend,
-            uid,
-            "tripRequest",
-            Date.now().toString(),
-            tripId
-          ),
-          addNewParticipantToTrip(tripId, friend),
+          addNewParticipantToTrip(tripId, friend, uid),
           setInvitedFriends([]),
         ]);
       })

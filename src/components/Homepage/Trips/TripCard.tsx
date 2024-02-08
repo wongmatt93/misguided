@@ -56,7 +56,11 @@ const TripCard = ({ refreshProfile, trip, pastTrip }: Props) => {
     });
 
     unacceptedParticipants.forEach((participant) => {
-      removeParticipantFromTrip(tripId!, participant.user.uid);
+      removeParticipantFromTrip(
+        tripId!,
+        participant.user.uid,
+        trip.creator.uid
+      );
     });
 
     await refreshProfile();
