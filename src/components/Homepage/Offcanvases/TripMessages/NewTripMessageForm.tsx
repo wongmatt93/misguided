@@ -1,22 +1,16 @@
 import { FormEvent, useState } from "react";
 import { Button, Form } from "react-bootstrap";
-import { Message, Participant } from "../../../../models/Trip";
+import { Message } from "../../../../models/Trip";
 import { addMessageToTrip } from "../../../../services/tripServices";
 import "./NewTripMessageForm.css";
 
 interface Props {
   uid: string;
   tripId: string;
-  participants: Participant[];
   refreshProfile: () => Promise<void>;
 }
 
-const NewTripMessageForm = ({
-  uid,
-  tripId,
-  participants,
-  refreshProfile,
-}: Props) => {
+const NewTripMessageForm = ({ uid, tripId, refreshProfile }: Props) => {
   // variables
   const [text, setText] = useState("");
   const [sending, setSending] = useState(false);

@@ -50,11 +50,10 @@ export const removeLikesUid = async (
 export const addCommentToTrip = async (
   tripId: string,
   uid: string,
-  date: string,
   comment: string
 ): Promise<string> =>
   (
-    await axios.put(`${baseURL}/trips/comment-trip/${tripId}/${uid}/${date}`, {
+    await axios.put(`${baseURL}/trips/comment-trip/${tripId}/${uid}`, {
       comment,
     })
   ).data;
