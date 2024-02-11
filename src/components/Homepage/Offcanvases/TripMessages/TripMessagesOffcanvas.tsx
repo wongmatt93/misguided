@@ -64,7 +64,6 @@ const TripMessagesOffcanvas = ({
         <NewTripMessageForm
           uid={uid}
           tripId={tripId}
-          participants={participants}
           refreshProfile={refreshProfile}
         />
       </Offcanvas.Body>

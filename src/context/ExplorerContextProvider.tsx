@@ -1,7 +1,6 @@
 import { ReactNode, useState } from "react";
 import { UserProfile } from "../models/UserProfile";
 import { getUserProfileByUid } from "../services/userProfileServices";
-import { getCurrentDateString } from "../utils/dateFunctions";
 import ExplorerContext from "./ExplorerContext";
 
 interface Props {
@@ -14,7 +13,7 @@ const ExplorerContextProvider = ({ children }: Props) => {
   const [loading, setLoading] = useState<boolean>(false);
 
   const refreshExplorerProfile = async (uid: string): Promise<void> =>
-    setExplorer(await getUserProfileByUid(uid, getCurrentDateString));
+    setExplorer(await getUserProfileByUid(uid));
 
   return (
     <ExplorerContext.Provider

@@ -3,7 +3,6 @@ import { NewUser, UserProfile } from "../models/UserProfile";
 import { auth } from "../firebaseConfig";
 import AuthContext from "./AuthContext";
 import { getUserProfileByUid } from "../services/userProfileServices";
-import { getCurrentDateString } from "../utils/dateFunctions";
 
 interface Props {
   children: ReactNode;
@@ -16,35 +15,33 @@ const AuthContextProvider = ({ children }: Props) => {
 
   // functions
   const refreshProfile = async (uid: string): Promise<void> =>
-    setUserProfile(await getUserProfileByUid(uid, getCurrentDateString));
+    setUserProfile(await getUserProfileByUid(uid));
 
   useEffect(() => {
     return auth.onAuthStateChanged((user) => {
       if (user) {
-        getUserProfileByUid(user.uid, getCurrentDateString).then(
-          (userProfile) => {
-            if (userProfile) {
-              setUserProfile(userProfile);
-            } else {
-              const { uid, displayName, email, phoneNumber } = user;
-              const newUser: NewUser = {
-                uid,
-                username: "",
-                displayName,
-                email,
-                phoneNumber,
-                photoURL: "",
-                hometownId: "",
-                preferences: null,
-                followingUids: [],
-                favoriteCityIds: [],
-                hiddenCityIds: [],
-                notifications: [],
-              };
-              setFirstTimeUser(newUser);
-            }
+        getUserProfileByUid(user.uid).then((userProfile) => {
+          if (userProfile) {
+            setUserProfile(userProfile);
+          } else {
+            const { uid, displayName, email, phoneNumber } = user;
+            const newUser: NewUser = {
+              uid,
+              username: "",
+              displayName,
+              email,
+              phoneNumber,
+              photoURL: "",
+              hometownId: "",
+              preferences: null,
+              followingUids: [],
+              favoriteCityIds: [],
+              hiddenCityIds: [],
+              notifications: [],
+            };
+            setFirstTimeUser(newUser);
           }
-        );
+        });
       }
     });
   }, []);

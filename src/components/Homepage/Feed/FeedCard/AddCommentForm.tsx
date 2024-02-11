@@ -17,7 +17,7 @@ const AddCommentForm = ({ uid, tripId, refreshFeedTrips }: Props) => {
   const handleSubmitComment = async (e: FormEvent): Promise<void> => {
     e.preventDefault();
 
-    await addCommentToTrip(tripId, uid, Date.now().toString(), comment);
+    await addCommentToTrip(tripId, uid, comment);
     await refreshFeedTrips();
 
     setComment("");

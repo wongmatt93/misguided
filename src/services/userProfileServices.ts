@@ -13,11 +13,8 @@ const baseURL: string | undefined = process.env.REACT_APP_API_URL;
 export const addNewUser = async (newUser: NewUser): Promise<string> =>
   (await axios.post(`${baseURL}/users/`, { newUser })).data;
 
-export const getUserProfileByUid = async (
-  uid: string,
-  date: string
-): Promise<UserProfile> =>
-  (await axios.get(`${baseURL}/users/user-by-uid/${uid}/${date}`)).data;
+export const getUserProfileByUid = async (uid: string): Promise<UserProfile> =>
+  (await axios.get(`${baseURL}/users/user-by-uid/${uid}`)).data;
 
 export const getUserSuggestions = async (
   uid: string,
